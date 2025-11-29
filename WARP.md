@@ -4,91 +4,72 @@ This file provides guidance to WARP (warp.dev) when working with code in this re
 
 ## Project Overview
 
-**knowb.run** is a landing page showcasing Knowledge Agents — systems that unify foundational AI models, curated expert KnowledgeBases, and real-world context. This is a single-page React application built with Vite, Tailwind CSS, and React 19.
+**knowb.run** is a static landing page showcasing Knowledge Agents — systems that unify foundational AI models, curated expert KnowledgeBases, and real-world context. This is a single-page static HTML site with Tailwind CSS via CDN.
 
-## Development Commands
+## Running the Site
 
-### Setup
+### Open Directly
 ```bash
-npm install
+open index.html
 ```
 
-### Development Server
+### Local Server
 ```bash
-npm run dev
+python3 -m http.server 8000
+# Visit http://localhost:8000
 ```
-Runs the Vite dev server at `http://localhost:5173` with hot module reloading.
 
-### Build
-```bash
-npm run build
-```
-Builds production assets to the `dist/` directory.
-
-### Preview Production Build
-```bash
-npm run preview
-```
-Serves the production build locally for testing.
-
-### Linting
-```bash
-npm run lint
-```
-Runs ESLint to check for code quality issues. The project uses the recommended ESLint configs for React hooks and React Refresh.
+No build step or dependencies required.
 
 ## Architecture
 
 ### Technology Stack
-- **Build Tool**: Vite 7 with React plugin
-- **UI Framework**: React 19 (with StrictMode enabled)
-- **Styling**: Tailwind CSS 4 with Inter font family
-- **Linting**: ESLint 9 with React-specific plugins
+- **HTML**: Static single-page site
+- **Styling**: Tailwind CSS 4 via CDN with Inter font family (Google Fonts)
+- **JavaScript**: CSS-based smooth scrolling (no framework)
 
 ### File Structure
 ```
-src/
-├── App.jsx          # Main single-page application component
-├── main.jsx         # React entry point with StrictMode wrapper
-└── index.css        # Tailwind imports and Google Fonts (Inter)
+.
+├── index.html       # Single-page application
+├── public/          # Static assets
+└── README.md
 ```
 
-### Component Architecture
+### Page Structure
 
-**App.jsx** is a self-contained single-page application with:
-- **State Management**: Single `activeSection` state for navigation tracking
-- **Navigation**: Smooth-scroll implementation using `scrollToSection` function
-- **Content Structure**: 
-  - Fixed header with navigation
-  - Hero section
-  - "What Are Knowledge Agents" explanatory section (3-layer knowledge model)
-  - "How Knowledge Agents Work" process section
-  - Projects gallery (data-driven from `projects` array starting at line 14)
-  - Footer with contact info
+**index.html** contains:
+- **Navigation**: Smooth-scroll anchor links to page sections
+- **Content Sections**: 
+  - Fixed header with navigation (lines 30-40)
+  - Hero section (lines 43-60)
+  - "What Are Knowledge Agents" explanatory section with 3-layer knowledge model (lines 63-103)
+  - "Why This Matters" section (lines 106-114)
+  - "How Knowledge Agents Work" process section (lines 117-159)
+  - Projects gallery with 5 hardcoded projects (lines 162-194)
+  - Footer with contact info (lines 197-208)
 
 ### Key Design Patterns
 
-1. **Content-Driven Gallery**: The projects showcase is rendered from the `projects` array. To add/edit projects, modify this array in `App.jsx` (line 14).
+1. **Static Content**: All content is hardcoded in HTML. To add/edit projects, modify the project cards directly in the HTML (lines 167-193).
 
-2. **Section-Based Navigation**: Uses smooth scrolling and element IDs for single-page navigation without routing libraries.
+2. **Section-Based Navigation**: Uses anchor links (`<a href="#section-id">`) with CSS smooth scrolling (`scroll-behavior: smooth`).
 
-3. **Tailwind-First Styling**: All styles are utility classes with a dark theme (gray-950 background, gray-100 text).
+3. **Tailwind-First Styling**: All styles use Tailwind utility classes with a dark theme (gray-950 background, gray-100 text).
 
-4. **No External Routing**: Navigation is handled via scroll behavior, not React Router or similar.
+4. **CDN Dependencies**: Tailwind CSS loaded from CDN, with custom config inline (lines 10-21).
 
 ## Editing Content
 
-All visible content lives in `src/App.jsx`. The most commonly edited section is the `projects` array (line 14), which controls the project gallery cards. Each project has:
-- `title`: Project name
-- `description`: Short description text
+All content is in `index.html`. Common edits:
+- **Projects gallery** (lines 167-193): Edit project titles and descriptions directly
+- **Hero text** (lines 45-49): Main headline and tagline
+- **Section content**: Edit text directly in the respective section
 
-## Configuration Files
-
-- **eslint.config.js**: ESLint 9 flat config with React Hooks and React Refresh plugins. Ignores the `dist/` folder and allows unused vars matching `^[A-Z_]`.
-- **tailwind.config.js**: Tailwind configuration extending the default theme with Inter font family.
-- **vite.config.js**: Minimal Vite setup with React plugin only.
-- **postcss.config.js**: PostCSS setup for Tailwind CSS processing.
-
-## Build Output
-
-Production builds output to `dist/` and are ignored by git (via `.gitignore`).
+Each project card follows this structure:
+```html
+<div class="bg-gray-900 border border-gray-800 rounded-xl p-8 hover:border-gray-600 transition-all hover:shadow-xl hover:shadow-gray-900/50">
+    <h3 class="text-2xl font-semibold mb-4">Project Title</h3>
+    <p class="text-gray-400 leading-relaxed">Project description</p>
+</div>
+```
