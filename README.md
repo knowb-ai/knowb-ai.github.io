@@ -12,50 +12,41 @@ Knowledge Agents are intelligent systems that combine three layers of knowledge:
 
 ## Tech Stack
 
-- **Vite** — Fast build tool and dev server
-- **React** — UI framework
-- **Tailwind CSS** — Utility-first styling
-- **Inter** — Typography
+- **HTML** — Static markup
+- **Tailwind CSS** — Via CDN for styling
+- **Inter** — Typography (Google Fonts)
 
-## Installation
+## No Build Required
 
-```bash
-cd knowb-run
-npm install
-```
+This is a static HTML site with no build step or dependencies.
 
-## Run Development Server
+## Run Locally
+
+Just open `index.html` in your browser:
 
 ```bash
-npm run dev
+open index.html
 ```
 
-Visit `http://localhost:5173`
-
-## Build for Production
+Or use any static server:
 
 ```bash
-npm run build
+python3 -m http.server 8000
+# Visit http://localhost:8000
 ```
-
-Output will be in `dist/`
 
 ## Project Structure
 
 ```
 knowb-run/
-├── src/
-│   ├── App.jsx          # Main application component
-│   ├── main.jsx         # React entry point
-│   └── index.css        # Tailwind CSS imports
 ├── public/              # Static assets
-├── index.html           # HTML template
+├── index.html           # Main HTML file
 └── README.md            # You are here
 ```
 
 ## Editing Content
 
-All content is in `src/App.jsx`. The `projects` array (starting at line 14) contains the project gallery data — edit titles and descriptions there.
+All content is in `index.html`. The projects gallery is around line 167-193 — edit project titles and descriptions directly in the HTML.
 
 ## License
 
