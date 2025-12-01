@@ -27,12 +27,16 @@ No build step or dependencies required.
 - **HTML**: Static single-page site
 - **Styling**: Tailwind CSS 4 via CDN with Inter font family (Google Fonts)
 - **JavaScript**: CSS-based smooth scrolling (no framework)
+- **Brand System**: KnowB color palette and gradients (see BRAND_GUIDELINES.md)
 
 ### File Structure
 ```
 .
-├── index.html       # Single-page application
-├── public/          # Static assets
+├── index.html              # Single-page application
+├── public/
+│   └── favicon.svg         # KnowB brand favicon (3 vertical bars)
+├── BRAND_GUIDELINES.md     # KnowB brand color system documentation
+├── WARP.md                 # This file
 └── README.md
 ```
 
@@ -51,25 +55,37 @@ No build step or dependencies required.
 
 ### Key Design Patterns
 
-1. **Static Content**: All content is hardcoded in HTML. To add/edit projects, modify the project cards directly in the HTML (lines 167-193).
+1. **Static Content**: All content is hardcoded in HTML. To add/edit projects, modify the project cards directly in the HTML (lines 186-210).
 
 2. **Section-Based Navigation**: Uses anchor links (`<a href="#section-id">`) with CSS smooth scrolling (`scroll-behavior: smooth`).
 
-3. **Tailwind-First Styling**: All styles use Tailwind utility classes with a dark theme (gray-950 background, gray-100 text).
+3. **Brand Color System**: Strict adherence to KnowB brand colors defined in BRAND_GUIDELINES.md:
+   - **Entropy Black** (#0A0A0C) - primary background
+   - **Deep Void Purple** (#160028) - depth sections
+   - **Knowledge Ember** (#FF5F2E) - accents, CTAs, highlights
+   - **Signal White** (#F5F5F7) - typography
+   - Signature gradients for hero sections
+   - Ember glows for interactive elements
 
-4. **CDN Dependencies**: Tailwind CSS loaded from CDN, with custom config inline (lines 10-21).
+4. **Tailwind-First Styling**: All styles use Tailwind utility classes with extended custom colors and gradients.
+
+5. **CDN Dependencies**: Tailwind CSS loaded from CDN, with custom config inline (lines 11-40) including brand color tokens, gradient backgrounds, and shadow utilities.
 
 ## Editing Content
 
 All content is in `index.html`. Common edits:
-- **Projects gallery** (lines 167-193): Edit project titles and descriptions directly
-- **Hero text** (lines 45-49): Main headline and tagline
+- **Projects gallery** (lines 186-210): Edit project titles and descriptions directly
+- **Hero text** (lines 64-68): Main headline and tagline
 - **Section content**: Edit text directly in the respective section
 
-Each project card follows this structure:
+### Brand Color Usage
+When editing, strictly follow BRAND_GUIDELINES.md. Each project card follows this structure:
 ```html
-<div class="bg-gray-900 border border-gray-800 rounded-xl p-8 hover:border-gray-600 transition-all hover:shadow-xl hover:shadow-gray-900/50">
-    <h3 class="text-2xl font-semibold mb-4">Project Title</h3>
-    <p class="text-gray-400 leading-relaxed">Project description</p>
+<div class="bg-void/50 border border-void rounded-xl p-8 hover:border-ember hover:shadow-ember-glow transition-all">
+    <h3 class="text-2xl font-semibold mb-4 text-ember">Project Title</h3>
+    <p class="text-signal/70 leading-relaxed">Project description</p>
 </div>
 ```
+
+### Favicon
+The favicon (`public/favicon.svg`) uses three vertical bars [▮▮▮] in Knowledge Ember (#FF5F2E) on Entropy Black background. Do not modify without brand approval.
