@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>knowb.run - The Home of Knowledge Agents</title>
+    <link rel="icon" type="image/svg+xml" href="public/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'entropy': '#0A0A0C',
+                        'void': '#160028',
+                        'ember': '#FF5F2E',
+                        'signal': '#F5F5F7',
+
+                        // Light (Autumn)
+                        'autumn-bg': '#FCF6F3',
+                        'autumn-text': '#2D140B',
+                        'autumn-muted': '#77584F',
+                        'autumn-border': '#E9C2B3',
+
+                        // Dark Autumn
+                        'dark-bg': '#1A1A2E',
+                        'dark-text': '#F2F5F7',
+                        'dark-muted': '#B0A9A5',
+                        'dark-border': '#2D2D40',
+                        'dark-card': '#21213A',
+
+                        // Shared brand
+                        'brand-orange': '#E14719',
+                        'brand-mint': '#A7FFEB',
+                    },
+                    backgroundImage: {
+                        'entropy-void': 'linear-gradient(135deg, #0A0A0C 0%, #160028 100%)',
+                        'void-entropy': 'linear-gradient(180deg, #160028 0%, #0A0A0C 100%)',
+                        'ember-void': 'linear-gradient(145deg, #FF5F2E 0%, #160028 100%)',
+                        'ember-glow': 'linear-gradient(135deg, rgba(255,95,46,0.9) 0%, rgba(255,95,46,0.55) 50%, rgba(22,0,40,0.8) 100%)',
+                        'knowb-signature': 'linear-gradient(135deg, #0A0A0C 0%, #160028 40%, #FF5F2E 100%)',
+                        'knowb-spectrum': 'linear-gradient(180deg, #160028 0%, #0A0A0C 35%, #FF5F2E 100%)',
+                    },
+                    boxShadow: {
+                        'ember-glow': '0 0 30px rgba(255,95,46,0.35)',
+                        'void-glow': '0 0 25px rgba(22,0,40,0.25)',
+                        'signal-glow': '0 0 25px rgba(245,245,247,0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="min-h-screen font-sans bg-dark-bg text-dark-text transition-colors duration-300">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-dark-bg/80 backdrop-blur-md border-b border-dark-border">
+        <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="text-xl font-semibold tracking-tight text-dark-text">knowb.run</div>
+            <div class="flex gap-8 text-sm">
+                <a href="#home" class="hover:text-brand-orange transition-colors text-dark-text">Home</a>
+                <a href="#what-are" class="hover:text-brand-orange transition-colors text-dark-text">What Are Knowledge Agents</a>
+                <a href="#projects" class="hover:text-brand-orange transition-colors text-dark-text">Projects</a>
+                <a href="#contact" class="hover:text-brand-orange transition-colors text-dark-text">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 px-6 bg-dark-bg">
+        <div class="max-w-5xl mx-auto text-center">
+            <h1 class="text-6xl font-bold mb-6 tracking-tight text-dark-text">
+                The Home of Knowledge Agents
+            </h1>
+            <p class="text-xl text-dark-muted mb-12 max-w-3xl mx-auto leading-relaxed">
+                Systems that unify foundational AI models, curated expert KnowledgeBases, and real-world context — delivering intelligence that is accurate, adaptive, and purpose-built.
+            </p>
+            <div class="flex gap-4 justify-center">
+                <a href="#what-are" class="px-8 py-3 bg-brand-orange text-dark-bg rounded-lg font-medium hover:bg-brand-orange/90 hover:shadow-ember-glow transition-all">
+                    What Are Knowledge Agents?
+                </a>
+                <a href="#projects" class="px-8 py-3 border border-dark-border text-dark-text rounded-lg font-medium hover:bg-dark-card hover:border-brand-orange transition-all">
+                    Explore Projects
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- What Are Knowledge Agents -->
+    <section id="what-are" class="py-20 px-6 bg-dark-card">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-16 text-center text-dark-text">What Are Knowledge Agents?</h2>
+            
+            <div class="mb-16 text-lg text-dark-muted leading-relaxed max-w-4xl mx-auto">
+                <p class="mb-6">
+                    Knowledge Agents are intelligent systems that combine three layers of knowledge to deliver precise, context-aware results:
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="bg-dark-card border border-dark-border rounded-xl p-8 hover:border-brand-orange/50 hover:shadow-ember-glow transition-all">
+                    <div class="text-3xl font-bold text-brand-orange mb-4">1</div>
+                    <h3 class="text-xl font-semibold mb-4 text-dark-text">General Knowledge</h3>
+                    <p class="text-dark-muted leading-relaxed">
+                        Derived from foundation models such as GPT-4o, Claude, and Gemini, enriched with real-time web search. 
+                        This layer handles broad reasoning, world knowledge, language fluency, and general problem-solving.
+                    </p>
+                </div>
+
+                <div class="bg-dark-card border border-dark-border rounded-xl p-8 hover:border-brand-orange/50 hover:shadow-ember-glow transition-all">
+                    <div class="text-3xl font-bold text-brand-orange mb-4">2</div>
+                    <h3 class="text-xl font-semibold mb-4 text-dark-text">Specialized Knowledge (KnowledgeBases)</h3>
+                    <p class="text-dark-muted leading-relaxed">
+                        Custom curated sources of expert, specialized, or recent information. 
+                        These KnowledgeBases encode domain-specific expertise, rules, workflows, and industry-level accuracy needed for a special-purpose task.
+                    </p>
+                </div>
+
+                <div class="bg-dark-card border border-dark-border rounded-xl p-8 hover:border-brand-orange/50 hover:shadow-ember-glow transition-all">
+                    <div class="text-3xl font-bold text-brand-orange mb-4">3</div>
+                    <h3 class="text-xl font-semibold mb-4 text-dark-text">Context and Use-Case Knowledge</h3>
+                    <p class="text-dark-muted leading-relaxed">
+                        Awareness of where the knowledge is being applied. 
+                        This includes personalization, user preferences, local constraints, task requirements, and environment-specific parameters. 
+                        This layer ensures outputs are not generic — but specifically tailored, accurate, and relevant.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why This Matters -->
+    <section class="py-20 px-6 bg-dark-bg">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-8 text-dark-text">Why This Matters</h2>
+            <p class="text-xl text-dark-muted leading-relaxed">
+                Knowledge Agents transform raw AI intelligence into operational intelligence. 
+                By combining general reasoning, expert knowledge, and contextual awareness, they produce results that are actionable, reliable, and aligned to the real world.
+            </p>
+        </div>
+    </section>
+
+    <!-- How Knowledge Agents Work -->
+    <section class="py-20 px-6 bg-dark-card">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-16 text-center text-dark-text">How Knowledge Agents Work</h2>
+            
+            <div class="space-y-8">
+                <div class="flex gap-6 items-start">
+                    <div class="flex-shrink-0 w-16 h-16 bg-brand-orange text-dark-bg rounded-lg flex items-center justify-center text-xl font-bold shadow-ember-glow">
+                        1
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3 text-dark-text">Understand</h3>
+                        <p class="text-dark-muted text-lg leading-relaxed">
+                            The agent interprets the user's prompt, intent, context, constraints, and local settings.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex gap-6 items-start">
+                    <div class="flex-shrink-0 w-16 h-16 bg-brand-orange text-dark-bg rounded-lg flex items-center justify-center text-xl font-bold shadow-ember-glow">
+                        2
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3 text-dark-text">Retrieve</h3>
+                        <p class="text-dark-muted text-lg leading-relaxed">
+                            It queries the appropriate KnowledgeBases — curated expert knowledge, recent data, or specialized information relevant to the task.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex gap-6 items-start">
+                    <div class="flex-shrink-0 w-16 h-16 bg-brand-orange text-dark-bg rounded-lg flex items-center justify-center text-xl font-bold shadow-ember-glow">
+                        3
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3 text-dark-text">Synthesize & Act</h3>
+                        <p class="text-dark-muted text-lg leading-relaxed">
+                            The agent combines foundation model reasoning, retrieved domain knowledge, and contextual personalization to deliver a tailored output or execute an action.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Gallery -->
+    <section id="projects" class="py-20 px-6 bg-dark-bg">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-4 text-center text-dark-text">Knowledge Agents in Practice</h2>
+            <p class="text-center text-dark-muted mb-16 text-lg">Real-world implementations of the Knowledge Agent paradigm</p>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-dark-card border border-dark-border rounded-xl p-8 hover:border-brand-orange hover:shadow-ember-glow transition-all">
+                    <h3 class="text-2xl font-semibold mb-4 text-brand-orange">kenobi</h3>
+                    <p class="text-dark-muted leading-relaxed">Knowledge-Base-as-a-Service (KbaaS) prototype inspired by the Kenobi—secure, extensible, and ready for the Jedi in every org.</p>
+                </div>
+
+                <div class="bg-dark-card border border-dark-border rounded-xl p-8 hover:border-brand-orange hover:shadow-ember-glow transition-all">
+                    <h3 class="text-2xl font-semibold mb-4 text-brand-orange">PostPilot</h3>
+                    <p class="text-dark-muted leading-relaxed">An open-source automation engine that turns your Notion board into a full-blown AI-powered content pipeline. Ideas go in. RAG-fueled drafts come out. You review, approve, and schedule — we post. Built with ✨ Notion + 🧠 OpenAI + ⚙️ n8n.</p>
+                </div>
+
+                <div class="bg-dark-card border border-dark-border rounded-xl p-8 hover:border-brand-orange hover:shadow-ember-glow transition-all">
+                    <h3 class="text-2xl font-semibold mb-4 text-brand-orange">XPosay</h3>
+                    <p class="text-dark-muted leading-relaxed">XPosay: Because lies don't fact-check themselves. A real-time fact-checking toolkit powered by LLMs and curated knowledge databases to counter disinformation with receipts.</p>
+                </div>
+
+                <div class="bg-dark-card border border-dark-border rounded-xl p-8 hover:border-brand-orange hover:shadow-ember-glow transition-all">
+                    <h3 class="text-2xl font-semibold mb-4 text-brand-orange">Disqus</h3>
+                    <p class="text-dark-muted leading-relaxed">A place for students to transform a pitch into a full project assisted by AI agents and allow discussion of features and people interested to help evolve the idea via comments.</p>
+                </div>
+
+                <div class="bg-dark-card border border-dark-border rounded-xl p-8 hover:border-brand-orange hover:shadow-ember-glow transition-all">
+                    <h3 class="text-2xl font-semibold mb-4 text-brand-orange">CouplesThereAI.py</h3>
+                    <p class="text-dark-muted leading-relaxed">A whisper voice activated LLM agent that will facilitate couples therapy and counselling sessions.</p>
+                </div>
+
+                <div class="bg-dark-card border border-dark-border rounded-xl p-8 hover:border-brand-orange hover:shadow-ember-glow transition-all">
+                    <h3 class="text-2xl font-semibold mb-4 text-brand-orange">One Punch Trainer</h3>
+                    <p class="text-dark-muted leading-relaxed">A fitness agent built on a foundation model + a small curated exercise KnowledgeBase. Users extend it with their own PDFs, workouts, mobility notes, and training plans. The agent generates personalized sessions through dialogue and guides users with interactive step-by-step exercise cards.</p>
+                </div>
+
+                <div class="bg-dark-card border border-dark-border rounded-xl p-8 hover:border-brand-orange hover:shadow-ember-glow transition-all">
+                    <h3 class="text-2xl font-semibold mb-4 text-brand-orange">LoadLearnLoop</h3>
+                    <p class="text-dark-muted leading-relaxed">Upload a PDF (or scrape a page) → instantly generate a full course with lessons, reading modules, exercises, and interactive quizzes. Supports three modes: Course, Workshop, and Lesson.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="border-t border-dark-border py-12 px-6 mt-20 bg-dark-bg">
+        <div class="max-w-6xl mx-auto text-center text-dark-muted/70">
+            <p class="mb-4">© 2025 knowb.run</p>
+            <p class="mb-4">Contact: <span class="text-dark-muted">hello@knowb.run</span></p>
+            <div class="flex gap-4 justify-center text-sm">
+                <a href="#" class="hover:text-brand-orange transition-colors text-dark-text">Terms</a>
+                <span>·</span>
+                <a href="#" class="hover:text-brand-orange transition-colors text-dark-text">Privacy</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

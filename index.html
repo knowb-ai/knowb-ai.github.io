@@ -11,6 +11,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -21,6 +22,23 @@
                         'void': '#160028',
                         'ember': '#FF5F2E',
                         'signal': '#F5F5F7',
+
+                        // Light (Autumn)
+                        'autumn-bg': '#FCF6F3',
+                        'autumn-text': '#2D140B',
+                        'autumn-muted': '#77584F',
+                        'autumn-border': '#E9C2B3',
+
+                        // Dark Autumn
+                        'dark-bg': '#1A1A2E',
+                        'dark-text': '#F2F5F7',
+                        'dark-muted': '#B0A9A5',
+                        'dark-border': '#2D2D40',
+                        'dark-card': '#21213A',
+
+                        // Shared brand
+                        'brand-orange': '#E14719',
+                        'brand-mint': '#A7FFEB',
                     },
                     backgroundImage: {
                         'entropy-void': 'linear-gradient(135deg, #0A0A0C 0%, #160028 100%)',
@@ -45,16 +63,16 @@
         }
     </style>
 </head>
-<body class="min-h-screen bg-entropy text-signal font-sans">
+<body class="min-h-screen font-sans bg-entropy text-signal transition-colors duration-300">
     <!-- Header -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-entropy/80 backdrop-blur-md border-b border-void">
         <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div class="text-xl font-semibold tracking-tight">knowb.run</div>
+            <div class="text-xl font-semibold tracking-tight text-signal">knowb.run</div>
             <div class="flex gap-8 text-sm">
-                <a href="#home" class="hover:text-ember transition-colors">Home</a>
-                <a href="#what-are" class="hover:text-ember transition-colors">What Are Knowledge Agents</a>
-                <a href="#projects" class="hover:text-ember transition-colors">Projects</a>
-                <a href="#contact" class="hover:text-ember transition-colors">Contact</a>
+                <a href="#home" class="hover:text-ember transition-colors text-signal">Home</a>
+                <a href="#what-are" class="hover:text-ember transition-colors text-signal">What Are Knowledge Agents</a>
+                <a href="#projects" class="hover:text-ember transition-colors text-signal">Projects</a>
+                <a href="#contact" class="hover:text-ember transition-colors text-signal">Contact</a>
             </div>
         </nav>
     </header>
@@ -62,17 +80,17 @@
     <!-- Hero Section -->
     <section id="home" class="pt-32 pb-20 px-6 bg-knowb-signature">
         <div class="max-w-5xl mx-auto text-center">
-            <h1 class="text-6xl font-bold mb-6 tracking-tight">
+            <h1 class="text-6xl font-bold mb-6 tracking-tight text-signal">
                 The Home of Knowledge Agents
             </h1>
-            <p class="text-xl text-signal/80 mb-12 max-w-3xl mx-auto leading-relaxed">
+            <p class="text-xl text-signal/90 mb-12 max-w-3xl mx-auto leading-relaxed">
                 Systems that unify foundational AI models, curated expert KnowledgeBases, and real-world context — delivering intelligence that is accurate, adaptive, and purpose-built.
             </p>
             <div class="flex gap-4 justify-center">
-                <a href="#what-are" class="px-8 py-3 bg-ember text-signal rounded-lg font-medium hover:bg-ember/90 hover:shadow-ember-glow transition-all">
+                <a href="#what-are" class="px-8 py-3 bg-ember text-signal rounded-lg font-medium hover:bg-ember/90 hover:shadow-ember-glow transition-all shadow-ember-glow">
                     What Are Knowledge Agents?
                 </a>
-                <a href="#projects" class="px-8 py-3 border border-ember/50 rounded-lg font-medium hover:bg-ember/10 hover:border-ember transition-all">
+                <a href="#projects" class="px-8 py-3 border border-void text-signal rounded-lg font-medium hover:bg-ember/10 hover:border-ember transition-all">
                     Explore Projects
                 </a>
             </div>
@@ -80,38 +98,38 @@
     </section>
 
     <!-- What Are Knowledge Agents -->
-    <section id="what-are" class="py-20 px-6 bg-void/30">
+    <section id="what-are" class="py-20 px-6 bg-void/50">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold mb-16 text-center">What Are Knowledge Agents?</h2>
+            <h2 class="text-4xl font-bold mb-16 text-center text-signal">What Are Knowledge Agents?</h2>
             
-            <div class="mb-16 text-lg text-signal/90 leading-relaxed max-w-4xl mx-auto">
+            <div class="mb-16 text-lg text-signal/80 leading-relaxed max-w-4xl mx-auto">
                 <p class="mb-6">
                     Knowledge Agents are intelligent systems that combine three layers of knowledge to deliver precise, context-aware results:
                 </p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8 mb-16">
-                <div class="bg-void/50 border border-void rounded-xl p-8 hover:border-ember/50 hover:shadow-void-glow transition-all">
+                <div class="bg-void/50 border border-void rounded-xl p-8 hover:border-ember/50 hover:shadow-ember-glow transition-all">
                     <div class="text-3xl font-bold text-ember mb-4">1</div>
-                    <h3 class="text-xl font-semibold mb-4">General Knowledge</h3>
+                    <h3 class="text-xl font-semibold mb-4 text-signal">General Knowledge</h3>
                     <p class="text-signal/70 leading-relaxed">
                         Derived from foundation models such as GPT-4o, Claude, and Gemini, enriched with real-time web search. 
                         This layer handles broad reasoning, world knowledge, language fluency, and general problem-solving.
                     </p>
                 </div>
 
-                <div class="bg-void/50 border border-void rounded-xl p-8 hover:border-ember/50 hover:shadow-void-glow transition-all">
+                <div class="bg-void/50 border border-void rounded-xl p-8 hover:border-ember/50 hover:shadow-ember-glow transition-all">
                     <div class="text-3xl font-bold text-ember mb-4">2</div>
-                    <h3 class="text-xl font-semibold mb-4">Specialized Knowledge (KnowledgeBases)</h3>
+                    <h3 class="text-xl font-semibold mb-4 text-signal">Specialized Knowledge (KnowledgeBases)</h3>
                     <p class="text-signal/70 leading-relaxed">
                         Custom curated sources of expert, specialized, or recent information. 
                         These KnowledgeBases encode domain-specific expertise, rules, workflows, and industry-level accuracy needed for a special-purpose task.
                     </p>
                 </div>
 
-                <div class="bg-void/50 border border-void rounded-xl p-8 hover:border-ember/50 hover:shadow-void-glow transition-all">
+                <div class="bg-void/50 border border-void rounded-xl p-8 hover:border-ember/50 hover:shadow-ember-glow transition-all">
                     <div class="text-3xl font-bold text-ember mb-4">3</div>
-                    <h3 class="text-xl font-semibold mb-4">Context and Use-Case Knowledge</h3>
+                    <h3 class="text-xl font-semibold mb-4 text-signal">Context and Use-Case Knowledge</h3>
                     <p class="text-signal/70 leading-relaxed">
                         Awareness of where the knowledge is being applied. 
                         This includes personalization, user preferences, local constraints, task requirements, and environment-specific parameters. 
@@ -125,8 +143,8 @@
     <!-- Why This Matters -->
     <section class="py-20 px-6 bg-entropy">
         <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl font-bold mb-8">Why This Matters</h2>
-            <p class="text-xl text-signal/90 leading-relaxed">
+            <h2 class="text-3xl font-bold mb-8 text-signal">Why This Matters</h2>
+            <p class="text-xl text-signal/80 leading-relaxed">
                 Knowledge Agents transform raw AI intelligence into operational intelligence. 
                 By combining general reasoning, expert knowledge, and contextual awareness, they produce results that are actionable, reliable, and aligned to the real world.
             </p>
@@ -134,9 +152,9 @@
     </section>
 
     <!-- How Knowledge Agents Work -->
-    <section class="py-20 px-6 bg-void/30">
+    <section class="py-20 px-6 bg-void/50">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold mb-16 text-center">How Knowledge Agents Work</h2>
+            <h2 class="text-4xl font-bold mb-16 text-center text-signal">How Knowledge Agents Work</h2>
             
             <div class="space-y-8">
                 <div class="flex gap-6 items-start">
@@ -144,7 +162,7 @@
                         1
                     </div>
                     <div>
-                        <h3 class="text-2xl font-semibold mb-3">Understand</h3>
+                        <h3 class="text-2xl font-semibold mb-3 text-signal">Understand</h3>
                         <p class="text-signal/70 text-lg leading-relaxed">
                             The agent interprets the user's prompt, intent, context, constraints, and local settings.
                         </p>
@@ -156,7 +174,7 @@
                         2
                     </div>
                     <div>
-                        <h3 class="text-2xl font-semibold mb-3">Retrieve</h3>
+                        <h3 class="text-2xl font-semibold mb-3 text-signal">Retrieve</h3>
                         <p class="text-signal/70 text-lg leading-relaxed">
                             It queries the appropriate KnowledgeBases — curated expert knowledge, recent data, or specialized information relevant to the task.
                         </p>
@@ -168,7 +186,7 @@
                         3
                     </div>
                     <div>
-                        <h3 class="text-2xl font-semibold mb-3">Synthesize & Act</h3>
+                        <h3 class="text-2xl font-semibold mb-3 text-signal">Synthesize & Act</h3>
                         <p class="text-signal/70 text-lg leading-relaxed">
                             The agent combines foundation model reasoning, retrieved domain knowledge, and contextual personalization to deliver a tailored output or execute an action.
                         </p>
@@ -181,8 +199,8 @@
     <!-- Projects Gallery -->
     <section id="projects" class="py-20 px-6 bg-entropy">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold mb-4 text-center">Knowledge Agents in Practice</h2>
-            <p class="text-center text-signal/70 mb-16 text-lg">Real-world implementations of the Knowledge Agent paradigm</p>
+            <h2 class="text-4xl font-bold mb-4 text-center text-signal">Knowledge Agents in Practice</h2>
+            <p class="text-center text-signal/80 mb-16 text-lg">Real-world implementations of the Knowledge Agent paradigm</p>
             
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="bg-void/50 border border-void rounded-xl p-8 hover:border-ember hover:shadow-ember-glow transition-all">
@@ -225,13 +243,13 @@
 
     <!-- Footer -->
     <footer id="contact" class="border-t border-void py-12 px-6 mt-20 bg-entropy">
-        <div class="max-w-6xl mx-auto text-center text-signal/50">
+        <div class="max-w-6xl mx-auto text-center text-signal/70">
             <p class="mb-4">© 2025 knowb.run</p>
-            <p class="mb-4">Contact: <span class="text-signal/70">hello@knowb.run</span></p>
+            <p class="mb-4">Contact: <span class="text-signal/80">hello@knowb.run</span></p>
             <div class="flex gap-4 justify-center text-sm">
-                <a href="#" class="hover:text-ember transition-colors">Terms</a>
+                <a href="#" class="hover:text-ember transition-colors text-signal">Terms</a>
                 <span>·</span>
-                <a href="#" class="hover:text-ember transition-colors">Privacy</a>
+                <a href="#" class="hover:text-ember transition-colors text-signal">Privacy</a>
             </div>
         </div>
     </footer>
