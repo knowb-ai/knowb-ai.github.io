@@ -6,6 +6,11 @@
   <title>KnowB AI Brandbook</title>
   <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Inter:wght@400;600&family=JetBrains+Mono&family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
   <style>
+    .hex-value {
+      display: inline-block;
+      width: 80px;
+      font-family: monospace;
+    }
     :root {
       --brand-primary: #E14719;
       --brand-secondary: #8C2F14;
@@ -15,6 +20,31 @@
       --text-main: #2D140B;
       --text-muted: #77584F;
       --border-light: #E9C2B3;
+      --button-bg: #E14719;
+      --button-hover: #BF360C;
+      --button-active: #8C2F14;
+      --button-text: #F2F5F7;
+      --card-bg: #FFFFFF;
+      --code-bg: #F5F5F5;
+      --code-text: #2D140B;
+    }
+
+    body.dark-mode {
+      --brand-primary: #E14719;
+      --brand-secondary: #2D2D40;
+      --brand-tertiary: #A7FFEB;
+      --brand-accent: #E76F51;
+      --bg-surface: #1A1A2E;
+      --text-main: #F2F5F7;
+      --text-muted: #B0A9A5;
+      --border-light: #2D2D40;
+      --button-bg: #E14719;
+      --button-hover: #A7FFEB;
+      --button-active: #1A1A2E;
+      --button-text: #1A1A2E;
+      --card-bg: #21213A;
+      --code-bg: #2A2F45;
+      --code-text: #A7FFEB;
     }
 
     body {
@@ -83,18 +113,64 @@
 
     code {
       font-family: 'JetBrains Mono', monospace;
-      background: #f5f5f5;
+      background: var(--code-bg, #f5f5f5);
+      color: var(--code-text, #2D140B);
       padding: 0.2rem 0.4rem;
       border-radius: 4px;
+    }
+
+    .swatch {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-left: 8px;
+      vertical-align: middle;
+      border-radius: 4px;
+      border: 1px solid var(--border-light);
     }
 
     .section {
       margin-bottom: 3rem;
     }
+
+    .btn {
+      background-color: var(--button-bg);
+      color: var(--button-text);
+      border: none;
+      padding: 0.75rem 1.2rem;
+      border-radius: 6px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: var(--button-hover);
+    }
+
+    .btn:active {
+      background-color: var(--button-active);
+    }
   </style>
 </head>
 
 <body>
+  <button id="theme-toggle" style="
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    padding: 0.5rem 1rem;
+    font-family: 'Space Grotesk', sans-serif;
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 1000;
+  ">
+    Toggle Theme
+  </button>
   <h1>KnowB AI Org Book</h1>
 
   <div class="section">
@@ -134,14 +210,29 @@
 
   <div class="section">
     <h2>2. Core Concepts</h2>
-    <h3>Knowledge as Living Infrastructure</h3>
-    <p>Knowledge is not static data but a dynamic ecosystem that grows, adapts, and evolves alongside the organization it serves. Our approach treats knowledge bases as living infrastructures that require continuous care, contextual awareness, and intelligent mediation.</p>
-    <h3>Agent-Embedded Architecture</h3>
-    <p>Embedding autonomous agents within knowledge systems enables real-time orchestration, context management, and proactive maintenance. These agents act as stewards, ensuring that knowledge remains coherent, accessible, and relevant.</p>
-    <h3>Contextual Continuity</h3>
-    <p>Maintaining context across interactions, models, and devices is essential for meaningful knowledge work. Our systems prioritize preserving and transferring context seamlessly to support uninterrupted workflows and deep understanding.</p>
-    <h3>Flexible Access and Interaction</h3>
-    <p>Users and AI models must interact with knowledge systems in flexible ways that respect privacy, roles, and modalities. We design for open interoperability and adaptable interfaces that meet diverse needs without compromising integrity.</p>
+
+    <h3>Knowledge Base (KB)</h3>
+    <p>A structured and queryable store of contextually rich, durable knowledge. Built for interoperability with AI models, human teams, and agents alike. Includes metadata, history, and traceable memory across time.</p>
+
+    <h3>Knowledge Agent</h3>
+    <p>An intelligent system (LLM-powered or hybrid) that performs actions, answers questions, manages memory, and evolves the Knowledge Base in real time.</p>
+
+    <h3>Operators</h3>
+    <p>Lightweight, rule-driven tools (scripts, agents, plugins) that handle tasks like tagging, summarizing, syncing, or enforcing hygiene and structure in KBs.</p>
+
+    <h3>Context</h3>
+    <p>Everything that surrounds a task, thread, or decision: tone, intention, dependencies, entities, prior steps. Context is both local and portable.</p>
+
+    <h3>Memory</h3>
+    <p>The accumulated state of what was said, done, asked, answered, linked, or concluded — in both structured and ambient form. Memory must be stored, scoped, and revived when needed.</p>
+
+    <h3>Knowledge Operating System</h3>
+    <p>A modular stack that allows KBs, Agents, and Operators to function together as a system — with synchronization, switching, versioning, and recall features across machines and models.</p>
+
+    <div style="background: var(--card-bg, #fff); padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); margin-bottom: 1rem;">
+      <h3 style="font-family: 'Space Grotesk'; color: var(--brand-primary);">Sample Card</h3>
+      <p>This card demonstrates a reusable UI component with adaptable styling for both light and dark themes.</p>
+    </div>
   </div>
 
   <div class="section">
@@ -158,42 +249,42 @@
       <tbody>
         <tr>
           <td>--brand-primary</td>
-          <td>#E14719 <span style="display:inline-block;width:20px;height:20px;margin-left:8px;vertical-align:middle;background-color:#E14719;border:1px solid #ccc;"></span></td>
+          <td><span class="hex-value" data-token="--brand-primary"></span> <span class="swatch" style="background-color:var(--brand-primary);"></span></td>
           <td>Primary brand color representing energy and innovation.</td>
         </tr>
         <tr>
           <td>--brand-secondary</td>
-          <td>#8C2F14 <span style="display:inline-block;width:20px;height:20px;margin-left:8px;vertical-align:middle;background-color:#8C2F14;border:1px solid #ccc;"></span></td>
+          <td><span class="hex-value" data-token="--brand-secondary"></span> <span class="swatch" style="background-color:var(--brand-secondary);"></span></td>
           <td>Secondary tone for depth and warmth.</td>
         </tr>
         <tr>
           <td>--brand-tertiary</td>
-          <td>#F7AD6A <span style="display:inline-block;width:20px;height:20px;margin-left:8px;vertical-align:middle;background-color:#F7AD6A;border:1px solid #ccc;"></span></td>
+          <td><span class="hex-value" data-token="--brand-tertiary"></span> <span class="swatch" style="background-color:var(--brand-tertiary);"></span></td>
           <td>Accent color for highlights and emphasis.</td>
         </tr>
         <tr>
           <td>--brand-accent</td>
-          <td>#BF360C <span style="display:inline-block;width:20px;height:20px;margin-left:8px;vertical-align:middle;background-color:#BF360C;border:1px solid #ccc;"></span></td>
+          <td><span class="hex-value" data-token="--brand-accent"></span> <span class="swatch" style="background-color:var(--brand-accent);"></span></td>
           <td>Strong accent for calls to action and alerts.</td>
         </tr>
         <tr>
           <td>--bg-surface</td>
-          <td>#FCF6F3 <span style="display:inline-block;width:20px;height:20px;margin-left:8px;vertical-align:middle;background-color:#FCF6F3;border:1px solid #ccc;"></span></td>
+          <td><span class="hex-value" data-token="--bg-surface"></span> <span class="swatch" style="background-color:var(--bg-surface);"></span></td>
           <td>Background surface for clean, warm canvas.</td>
         </tr>
         <tr>
           <td>--text-main</td>
-          <td>#2D140B <span style="display:inline-block;width:20px;height:20px;margin-left:8px;vertical-align:middle;background-color:#2D140B;border:1px solid #ccc;"></span></td>
+          <td><span class="hex-value" data-token="--text-main"></span> <span class="swatch" style="background-color:var(--text-main);"></span></td>
           <td>Main text color for legibility and contrast.</td>
         </tr>
         <tr>
           <td>--text-muted</td>
-          <td>#77584F <span style="display:inline-block;width:20px;height:20px;margin-left:8px;vertical-align:middle;background-color:#77584F;border:1px solid #ccc;"></span></td>
+          <td><span class="hex-value" data-token="--text-muted"></span> <span class="swatch" style="background-color:var(--text-muted);"></span></td>
           <td>Muted text for secondary information.</td>
         </tr>
         <tr>
           <td>--border-light</td>
-          <td>#E9C2B3 <span style="display:inline-block;width:20px;height:20px;margin-left:8px;vertical-align:middle;background-color:#E9C2B3;border:1px solid #ccc;"></span></td>
+          <td><span class="hex-value" data-token="--border-light"></span> <span class="swatch" style="background-color:var(--border-light);"></span></td>
           <td>Light border color for subtle separation.</td>
         </tr>
       </tbody>
@@ -246,7 +337,7 @@
     <h3>Font Specimens</h3>
     <p class="logo-display">KNOWB AI</p>
     <p style="font-family: 'Inter', sans-serif; font-size: 1rem; margin-bottom: 0.5rem;">This is a sample paragraph rendered in the Inter font to demonstrate body text appearance.</p>
-    <p style="font-family: 'JetBrains Mono', monospace; font-size: 1rem; background: #f5f5f5; padding: 0.2rem 0.4rem; border-radius: 4px; display: inline-block;">const knowB = 'knowledge continuity';</p>
+    <p style="font-family: 'JetBrains Mono', monospace; font-size: 1rem; background: var(--code-bg, #f5f5f5); color: var(--code-text, #2D140B); padding: 0.2rem 0.4rem; border-radius: 4px; display: inline-block;">const knowB = 'knowledge continuity';</p>
 
     <h3>Brand Aesthetic</h3>
     <p>KnowB Autumn's aesthetic embodies warmth, clarity, and purposeful design. The palette evokes natural materials and autumnal hues, grounding the brand in a sense of organic growth and stability. Typography balances modernity with approachability, using distinctive display fonts paired with clean, readable body text.</p>
@@ -283,7 +374,31 @@
       <li>Emphasize simplicity and elegance, avoiding unnecessary complexity in interfaces and interactions.</li>
       <li>Continuously iterate based on user feedback and evolving AI capabilities.</li>
     </ul>
+
+    <h3>UI Components Demo</h3>
+    <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); margin-bottom: 1.5rem; border: 1px solid var(--border-light); max-width: 400px;">
+      <h4 style="margin-top: 0; color: var(--text-main); font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem;">Demo Card Title</h4>
+      <p style="color: var(--text-muted); margin-bottom: 0.5rem;">This card uses <code>--card-bg</code>, <code>--text-main</code>, and <code>--text-muted</code> variables to adapt to both light and dark themes.</p>
+    </div>
+    <button class="btn" type="button" style="margin-bottom: 0.5rem;">Demo Button</button>
   </div>
 
+  <script>
+    function updateColorHexValues() {
+      const rootStyles = getComputedStyle(document.body);
+      document.querySelectorAll('.hex-value').forEach(el => {
+        const token = el.dataset.token;
+        const hex = rootStyles.getPropertyValue(token).trim();
+        el.textContent = hex.toUpperCase();
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', updateColorHexValues);
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      void document.body.offsetWidth; // force reflow
+      updateColorHexValues();
+    });
+  </script>
 </body>
 </html>
