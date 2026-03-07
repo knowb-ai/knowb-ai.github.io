@@ -1,0 +1,9 @@
+# knowb.run — Zola configuration
+base_url = "https://knowb.run"
+title = "knowb.run"
+description = "The Home of Knowledge Agents"
+compile_sass = false
+build_search_index = false
+generate_feeds = false
+
+[extra]
