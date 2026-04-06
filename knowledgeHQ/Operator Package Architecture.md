@@ -1,191 +1,168 @@
-# Operator — Package Architecture & Stack Design
+# Operator — Package Architecture
 
-## Problem
+## Single Package Design
 
-Operator is a local Knowledge OS runtime that needs to be deployable in multiple modes:
-- **Admin CLI** — on dev machines for init, inspect, manage
-- **Worker daemon** — on remote servers, long-running, accepts workflows
-- **Ephemeral** — single workflow execution, exits on completion (containerized)
+One repo. One package. Library + CLI + daemon. No split.
 
-All modes share the same core logic. The package architecture must enforce clean separation between domain logic and deployment concerns.
+- **Repo**: `knowb-ai/operator`
+- **PyPI**: `knowb-operator`
+- **Import**: `knowb_operator`
+- **CLI binary**: `operator`
 
----
-
-## Naming
-
-Python's stdlib has an `operator` module — we need a distinct namespace.
-
-- **PyPI packages**: `opx-core`, `opx-cli`, `opx-worker`
-- **Python imports**: `opx_core`, `opx_cli`, `opx_worker`
-- **CLI binary**: `opx` (admin), `opx-worker` (daemon)
-- Alternatively: `knowb-operator-*` if you want the brand in the package name.
+Operator is both importable as a library and usable as a CLI tool. Same install, two interfaces. Same pattern as `black`, `ruff`, `uvicorn`, `flask`.
 
 ---
 
-## Package Architecture
+## Usage Modes
 
-### 1. `opx-core` — The Brain (pure library, zero entrypoints)
+### As a library
+```python
+from knowb_operator import OperatorRuntime
+runtime = OperatorRuntime()
+await runtime.start()
+doc = await runtime.ingest("data.txt", content)
+output = await runtime.run_agent("knowledge", input)
+await runtime.stop()
+```
 
-All domain logic lives here. No CLI deps, no server deps. Importable by anything.
+### As a CLI tool
+```bash
+operator init                           # scaffold KB workspace
+operator serve --port 8400              # start daemon mode
+operator run <workflow>                 # ephemeral inline execution
+operator status                         # ping daemon for agent/task progress
+operator kb ingest data.zip             # manage knowledge base
+operator kb query "vendor contracts"    # query KB
+operator logs --agent-id <id>           # detailed logs by agent
+operator logs --task-id <id>            # detailed logs by task
+```
+
+The daemon mode (`operator serve`) starts a FastAPI server on a local port. CLI commands can either talk to the daemon (if running) or execute inline (if not).
+
+---
+
+## Package Layout
 
 ```
-opx-core/
-  src/opx_core/
-    __init__.py
-    runtime.py          # OperatorRuntime — the main class
+knowb-operator/                         # knowb-ai/operator repo
+  src/knowb_operator/
+    __init__.py                         # OperatorRuntime + public API
+    runtime.py                          # The main class
+    cli.py                              # Typer app — all CLI commands
+    server.py                           # FastAPI daemon app
     kb/
       __init__.py
-      store.py          # Document store (SQLite-backed)
-      index.py          # Semantic index (embeddings)
-      metadata.py       # Provenance, versioning, source tracking
-      models.py         # KB entity models (Pydantic)
+      store.py                          # Document store (SQLite)
+      index.py                          # Semantic index (embeddings)
+      metadata.py                       # Provenance, versioning
+      models.py                         # KB entity models (Pydantic)
     memory/
       __init__.py
-      working.py        # Ephemeral task memory (in-process)
-      session.py        # Session-scoped memory (survives tasks)
-      persistent.py     # User prefs, defaults (survives restarts)
-      promotion.py      # Memory → KB promotion logic
+      working.py                        # Ephemeral task memory
+      session.py                        # Session-scoped memory
+      persistent.py                     # User prefs, survives restarts
+      promotion.py                      # Memory → KB promotion
     context/
       __init__.py
-      assembler.py      # Builds scoped context for agent injection
-      environment.py    # User env, routing rules, behavioral defaults
+      assembler.py                      # Scoped context for agent injection
+      environment.py                    # User env, routing rules
     agents/
       __init__.py
-      contract.py       # Agent interface (abstract base)
-      registry.py       # Agent type registry & instantiation
-      lifecycle.py      # Spawn, scope, execute, terminate
+      contract.py                       # Agent ABC
+      registry.py                       # Agent type registry
+      lifecycle.py                      # Spawn, scope, execute, terminate
       types/
-        knowledge.py    # Knowledge/Task agent
-        code.py         # Code agent
-        chat.py         # Chat agent (thin LLM wrapper)
+        knowledge.py                    # Knowledge/Task agent
+        code.py                         # Code agent
+        chat.py                         # Chat agent (LLM wrapper)
     tasks/
       __init__.py
-      graph.py          # Task DAG / coordination
-      scheduler.py      # Execution ordering, parallelism
-      synthesis.py      # Final output assembly from agent results
+      graph.py                          # Task DAG
+      scheduler.py                      # Execution ordering, parallelism
+      synthesis.py                      # Final output assembly
     config/
-      __init__.py
-      settings.py       # Pydantic Settings (env-driven config)
-    errors.py           # Typed exceptions
-    logging.py          # structlog configuration
-  pyproject.toml
-```
-
-Key class: `OperatorRuntime` — instantiated per-client-per-workflow. Owns a KB handle, memory scope, context assembler, and agent lifecycle. This is the single object that "is" Operator.
-
----
-
-### 2. `opx-cli` — Admin Tool (depends on opx-core)
-
-Thin CLI shell. Provides the `opx` binary.
-
-```
-opx-cli/
-  src/opx_cli/
-    __init__.py
-    main.py             # Typer app entrypoint
-    commands/
-      init.py           # opx init — scaffold a new KB workspace
-      inspect.py        # opx inspect — show KB/memory/agent state
-      run.py            # opx run <workflow> — execute locally
-      config.py         # opx config — manage settings
-      kb.py             # opx kb ingest/query/export
-  pyproject.toml        # depends on opx-core, typer, rich
-```
-
-The CLI creates an `OperatorRuntime`, calls methods on it, formats output. That's it.
-
----
-
-### 3. `opx-worker` — Server Daemon (depends on opx-core)
-
-HTTP server that receives workflow requests and spawns `OperatorRuntime` instances.
-
-```
-opx-worker/
-  src/opx_worker/
-    __init__.py
-    server.py           # FastAPI app
-    runner.py           # Spawns OperatorRuntime per workflow
-    routes/
-      workflows.py      # POST /workflows — submit, GET /workflows/:id — status
-      health.py         # GET /health
-    middleware/
-      auth.py           # Client auth (API key / token)
-  pyproject.toml        # depends on opx-core, fastapi, uvicorn
-```
-
-Ephemeral mode: `opx-worker run --ephemeral --workflow-id=<id>` — starts, executes one workflow, exits. Same binary, different lifecycle.
-
----
-
-## Monorepo Structure
-
-```
-operator/
-  packages/
-    opx-core/
-    opx-cli/
-    opx-worker/
+      settings.py                       # Pydantic Settings (env-driven)
+    errors.py
+    logging.py                          # structlog config
   tests/
     unit/
     integration/
-  docker/
-    Dockerfile.worker
-    Dockerfile.ephemeral
-    docker-compose.yml
-  pyproject.toml          # uv workspace root
+  pyproject.toml
   README.md
 ```
 
-Managed by `uv` workspaces — each package is independently publishable to PyPI but developed together.
+---
+
+## pyproject.toml
+
+```toml
+[project]
+name = "knowb-operator"
+dependencies = [
+    "pydantic>=2.0",
+    "pydantic-settings>=2.0",
+    "aiosqlite>=0.20.0",
+    "structlog>=24.0.0",
+    "typer>=0.15.0",
+    "rich>=13.0",
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+]
+
+[project.scripts]
+operator = "knowb_operator.cli:app"
+```
+
+All deps bundled. No optional extras needed — this is a developer tool, not a constrained embedded system.
 
 ---
 
 ## Stack
 
-- **Runtime**: Python 3.13
-- **Package mgmt**: `uv` workspaces (monorepo, fast installs, lockfile)
-- **Models/Config**: Pydantic v2 (all models, settings, validation)
-- **CLI**: Typer + Rich (type-hint driven CLI, beautiful terminal output)
-- **Worker API**: FastAPI + uvicorn (async HTTP, auto-docs)
-- **KB Document Store**: SQLite via `aiosqlite` (local-first, zero-config, portable)
-- **KB Semantic Index**: ChromaDB or LanceDB (local embeddings, no server needed)
-- **Logging**: structlog (structured, JSON-friendly)
+- **Runtime**: Python 3.14
+- **Package mgmt**: uv
+- **Models/Config**: Pydantic v2
+- **CLI**: Typer + Rich
+- **Daemon API**: FastAPI + uvicorn
+- **KB Store**: SQLite via aiosqlite
+- **KB Semantic Index**: ChromaDB or LanceDB
+- **Logging**: structlog
 - **Testing**: pytest + pytest-asyncio + pytest-cov
-- **Linting**: ruff (format + check, line-length 100)
-- **Containers**: Docker (worker + ephemeral images)
+- **Linting**: ruff (line-length 100)
 - **CI/CD**: GitHub Actions
 
 ---
 
-## Why NOT a Single Package
+## Daemon Mode
 
-Separate packages because:
+`operator serve` starts a FastAPI server exposing:
 
-1. **Deployment footprint**: A remote worker server shouldn't install Typer/Rich. An admin machine doesn't need FastAPI/uvicorn.
-2. **Dependency isolation**: Core has minimal deps (pydantic, sqlite, structlog). CLI adds Typer+Rich. Worker adds FastAPI+uvicorn. No bloat.
-3. **Independent versioning**: Core can release a patch without touching CLI or Worker.
-4. **Import clarity**: `from opx_core.kb import store` is unambiguous.
+- `GET /health` — version, uptime, agent count
+- `GET /status` — running agents, task progress, KB stats
+- `POST /workflows/` — submit a workflow
+- `GET /workflows/:id` — workflow status and result
+- `GET /agents/:id/logs` — detailed logs by agent
+- `GET /tasks/:id/logs` — detailed logs by task
+- `GET /kb/sources` — list KB sources and stats
 
-But they share the same monorepo and are tested together.
+CLI commands like `operator status` and `operator logs` hit these endpoints when the daemon is running. When it's not, they execute inline against the local KB directly.
 
 ---
 
-## Key Design Rules (from knowledgeHQ specs)
+## Design Rules
 
-1. `OperatorRuntime` owns everything — KB, memory, context, agents. Nothing else does.
+1. `OperatorRuntime` owns everything — KB, memory, context, agents.
 2. Agents are stateless. They receive `(input, context, memory)` and emit structured output.
-3. Memory is NOT knowledge. Working memory dies with the task. Only promoted data enters KB.
-4. CLI and Worker are clients of core, not extensions. They can be replaced.
-5. No shortcuts in the data flow: `User → Runtime → Context+Memory → KB → Agent(s) → Memory updates → KB writes`.
+3. Memory is NOT knowledge. Working memory dies with the task.
+4. No shortcuts in the data flow: `User → Runtime → Context+Memory → KB → Agent(s) → Memory updates → KB writes`.
+5. The package is both importable and CLI-installable. Always.
 
 ---
 
 ## Development Flow
 
-1. Scaffold monorepo with `uv init --lib` for each package
-2. Build `opx-core` first — runtime, KB store, memory, agent contract
-3. Wire `opx-cli` as the first consumer — `opx init`, `opx run`
-4. Add `opx-worker` when ready for server deployment
-5. Every step is testable, installable (`uv pip install -e`), and distributable
+1. Create `knowb-ai/operator`, scaffold single package
+2. Build runtime, KB store, memory, agent contract (port from emos-core patterns)
+3. Wire CLI commands — `operator init`, `operator run`, `operator kb`
+4. Add daemon mode — `operator serve` with status/logs endpoints
+5. Every step: tested, installable, distributable
