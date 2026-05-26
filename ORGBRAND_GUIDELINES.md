@@ -6,19 +6,21 @@ All UI implementations must satisfy both:
 - WCAG 2.2 AA accessibility requirements
 
 ## 1) Canonical Base Palette
-Only these seven base colors are allowed for UI color tokens:
+Only these eight base colors are allowed for UI color tokens:
 - **Autumn Fire**: `#FF4A1A`
 - **Deep Rust**: `#8E2F2A`
 - **Soft Ember**: `#F59A52`
 - **Paper Ivory**: `#FCF6F3`
+- **Saber Blue**: `#86E8FF` (signal accent)
 - **Charcoal Bark**: `#7A2217` (burnt rust base)
 - **Muted Wood**: `#77584F`
 - **Light Terracotta Border**: `#E9C2B3`
 
 Notes:
-- Opacity variants of the seven colors are allowed.
+- Opacity variants of the eight colors are allowed.
 - New hues are not allowed.
-- No blues, greens, purples, or neon colors.
+- Saber Blue is the only approved cool accent.
+- No greens, purples, or neon colors.
 
 ## 2) Canonical Gradients
 All gradient usage must match these formulas exactly.
@@ -47,11 +49,17 @@ linear-gradient(135deg, #FF4A1A 0%, #8E2F2A 40%, #7A2217 100%)
 linear-gradient(180deg, #8E2F2A 0%, #7A2217 35%, #FF4A1A 100%)
 linear-gradient(120deg, #FCF6F3 0%, #F59A52 30%, #8E2F2A 70%, #E9C2B3 100%)
 ```
+### 2.5 Signal Accent (Saber-enabled)
+```css
+linear-gradient(132deg, #FF4A1A 0%, #8E2F2A 34%, #7A2217 72%, #86E8FF 100%)
+linear-gradient(90deg, #FCF6F3 0%, #8E2F2A 8%, #86E8FF 16%, #FCF6F3 100%)
+```
 
 ## 3) Canonical Shadow / Glow Tokens
 ```css
 0 0 30px rgba(245,154,82,0.35) /* ember glow */
 0 0 25px rgba(255,74,26,0.30)  /* fire glow */
+0 0 30px rgba(134,232,255,0.30) /* saber glow */
 0 0 20px rgba(252,246,243,0.15) /* paper shadow */
 ```
 
@@ -71,6 +79,8 @@ Use these as defaults for body text and controls:
 - `#FCF6F3` on `#8E2F2A`
 - `#FCF6F3` on `#7A2217`
 - `#7A2217` on `#F59A52`
+- `#7A2217` on `#86E8FF`
+- `#86E8FF` on `#7A2217`
 - `#E9C2B3` on `#7A2217`
 
 ## 6) Prohibited / Restricted Pairings
@@ -78,6 +88,7 @@ Do not use for normal body text:
 - `#FF4A1A` on `#FCF6F3`
 - `#FCF6F3` on `#FF4A1A`
 - `#7A2217` on `#FF4A1A`
+- `#86E8FF` on `#FCF6F3`
 
 Allowed exception:
 - `#FF4A1A` may be used for **large display text** that still meets the 3:1 large-text requirement.
@@ -116,7 +127,7 @@ Agents must not:
 
 ## 10) Acceptance Checklist
 A change is compliant only if:
-1. All colors are from the seven-token palette (or opacity variants).
+1. All colors are from the eight-token palette (or opacity variants).
 2. Gradients are exact canonical formulas.
 3. All normal text and controls meet WCAG 2.2 AA contrast.
 4. Focus-visible, keyboard navigation, and reduced-motion support are present.
