@@ -52,6 +52,75 @@
         html {
             scroll-behavior: smooth;
         }
+        .crt-shell {
+            position: relative;
+            isolation: isolate;
+            background-color: #161211;
+        }
+        .crt-shell::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 90;
+            background:
+                repeating-linear-gradient(
+                    180deg,
+                    rgba(252,246,243,0.012) 0px,
+                    rgba(252,246,243,0.012) 1px,
+                    transparent 1px,
+                    transparent 4px
+                ),
+                linear-gradient(90deg, rgba(245,154,82,0.02) 0%, rgba(134,232,255,0.02) 100%),
+                radial-gradient(circle at 50% 38%, rgba(134,232,255,0.05) 0%, rgba(245,154,82,0.035) 30%, transparent 64%);
+            opacity: 0.52;
+        }
+        .crt-shell::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 91;
+            background:
+                radial-gradient(140% 105% at 50% 45%, transparent 50%, rgba(8,8,10,0.24) 82%, rgba(5,5,7,0.44) 100%),
+                radial-gradient(160% 78% at 50% -12%, rgba(252,246,243,0.06) 0%, transparent 46%);
+        }
+        .crt-screen {
+            position: relative;
+            transform: perspective(1500px) rotateX(0.35deg);
+            transform-origin: top center;
+        }
+        .crt-display {
+            position: relative;
+            text-shadow:
+                0 0 12px rgba(252,246,243,0.16),
+                0.018em 0 rgba(245,154,82,0.34),
+                -0.018em 0 rgba(134,232,255,0.34);
+        }
+        .crt-sync-accent {
+            animation: crt-sync-jitter 12s steps(1, end) infinite;
+            will-change: text-shadow;
+        }
+        @keyframes crt-sync-jitter {
+            0%, 94%, 100% {
+                text-shadow:
+                    0 0 12px rgba(252,246,243,0.16),
+                    0.018em 0 rgba(245,154,82,0.34),
+                    -0.018em 0 rgba(134,232,255,0.34);
+            }
+            95% {
+                text-shadow:
+                    0 0 13px rgba(252,246,243,0.18),
+                    0.024em 0 rgba(245,154,82,0.38),
+                    -0.024em 0 rgba(134,232,255,0.40);
+            }
+            96% {
+                text-shadow:
+                    0 0 12px rgba(252,246,243,0.16),
+                    0.018em 0 rgba(245,154,82,0.34),
+                    -0.018em 0 rgba(134,232,255,0.34);
+            }
+        }
         .section-kicker {
             letter-spacing: 0.16em;
             text-transform: uppercase;
@@ -86,6 +155,27 @@
             letter-spacing: 0.08em;
             text-transform: uppercase;
             line-height: 1.8;
+            position: relative;
+            text-shadow: 0 0 6px rgba(252,246,243,0.10);
+        }
+        .arcade-nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -0.32rem;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(245,154,82,0) 0%, rgba(245,154,82,0.9) 40%, rgba(134,232,255,0.9) 60%, rgba(134,232,255,0) 100%);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .arcade-nav-link:hover::after,
+        .arcade-nav-link:focus-visible::after {
+            opacity: 1;
+        }
+        .arcade-nav-link:hover,
+        .arcade-nav-link:focus-visible {
+            text-shadow: 0 0 10px rgba(134,232,255,0.28), 0 0 8px rgba(245,154,82,0.24);
         }
         .arcade-nav-heading {
             font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
@@ -131,8 +221,22 @@
             box-shadow: inset 0 0 0 1px rgba(134,232,255,0.12);
             border-radius: 0.2rem;
             padding: 0.9rem 1rem;
+            position: relative;
+            overflow: hidden;
         }
-        .signal-card h3 {
+        .signal-card::after,
+        .arcade-card::after,
+        .contact-callout-frame::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            pointer-events: none;
+            box-shadow: 0 0 18px rgba(245,154,82,0.20), 0 0 22px rgba(134,232,255,0.22);
+            opacity: 0.75;
+            mix-blend-mode: screen;
+        }
+        .signal-card h2 {
             margin: 0 0 0.5rem;
             font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
             font-size: 0.62rem;
@@ -154,10 +258,12 @@
             border-color: rgba(134,232,255,0.34) !important;
             box-shadow: inset 0 0 0 1px rgba(134,232,255,0.16) !important;
         }
+        .card-theme-ember h2,
         .card-theme-ember h3 {
             color: #F59A52 !important;
             text-shadow: 0 0 10px rgba(245,154,82,0.24);
         }
+        .card-theme-saber h2,
         .card-theme-saber h3 {
             color: #86E8FF !important;
             text-shadow: 0 0 10px rgba(134,232,255,0.24);
@@ -273,6 +379,8 @@
         .arcade-card {
             border: 1px solid rgba(233,194,179,0.35);
             box-shadow: inset 0 0 0 1px rgba(134,232,255,0.28), 0 0 0 1px rgba(134,232,255,0.10);
+            position: relative;
+            overflow: hidden;
         }
         .use-case-card.card-theme-ember:hover {
             border-color: rgba(245,154,82,0.78) !important;
@@ -297,10 +405,18 @@
                 linear-gradient(180deg, rgba(29,21,20,0.96) 0%, rgba(29,21,20,0.92) 100%) padding-box,
                 linear-gradient(128deg, rgba(245,154,82,0.88) 0%, rgba(134,232,255,0.90) 52%, rgba(255,74,26,0.84) 100%) border-box;
             box-shadow: 0 0 24px rgba(245,154,82,0.22), 0 0 28px rgba(134,232,255,0.22);
+            position: relative;
+            overflow: hidden;
         }
         @media (prefers-reduced-motion: reduce) {
             html {
                 scroll-behavior: auto;
+            }
+            .crt-screen {
+                transform: none !important;
+            }
+            .crt-sync-accent {
+                animation: none !important;
             }
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -310,7 +426,7 @@
         }
     </style>
 </head>
-<body class="min-h-screen font-sans bg-obsidian-brown text-paper-ivory">
+<body class="min-h-screen font-sans bg-obsidian-brown text-paper-ivory crt-shell">
     <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-soft-ember focus:text-charcoal-bark focus:rounded-md focus:font-semibold">
         Skip to main content
     </a>
@@ -327,12 +443,12 @@
         </nav>
     </header>
 
-    <main id="main-content" class="pt-32">
+    <main id="main-content" class="pt-32 crt-screen">
         <section id="home" class="scroll-mt-44 py-20 px-6 bg-knowb-autumn-core text-paper-ivory border-b border-deep-rust/70 hero-arcade">
             <div class="max-w-7xl mx-auto">
                 <div class="max-w-5xl">
                     <p class="section-kicker section-kicker-ember font-arcade mb-5 text-[0.62rem]">Front Deck</p>
-                    <h1 class="font-display text-5xl md:text-7xl leading-[1.03] tracking-tight mb-7">
+                    <h1 class="font-display text-5xl md:text-7xl leading-[1.03] tracking-tight mb-7 crt-display crt-sync-accent">
                         Building <span class="hero-highlight-ember">context-aware agents</span> with better <span class="hero-highlight-saber">knowledge and memory capabilities</span>
                     </h1>
                     <p class="font-sans text-xl md:text-2xl text-paper-ivory/92 mb-10 max-w-4xl leading-relaxed">
@@ -346,15 +462,15 @@
                     </div>
                     <div class="signal-grid mb-10">
                         <article class="signal-card card-theme-ember">
-                            <h3>Power Profile</h3>
+                            <h2>Power Profile</h2>
                             <p>Lean visual primitives, no heavy runtime animations, and clear hierarchy for fast scan speed.</p>
                         </article>
                         <article class="signal-card card-theme-saber">
-                            <h3>Memory Profile</h3>
+                            <h2>Memory Profile</h2>
                             <p>State and context are treated as product layers, not hidden behavior.</p>
                         </article>
                         <article class="signal-card card-theme-ember">
-                            <h3>Operator Profile</h3>
+                            <h2>Operator Profile</h2>
                             <p>Arcade cues for users, mission-control semantics for teams and agents.</p>
                         </article>
                     </div>
@@ -376,7 +492,7 @@
                 <div class="lg:col-span-4">
                     <p class="section-kicker section-kicker-saber font-arcade text-[0.62rem]">System Pressure</p>
                     <div class="section-rule"></div>
-                    <h2 class="font-display text-4xl md:text-5xl tracking-tight text-paper-ivory">Challenges at Scale</h2>
+                    <h2 class="font-display text-4xl md:text-5xl tracking-tight text-paper-ivory crt-display">Challenges at Scale</h2>
                 </div>
                 <div class="lg:col-span-8">
                     <p class="font-display text-4xl md:text-5xl leading-tight text-paper-ivory mb-6">
@@ -393,7 +509,7 @@
             <div class="max-w-7xl mx-auto">
                 <p class="section-kicker section-kicker-ember font-arcade text-[0.62rem]">Failure Points</p>
                 <div class="section-rule" style="background: linear-gradient(90deg, rgba(134,232,255,0.20) 0%, #86E8FF 50%, rgba(134,232,255,0.20) 100%);"></div>
-                <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-4 text-paper-ivory">The Bottlenecks</h2>
+                <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-4 text-paper-ivory crt-display">The Bottlenecks</h2>
                 <p class="font-sans text-lg md:text-xl text-paper-ivory/88 mb-14 max-w-4xl leading-relaxed">
                     These are the zones where production context systems usually break first.
                 </p>
@@ -433,7 +549,7 @@
             <div class="max-w-7xl mx-auto">
                 <p class="section-kicker section-kicker-saber font-arcade text-[0.62rem]">Playable Builds</p>
                 <div class="section-rule"></div>
-                <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-4 text-paper-ivory">Top Use Cases</h2>
+                <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-4 text-paper-ivory crt-display">Top Use Cases</h2>
                 <p class="font-sans text-lg md:text-xl text-paper-ivory/88 mb-14 max-w-4xl leading-relaxed">
                     These RFP concepts map directly to the bottlenecks above, and they are scoped for fast, low-energy pilot delivery. Interested parties can contact us at <a href="mailto:ping@knowb.run" class="underline decoration-saber-blue underline-offset-4 hover:text-saber-blue">ping@knowb.run</a>.
                 </p>
@@ -473,7 +589,7 @@
         <section id="roadmap" class="scroll-mt-44 py-20 px-6 bg-charcoal-bark">
             <div class="max-w-7xl mx-auto">
                 <p class="section-kicker section-kicker-ember font-arcade text-[0.62rem]">Launch Plan</p>
-                <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-4 text-paper-ivory">Delivery Roadmap</h2>
+                <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-4 text-paper-ivory crt-display">Delivery Roadmap</h2>
                 <p class="font-sans text-lg md:text-xl text-paper-ivory/88 mb-14 max-w-4xl leading-relaxed">
                     The rollout starts with lightweight RFP pilots, then moves into governed link-collection systems for proprietary dataset growth and efficient long-run operation.
                 </p>
@@ -503,11 +619,11 @@
             </div>
         </section>
 
-        <section class="px-6 pb-6 bg-charcoal-bark">
+        <section class="px-6 pb-16 bg-charcoal-bark">
             <div class="max-w-7xl mx-auto rounded-2xl contact-callout-frame">
                 <div class="px-8 md:px-10 py-10 md:py-12">
                     <p class="section-kicker section-kicker-saber font-arcade text-[0.62rem] mb-4">Collaboration Callout</p>
-                    <h2 class="font-display text-3xl md:text-4xl tracking-tight text-paper-ivory mb-4">Contact us to build with us</h2>
+                    <h2 class="font-display text-3xl md:text-4xl tracking-tight text-paper-ivory mb-4 crt-display crt-sync-accent">Contact us to build with us</h2>
                     <p class="font-sans text-paper-ivory/92 text-lg leading-relaxed max-w-4xl mb-7">
                         We are actively looking for partners who want to ship practical context-agent systems in controlled pilots. The current collaboration formats are listed below.
                     </p>
@@ -524,8 +640,8 @@
         </section>
     </main>
 
-    <footer id="contact" class="scroll-mt-28 px-6 pt-8 pb-10 bg-charcoal-bark text-paper-ivory">
-        <div class="max-w-7xl mx-auto rounded-[1.35rem] border border-terracotta-border/25 bg-charcoal-bark/95 shadow-[0_22px_50px_rgba(0,0,0,0.38)]">
+    <footer id="contact" class="scroll-mt-28 px-6 pt-14 pb-10 bg-charcoal-bark text-paper-ivory">
+        <div class="max-w-7xl mx-auto rounded-[1.35rem] border border-terracotta-border/45 border-t-terracotta-border/80 bg-charcoal-bark/95 shadow-[0_-1px_0_rgba(233,194,179,0.26),0_22px_50px_rgba(0,0,0,0.38)]">
             <div class="px-8 md:px-10 pt-12 pb-8">
                 <div class="grid gap-10 md:grid-cols-[minmax(0,1fr)_auto] md:items-start">
                     <div class="max-w-md lg:pr-4">

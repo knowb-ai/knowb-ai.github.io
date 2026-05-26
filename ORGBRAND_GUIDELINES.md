@@ -146,3 +146,23 @@ All public-facing agentic product copy must follow these rules:
 - Use commas, semicolons, colons, or short sentences instead.
 - Keep sentence structure direct and scannable.
 - Maintain consistent product naming, capitalization, and punctuation across pages and docs.
+
+## 12) Command Tube CRT Exception Policy
+This section permits the bold CRT treatment when explicitly requested by stakeholders.
+
+### 12.1 Allowed CRT Effects
+- Curved-screen illusion, vignette, scanlines, and phosphor grain overlays.
+- Dual-spectrum ember+saber module glows on cards and callout frames.
+- Chromatic split and sync-roll/glitch accents on display-scale headings only.
+
+### 12.2 Hard Accessibility Limits (Non-negotiable)
+- Body text and small UI labels must not use flicker, chromatic split, or jitter effects.
+- Chromatic split is restricted to display text at 32px+ (or equivalent large-text sizing).
+- Any sync-roll/jitter accent must be brief (<=120ms active burst) and infrequent (>=8s between bursts).
+- Normal text contrast must remain >=4.5:1 and large display text >=3:1.
+- `prefers-reduced-motion` must disable CRT motion accents and return to static presentation.
+
+### 12.3 Scope and Fallback
+- CRT effects may be applied to hero sections, section display headings, and high-priority callouts.
+- If readability degrades in any component, CRT effects must be reduced or removed for that component first.
+- Accessibility and legibility take precedence over stylistic intensity in all environments.
