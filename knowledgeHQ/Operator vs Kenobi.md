@@ -16,6 +16,21 @@ This separation is intentional, architectural, and non-negotiable.
 
 ---
 
+## 1.1 Ecosystem Positioning (Current)
+
+KnowB AI Systems operates as a strategic direction layer that amplifies companion ecosystem execution.
+
+- One track focuses on production-ready autonomous workflow systems and interfaces.
+- Another track focuses on governance, safeguards, and trust for agent and knowledge operations.
+
+In this model:
+
+- Operator remains the core runtime system.
+- Kenobi remains a product-layer client of Operator.
+- Public messaging emphasizes scale constraints: **Persistence. Statefulness. Context.**
+
+---
+
 ## 2. Operator — What It Is
 
 **Operator is a local-first, headless, CLI-driven background service.**

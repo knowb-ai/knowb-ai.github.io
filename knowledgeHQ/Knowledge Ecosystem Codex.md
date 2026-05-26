@@ -1,8 +1,8 @@
-# **KnowB AI — Knowledge Ecosystem Codex**
+# **KnowB AI Systems — Knowledge Ecosystem Codex**
 
 ## **1. Core Thesis**
 
-KnowB AI builds **local-first knowledge systems** for teams, products, and agents.
+KnowB AI Systems builds **local-first knowledge systems** for teams, products, and agents, with a focus on context-aware execution at scale.
 
 The core problem: organizational knowledge is fragmented across tools, clouds, chats, files, and people.
 
@@ -19,18 +19,20 @@ The solution: a local Knowledge OS that manages:
 
 ## **2. Core Ecosystem Terms**
 
-### **KnowB AI**
+### **KnowB AI Systems**
 
-Technology systems and software design provider focused on knowledge infrastructure.
+Strategic direction layer focused on knowledge infrastructure.
 
-Specializes in:
+Primary role:
 
-- local knowledge-base technology
-- vertical AI task agents
-- context and memory middleware
-- agent-embedded knowledge architecture
+- define architecture direction for context-aware agent systems
+- maintain the knowledge and memory thesis for long-lived workflows
+- publish and test system patterns through live projects
+- amplify execution across companion enterprises
 
-KnowB’s mission is to solve knowledge fragmentation by building systems that provide a single source of truth and shared memory for agents, teams, and interfaces.
+Mission:
+
+Solve knowledge fragmentation by building systems that provide a single source of truth and shared memory for agents, teams, and interfaces.
 
 ---
 
@@ -65,6 +67,27 @@ Kenobi = Operator + UI + polished workflows.
 
 Kenobi does not own knowledge, memory, or agents.  
 It is a client of Operator.
+
+---
+
+### **Companion Ecosystem**
+
+KnowB AI Systems amplifies ecosystem execution through:
+
+- architecture direction for production-ready autonomous workflows
+- governance and trust patterns for knowledge and agent operations
+
+---
+
+### **Current Direction (Live Narrative Alignment)**
+
+The active ecosystem narrative is:
+
+- Building context-aware agents with better knowledge and memory capabilities
+- Challenges at scale: **Persistence. Statefulness. Context.**
+- Primary bottlenecks: **Knowledge Tooling**, **Knowledge Bases**, **Knowledge Agents**
+
+This framing should be used when positioning roadmap and architecture decisions.
 
 ---
 
@@ -393,3 +416,5 @@ Agents operate inside the system.
 Memory supports the system.
 
 Knowledge persists through the system.
+
+KnowB AI Systems sets the strategic direction layer that aligns this system with companion ecosystem execution.

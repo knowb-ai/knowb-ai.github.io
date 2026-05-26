@@ -8,6 +8,20 @@ Operator has no UI. It is headless, scriptable, automatable, and UI-agnostic. Pr
 
 ---
 
+## Ecosystem Positioning (Current)
+
+Within the active KnowB AI Systems direction, Operator is the foundational runtime used to solve context-aware agent constraints at scale.
+
+KnowB AI Systems functions as a strategic direction layer that amplifies companion ecosystem execution, while Operator provides the runtime guarantees behind those systems.
+
+The key scale constraints Operator addresses are:
+
+- persistence
+- statefulness
+- context continuity
+
+---
+
 ## What It Does
 
 ### 1. Knowledge Base (KB)

@@ -1,4 +1,6 @@
-# **Kenobi - Product Book v1.0**
+# **Kenobi - Product Book (v1.1 Active, v1.0 Archived)**
+
+> **Alignment note (2026):** `v1.1` is the active baseline for ongoing work. `v1.0` is retained in this file for historical reference.
 
 ---
 
@@ -378,7 +380,10 @@ Data systems store information.
 
 Kenobi makes it usable.
 ```
-# **Kenobi - Product Book v1.1**
+
+---
+
+# **Kenobi - Product Book v1.1 (Active Baseline)**
 
 ---
 
@@ -416,6 +421,24 @@ Kenobi manages:
 - context
 - memory
 - reasoning continuity
+
+---
+
+## **2.1 Strategic Positioning (Current Ecosystem)**
+
+Kenobi is positioned as one of the live systems in the KnowB AI Systems gallery.
+KnowB AI Systems functions as a strategic direction layer that amplifies:
+
+- production autonomous workflow systems
+- governance and trust layers for agent operations
+
+Kenobi’s architecture directly addresses the active scale constraints:
+
+- **Persistence**
+- **Statefulness**
+- **Context continuity**
+
+These constraints should be used as default evaluation criteria for roadmap and product design decisions.
 
 ---
 
