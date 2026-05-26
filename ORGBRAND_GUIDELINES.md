@@ -121,3 +121,17 @@ A change is compliant only if:
 3. All normal text and controls meet WCAG 2.2 AA contrast.
 4. Focus-visible, keyboard navigation, and reduced-motion support are present.
 5. Brand tone remains warm, structured, and signal-forward.
+
+## 11) Agentic Brand Work Guidelines
+All public-facing agentic product copy must follow these rules:
+- Position work around capabilities, reliability, and measurable outcomes.
+- Use subtle ecosystem amplification language. Do not directly name sister brands or external partner brands in core landing-page messaging.
+- Avoid internal hierarchy labels in public copy.
+- Keep claims concrete and operational. Prefer specifics over hype.
+- Use privacy-safe language when describing data collection, crawling, or reporting features.
+
+### 11.1 Writing Style Rules
+- Do not use em dash characters (U+2014) in copy.
+- Use commas, semicolons, colons, or short sentences instead.
+- Keep sentence structure direct and scannable.
+- Maintain consistent product naming, capitalization, and punctuation across pages and docs.
