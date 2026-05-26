@@ -37,11 +37,9 @@ knowb-run/
 ├── config.toml              # Zola configuration
 ├── content/
 │   ├── _index.md            # Homepage content
-│   ├── landing.md           # Landing page variant
 │   └── org-book.md          # Org brandbook page
 ├── templates/
 │   ├── index.html           # Homepage template
-│   ├── landing.html         # Landing variant template
 │   ├── orgbook.html         # Org brandbook template
 │   ├── page.html            # Default page template
 │   └── section.html         # Default section template
@@ -58,7 +56,6 @@ knowb-run/
 ## Pages
 
 - `/` — Main homepage (Knowledge Agents overview + projects gallery)
-- `/landing/` — Alternate landing page with dark autumn palette
 - `/org-book/` — KnowB AI Org Book / brandbook
 
 ## Editing Content
@@ -70,7 +67,6 @@ All page content lives in `templates/`. The content markdown files in `content/`
 This site was migrated from a plain static HTML repo to Zola. The visual design is unchanged — same CSS, same layout, same colors, same typography. Only the repo structure changed:
 
 - `index.html` → `templates/index.html`
-- `landing.html` → `templates/landing.html`
 - `knowledgeHQ/orgbook.html` → `templates/orgbook.html`
 - `public/` assets → `static/`
 - `render.yaml` removed (replaced by Zola)
