@@ -7,7 +7,7 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -15,6 +15,8 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif'],
+                        editorial: ['Source Serif 4', 'Georgia', 'serif'],
                     },
                     colors: {
                         'autumn-fire': '#E14719',
@@ -46,6 +48,45 @@
         html {
             scroll-behavior: smooth;
         }
+        .section-kicker {
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            color: #F7AD6A;
+        }
+        .editorial-rule {
+            height: 1px;
+            margin: 0.85rem 0 1.25rem;
+            background: linear-gradient(90deg, #E14719 0%, #8C2F14 35%, rgba(252,246,243,0.12) 100%);
+        }
+        .lede::first-letter {
+            float: left;
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 3.2rem;
+            font-weight: 600;
+            line-height: 0.85;
+            margin-right: 0.45rem;
+            color: #F7AD6A;
+        }
+        .use-case-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .use-case-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #E14719 0%, #F7AD6A 100%);
+        }
+        @media (max-width: 768px) {
+            .lede::first-letter {
+                font-size: 2.5rem;
+                margin-right: 0.35rem;
+            }
+        }
         @media (prefers-reduced-motion: reduce) {
             html {
                 scroll-behavior: auto;
@@ -63,147 +104,186 @@
         Skip to main content
     </a>
 
-    <header class="fixed top-0 left-0 right-0 z-50 bg-charcoal-bark/95 backdrop-blur-md border-b border-deep-rust">
-        <nav aria-label="Primary" class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div class="text-xl font-semibold tracking-tight text-paper-ivory">knowb.run</div>
-            <div class="flex gap-6 text-sm font-medium">
-                <a href="#home" class="text-paper-ivory hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Home</a>
-                <a href="#use-cases" class="text-paper-ivory hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Use Cases</a>
-                <a href="#challenges" class="text-paper-ivory hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Challenges</a>
-                <a href="#bottlenecks" class="text-paper-ivory hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Bottlenecks</a>
-                <a href="#roadmap" class="text-paper-ivory hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Roadmap</a>
-                <a href="#contact" class="text-paper-ivory hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Contact</a>
+    <header class="fixed top-0 left-0 right-0 z-50 bg-charcoal-bark/95 backdrop-blur-md border-b border-terracotta-border/25">
+        <div class="border-b border-deep-rust/60">
+            <div class="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between text-[11px] uppercase tracking-[0.16em] text-terracotta-border">
+                <span>Issue 01</span>
+                <span>Context Systems Editorial</span>
+            </div>
+        </div>
+        <nav aria-label="Primary" class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div class="text-2xl font-display font-semibold tracking-tight text-paper-ivory">knowb.run</div>
+            <div class="flex flex-wrap gap-x-5 gap-y-2 text-xs uppercase tracking-[0.14em] font-medium">
+                <a href="#home" class="text-paper-ivory/90 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Home</a>
+                <a href="#use-cases" class="text-paper-ivory/90 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Use Cases</a>
+                <a href="#challenges" class="text-paper-ivory/90 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Challenges</a>
+                <a href="#bottlenecks" class="text-paper-ivory/90 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Bottlenecks</a>
+                <a href="#roadmap" class="text-paper-ivory/90 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Roadmap</a>
+                <a href="#contact" class="text-paper-ivory/90 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Contact</a>
             </div>
         </nav>
     </header>
 
-    <main id="main-content" class="pt-24">
-        <section id="home" class="scroll-mt-28 py-20 px-6 bg-knowb-autumn-core text-paper-ivory">
-            <div class="max-w-5xl mx-auto text-center">
-                <p class="uppercase tracking-[0.14em] text-soft-ember text-sm mb-5">KnowB AI Systems · Agentic Direction</p>
-                <h1 class="text-5xl md:text-6xl font-bold mb-6 tracking-tight text-paper-ivory">
-                    Building context-aware agents with better knowledge and memory capabilities
-                </h1>
-                <p class="text-lg md:text-xl text-paper-ivory/90 mb-10 max-w-4xl mx-auto leading-relaxed">
-                    We design context-aware agent systems with durable memory, reliable state handling, and governance-first execution.
-                    This site tracks practical use cases that amplify broader ecosystem progress through tested knowledge workflows.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#use-cases" class="px-8 py-3 bg-deep-rust text-paper-ivory border border-soft-ember rounded-lg font-semibold hover:bg-charcoal-bark transition-all shadow-fire-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark">
-                        View Top Use Cases
-                    </a>
-                    <a href="#roadmap" class="px-8 py-3 border border-paper-ivory text-paper-ivory rounded-lg font-semibold hover:bg-paper-ivory hover:text-charcoal-bark transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark">
-                        Delivery Roadmap
-                    </a>
+    <main id="main-content" class="pt-44">
+        <section id="home" class="scroll-mt-44 py-20 px-6 bg-knowb-autumn-core text-paper-ivory border-b border-deep-rust/70">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-10 items-end">
+                <div class="lg:col-span-8">
+                    <p class="section-kicker mb-5">Editorial Dossier · Issue 01</p>
+                    <h1 class="font-editorial text-5xl md:text-7xl leading-[1.03] tracking-tight mb-7">
+                        Building context-aware agents with better knowledge and memory capabilities
+                    </h1>
+                    <p class="lede font-editorial text-xl md:text-2xl text-paper-ivory/92 mb-10 max-w-4xl leading-relaxed">
+                        We design context-aware agent systems with durable memory, reliable state handling, and governance-first execution.
+                        This page tracks active ideas in a publication-style format so each concept reads like an editorial feature, not a product card.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#use-cases" class="px-8 py-3 bg-deep-rust text-paper-ivory border border-soft-ember rounded-sm font-semibold hover:bg-charcoal-bark transition-all shadow-fire-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark">
+                            View Top Use Cases
+                        </a>
+                        <a href="#roadmap" class="px-8 py-3 border border-paper-ivory text-paper-ivory rounded-sm font-semibold hover:bg-paper-ivory hover:text-charcoal-bark transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark">
+                            Review Delivery Roadmap
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </section>
-        <section id="use-cases" class="scroll-mt-28 py-20 px-6 bg-charcoal-bark">
-            <div class="max-w-6xl mx-auto">
-                <h2 class="text-4xl font-bold mb-4 text-center text-paper-ivory">Top Use Cases</h2>
-                <p class="text-center text-terracotta-border mb-14 text-lg">
-                    Phase 1 launches these as RFP-friendly projects to validate real knowledge-agent workflows.
-                </p>
-                <div class="grid md:grid-cols-3 gap-6">
-                    <article class="bg-charcoal-bark/70 border border-deep-rust rounded-xl p-8 hover:border-soft-ember hover:shadow-fire-glow transition-all">
-                        <div class="text-xs uppercase tracking-wide text-terracotta-border mb-3">Phase 1 RFP</div>
-                        <h3 class="text-2xl font-semibold mb-4 text-soft-ember">Underminer</h3>
-                        <p class="text-paper-ivory/90 leading-relaxed">
-                            A knowledge agent that extracts semantic understanding from paywalled articles and reconstructs the story using alternate sources plus LLM context tracing experiments.
-                        </p>
-                    </article>
-                    <article class="bg-charcoal-bark/70 border border-deep-rust rounded-xl p-8 hover:border-soft-ember hover:shadow-fire-glow transition-all">
-                        <div class="text-xs uppercase tracking-wide text-terracotta-border mb-3">Phase 1 RFP</div>
-                        <h3 class="text-2xl font-semibold mb-4 text-soft-ember">X-Poser</h3>
-                        <p class="text-paper-ivory/90 leading-relaxed">
-                            Submit an X link for automated claim analysis and receive a report that marks content as true, uncertain, or fabricated, with optional report export for social sharing.
-                        </p>
-                    </article>
-                    <article class="bg-charcoal-bark/70 border border-deep-rust rounded-xl p-8 hover:border-soft-ember hover:shadow-fire-glow transition-all">
-                        <div class="text-xs uppercase tracking-wide text-terracotta-border mb-3">Phase 1 RFP</div>
-                        <h3 class="text-2xl font-semibold mb-4 text-soft-ember">Precongnition</h3>
-                        <p class="text-paper-ivory/90 leading-relaxed">
-                            Spot missing or mismatched conference talks and tutorials, then crawl for alternate watch links and closest neighboring sessions that preserve learning continuity.
-                        </p>
-                    </article>
-                </div>
+                <aside class="lg:col-span-4 border border-terracotta-border/35 bg-charcoal-bark/35 p-6 rounded-sm">
+                    <p class="section-kicker">Field Notes</p>
+                    <ul class="mt-4 space-y-3 text-sm text-paper-ivory/88 leading-relaxed">
+                        <li><span class="text-soft-ember">Current lens:</span> Persistence, statefulness, and context continuity.</li>
+                        <li><span class="text-soft-ember">Publishing mode:</span> Each use case is presented as an editorial brief.</li>
+                        <li><span class="text-soft-ember">Target tone:</span> Precise, calm, and operationally clear.</li>
+                    </ul>
+                </aside>
             </div>
         </section>
 
-        <section id="challenges" class="scroll-mt-28 py-20 px-6 bg-charcoal-bark">
-            <div class="max-w-6xl mx-auto">
-                <h2 class="text-4xl font-bold mb-8 text-center text-paper-ivory">Challenges at Scale</h2>
-                <p class="text-center text-terracotta-border text-xl mb-12">
-                    Persistence. Statefulness. Context.
-                </p>
-                <p class="max-w-4xl mx-auto text-paper-ivory/90 text-lg leading-relaxed text-center">
-                    As agent systems grow, short sessions become long-running workflows. Memory must survive retries, context must stay coherent across tools, and state must remain safe under parallel execution. These are not UI problems — they are systems architecture problems.
-                </p>
-            </div>
-        </section>
-
-        <section id="bottlenecks" class="scroll-mt-28 py-20 px-6 bg-rust-charcoal text-paper-ivory">
-            <div class="max-w-6xl mx-auto">
-                <h2 class="text-4xl font-bold mb-4 text-center text-paper-ivory">The Bottlenecks</h2>
-                <p class="text-center text-terracotta-border mb-14 text-lg">
-                    Where production-grade context-aware agent systems usually break first.
+        <section id="use-cases" class="scroll-mt-44 py-20 px-6 bg-charcoal-bark">
+            <div class="max-w-7xl mx-auto">
+                <p class="section-kicker">Section 01</p>
+                <div class="editorial-rule"></div>
+                <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-4 text-paper-ivory">Top Use Cases</h2>
+                <p class="font-editorial text-lg md:text-xl text-paper-ivory/88 mb-14 max-w-4xl leading-relaxed">
+                    Phase 1 starts with practical RFP-style builds. Each concept is scoped for fast validation and clear outcomes.
                 </p>
 
                 <div class="grid md:grid-cols-3 gap-6">
-                    <article class="bg-charcoal-bark/70 border border-deep-rust rounded-xl p-8 hover:border-soft-ember hover:shadow-fire-glow transition-all">
-                        <h3 class="text-2xl font-semibold mb-4 text-soft-ember">Knowledge Tooling</h3>
+                    <article class="use-case-card bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all hover:border-soft-ember/80 hover:shadow-fire-glow">
+                        <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">RFP 01</p>
+                        <h3 class="font-display text-3xl mb-4 text-soft-ember">Underminer</h3>
+                        <p class="font-editorial text-lg text-paper-ivory/90 leading-relaxed mb-5">
+                            Extract semantic understanding from paywalled reporting and reconstruct the story from alternate sources plus LLM context-tracing experiments.
+                        </p>
+                        <p class="text-sm text-terracotta-border">Outcome: evidence-linked narrative reconstruction with source traceability.</p>
+                    </article>
+
+                    <article class="use-case-card bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all hover:border-soft-ember/80 hover:shadow-fire-glow">
+                        <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">RFP 02</p>
+                        <h3 class="font-display text-3xl mb-4 text-soft-ember">X-Poser</h3>
+                        <p class="font-editorial text-lg text-paper-ivory/90 leading-relaxed mb-5">
+                            Submit an X link, run claim checks, and generate a report that marks the post as true, uncertain, or fabricated, with export-ready output for sharing on X.
+                        </p>
+                        <p class="text-sm text-terracotta-border">Outcome: compact fact-check report with evidence confidence notes.</p>
+                    </article>
+
+                    <article class="use-case-card bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all hover:border-soft-ember/80 hover:shadow-fire-glow">
+                        <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">RFP 03</p>
+                        <h3 class="font-display text-3xl mb-4 text-soft-ember">Precongnition</h3>
+                        <p class="font-editorial text-lg text-paper-ivory/90 leading-relaxed mb-5">
+                            Detect missing or mismatched conference talks, tutorials, or demos, then crawl for alternate watch links and nearest neighboring sessions.
+                        </p>
+                        <p class="text-sm text-terracotta-border">Outcome: continuity-preserving discovery graph for learning resources.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="challenges" class="scroll-mt-44 py-20 px-6 bg-charcoal-bark border-t border-deep-rust/60">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-10">
+                <div class="lg:col-span-4">
+                    <p class="section-kicker">Section 02</p>
+                    <div class="editorial-rule"></div>
+                    <h2 class="font-display text-4xl md:text-5xl tracking-tight text-paper-ivory">Challenges at Scale</h2>
+                </div>
+                <div class="lg:col-span-8">
+                    <p class="font-editorial text-4xl md:text-5xl leading-tight text-paper-ivory mb-6">
+                        Persistence. Statefulness. Context.
+                    </p>
+                    <p class="font-editorial text-xl text-paper-ivory/88 leading-relaxed max-w-4xl">
+                        As agent systems expand, short sessions turn into long-running workflows. Memory must survive retries, context must remain coherent across tools, and state transitions must stay safe under parallel execution.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="bottlenecks" class="scroll-mt-44 py-20 px-6 bg-rust-charcoal text-paper-ivory border-t border-deep-rust/70">
+            <div class="max-w-7xl mx-auto">
+                <p class="section-kicker">Section 03</p>
+                <div class="editorial-rule"></div>
+                <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-4 text-paper-ivory">The Bottlenecks</h2>
+                <p class="font-editorial text-lg md:text-xl text-paper-ivory/88 mb-14 max-w-4xl leading-relaxed">
+                    These are the points where production-grade context systems fail first.
+                </p>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <article class="bg-charcoal-bark/55 border-l-2 border-soft-ember border-y border-r border-deep-rust/70 rounded-sm p-7">
+                        <h3 class="font-display text-2xl mb-4 text-soft-ember">Knowledge Tooling</h3>
                         <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
-                            <li>Most tooling is prompt-first and session-bound, not memory-lifecycle aware.</li>
-                            <li>Retrieval, evaluation, and state mutation are often disconnected pipelines.</li>
-                            <li>Observability is weak: teams cannot reliably trace why an agent “remembered” or “forgot” something.</li>
-                            <li>Tooling must evolve from assistants for humans into control planes for autonomous operators.</li>
+                            <li>Most tooling is prompt-first and session-bound.</li>
+                            <li>Retrieval, evaluation, and state mutation are often disconnected.</li>
+                            <li>Observability is weak when teams need memory audits.</li>
+                            <li>Tooling must function as a control plane for autonomous operators.</li>
                         </ul>
                     </article>
 
-                    <article class="bg-charcoal-bark/70 border border-deep-rust rounded-xl p-8 hover:border-soft-ember hover:shadow-fire-glow transition-all">
-                        <h3 class="text-2xl font-semibold mb-4 text-soft-ember">Knowledge Bases</h3>
+                    <article class="bg-charcoal-bark/55 border-l-2 border-soft-ember border-y border-r border-deep-rust/70 rounded-sm p-7">
+                        <h3 class="font-display text-2xl mb-4 text-soft-ember">Knowledge Bases</h3>
                         <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
-                            <li>Databases are usually designed for human operators and admins.</li>
-                            <li>They commonly assume broad superadmin/superuser privileges for maintenance actions.</li>
-                            <li>Agentic operators need constrained, policy-scoped data permissions by default.</li>
-                            <li>A new database layer is needed for machine-managed knowledge operations, not just human-managed ones.</li>
+                            <li>Most databases are designed for human admins first.</li>
+                            <li>Maintenance often assumes broad privileged access.</li>
+                            <li>Agentic operators need policy-scoped permissions by default.</li>
+                            <li>Machine-managed knowledge ops need purpose-built data layers.</li>
                         </ul>
                     </article>
 
-                    <article class="bg-charcoal-bark/70 border border-deep-rust rounded-xl p-8 hover:border-soft-ember hover:shadow-fire-glow transition-all">
-                        <h3 class="text-2xl font-semibold mb-4 text-soft-ember">Knowledge Agents</h3>
+                    <article class="bg-charcoal-bark/55 border-l-2 border-soft-ember border-y border-r border-deep-rust/70 rounded-sm p-7">
+                        <h3 class="font-display text-2xl mb-4 text-soft-ember">Knowledge Agents</h3>
                         <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
-                            <li>Most agents lose continuity across handoffs, channels, or long-duration workflows.</li>
-                            <li>State transitions are often implicit, making recovery and auditability difficult.</li>
-                            <li>Memory updates frequently lack governance, versioning, and rollback safety.</li>
-                            <li>Production agents need explicit state models, durable memory boundaries, and recovery semantics.</li>
+                            <li>Continuity fails across handoffs and long workflows.</li>
+                            <li>State changes are often implicit and hard to recover.</li>
+                            <li>Memory updates lack governance and rollback controls.</li>
+                            <li>Production agents require explicit state and recovery semantics.</li>
                         </ul>
                     </article>
                 </div>
             </div>
         </section>
 
-        <section id="roadmap" class="scroll-mt-28 py-20 px-6 bg-charcoal-bark">
-            <div class="max-w-6xl mx-auto">
-                <h2 class="text-4xl font-bold mb-4 text-center text-paper-ivory">Delivery Roadmap</h2>
-                <p class="text-center text-terracotta-border mb-14 text-lg">
-                    The rollout starts with lightweight RFP projects, then transitions into governed link collection systems.
+        <section id="roadmap" class="scroll-mt-44 py-20 px-6 bg-charcoal-bark border-t border-deep-rust/60">
+            <div class="max-w-7xl mx-auto">
+                <p class="section-kicker">Section 04</p>
+                <div class="editorial-rule"></div>
+                <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-4 text-paper-ivory">Delivery Roadmap</h2>
+                <p class="font-editorial text-lg md:text-xl text-paper-ivory/88 mb-14 max-w-4xl leading-relaxed">
+                    The rollout starts with lightweight RFP projects, then moves into governed link-collection systems for proprietary dataset growth.
                 </p>
+
                 <div class="grid md:grid-cols-2 gap-6">
-                    <article class="bg-charcoal-bark/70 border border-deep-rust rounded-xl p-8 hover:border-soft-ember hover:shadow-fire-glow transition-all">
-                        <h3 class="text-2xl font-semibold mb-4 text-soft-ember">Phase 1 · RFP Projects</h3>
+                    <article class="bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7">
+                        <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">Phase 1</p>
+                        <h3 class="font-display text-3xl mb-4 text-soft-ember">RFP Projects</h3>
                         <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
                             <li>Ship simple, testable prototypes with clear outcomes.</li>
-                            <li>Validate retrieval quality, context tracking, and report usability.</li>
-                            <li>Use these projects to define stable agent contracts and data boundaries.</li>
+                            <li>Validate retrieval quality, context tracking, and report utility.</li>
+                            <li>Define stable agent contracts and data boundaries.</li>
                         </ul>
                     </article>
-                    <article class="bg-charcoal-bark/70 border border-deep-rust rounded-xl p-8 hover:border-soft-ember hover:shadow-fire-glow transition-all">
-                        <h3 class="text-2xl font-semibold mb-4 text-soft-ember">Phase 2 · Link Collection Systems</h3>
+
+                    <article class="bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7">
+                        <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">Phase 2</p>
+                        <h3 class="font-display text-3xl mb-4 text-soft-ember">Link Collection Systems</h3>
                         <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
-                            <li>Deploy selected use cases as link collectors with policy-scoped crawling.</li>
-                            <li>Grow proprietary datasets for retrieval, verification, and memory loops.</li>
-                            <li>Apply GDPR-first controls through Terms and Privacy policy enforcement.</li>
+                            <li>Deploy selected use cases as policy-scoped link collectors.</li>
+                            <li>Grow proprietary datasets for retrieval and verification loops.</li>
+                            <li>Apply GDPR-focused controls through Terms and Privacy policies.</li>
                         </ul>
                     </article>
                 </div>
