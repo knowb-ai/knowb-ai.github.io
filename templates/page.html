@@ -7,7 +7,7 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -16,24 +16,85 @@
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
                         display: ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif'],
+                        arcade: ['Press Start 2P', 'Space Grotesk', 'sans-serif'],
                     },
                     colors: {
                         'autumn-fire': '#FF4A1A',
                         'deep-rust': '#8E2F2A',
                         'soft-ember': '#F59A52',
                         'paper-ivory': '#FCF6F3',
-                        'obsidian-brown': '#7A2217',
-                        'charcoal-bark': '#7A2217',
+                        'saber-blue': '#86E8FF',
+                        'obsidian-brown': '#161211',
+                        'charcoal-bark': '#1D1514',
+                        'maroon-core': '#3B1E1D',
+                        'rust-magenta': '#6E2D34',
+                        'muted-wood': '#867268',
                         'terracotta-border': '#E9C2B3',
                     },
                     backgroundImage: {
-                        'knowb-autumn-core': 'linear-gradient(135deg, #FF4A1A 0%, #FF4A1A 24%, #8E2F2A 56%, #7A2217 100%)',
+                        'fire-rust': 'linear-gradient(132deg, #FF4A1A 0%, #8E2F2A 36%, #1D1514 74%, #86E8FF 100%)',
+                        'rust-charcoal': 'linear-gradient(180deg, #2A1B1A 0%, #1D1514 62%, #14100F 100%)',
+                        'ember-fire': 'linear-gradient(145deg, #F59A52 0%, #FF4A1A 60%, #86E8FF 100%)',
+                        'ember-glow': 'linear-gradient(135deg, rgba(255,74,26,0.82) 0%, rgba(142,47,42,0.74) 44%, rgba(134,232,255,0.86) 100%)',
+                        'ivory-rust-edge': 'linear-gradient(90deg, #FCF6F3 0%, #8E2F2A 8%, #86E8FF 16%, #FCF6F3 100%)',
+                        'knowb-autumn-core': 'linear-gradient(132deg, #FF4A1A 0%, #8E2F2A 36%, #1D1514 74%, #86E8FF 100%)',
+                        'knowb-autumn-vertical': 'linear-gradient(180deg, #8E2F2A 0%, #1D1514 52%, #86E8FF 100%)',
                     },
+                    boxShadow: {
+                        'ember-glow': '0 0 30px rgba(134,232,255,0.30)',
+                        'fire-glow': '0 0 25px rgba(255,74,26,0.22)',
+                    }
                 }
             }
         }
     </script>
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .arcade-nav-link {
+            font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+            font-size: 0.58rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            line-height: 1.8;
+            position: relative;
+            text-shadow: 0 0 6px rgba(252,246,243,0.10);
+        }
+        .arcade-nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -0.32rem;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(245,154,82,0) 0%, rgba(245,154,82,0.9) 40%, rgba(134,232,255,0.9) 60%, rgba(134,232,255,0) 100%);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .arcade-nav-link:hover::after,
+        .arcade-nav-link:focus-visible::after {
+            opacity: 1;
+        }
+        .arcade-nav-link:hover,
+        .arcade-nav-link:focus-visible {
+            text-shadow: 0 0 10px rgba(134,232,255,0.28), 0 0 8px rgba(245,154,82,0.24);
+        }
+        .section-kicker {
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            color: #86E8FF;
+            text-shadow: 0 0 12px rgba(134,232,255,0.22);
+        }
+        .section-kicker-ember {
+            color: #F59A52;
+            text-shadow: 0 0 12px rgba(245,154,82,0.24);
+        }
+        .section-kicker-saber {
+            color: #86E8FF;
+            text-shadow: 0 0 12px rgba(134,232,255,0.24);
+        }
         .policy-content h1 {
             font-family: 'Space Grotesk', 'Inter', sans-serif;
             font-size: clamp(2rem, 5vw, 2.8rem);
@@ -48,7 +109,7 @@
             line-height: 1.25;
             margin-top: 2.1rem;
             margin-bottom: 0.8rem;
-            color: #F59A52;
+            color: #86E8FF;
         }
         .policy-content h3 {
             font-family: 'Space Grotesk', 'Inter', sans-serif;
@@ -78,7 +139,7 @@
             list-style: decimal;
         }
         .policy-content a {
-            color: #F59A52;
+            color: #86E8FF;
             text-decoration: underline;
             text-decoration-thickness: 1px;
             text-underline-offset: 0.18em;
@@ -90,29 +151,78 @@
             color: #FCF6F3;
             font-weight: 600;
         }
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
     </style>
 </head>
-<body class="min-h-screen font-sans bg-charcoal-bark text-paper-ivory">
-    <header class="sticky top-0 z-40 bg-charcoal-bark/95 backdrop-blur-md border-b border-terracotta-border/25">
-        <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
-            <a href="/" class="font-display text-2xl tracking-tight text-paper-ivory">knowb.run</a>
-            <nav aria-label="Policy navigation" class="flex items-center gap-4 text-sm">
-                <a href="/terms/" class="text-paper-ivory/85 hover:text-soft-ember transition-colors">Terms</a>
-                <a href="/privacy/" class="text-paper-ivory/85 hover:text-soft-ember transition-colors">Privacy</a>
-            </nav>
-        </div>
+<body class="min-h-screen font-sans bg-obsidian-brown text-paper-ivory">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-soft-ember focus:text-charcoal-bark focus:rounded-md focus:font-semibold">
+        Skip to main content
+    </a>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-charcoal-bark/95 backdrop-blur-md border-b border-saber-blue/30">
+        <nav aria-label="Primary" class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <a href="/" class="text-2xl font-display font-semibold tracking-tight text-paper-ivory">knowb.run</a>
+            <div class="flex flex-wrap gap-x-5 gap-y-2">
+                <a href="/" class="arcade-nav-link text-paper-ivory/90 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Home</a>
+                <a href="/#challenges" class="arcade-nav-link text-paper-ivory/90 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Challenges</a>
+                <a href="/#use-cases" class="arcade-nav-link text-paper-ivory/90 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Use Cases</a>
+                <a href="/#contact" class="arcade-nav-link text-paper-ivory/90 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Contact</a>
+            </div>
+        </nav>
     </header>
 
-    <main class="px-6 py-10 md:py-14">
-        <section class="max-w-5xl mx-auto rounded-2xl border border-terracotta-border/30 bg-knowb-autumn-core shadow-[0_24px_55px_rgba(0,0,0,0.35)]">
-            <div class="px-7 py-8 md:px-10 md:py-10 border-b border-terracotta-border/25">
-                <p class="text-xs uppercase tracking-[0.14em] text-soft-ember">KnowB Policy Surface</p>
-                <h1 class="font-display text-3xl md:text-4xl tracking-tight mt-2 text-paper-ivory">{{ page.title }}</h1>
+    <main id="main-content" class="pt-32 px-6 pb-16 bg-charcoal-bark">
+        <section class="max-w-5xl mx-auto">
+            <div class="mb-8">
+                <p class="section-kicker section-kicker-saber font-arcade text-[0.62rem] mb-3">KnowB Policy Surface</p>
+                <h1 class="font-display text-3xl md:text-4xl tracking-tight text-paper-ivory">{{ page.title }}</h1>
             </div>
-            <article class="policy-content px-7 py-8 md:px-10 md:py-10">
+            <article class="policy-content">
                 {{ page.content | safe }}
             </article>
         </section>
     </main>
+
+    <footer class="scroll-mt-28 px-6 pt-14 pb-10 bg-charcoal-bark text-paper-ivory">
+        <div class="max-w-7xl mx-auto rounded-[1.35rem] border border-terracotta-border/45 border-t-terracotta-border/80 bg-charcoal-bark/95 shadow-[0_-1px_0_rgba(233,194,179,0.26),0_22px_50px_rgba(0,0,0,0.38)]">
+            <div class="px-8 md:px-10 pt-12 pb-8">
+                <div class="grid gap-10 md:grid-cols-[minmax(0,1fr)_auto] md:items-start">
+                    <div class="max-w-md lg:pr-4">
+                        <a href="/" class="text-3xl font-display font-semibold tracking-tight mb-3 block text-paper-ivory hover:text-paper-ivory">knowb.run</a>
+                        <p class="text-paper-ivory/75 text-xs leading-relaxed">
+                            KnowB AI Systems builds practical knowledge-agent systems that improve context continuity, operational trust, and long-run memory quality.
+                        </p>
+                    </div>
+
+                    <nav aria-label="Footer navigation" class="md:justify-self-end">
+                        <ul class="space-y-2 md:text-right text-sm">
+                            <li class="text-paper-ivory/70 text-[0.64rem] font-semibold uppercase tracking-[0.12em]">Navigation</li>
+                            <li><a href="/" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Home</a></li>
+                            <li><a href="/#challenges" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Challenges</a></li>
+                            <li><a href="/#use-cases" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Use Cases</a></li>
+                            <li><a href="/#contact" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="mt-10 pt-6 border-t border-terracotta-border/20 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm">
+                    <ul class="flex flex-wrap gap-x-5 gap-y-2">
+                        <li><a href="/terms/" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Terms</a></li>
+                        <li><a href="/privacy/" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Privacy</a></li>
+                    </ul>
+                    <span class="text-paper-ivory/85">© 2026 knowb.run</span>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
