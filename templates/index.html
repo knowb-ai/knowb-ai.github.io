@@ -7,7 +7,7 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -16,7 +16,7 @@
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
                         display: ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif'],
-                        editorial: ['Source Serif 4', 'Georgia', 'serif'],
+                        arcade: ['Press Start 2P', 'Space Grotesk', 'sans-serif'],
                     },
                     colors: {
                         'autumn-fire': '#E14719',
@@ -54,19 +54,41 @@
             font-size: 0.72rem;
             color: #F7AD6A;
         }
-        .editorial-rule {
+        .section-rule {
             height: 1px;
             margin: 0.85rem 0 1.25rem;
             background: linear-gradient(90deg, #E14719 0%, #8C2F14 35%, rgba(252,246,243,0.12) 100%);
         }
-        .lede::first-letter {
-            float: left;
-            font-family: 'Source Serif 4', Georgia, serif;
-            font-size: 3.2rem;
-            font-weight: 600;
-            line-height: 0.85;
-            margin-right: 0.45rem;
-            color: #F7AD6A;
+        .arcade-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #F7AD6A;
+            background: #F7AD6A;
+            color: #2D140B;
+            border-radius: 0.15rem;
+            padding: 0.72rem 1rem;
+            font-size: 0.66rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+            line-height: 1.6;
+            text-decoration: none;
+            box-shadow: 0 0 0 1px rgba(247,173,106,0.45);
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+        .arcade-button:hover {
+            background: #FCF6F3;
+            border-color: #FCF6F3;
+            color: #2D140B;
+            transform: translateY(-1px);
+        }
+        .arcade-button:active {
+            transform: translateY(0);
+        }
+        .arcade-button:focus-visible {
+            outline: 2px solid #F7AD6A;
+            outline-offset: 2px;
         }
         .use-case-card {
             position: relative;
@@ -80,12 +102,6 @@
             right: 0;
             height: 2px;
             background: linear-gradient(90deg, #E14719 0%, #F7AD6A 100%);
-        }
-        @media (max-width: 768px) {
-            .lede::first-letter {
-                font-size: 2.5rem;
-                margin-right: 0.35rem;
-            }
         }
         @media (prefers-reduced-motion: reduce) {
             html {
@@ -104,53 +120,39 @@
         Skip to main content
     </a>
 
-    <header class="fixed top-0 left-0 right-0 z-50 bg-charcoal-bark/95 backdrop-blur-md border-b border-terracotta-border/25">
-        <div class="border-b border-deep-rust/60">
-            <div class="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between text-[11px] uppercase tracking-[0.16em] text-terracotta-border">
-                <span>Issue 01</span>
-                <span>Context Systems Editorial</span>
-            </div>
-        </div>
+    <header class="fixed top-0 left-0 right-0 z-50 bg-charcoal-bark/96 backdrop-blur-md border-b border-terracotta-border/30">
         <nav aria-label="Primary" class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div class="text-2xl font-display font-semibold tracking-tight text-paper-ivory">knowb.run</div>
-            <div class="flex flex-wrap gap-x-5 gap-y-2 text-xs uppercase tracking-[0.14em] font-medium">
+            <div class="flex flex-wrap gap-x-5 gap-y-2 font-arcade text-[0.58rem] uppercase tracking-[0.08em] leading-[1.8]">
                 <a href="#home" class="text-paper-ivory/90 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Home</a>
                 <a href="#challenges" class="text-paper-ivory/90 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Challenges</a>
-                <a href="#bottlenecks" class="text-paper-ivory/90 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Bottlenecks</a>
+                <a href="#use-cases" class="text-paper-ivory/90 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Use Cases</a>
                 <a href="#contact" class="text-paper-ivory/90 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Contact</a>
             </div>
         </nav>
     </header>
 
-    <main id="main-content" class="pt-44">
+    <main id="main-content" class="pt-32">
         <section id="home" class="scroll-mt-44 py-20 px-6 bg-knowb-autumn-core text-paper-ivory border-b border-deep-rust/70">
-            <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-10 items-end">
-                <div class="lg:col-span-8">
-                    <p class="section-kicker mb-5">Editorial Dossier · Issue 01</p>
-                    <h1 class="font-editorial text-5xl md:text-7xl leading-[1.03] tracking-tight mb-7">
-                        Building context-aware agents with better knowledge and memory capabilities
+            <div class="max-w-7xl mx-auto">
+                <div class="max-w-5xl">
+                    <p class="section-kicker font-arcade mb-5 text-[0.62rem]">Front Deck</p>
+                    <h1 class="font-display text-5xl md:text-7xl leading-[1.03] tracking-tight mb-7">
+                        Context agents with arcade energy and mission-control discipline
                     </h1>
-                    <p class="lede font-editorial text-xl md:text-2xl text-paper-ivory/92 mb-10 max-w-4xl leading-relaxed">
-                        We design context-aware agent systems with durable memory, reliable state handling, and governance-first execution.
-                        This page tracks active ideas in a publication-style format so each concept reads like an editorial feature, not a product card.
+                    <p class="font-sans text-xl md:text-2xl text-paper-ivory/92 mb-10 max-w-4xl leading-relaxed">
+                        We build context-aware systems with durable memory, stable state transitions, and governance-first operation.
+                        The front-facing experience stays playful and readable, while the systems layer feels like a space-race control deck.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#use-cases" class="px-8 py-3 bg-deep-rust text-paper-ivory border border-soft-ember rounded-sm font-semibold hover:bg-charcoal-bark transition-all shadow-fire-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark">
-                            View Top Use Cases
+                        <a href="#use-cases" class="arcade-button">
+                            Explore Use Cases
                         </a>
-                        <a href="#roadmap" class="px-8 py-3 border border-paper-ivory text-paper-ivory rounded-sm font-semibold hover:bg-paper-ivory hover:text-charcoal-bark transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark">
-                            Review Delivery Roadmap
+                        <a href="#roadmap" class="arcade-button">
+                            View Delivery Roadmap
                         </a>
                     </div>
                 </div>
-                <aside class="lg:col-span-4 border border-terracotta-border/35 bg-charcoal-bark/35 p-6 rounded-sm">
-                    <p class="section-kicker">Field Notes</p>
-                    <ul class="mt-4 space-y-3 text-sm text-paper-ivory/88 leading-relaxed">
-                        <li><span class="text-soft-ember">Current lens:</span> Persistence, statefulness, and context continuity.</li>
-                        <li><span class="text-soft-ember">Publishing mode:</span> Each use case is presented as an editorial brief.</li>
-                        <li><span class="text-soft-ember">Target tone:</span> Precise, calm, and operationally clear.</li>
-                    </ul>
-                </aside>
             </div>
         </section>
 
@@ -158,16 +160,16 @@
         <section id="challenges" class="scroll-mt-44 py-20 px-6 bg-charcoal-bark border-t border-deep-rust/60">
             <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-10">
                 <div class="lg:col-span-4">
-                    <p class="section-kicker">Section 01</p>
-                    <div class="editorial-rule"></div>
+                    <p class="section-kicker font-arcade text-[0.62rem]">System Pressure</p>
+                    <div class="section-rule"></div>
                     <h2 class="font-display text-4xl md:text-5xl tracking-tight text-paper-ivory">Challenges at Scale</h2>
                 </div>
                 <div class="lg:col-span-8">
-                    <p class="font-editorial text-4xl md:text-5xl leading-tight text-paper-ivory mb-6">
+                    <p class="font-display text-4xl md:text-5xl leading-tight text-paper-ivory mb-6">
                         Persistence. Statefulness. Context.
                     </p>
-                    <p class="font-editorial text-xl text-paper-ivory/88 leading-relaxed max-w-4xl">
-                        As agent systems expand, short sessions turn into long-running workflows. Memory must survive retries, context must remain coherent across tools, and state transitions must stay safe under parallel execution.
+                    <p class="font-sans text-xl text-paper-ivory/88 leading-relaxed max-w-4xl">
+                        As systems expand, short sessions become long-running loops. Memory must survive retries, context must stay coherent across tools, and state transitions must remain safe under parallel execution.
                     </p>
                 </div>
             </div>
@@ -175,11 +177,11 @@
 
         <section id="bottlenecks" class="scroll-mt-44 py-20 px-6 bg-rust-charcoal text-paper-ivory border-t border-deep-rust/70">
             <div class="max-w-7xl mx-auto">
-                <p class="section-kicker">Section 02</p>
-                <div class="editorial-rule"></div>
+                <p class="section-kicker font-arcade text-[0.62rem]">Failure Points</p>
+                <div class="section-rule"></div>
                 <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-4 text-paper-ivory">The Bottlenecks</h2>
-                <p class="font-editorial text-lg md:text-xl text-paper-ivory/88 mb-14 max-w-4xl leading-relaxed">
-                    These are the points where production-grade context systems fail first.
+                <p class="font-sans text-lg md:text-xl text-paper-ivory/88 mb-14 max-w-4xl leading-relaxed">
+                    These are the zones where production context systems usually break first.
                 </p>
 
                 <div class="grid md:grid-cols-3 gap-6">
@@ -217,18 +219,18 @@
         </section>
         <section id="use-cases" class="scroll-mt-44 py-20 px-6 bg-charcoal-bark border-t border-deep-rust/60">
             <div class="max-w-7xl mx-auto">
-                <p class="section-kicker">Section 03</p>
-                <div class="editorial-rule"></div>
+                <p class="section-kicker font-arcade text-[0.62rem]">Playable Builds</p>
+                <div class="section-rule"></div>
                 <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-4 text-paper-ivory">Top Use Cases</h2>
-                <p class="font-editorial text-lg md:text-xl text-paper-ivory/88 mb-14 max-w-4xl leading-relaxed">
-                    These RFP concepts sit directly under the bottlenecks they solve. Interested parties can contact us at <a href="mailto:ping@knowb.run" class="underline decoration-soft-ember underline-offset-4 hover:text-soft-ember">ping@knowb.run</a>.
+                <p class="font-sans text-lg md:text-xl text-paper-ivory/88 mb-14 max-w-4xl leading-relaxed">
+                    These RFP concepts map directly to the bottlenecks above, and they are scoped for fast, low-energy pilot delivery. Interested parties can contact us at <a href="mailto:ping@knowb.run" class="underline decoration-soft-ember underline-offset-4 hover:text-soft-ember">ping@knowb.run</a>.
                 </p>
 
                 <div class="grid md:grid-cols-3 gap-6">
                     <article class="use-case-card bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all hover:border-soft-ember/80 hover:shadow-fire-glow">
                         <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">RFP 01</p>
                         <h3 class="font-display text-3xl mb-4 text-soft-ember">Underminer</h3>
-                        <p class="font-editorial text-lg text-paper-ivory/90 leading-relaxed mb-5">
+                        <p class="font-sans text-lg text-paper-ivory/90 leading-relaxed mb-5">
                             Extract semantic understanding from paywalled reporting and reconstruct the story from alternate sources plus LLM context-tracing experiments.
                         </p>
                         <p class="text-sm text-terracotta-border mb-2">Outcome: evidence-linked narrative reconstruction with source traceability.</p>
@@ -238,7 +240,7 @@
                     <article class="use-case-card bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all hover:border-soft-ember/80 hover:shadow-fire-glow">
                         <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">RFP 02</p>
                         <h3 class="font-display text-3xl mb-4 text-soft-ember">X-Poser</h3>
-                        <p class="font-editorial text-lg text-paper-ivory/90 leading-relaxed mb-5">
+                        <p class="font-sans text-lg text-paper-ivory/90 leading-relaxed mb-5">
                             Submit an X link, run claim checks, and generate a report that marks the post as true, uncertain, or fabricated, with export-ready output for sharing on X.
                         </p>
                         <p class="text-sm text-terracotta-border mb-2">Outcome: compact fact-check report with evidence confidence notes.</p>
@@ -248,7 +250,7 @@
                     <article class="use-case-card bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all hover:border-soft-ember/80 hover:shadow-fire-glow">
                         <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">RFP 03</p>
                         <h3 class="font-display text-3xl mb-4 text-soft-ember">Precongnition</h3>
-                        <p class="font-editorial text-lg text-paper-ivory/90 leading-relaxed mb-5">
+                        <p class="font-sans text-lg text-paper-ivory/90 leading-relaxed mb-5">
                             Detect missing or mismatched conference talks, tutorials, or demos, then crawl for alternate watch links and nearest neighboring sessions.
                         </p>
                         <p class="text-sm text-terracotta-border mb-2">Outcome: continuity-preserving discovery graph for learning resources.</p>
@@ -258,13 +260,12 @@
             </div>
         </section>
 
-        <section id="roadmap" class="scroll-mt-44 py-20 px-6 bg-charcoal-bark border-t border-deep-rust/60">
+        <section id="roadmap" class="scroll-mt-44 py-20 px-6 bg-charcoal-bark">
             <div class="max-w-7xl mx-auto">
-                <p class="section-kicker">Section 04</p>
-                <div class="editorial-rule"></div>
+                <p class="section-kicker font-arcade text-[0.62rem]">Launch Plan</p>
                 <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-4 text-paper-ivory">Delivery Roadmap</h2>
-                <p class="font-editorial text-lg md:text-xl text-paper-ivory/88 mb-14 max-w-4xl leading-relaxed">
-                    The rollout starts with lightweight RFP projects, then moves into governed link-collection systems for proprietary dataset growth.
+                <p class="font-sans text-lg md:text-xl text-paper-ivory/88 mb-14 max-w-4xl leading-relaxed">
+                    The rollout starts with lightweight RFP pilots, then moves into governed link-collection systems for proprietary dataset growth and efficient long-run operation.
                 </p>
 
                 <div class="grid md:grid-cols-2 gap-6">
@@ -303,12 +304,12 @@
                     </p>
                 </div>
 
-                <ul class="space-y-3 text-sm">
-                    <li class="text-paper-ivory font-semibold uppercase tracking-wide text-xs">Navigation</li>
+                <ul class="space-y-3 font-arcade text-[0.58rem] leading-[1.8]">
+                    <li class="text-paper-ivory uppercase tracking-[0.08em]">Navigation</li>
                     <li><a href="#home" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Home</a></li>
                     <li><a href="#challenges" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Challenges</a></li>
-                    <li><a href="#bottlenecks" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Bottlenecks</a></li>
                     <li><a href="#use-cases" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Use Cases</a></li>
+                    <li><a href="#contact" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Contact</a></li>
                 </ul>
             </div>
 
