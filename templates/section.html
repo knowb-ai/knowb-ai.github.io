@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ section.title }} — knowb.run</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-</head>
-<body>
-    {{ section.content | safe }}
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}{{ section.title }} — knowb.run{% endblock title %}
+
+{% block content %}
+    <main id="main-content">
+        {{ section.content | safe }}
+    </main>
+{% endblock content %}

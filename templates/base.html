@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}knowb.run{% endblock title %}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif'],
+                        arcade: ['Press Start 2P', 'Space Grotesk', 'sans-serif'],
+                        wordmark: ['Audiowide', 'Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        'autumn-fire': '#FF4A1A',
+                        'deep-rust': '#8E2F2A',
+                        'soft-ember': '#F59A52',
+                        'paper-ivory': '#FCF6F3',
+                        'saber-blue': '#86E8FF',
+                        'obsidian-brown': '#161211',
+                        'charcoal-bark': '#1D1514',
+                        'maroon-core': '#3B1E1D',
+                        'rust-magenta': '#6E2D34',
+                        'muted-wood': '#867268',
+                        'terracotta-border': '#E9C2B3',
+                    },
+                    backgroundImage: {
+                        'fire-rust': 'linear-gradient(132deg, #FF4A1A 0%, #8E2F2A 36%, #1D1514 74%, #86E8FF 100%)',
+                        'rust-charcoal': 'linear-gradient(180deg, #2A1B1A 0%, #1D1514 62%, #14100F 100%)',
+                        'ember-fire': 'linear-gradient(145deg, #F59A52 0%, #FF4A1A 60%, #86E8FF 100%)',
+                        'ember-glow': 'linear-gradient(135deg, rgba(255,74,26,0.82) 0%, rgba(142,47,42,0.74) 44%, rgba(134,232,255,0.86) 100%)',
+                        'ivory-rust-edge': 'linear-gradient(90deg, #FCF6F3 0%, #8E2F2A 8%, #86E8FF 16%, #FCF6F3 100%)',
+                        'knowb-autumn-core': 'linear-gradient(132deg, #FF4A1A 0%, #8E2F2A 34%, #1D1514 72%, #86E8FF 100%)',
+                        'knowb-autumn-vertical': 'linear-gradient(180deg, #8E2F2A 0%, #1D1514 52%, #86E8FF 100%)',
+                    },
+                    boxShadow: {
+                        'ember-glow': '0 0 30px rgba(134,232,255,0.30)',
+                        'fire-glow': '0 0 25px rgba(255,74,26,0.22)',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="/css/global.css">
+    {% block head_extra %}{% endblock head_extra %}
+</head>
+<body class="min-h-screen font-sans bg-obsidian-brown text-paper-ivory">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-soft-ember focus:text-charcoal-bark focus:rounded-md focus:font-semibold">
+        Skip to main content
+    </a>
+
+    {% block header %}{% endblock header %}
+
+    {% block content %}{% endblock content %}
+
+    {% block footer %}{% endblock footer %}
+</body>
+</html>
