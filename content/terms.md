@@ -47,4 +47,4 @@ You agree not to:
 To the maximum extent permitted by law, the site and related outputs are provided on an "as is" basis without warranties of uninterrupted availability or fitness for a specific purpose.
 
 ## 9. Contact
-For legal or policy questions, contact: hello@knowb.run
+For legal or policy questions, contact: ping@knowb.run

@@ -9,7 +9,7 @@ This Privacy Policy describes how KnowB AI Systems processes personal data throu
 
 ## 1. Data Controller
 KnowB AI Systems  
-Contact: hello@knowb.run
+Contact: ping@knowb.run
 
 ## 2. Processing Scope
 We process data for:
@@ -64,7 +64,7 @@ Where applicable, you may request:
 - data portability;
 - withdrawal of consent where consent is the legal basis.
 
-To exercise rights, contact hello@knowb.run.
+To exercise rights, contact ping@knowb.run.
 
 ## 10. Security
 We apply technical and organizational controls designed to protect data against unauthorized access, misuse, alteration, or loss.
