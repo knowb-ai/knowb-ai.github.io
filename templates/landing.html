@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>knowb.run - The Home of Knowledge Agents</title>
+    <title>knowb.run - Context-Aware Agent Systems</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,16 +30,13 @@
                         'rust-charcoal': 'linear-gradient(180deg, #8C2F14 0%, #2D140B 100%)',
                         'ember-fire': 'linear-gradient(145deg, #F7AD6A 0%, #E14719 100%)',
                         'ember-glow': 'linear-gradient(135deg, rgba(247,173,106,0.9) 0%, rgba(247,173,106,0.55) 50%, rgba(141,47,20,0.8) 100%)',
-                        'ivory-ember': 'linear-gradient(135deg, #FCF6F3 0%, #F7AD6A 100%)',
                         'ivory-rust-edge': 'linear-gradient(90deg, #FCF6F3 0%, #8C2F14 6%, #FCF6F3 100%)',
                         'knowb-autumn-core': 'linear-gradient(135deg, #E14719 0%, #8C2F14 40%, #2D140B 100%)',
                         'knowb-autumn-vertical': 'linear-gradient(180deg, #8C2F14 0%, #2D140B 35%, #E14719 100%)',
-                        'memory-fade': 'linear-gradient(120deg, #FCF6F3 0%, #F7AD6A 30%, #8C2F14 70%, #E9C2B3 100%)',
                     },
                     boxShadow: {
                         'ember-glow': '0 0 30px rgba(247,173,106,0.35)',
                         'fire-glow': '0 0 25px rgba(225,71,25,0.25)',
-                        'paper-shadow': '0 0 20px rgba(252,246,243,0.15)',
                     }
                 }
             }
@@ -61,18 +58,21 @@
         }
     </style>
 </head>
-<body class="min-h-screen font-sans bg-paper-ivory text-charcoal-bark">
+<body class="min-h-screen font-sans bg-charcoal-bark text-paper-ivory">
     <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-soft-ember focus:text-charcoal-bark focus:rounded-md focus:font-semibold">
         Skip to main content
     </a>
-    <header class="fixed top-0 left-0 right-0 z-50 bg-paper-ivory/95 backdrop-blur-md border-b border-terracotta-border">
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-charcoal-bark/95 backdrop-blur-md border-b border-deep-rust">
         <nav aria-label="Primary" class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div class="text-xl font-semibold tracking-tight text-charcoal-bark">knowb.run</div>
+            <div class="text-xl font-semibold tracking-tight text-paper-ivory">knowb.run</div>
             <div class="flex gap-6 text-sm font-medium">
-                <a href="#home" class="text-charcoal-bark hover:text-deep-rust transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-rust focus-visible:ring-offset-2 focus-visible:ring-offset-paper-ivory rounded-sm">Home</a>
-                <a href="#what-are" class="text-charcoal-bark hover:text-deep-rust transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-rust focus-visible:ring-offset-2 focus-visible:ring-offset-paper-ivory rounded-sm">What Are Knowledge Agents</a>
-                <a href="#projects" class="text-charcoal-bark hover:text-deep-rust transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-rust focus-visible:ring-offset-2 focus-visible:ring-offset-paper-ivory rounded-sm">Projects</a>
-                <a href="#contact" class="text-charcoal-bark hover:text-deep-rust transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-rust focus-visible:ring-offset-2 focus-visible:ring-offset-paper-ivory rounded-sm">Contact</a>
+                <a href="#home" class="text-paper-ivory hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Home</a>
+                <a href="#challenges" class="text-paper-ivory hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Challenges</a>
+                <a href="#bottlenecks" class="text-paper-ivory hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Bottlenecks</a>
+                <a href="#gallery" class="text-paper-ivory hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Gallery</a>
+                <a href="#companion" class="text-paper-ivory hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Companion</a>
+                <a href="#contact" class="text-paper-ivory hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Contact</a>
             </div>
         </nav>
     </header>
@@ -80,181 +80,174 @@
     <main id="main-content" class="pt-24">
         <section id="home" class="scroll-mt-28 py-20 px-6 bg-knowb-autumn-core text-paper-ivory">
             <div class="max-w-5xl mx-auto text-center">
+                <p class="uppercase tracking-[0.14em] text-soft-ember text-sm mb-5">KnowB AI Systems · Shadow direction</p>
                 <h1 class="text-5xl md:text-6xl font-bold mb-6 tracking-tight text-paper-ivory">
-                    The Home of Knowledge Agents
+                    Building context-aware agents with better knowledge and memory capabilities
                 </h1>
-                <p class="text-lg md:text-xl text-paper-ivory/90 mb-12 max-w-3xl mx-auto leading-relaxed">
-                    Systems that unify foundational AI models, curated expert KnowledgeBases, and real-world context — delivering intelligence that is accurate, adaptive, and purpose-built.
+                <p class="text-lg md:text-xl text-paper-ivory/90 mb-10 max-w-4xl mx-auto leading-relaxed">
+                    KnowB AI Systems operates as a shadow brand and agentic direction, amplifying
+                    <a href="https://openclaw.ai/" target="_blank" rel="noreferrer" class="underline decoration-soft-ember underline-offset-4 hover:text-soft-ember focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">OpenClaw</a>
+                    and
+                    <a href="https://www.knowguardai.com/" target="_blank" rel="noreferrer" class="underline decoration-soft-ember underline-offset-4 hover:text-soft-ember focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">KnowGuard AI</a>,
+                    owning the shadow strategy that supports their journey to building context-aware agents with durable memory, state, and operational reliability.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#what-are" class="px-8 py-3 bg-deep-rust text-paper-ivory border border-soft-ember rounded-lg font-semibold hover:bg-charcoal-bark transition-all shadow-fire-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark">
-                        What Are Knowledge Agents?
+                    <a href="#bottlenecks" class="px-8 py-3 bg-deep-rust text-paper-ivory border border-soft-ember rounded-lg font-semibold hover:bg-charcoal-bark transition-all shadow-fire-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark">
+                        Explore Bottlenecks
                     </a>
-                    <a href="#projects" class="px-8 py-3 border border-paper-ivory text-paper-ivory rounded-lg font-semibold hover:bg-paper-ivory hover:text-charcoal-bark transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark">
-                        Explore Projects
+                    <a href="#companion" class="px-8 py-3 border border-paper-ivory text-paper-ivory rounded-lg font-semibold hover:bg-paper-ivory hover:text-charcoal-bark transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark">
+                        Companion Sites
                     </a>
                 </div>
             </div>
         </section>
 
-        <section id="what-are" class="scroll-mt-28 py-20 px-6 bg-paper-ivory">
+        <section id="challenges" class="scroll-mt-28 py-20 px-6 bg-charcoal-bark">
             <div class="max-w-6xl mx-auto">
-                <h2 class="text-4xl font-bold mb-8 text-center text-deep-rust">What Are Knowledge Agents?</h2>
-                <p class="mb-14 text-lg text-muted-wood leading-relaxed max-w-4xl mx-auto text-center">
-                    Knowledge Agents combine three layers of intelligence to deliver precise, context-aware outputs.
+                <h2 class="text-4xl font-bold mb-8 text-center text-paper-ivory">Challenges at Scale</h2>
+                <p class="text-center text-terracotta-border text-xl mb-12">
+                    Persistence. Statefulness. Context.
                 </p>
-
-                <div class="grid md:grid-cols-3 gap-8">
-                    <article class="bg-paper-ivory border border-terracotta-border rounded-xl p-8 hover:border-deep-rust/50 hover:shadow-fire-glow transition-all">
-                        <div class="w-10 h-10 rounded-full bg-soft-ember text-charcoal-bark flex items-center justify-center text-lg font-bold mb-4">1</div>
-                        <h3 class="text-xl font-semibold mb-4 text-charcoal-bark">General Knowledge</h3>
-                        <p class="text-muted-wood leading-relaxed">
-                            Foundation models such as GPT, Claude, and Gemini provide broad reasoning, language fluency, and general world knowledge.
-                        </p>
-                    </article>
-
-                    <article class="bg-paper-ivory border border-terracotta-border rounded-xl p-8 hover:border-deep-rust/50 hover:shadow-fire-glow transition-all">
-                        <div class="w-10 h-10 rounded-full bg-soft-ember text-charcoal-bark flex items-center justify-center text-lg font-bold mb-4">2</div>
-                        <h3 class="text-xl font-semibold mb-4 text-charcoal-bark">Specialized Knowledge</h3>
-                        <p class="text-muted-wood leading-relaxed">
-                            Curated KnowledgeBases capture domain rules, workflows, and current expert information required for accurate task execution.
-                        </p>
-                    </article>
-
-                    <article class="bg-paper-ivory border border-terracotta-border rounded-xl p-8 hover:border-deep-rust/50 hover:shadow-fire-glow transition-all">
-                        <div class="w-10 h-10 rounded-full bg-soft-ember text-charcoal-bark flex items-center justify-center text-lg font-bold mb-4">3</div>
-                        <h3 class="text-xl font-semibold mb-4 text-charcoal-bark">Context & Use-Case Knowledge</h3>
-                        <p class="text-muted-wood leading-relaxed">
-                            User preferences, constraints, and local context make outputs relevant, actionable, and tailored to the real environment.
-                        </p>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-20 px-6 bg-rust-charcoal text-paper-ivory">
-            <div class="max-w-4xl mx-auto text-center">
-                <h2 class="text-3xl font-bold mb-8 text-paper-ivory">Why This Matters</h2>
-                <p class="text-xl text-paper-ivory/90 leading-relaxed">
-                    Knowledge Agents transform raw model capability into operational intelligence by combining reasoning, expert knowledge, and context awareness.
+                <p class="max-w-4xl mx-auto text-paper-ivory/90 text-lg leading-relaxed text-center">
+                    As agent systems grow, short sessions become long-running workflows. Memory must survive retries, context must stay coherent across tools, and state must remain safe under parallel execution. These are not UI problems — they are systems architecture problems.
                 </p>
             </div>
         </section>
 
-        <section class="py-20 px-6 bg-memory-fade">
+        <section id="bottlenecks" class="scroll-mt-28 py-20 px-6 bg-rust-charcoal text-paper-ivory">
             <div class="max-w-6xl mx-auto">
-                <h2 class="text-4xl font-bold mb-16 text-center text-charcoal-bark">How Knowledge Agents Work</h2>
+                <h2 class="text-4xl font-bold mb-4 text-center text-paper-ivory">The Bottlenecks</h2>
+                <p class="text-center text-terracotta-border mb-14 text-lg">
+                    Where production-grade context-aware agent systems usually break first.
+                </p>
 
-                <div class="space-y-8">
-                    <article class="flex gap-6 items-start bg-paper-ivory/95 border border-terracotta-border rounded-xl p-6">
-                        <div class="flex-shrink-0 w-14 h-14 bg-soft-ember text-charcoal-bark rounded-lg flex items-center justify-center text-xl font-bold">1</div>
-                        <div>
-                            <h3 class="text-2xl font-semibold mb-3 text-charcoal-bark">Understand</h3>
-                            <p class="text-muted-wood text-lg leading-relaxed">
-                                Interpret intent, constraints, user context, and task requirements.
-                            </p>
-                        </div>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <article class="bg-charcoal-bark/70 border border-deep-rust rounded-xl p-8 hover:border-soft-ember hover:shadow-fire-glow transition-all">
+                        <h3 class="text-2xl font-semibold mb-4 text-soft-ember">Knowledge Tooling</h3>
+                        <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
+                            <li>Most tooling is prompt-first and session-bound, not memory-lifecycle aware.</li>
+                            <li>Retrieval, evaluation, and state mutation are often disconnected pipelines.</li>
+                            <li>Observability is weak: teams cannot reliably trace why an agent “remembered” or “forgot” something.</li>
+                            <li>Tooling must evolve from assistants for humans into control planes for autonomous operators.</li>
+                        </ul>
                     </article>
 
-                    <article class="flex gap-6 items-start bg-paper-ivory/95 border border-terracotta-border rounded-xl p-6">
-                        <div class="flex-shrink-0 w-14 h-14 bg-soft-ember text-charcoal-bark rounded-lg flex items-center justify-center text-xl font-bold">2</div>
-                        <div>
-                            <h3 class="text-2xl font-semibold mb-3 text-charcoal-bark">Retrieve</h3>
-                            <p class="text-muted-wood text-lg leading-relaxed">
-                                Query the most relevant curated KnowledgeBases and domain sources for the task.
-                            </p>
-                        </div>
+                    <article class="bg-charcoal-bark/70 border border-deep-rust rounded-xl p-8 hover:border-soft-ember hover:shadow-fire-glow transition-all">
+                        <h3 class="text-2xl font-semibold mb-4 text-soft-ember">Knowledge Bases</h3>
+                        <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
+                            <li>Databases are usually designed for human operators and admins.</li>
+                            <li>They commonly assume broad superadmin/superuser privileges for maintenance actions.</li>
+                            <li>Agentic operators need constrained, policy-scoped data permissions by default.</li>
+                            <li>A new database layer is needed for machine-managed knowledge operations, not just human-managed ones.</li>
+                        </ul>
                     </article>
 
-                    <article class="flex gap-6 items-start bg-paper-ivory/95 border border-terracotta-border rounded-xl p-6">
-                        <div class="flex-shrink-0 w-14 h-14 bg-soft-ember text-charcoal-bark rounded-lg flex items-center justify-center text-xl font-bold">3</div>
-                        <div>
-                            <h3 class="text-2xl font-semibold mb-3 text-charcoal-bark">Synthesize & Act</h3>
-                            <p class="text-muted-wood text-lg leading-relaxed">
-                                Combine model reasoning, retrieved knowledge, and context to produce a usable answer or action.
-                            </p>
-                        </div>
+                    <article class="bg-charcoal-bark/70 border border-deep-rust rounded-xl p-8 hover:border-soft-ember hover:shadow-fire-glow transition-all">
+                        <h3 class="text-2xl font-semibold mb-4 text-soft-ember">Knowledge Agents</h3>
+                        <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
+                            <li>Most agents lose continuity across handoffs, channels, or long-duration workflows.</li>
+                            <li>State transitions are often implicit, making recovery and auditability difficult.</li>
+                            <li>Memory updates frequently lack governance, versioning, and rollback safety.</li>
+                            <li>Production agents need explicit state models, durable memory boundaries, and recovery semantics.</li>
+                        </ul>
                     </article>
                 </div>
             </div>
         </section>
 
-        <section id="projects" class="scroll-mt-28 py-20 px-6 bg-paper-ivory">
+        <section id="gallery" class="scroll-mt-28 py-20 px-6 bg-charcoal-bark">
             <div class="max-w-6xl mx-auto">
-                <h2 class="text-4xl font-bold mb-4 text-center text-deep-rust">Knowledge Agents in Practice</h2>
-                <p class="text-center text-muted-wood mb-16 text-lg">Real-world implementations of the Knowledge Agent paradigm</p>
+                <h2 class="text-4xl font-bold mb-4 text-center text-paper-ivory">Live Systems Gallery</h2>
+                <p class="text-center text-terracotta-border mb-16 text-lg">
+                    Evolving projects exploring operational memory and context-aware agent behavior.
+                </p>
 
                 <div class="grid md:grid-cols-2 gap-6">
-                    <article class="bg-paper-ivory border border-terracotta-border rounded-xl p-8 hover:border-deep-rust hover:shadow-fire-glow transition-all">
-                        <h3 class="text-2xl font-semibold mb-4 text-deep-rust">kenobi</h3>
-                        <p class="text-muted-wood leading-relaxed">Knowledge-Base-as-a-Service prototype inspired by the Kenobi — secure, extensible, and enterprise ready.</p>
+                    <article class="bg-charcoal-bark/70 border border-deep-rust rounded-xl p-8 hover:border-soft-ember hover:shadow-fire-glow transition-all">
+                        <h3 class="text-2xl font-semibold mb-4 text-soft-ember">kenobi</h3>
+                        <p class="text-paper-ivory/90 leading-relaxed">Knowledge-Base-as-a-Service prototype for secure, extensible memory infrastructure managed by policy-aware operators.</p>
                     </article>
 
-                    <article class="bg-paper-ivory border border-terracotta-border rounded-xl p-8 hover:border-deep-rust hover:shadow-fire-glow transition-all">
-                        <h3 class="text-2xl font-semibold mb-4 text-deep-rust">XPosay</h3>
-                        <p class="text-muted-wood leading-relaxed">A real-time fact-checking toolkit powered by language models plus curated knowledge databases.</p>
+                    <article class="bg-charcoal-bark/70 border border-deep-rust rounded-xl p-8 hover:border-soft-ember hover:shadow-fire-glow transition-all">
+                        <h3 class="text-2xl font-semibold mb-4 text-soft-ember">XPosay</h3>
+                        <p class="text-paper-ivory/90 leading-relaxed">Real-time fact-checking workflows with retrieval-grounded agents and auditable context chains.</p>
                     </article>
 
-                    <article class="bg-paper-ivory border border-terracotta-border rounded-xl p-8 hover:border-deep-rust hover:shadow-fire-glow transition-all">
-                        <h3 class="text-2xl font-semibold mb-4 text-deep-rust">Disqus</h3>
-                        <p class="text-muted-wood leading-relaxed">A space for students to evolve project ideas with agent assistance and collaborative discussion.</p>
+                    <article class="bg-charcoal-bark/70 border border-deep-rust rounded-xl p-8 hover:border-soft-ember hover:shadow-fire-glow transition-all">
+                        <h3 class="text-2xl font-semibold mb-4 text-soft-ember">Disqus</h3>
+                        <p class="text-paper-ivory/90 leading-relaxed">Collaborative idea incubation where memory continuity and structured discussion context drive project evolution.</p>
                     </article>
 
-                    <article class="bg-paper-ivory border border-terracotta-border rounded-xl p-8 hover:border-deep-rust hover:shadow-fire-glow transition-all">
-                        <h3 class="text-2xl font-semibold mb-4 text-deep-rust">One Punch Trainer</h3>
-                        <p class="text-muted-wood leading-relaxed">A fitness Knowledge Agent that combines model reasoning with curated workout knowledge and personalized user context.</p>
+                    <article class="bg-charcoal-bark/70 border border-deep-rust rounded-xl p-8 hover:border-soft-ember hover:shadow-fire-glow transition-all">
+                        <h3 class="text-2xl font-semibold mb-4 text-soft-ember">One Punch Trainer</h3>
+                        <p class="text-paper-ivory/90 leading-relaxed">A personalized training agent that fuses curated exercise knowledge, user memory, and context-aware planning loops.</p>
                     </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="companion" class="scroll-mt-28 py-20 px-6 bg-rust-charcoal text-paper-ivory">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-4xl font-bold mb-4 text-center text-paper-ivory">Companion Ecosystem</h2>
+                <p class="text-center text-terracotta-border mb-14 text-lg">
+                    As the shadow direction, KnowB AI Systems amplifies systems execution and knowledge architecture for these enterprises.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <a href="https://openclaw.ai/" target="_blank" rel="noreferrer" class="block bg-charcoal-bark/70 border border-deep-rust rounded-xl p-8 hover:border-soft-ember hover:shadow-fire-glow transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark">
+                        <h3 class="text-2xl font-semibold mb-3 text-soft-ember">OpenClaw</h3>
+                        <p class="text-paper-ivory/90 leading-relaxed">Systems and interfaces for production-ready autonomous workflows.</p>
+                    </a>
+
+                    <a href="https://www.knowguardai.com/" target="_blank" rel="noreferrer" class="block bg-charcoal-bark/70 border border-deep-rust rounded-xl p-8 hover:border-soft-ember hover:shadow-fire-glow transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark">
+                        <h3 class="text-2xl font-semibold mb-3 text-soft-ember">KnowGuard AI</h3>
+                        <p class="text-paper-ivory/90 leading-relaxed">Governance, safeguards, and trust layers for knowledge and agent operations.</p>
+                    </a>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer id="contact" class="scroll-mt-28 border-t border-terracotta-border bg-charcoal-bark text-paper-ivory">
+    <footer id="contact" class="scroll-mt-28 border-t border-deep-rust bg-charcoal-bark text-paper-ivory">
         <div class="max-w-6xl mx-auto px-6 pt-14 pb-10">
             <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
                 <div class="lg:pr-4">
                     <div class="text-xl font-semibold tracking-tight mb-4">knowb.run</div>
                     <p class="text-paper-ivory/85 leading-relaxed">
-                        KnowB builds Knowledge Agents that unify model intelligence, curated knowledge, and real-world context into reliable operational systems.
+                        KnowB AI Systems is a shadow brand operating like an agent for partner enterprises, owning the direction that amplifies context-aware agent outcomes.
                     </p>
                 </div>
 
                 <ul class="space-y-3 text-sm">
                     <li class="text-paper-ivory font-semibold uppercase tracking-wide text-xs">Navigation</li>
                     <li><a href="#home" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Home</a></li>
-                    <li><a href="#what-are" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">What Are Knowledge Agents</a></li>
-                    <li><a href="#projects" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Projects</a></li>
-                    <li><a href="/" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Main Homepage</a></li>
+                    <li><a href="#challenges" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Challenges</a></li>
+                    <li><a href="#bottlenecks" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Bottlenecks</a></li>
+                    <li><a href="#gallery" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Gallery</a></li>
                 </ul>
 
                 <ul class="space-y-3 text-sm">
-                    <li class="text-paper-ivory font-semibold uppercase tracking-wide text-xs">Software</li>
-                    <li><a href="#projects" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">kenobi</a></li>
-                    <li><a href="#projects" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">XPosay</a></li>
-                    <li><a href="#projects" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Disqus</a></li>
-                    <li><a href="#projects" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">One Punch Trainer</a></li>
-                    <li><a href="/org-book/" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Org Book</a></li>
+                    <li class="text-paper-ivory font-semibold uppercase tracking-wide text-xs">Companion Sites</li>
+                    <li><a href="https://openclaw.ai/" target="_blank" rel="noreferrer" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">OpenClaw</a></li>
+                    <li><a href="https://www.knowguardai.com/" target="_blank" rel="noreferrer" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">KnowGuard AI</a></li>
+                    <li><a href="/landing/" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Landing Variant</a></li>
                 </ul>
 
                 <ul class="space-y-3 text-sm">
-                    <li class="text-paper-ivory font-semibold uppercase tracking-wide text-xs">Topics</li>
-                    <li><a href="#what-are" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">General Knowledge</a></li>
-                    <li><a href="#what-are" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Specialized Knowledge</a></li>
-                    <li><a href="#what-are" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Context Awareness</a></li>
-                    <li><a href="/org-book/" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Brand + Guidelines</a></li>
+                    <li class="text-paper-ivory font-semibold uppercase tracking-wide text-xs">Focus Areas</li>
+                    <li><a href="#challenges" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Persistence</a></li>
+                    <li><a href="#challenges" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Statefulness</a></li>
+                    <li><a href="#challenges" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Context Integrity</a></li>
                 </ul>
             </div>
 
             <div class="mt-10 pt-6 border-t border-deep-rust/80 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm">
                 <ul class="flex flex-wrap gap-x-5 gap-y-2">
                     <li><a href="mailto:hello@knowb.run" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Contact</a></li>
-                    <li><a href="/org-book/" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Org Book</a></li>
-                </ul>
-                <ul class="flex flex-wrap gap-x-5 gap-y-2">
                     <li><a href="/terms/" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Terms</a></li>
                     <li><a href="/privacy/" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Privacy</a></li>
-                    <li><span class="text-paper-ivory/85">© 2025 knowb.run</span></li>
                 </ul>
+                <span class="text-paper-ivory/85">© 2026 knowb.run</span>
             </div>
         </div>
     </footer>
