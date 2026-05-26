@@ -1,0 +1,477 @@
+/* ============================================================
+   knowb.run — Global Stylesheet
+   Shared across all templates via base.html
+   ============================================================ */
+
+/* --- Base --- */
+html {
+    scroll-behavior: smooth;
+}
+
+/* --- Section Kickers --- */
+.section-kicker {
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+    line-height: 1.8;
+    color: #86E8FF;
+    text-shadow: 0 0 12px rgba(134,232,255,0.22);
+}
+.section-kicker-ember {
+    color: #F59A52;
+    text-shadow: 0 0 12px rgba(245,154,82,0.24);
+}
+.section-kicker-saber {
+    color: #86E8FF;
+    text-shadow: 0 0 12px rgba(134,232,255,0.24);
+}
+
+/* --- Section Rules --- */
+.section-rule {
+    height: 1px;
+    margin: 0.85rem 0 1.25rem;
+    background: linear-gradient(90deg, rgba(134,232,255,0.10) 0%, #86E8FF 44%, rgba(255,74,26,0.50) 100%);
+}
+.section-rule-ember {
+    height: 1px;
+    margin: 0.85rem 0 1.25rem;
+    background: linear-gradient(90deg, rgba(245,154,82,0.10) 0%, #F59A52 44%, rgba(134,232,255,0.30) 100%);
+}
+
+/* --- Hero Highlights --- */
+.hero-highlight-ember {
+    color: #F59A52;
+    text-shadow: 0 0 14px rgba(245,154,82,0.30);
+}
+.hero-highlight-saber {
+    color: #86E8FF;
+    text-shadow: 0 0 14px rgba(134,232,255,0.30);
+}
+
+/* --- Navigation --- */
+.arcade-nav-link {
+    font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.8;
+    position: relative;
+    text-shadow: 0 0 6px rgba(252,246,243,0.10);
+}
+.arcade-nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.32rem;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(245,154,82,0) 0%, rgba(245,154,82,0.9) 40%, rgba(134,232,255,0.9) 60%, rgba(134,232,255,0) 100%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+.arcade-nav-link:hover::after,
+.arcade-nav-link:focus-visible::after {
+    opacity: 1;
+}
+.arcade-nav-link:hover,
+.arcade-nav-link:focus-visible {
+    text-shadow: 0 0 10px rgba(134,232,255,0.28), 0 0 8px rgba(245,154,82,0.24);
+}
+.arcade-nav-heading {
+    font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.8;
+}
+
+/* --- Arcade Chips --- */
+.arcade-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(134,232,255,0.42);
+    background: rgba(134,232,255,0.08);
+    color: #86E8FF;
+    border-radius: 0.2rem;
+    padding: 0.45rem 0.7rem;
+    font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.6;
+}
+.arcade-chip.ember {
+    border-color: rgba(245,154,82,0.46);
+    background: rgba(245,154,82,0.10);
+    color: #F59A52;
+}
+.arcade-chip:nth-child(even) {
+    border-color: rgba(245,154,82,0.46);
+    background: rgba(245,154,82,0.10);
+    color: #F59A52;
+}
+
+/* --- Signal Grid --- */
+.signal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin: 1.25rem 0 0;
+}
+@media (max-width: 768px) {
+    .signal-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Signal Cards --- */
+.signal-card {
+    border: 1px solid rgba(134,232,255,0.28);
+    background: rgba(20,16,15,0.74);
+    box-shadow: inset 0 0 0 1px rgba(134,232,255,0.12);
+    border-radius: 0.2rem;
+    padding: 0.9rem 1rem;
+    position: relative;
+    overflow: hidden;
+}
+.signal-card::after,
+.arcade-card::after,
+.contact-callout-frame::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow: 0 0 18px rgba(245,154,82,0.20), 0 0 22px rgba(134,232,255,0.22);
+    opacity: 0.75;
+    mix-blend-mode: screen;
+}
+.signal-card h2,
+.signal-card h3 {
+    margin: 0 0 0.5rem;
+    font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.7;
+    color: #86E8FF;
+}
+.signal-card p {
+    margin: 0;
+    font-size: 0.96rem;
+    color: rgba(252,246,243,0.9);
+}
+
+/* --- Card Themes --- */
+.card-theme-ember {
+    border-color: rgba(245,154,82,0.44) !important;
+    box-shadow: inset 0 0 0 1px rgba(245,154,82,0.18) !important;
+}
+.card-theme-saber {
+    border-color: rgba(134,232,255,0.34) !important;
+    box-shadow: inset 0 0 0 1px rgba(134,232,255,0.16) !important;
+}
+.card-theme-ember h2,
+.card-theme-ember h3 {
+    color: #F59A52 !important;
+    text-shadow: 0 0 10px rgba(245,154,82,0.24);
+}
+.card-theme-saber h2,
+.card-theme-saber h3 {
+    color: #86E8FF !important;
+    text-shadow: 0 0 10px rgba(134,232,255,0.24);
+}
+.card-theme-ember a {
+    color: #F59A52 !important;
+}
+.card-theme-ember a.underline {
+    text-decoration-color: #F59A52 !important;
+}
+.card-theme-saber a {
+    color: #86E8FF !important;
+}
+.card-theme-saber a.underline {
+    text-decoration-color: #86E8FF !important;
+}
+
+/* --- Hero Arcade --- */
+.hero-arcade {
+    position: relative;
+    overflow: hidden;
+}
+.hero-arcade::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(22,18,17,0.56) 0%, rgba(22,18,17,0.78) 100%);
+    pointer-events: none;
+}
+.hero-arcade::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 52% 40%, rgba(134,232,255,0.24) 0%, rgba(134,232,255,0.08) 26%, transparent 60%);
+    pointer-events: none;
+}
+.hero-arcade > * {
+    position: relative;
+    z-index: 1;
+}
+.hero-arcade .arcade-button {
+    background: rgba(20,16,15,0.78);
+}
+
+/* --- Arcade Buttons --- */
+.arcade-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #86E8FF;
+    background: transparent;
+    color: #86E8FF;
+    border-radius: 0.15rem;
+    padding: 0.72rem 1rem;
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+    line-height: 1.6;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 1px rgba(134,232,255,0.34), 0 0 0 1px rgba(134,232,255,0.14), 0 0 16px rgba(134,232,255,0.18);
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.arcade-button:hover {
+    background: #86E8FF;
+    border-color: #86E8FF;
+    color: #161211;
+    box-shadow: 0 0 0 1px rgba(134,232,255,0.24), 0 0 22px rgba(134,232,255,0.30);
+    transform: translateY(-1px);
+}
+.arcade-button:active {
+    transform: translateY(0);
+}
+.arcade-button:focus-visible {
+    outline: 2px solid #86E8FF;
+    outline-offset: 2px;
+}
+.arcade-button.alt {
+    border-color: #F59A52;
+    color: #F59A52;
+    box-shadow: inset 0 0 0 1px rgba(245,154,82,0.34), 0 0 0 1px rgba(245,154,82,0.14), 0 0 16px rgba(245,154,82,0.20);
+}
+.arcade-button.alt:hover {
+    background: #F59A52;
+    border-color: #F59A52;
+    color: #161211;
+    box-shadow: 0 0 0 1px rgba(245,154,82,0.26), 0 0 22px rgba(245,154,82,0.30);
+}
+.arcade-button.alt:focus-visible {
+    outline-color: #F59A52;
+}
+.arcade-button:disabled {
+    opacity: 0.38;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* --- Arcade Card (glow frame) --- */
+.arcade-card {
+    border: 1px solid rgba(233,194,179,0.35);
+    box-shadow: inset 0 0 0 1px rgba(134,232,255,0.28), 0 0 0 1px rgba(134,232,255,0.10);
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- Use Case Cards --- */
+.use-case-card {
+    position: relative;
+    overflow: hidden;
+}
+.usecase-arcade-title {
+    font-family: 'Press Start 2P', 'Space Grotesk', sans-serif !important;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(134,232,255,0.26);
+}
+@media (min-width: 768px) {
+    .usecase-arcade-title {
+        font-size: 0.9rem;
+    }
+}
+.use-case-card.card-theme-ember:hover {
+    border-color: rgba(245,154,82,0.78) !important;
+    box-shadow: 0 0 24px rgba(245,154,82,0.26) !important;
+}
+.use-case-card.card-theme-saber:hover {
+    border-color: rgba(134,232,255,0.78) !important;
+    box-shadow: 0 0 24px rgba(134,232,255,0.26) !important;
+}
+.use-case-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #86E8FF 0%, #86E8FF 42%, #FF4A1A 100%);
+}
+
+/* --- Contact Callout Frame --- */
+.contact-callout-frame {
+    border: 1px solid transparent !important;
+    background:
+        linear-gradient(180deg, rgba(29,21,20,0.96) 0%, rgba(29,21,20,0.92) 100%) padding-box,
+        linear-gradient(128deg, rgba(245,154,82,0.88) 0%, rgba(134,232,255,0.90) 52%, rgba(255,74,26,0.84) 100%) border-box;
+    box-shadow: 0 0 24px rgba(245,154,82,0.22), 0 0 28px rgba(134,232,255,0.22);
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- Policy Content (page.html) --- */
+.policy-content h1 {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    color: #FCF6F3;
+}
+.policy-content h2 {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: clamp(1.35rem, 3vw, 1.8rem);
+    line-height: 1.25;
+    margin-top: 2.1rem;
+    margin-bottom: 0.8rem;
+    color: #86E8FF;
+}
+.policy-content h3 {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-size: 1.15rem;
+    margin-top: 1.35rem;
+    margin-bottom: 0.45rem;
+    color: #FCF6F3;
+}
+.policy-content p,
+.policy-content li {
+    color: rgba(252,246,243,0.9);
+    line-height: 1.75;
+}
+.policy-content p + p {
+    margin-top: 0.9rem;
+}
+.policy-content ul,
+.policy-content ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0.85rem;
+    padding-left: 1.3rem;
+}
+.policy-content ul {
+    list-style: disc;
+}
+.policy-content ol {
+    list-style: decimal;
+}
+.policy-content a {
+    color: #86E8FF;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+}
+.policy-content a:hover {
+    color: #FCF6F3;
+}
+.policy-content strong {
+    color: #FCF6F3;
+    font-weight: 600;
+}
+
+/* --- Demo Frame / Code Label (orgbook.html) --- */
+.demo-frame {
+    border: 1px solid rgba(134,232,255,0.16);
+    background: rgba(20,16,15,0.55);
+    border-radius: 0.4rem;
+    padding: 2rem 1.5rem;
+}
+.code-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: rgba(233,194,179,0.72);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(233,194,179,0.16);
+    border-radius: 0.2rem;
+    padding: 0.2rem 0.45rem;
+}
+
+/* --- Color Swatch Block (orgbook.html) --- */
+.color-swatch-block {
+    border-radius: 0.4rem;
+    border: 1px solid rgba(255,255,255,0.10);
+    padding: 1.5rem 1.1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+/* --- Gradient Strip (orgbook.html) --- */
+.gradient-strip {
+    height: 64px;
+    border-radius: 0.3rem;
+    border: 1px solid rgba(255,255,255,0.07);
+}
+
+/* --- Wordmark --- */
+.wordmark {
+    font-family: 'Audiowide', 'Space Grotesk', sans-serif;
+}
+
+/* --- Brandbook Table (orgbook.html) --- */
+.bb-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.bb-table th {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 0.82rem;
+    color: #86E8FF;
+    border-bottom: 1px solid rgba(134,232,255,0.28);
+}
+.bb-table td {
+    padding: 0.75rem 1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: rgba(252,246,243,0.88);
+    border-bottom: 1px solid rgba(142,47,42,0.28);
+    vertical-align: top;
+}
+.bb-table tr:hover td {
+    background: rgba(29,21,20,0.5);
+}
+
+/* --- Focus (global) --- */
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid #86E8FF;
+    outline-offset: 2px;
+}
+
+/* --- Accessibility: Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

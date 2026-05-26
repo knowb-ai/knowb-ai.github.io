@@ -1,173 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} — knowb.run</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                        display: ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif'],
-                        arcade: ['Press Start 2P', 'Space Grotesk', 'sans-serif'],
-                    },
-                    colors: {
-                        'autumn-fire': '#FF4A1A',
-                        'deep-rust': '#8E2F2A',
-                        'soft-ember': '#F59A52',
-                        'paper-ivory': '#FCF6F3',
-                        'saber-blue': '#86E8FF',
-                        'obsidian-brown': '#161211',
-                        'charcoal-bark': '#1D1514',
-                        'maroon-core': '#3B1E1D',
-                        'rust-magenta': '#6E2D34',
-                        'muted-wood': '#867268',
-                        'terracotta-border': '#E9C2B3',
-                    },
-                    backgroundImage: {
-                        'fire-rust': 'linear-gradient(132deg, #FF4A1A 0%, #8E2F2A 36%, #1D1514 74%, #86E8FF 100%)',
-                        'rust-charcoal': 'linear-gradient(180deg, #2A1B1A 0%, #1D1514 62%, #14100F 100%)',
-                        'ember-fire': 'linear-gradient(145deg, #F59A52 0%, #FF4A1A 60%, #86E8FF 100%)',
-                        'ember-glow': 'linear-gradient(135deg, rgba(255,74,26,0.82) 0%, rgba(142,47,42,0.74) 44%, rgba(134,232,255,0.86) 100%)',
-                        'ivory-rust-edge': 'linear-gradient(90deg, #FCF6F3 0%, #8E2F2A 8%, #86E8FF 16%, #FCF6F3 100%)',
-                        'knowb-autumn-core': 'linear-gradient(132deg, #FF4A1A 0%, #8E2F2A 36%, #1D1514 74%, #86E8FF 100%)',
-                        'knowb-autumn-vertical': 'linear-gradient(180deg, #8E2F2A 0%, #1D1514 52%, #86E8FF 100%)',
-                    },
-                    boxShadow: {
-                        'ember-glow': '0 0 30px rgba(134,232,255,0.30)',
-                        'fire-glow': '0 0 25px rgba(255,74,26,0.22)',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        html {
-            scroll-behavior: smooth;
-        }
-        .arcade-nav-link {
-            font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
-            font-size: 0.58rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            line-height: 1.8;
-            position: relative;
-            text-shadow: 0 0 6px rgba(252,246,243,0.10);
-        }
-        .arcade-nav-link::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: -0.32rem;
-            height: 1px;
-            background: linear-gradient(90deg, rgba(245,154,82,0) 0%, rgba(245,154,82,0.9) 40%, rgba(134,232,255,0.9) 60%, rgba(134,232,255,0) 100%);
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }
-        .arcade-nav-link:hover::after,
-        .arcade-nav-link:focus-visible::after {
-            opacity: 1;
-        }
-        .arcade-nav-link:hover,
-        .arcade-nav-link:focus-visible {
-            text-shadow: 0 0 10px rgba(134,232,255,0.28), 0 0 8px rgba(245,154,82,0.24);
-        }
-        .section-kicker {
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            font-size: 0.72rem;
-            color: #86E8FF;
-            text-shadow: 0 0 12px rgba(134,232,255,0.22);
-        }
-        .section-kicker-ember {
-            color: #F59A52;
-            text-shadow: 0 0 12px rgba(245,154,82,0.24);
-        }
-        .section-kicker-saber {
-            color: #86E8FF;
-            text-shadow: 0 0 12px rgba(134,232,255,0.24);
-        }
-        .policy-content h1 {
-            font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-size: clamp(2rem, 5vw, 2.8rem);
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-            margin-bottom: 1rem;
-            color: #FCF6F3;
-        }
-        .policy-content h2 {
-            font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-size: clamp(1.35rem, 3vw, 1.8rem);
-            line-height: 1.25;
-            margin-top: 2.1rem;
-            margin-bottom: 0.8rem;
-            color: #86E8FF;
-        }
-        .policy-content h3 {
-            font-family: 'Space Grotesk', 'Inter', sans-serif;
-            font-size: 1.15rem;
-            margin-top: 1.35rem;
-            margin-bottom: 0.45rem;
-            color: #FCF6F3;
-        }
-        .policy-content p,
-        .policy-content li {
-            color: rgba(252,246,243,0.9);
-            line-height: 1.75;
-        }
-        .policy-content p + p {
-            margin-top: 0.9rem;
-        }
-        .policy-content ul,
-        .policy-content ol {
-            margin-top: 0.5rem;
-            margin-bottom: 0.85rem;
-            padding-left: 1.3rem;
-        }
-        .policy-content ul {
-            list-style: disc;
-        }
-        .policy-content ol {
-            list-style: decimal;
-        }
-        .policy-content a {
-            color: #86E8FF;
-            text-decoration: underline;
-            text-decoration-thickness: 1px;
-            text-underline-offset: 0.18em;
-        }
-        .policy-content a:hover {
-            color: #FCF6F3;
-        }
-        .policy-content strong {
-            color: #FCF6F3;
-            font-weight: 600;
-        }
-        @media (prefers-reduced-motion: reduce) {
-            html {
-                scroll-behavior: auto;
-            }
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-    </style>
-</head>
-<body class="min-h-screen font-sans bg-obsidian-brown text-paper-ivory">
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-soft-ember focus:text-charcoal-bark focus:rounded-md focus:font-semibold">
-        Skip to main content
-    </a>
+{% extends "base.html" %}
 
+{% block title %}{{ page.title }} — knowb.run{% endblock title %}
+
+{% block header %}
     <header class="fixed top-0 left-0 right-0 z-50 bg-charcoal-bark/95 backdrop-blur-md border-b border-saber-blue/30">
         <nav aria-label="Primary" class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <a href="/" class="text-2xl font-display font-semibold tracking-tight text-paper-ivory">knowb.run</a>
@@ -179,7 +14,9 @@
             </div>
         </nav>
     </header>
+{% endblock header %}
 
+{% block content %}
     <main id="main-content" class="pt-32 px-6 pb-16 bg-charcoal-bark">
         <section class="max-w-5xl mx-auto">
             <div class="mb-8">
@@ -191,7 +28,9 @@
             </article>
         </section>
     </main>
+{% endblock content %}
 
+{% block footer %}
     <footer class="scroll-mt-28 px-6 pt-14 pb-10 bg-charcoal-bark text-paper-ivory">
         <div class="max-w-7xl mx-auto rounded-[1.35rem] border border-terracotta-border/45 border-t-terracotta-border/80 bg-charcoal-bark/95 shadow-[0_-1px_0_rgba(233,194,179,0.26),0_22px_50px_rgba(0,0,0,0.38)]">
             <div class="px-8 md:px-10 pt-12 pb-8">
@@ -224,5 +63,4 @@
             </div>
         </div>
     </footer>
-</body>
-</html>
+{% endblock footer %}
