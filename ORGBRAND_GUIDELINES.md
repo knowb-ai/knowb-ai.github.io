@@ -1,217 +1,123 @@
-# KnowB Autumn Brand Color & Gradient System — Agent Instruction Document
-
-(Agentic Workflow Specification)
-
+# KnowB Autumn Brand + Accessibility System (WCAG 2.2 AA)
 ## Purpose
+This document is the canonical style and accessibility source of truth for KnowB Autumn interfaces.
+All UI implementations must satisfy both:
+- Brand consistency (palette, gradients, tone)
+- WCAG 2.2 AA accessibility requirements
 
-This document defines the brand color palette, gradient palette, and usage guidelines for the KnowB Autumn identity system.  
-Agents using this document must generate UI code, components, styles, or visual assets strictly aligned to these specifications.
+## 1) Canonical Base Palette
+Only these seven base colors are allowed for UI color tokens:
+- **Autumn Fire**: `#E14719`
+- **Deep Rust**: `#8C2F14`
+- **Soft Ember**: `#F7AD6A`
+- **Paper Ivory**: `#FCF6F3`
+- **Charcoal Bark**: `#2D140B`
+- **Muted Wood**: `#77584F`
+- **Light Terracotta Border**: `#E9C2B3`
 
----
+Notes:
+- Opacity variants of the seven colors are allowed.
+- New hues are not allowed.
+- No blues, greens, purples, or neon colors.
 
-## 1. Brand Color Palette (Canonical Source of Truth)
+## 2) Canonical Gradients
+All gradient usage must match these formulas exactly.
 
-The agent must use these seven base colors as the foundation for all brand styling, interface elements, gradients, and compositional rules.
-
-### PRIMARY BRAND COLORS (CORE)
-
-- **Autumn Fire**           — `#E14719`  
-- **Deep Rust**             — `#8C2F14`  
-- **Soft Ember**            — `#F7AD6A`  
-- **Paper Ivory**           — `#FCF6F3`  
-- **Charcoal Bark**         — `#2D140B`  
-- **Muted Wood**            — `#77584F`  
-- **Light Terracotta Border** — `#E9C2B3`  
-
-These colors should never be altered, approximated, or replaced. They are the only allowed colors outside gradient definitions.
-
----
-
-## 2. Gradient Palette (Generated from Core Colors)
-
-All gradient usage must use the exact formulas below.
-
-### 2.1 Dark / Depth Gradients
-
-#### A. Autumn Fire → Deep Rust
-
+### 2.1 Dark / Depth
 ```css
 linear-gradient(135deg, #E14719 0%, #8C2F14 100%)
-```
-
-#### B. Deep Rust → Charcoal Bark
-
-```css
 linear-gradient(180deg, #8C2F14 0%, #2D140B 100%)
 ```
 
----
-
-### 2.2 Warm Accent Gradients
-
-#### A. Soft Ember → Autumn Fire
-
+### 2.2 Warm Accent
 ```css
 linear-gradient(145deg, #F7AD6A 0%, #E14719 100%)
-```
-
-#### B. Soft Ember Glow (Atmospheric)
-
-```css
 linear-gradient(135deg, rgba(247,173,106,0.9) 0%, rgba(247,173,106,0.55) 50%, rgba(141,47,20,0.8) 100%)
 ```
 
----
-
-### 2.3 Light / Neutral Gradients
-
-#### A. Paper Ivory → Soft Ember
-
+### 2.3 Light / Neutral
 ```css
 linear-gradient(135deg, #FCF6F3 0%, #F7AD6A 100%)
-```
-
-#### B. Paper Ivory → Deep Rust (Subtle Edge Tint)
-
-```css
 linear-gradient(90deg, #FCF6F3 0%, #8C2F14 6%, #FCF6F3 100%)
 ```
 
----
-
-### 2.4 Signature KnowB Autumn Gradients
-
-#### A. KnowB Autumn Core (Warm → Deep)
-
+### 2.4 Signature
 ```css
-linear-gradient(135deg,
-  #E14719 0%,
-  #8C2F14 40%,
-  #2D140B 100%
-)
+linear-gradient(135deg, #E14719 0%, #8C2F14 40%, #2D140B 100%)
+linear-gradient(180deg, #8C2F14 0%, #2D140B 35%, #E14719 100%)
+linear-gradient(120deg, #FCF6F3 0%, #F7AD6A 30%, #8C2F14 70%, #E9C2B3 100%)
 ```
 
-#### B. KnowB Autumn Vertical
-
+## 3) Canonical Shadow / Glow Tokens
 ```css
-linear-gradient(180deg,
-  #8C2F14 0%,
-  #2D140B 35%,
-  #E14719 100%
-)
+0 0 30px rgba(247,173,106,0.35) /* ember glow */
+0 0 25px rgba(225,71,25,0.25)   /* fire glow */
+0 0 20px rgba(252,246,243,0.15) /* paper shadow */
 ```
 
-#### C. KnowB Autumn Memory Fade (Ivory → Ember → Rust)
+## 4) Accessibility Requirements (Mandatory)
+All pages and components must meet WCAG 2.2 AA:
+- Normal text contrast: **>= 4.5:1**
+- Large text contrast (24px regular or 18.66px bold+): **>= 3:1**
+- UI component boundaries/focus indicators: **>= 3:1** where applicable
+- Full keyboard accessibility for controls
+- Visible focus style for all interactive elements
+- Respect reduced motion via `prefers-reduced-motion`
 
-```css
-linear-gradient(120deg,
-  #FCF6F3 0%,
-  #F7AD6A 30%,
-  #8C2F14 70%,
-  #E9C2B3 100%
-)
-```
+## 5) Approved Contrast Pairings
+Use these as defaults for body text and controls:
+- `#2D140B` on `#FCF6F3` (16.12:1)
+- `#77584F` on `#FCF6F3` (5.96:1)
+- `#FCF6F3` on `#8C2F14` (7.75:1)
+- `#FCF6F3` on `#2D140B` (16.12:1)
+- `#2D140B` on `#F7AD6A` (9.16:1)
+- `#E9C2B3` on `#2D140B` (10.55:1)
 
----
+## 6) Prohibited / Restricted Pairings
+Do not use for normal body text:
+- `#E14719` on `#FCF6F3` (3.83:1)
+- `#FCF6F3` on `#E14719` (3.83:1)
+- `#2D140B` on `#E14719` (4.21:1)
 
-## 3. Shadows & Glows
+Allowed exception:
+- `#E14719` may be used for **large display text** that still meets the 3:1 large-text requirement.
 
-Design agents must use these glow definitions when creating effects:
+## 7) Component Rules
+### 7.1 Surfaces
+- Default light surface: `#FCF6F3`
+- Default dark surface: `#2D140B`
+- Borders/separators: `#E9C2B3` (or opacity variants with preserved perceptibility)
 
-### Ember Glow
+### 7.2 Typography
+- Primary body text: `#2D140B` on light surfaces
+- Secondary text: `#77584F` on light surfaces
+- On dark surfaces, use `#FCF6F3` (primary) and `#E9C2B3` (secondary)
 
-```css
-0 0 30px rgba(247,173,106,0.35)
-```
+### 7.3 Buttons and Interactive Controls
+- Prefer high-contrast combinations from Section 5
+- Avoid Autumn Fire as a small-text button background unless contrast is verified
+- Every interactive element must have a clear focus-visible state
 
-### Fire Glow
+### 7.4 Links
+- Must be visually identifiable and keyboard focusable
+- Placeholder `href="#"` links are not allowed in production templates
 
-```css
-0 0 25px rgba(225,71,25,0.25)
-```
+## 8) Motion and Navigation Rules
+- Include a skip-to-content link on long pages with persistent nav/toolbars
+- Use semantic landmarks (`<main>`, properly structured headings)
+- Disable/soften motion under `prefers-reduced-motion`
 
-### Subtle Paper Shadow
+## 9) Implementation Constraints
+Agents must not:
+- invent extra palette colors
+- deviate from canonical gradients
+- ship UI that fails AA contrast on normal body text
+- remove keyboard/focus accessibility behavior
 
-```css
-0 0 20px rgba(252,246,243,0.15)
-```
-
----
-
-## 4. Usage Rules
-
-Agents must follow these rules at all times:
-
-### 4.1 Backgrounds
-- Use Paper Ivory (`#FCF6F3`) as the default light background.
-- Charcoal Bark (`#2D140B`) allowed for dark text and depth sections.
-- Dark gradients must use Autumn Fire and Deep Rust.
-
-### 4.2 Text & Typography
-- Charcoal Bark (`#2D140B`) is primary text color.
-- Muted Wood (`#77584F`) may be used for secondary text or muted elements.
-- Light Terracotta Border (`#E9C2B3`) used for borders and subtle accents.
-
-### 4.3 CTAs & Interactive Elements
-- Must use Autumn Fire (`#E14719`) or Soft Ember gradients.
-- Hover and active states may use softened Soft Ember variants.
-
-### 4.4 Contrast
-- Ember tones must be used for emphasis only.
-- Deep Rust must not be used against Charcoal Bark without gradient or spacing.
-
-### 4.5 Color Restrictions
-- No cold hues, neon colors, blues, greens, or purples allowed.
-- Maintain warm, editorial, autumnal UI tone only.
-
----
-
-## 5. Deliverables Expected From Any Agent Using This Document
-
-Any agent using this input must output assets/code/styles that include:
-
-### A. Tailwind / CSS variables
-- Color tokens
-- Gradient tokens
-- Shadow tokens
-
-### B. UI Elements
-- Buttons
-- Cards
-- Navigation
-- Hero sections
-- Backgrounds
-- States (hover, active, focus)
-
-### C. Asset Exports
-- SVG backgrounds
-- Gradient overlays
-- Shadows for modals
-
-### D. Style Documentation
-- All elements must reference this palette as final truth source.
-
----
-
-## 6. Constraints
-
-Agents must NOT:
-- use blues, greens, or purples
-- invent neon colors
-- create high-saturation gradients outside formulas
-- apply glassmorphism or cyberpunk effects
-- deviate from the specified gradient formulas
-
-This is a strict brand system, not a suggestion.
-
----
-
-## 7. Success Criteria
-
-A generated result is acceptable when:  
-1. Every color used appears in the palette or gradients above.  
-2. Gradients match the formulas exactly.  
-3. All UI elements harmonize with the KnowB Autumn brand identity.  
-4. Backgrounds and dark UI follow Charcoal Bark / Deep Rust foundations.  
-5. All accents use Autumn Fire or Soft Ember.  
-6. Typography remains legible with enforced contrast rules.
+## 10) Acceptance Checklist
+A change is compliant only if:
+1. All colors are from the seven-token palette (or opacity variants).
+2. Gradients are exact canonical formulas.
+3. All normal text and controls meet WCAG 2.2 AA contrast.
+4. Focus-visible, keyboard navigation, and reduced-motion support are present.
+5. Brand tone remains warm, structured, and signal-forward.
