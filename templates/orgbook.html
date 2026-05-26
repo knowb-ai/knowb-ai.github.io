@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KnowB AI Brandbook</title>
-  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Inter:wght@400;600&family=JetBrains+Mono&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Inter:wght@400;600&family=JetBrains+Mono&family=Press+Start+2P&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --autumn-fire: #E14719;
@@ -109,6 +109,53 @@
       justify-content: flex-end;
       padding: 1rem 1.25rem 0;
     }
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0 0 1.25rem;
+    }
+    .arcade-chip {
+      border: 1px solid var(--border-color);
+      background: rgba(45, 20, 11, 0.55);
+      color: var(--terracotta-border);
+      border-radius: 3px;
+      padding: 0.45rem 0.65rem;
+      font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.6;
+    }
+    body:not(.dark-mode) .arcade-chip {
+      background: rgba(140, 47, 20, 0.12);
+      color: var(--deep-rust);
+      border-color: rgba(140, 47, 20, 0.35);
+    }
+    .signal-board {
+      background: var(--surface-alt);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      box-shadow: var(--elevation), inset 0 0 0 1px rgba(140, 47, 20, 0.35);
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .signal-board h3 {
+      margin: 0.2rem 0 0.8rem;
+      font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.5;
+    }
+    .signal-board ul {
+      margin: 0;
+      padding-left: 1.2rem;
+    }
+    .signal-board li {
+      font-size: 1rem;
+      margin-bottom: 0.35rem;
+    }
 
     h1, .logo-display {
       font-family: 'Audiowide', cursive;
@@ -205,25 +252,38 @@
     }
 
     .btn {
-      background-color: var(--button-bg);
-      color: var(--button-text);
-      border: 1px solid var(--border-color);
-      padding: 0.7rem 1rem;
-      border-radius: 8px;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
+      border: 1px solid var(--soft-ember);
+      background: var(--soft-ember);
+      color: var(--charcoal-bark);
+      border-radius: 3px;
+      padding: 0.55rem 0.75rem;
+      font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.6;
       cursor: pointer;
-      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 0 0 1px rgba(247, 173, 106, 0.45);
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+    body:not(.dark-mode) .btn {
+      background: var(--soft-ember);
+      color: var(--charcoal-bark);
+      border-color: var(--soft-ember);
     }
 
     .btn:hover {
-      background-color: var(--button-hover-bg);
-      color: var(--button-hover-text);
+      background: var(--paper-ivory);
+      border-color: var(--paper-ivory);
+      color: var(--charcoal-bark);
       transform: translateY(-1px);
+    }
+    body:not(.dark-mode) .btn:hover {
+      background: var(--paper-ivory);
+      color: var(--charcoal-bark);
     }
 
     .btn:active {
-      background-color: var(--button-active-bg);
       transform: translateY(0);
     }
 
@@ -259,6 +319,19 @@
 
   <main id="main-content" class="container">
     <h1>KnowB AI Org Book</h1>
+    <div class="chip-row" aria-label="Style profile">
+      <span class="arcade-chip">Arcade Front End</span>
+      <span class="arcade-chip">Mission Control Back End</span>
+      <span class="arcade-chip">Low Carbon Mode</span>
+    </div>
+    <section class="signal-board" aria-labelledby="signal-board-heading">
+      <h3 id="signal-board-heading">Signal Board</h3>
+      <ul>
+        <li><strong>Player side:</strong> 90s arcade pacing and clear interaction cues.</li>
+        <li><strong>System side:</strong> portal-like command surfaces for memory and orchestration.</li>
+        <li><strong>Low carbon:</strong> static delivery, restrained motion, and reduced compute overhead.</li>
+      </ul>
+    </section>
 
     <section class="section">
       <h2>1. Mission & Manifesto</h2>
