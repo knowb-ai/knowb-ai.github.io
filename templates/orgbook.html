@@ -4,563 +4,1099 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KnowB AI Brandbook</title>
-  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Inter:wght@400;600&family=JetBrains+Mono&family=Press+Start+2P&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --autumn-fire: #FF4A1A;
-      --deep-rust: #8E2F2A;
-      --soft-ember: #F59A52;
-      --paper-ivory: #FCF6F3;
-      --saber-blue: #86E8FF;
-      --charcoal-bark: #7A2217;
-      --muted-wood: #77584F;
-      --terracotta-border: #E9C2B3;
-
-      --bg-surface: var(--paper-ivory);
-      --surface-alt: rgba(252, 246, 243, 0.98);
-      --text-main: var(--charcoal-bark);
-      --text-muted: var(--muted-wood);
-      --heading-color: var(--deep-rust);
-      --border-color: var(--terracotta-border);
-      --table-header-bg: var(--soft-ember);
-      --table-header-text: var(--charcoal-bark);
-      --code-bg: rgba(245, 154, 82, 0.25);
-      --code-text: var(--charcoal-bark);
-      --button-bg: var(--deep-rust);
-      --button-text: var(--paper-ivory);
-      --button-hover-bg: var(--charcoal-bark);
-      --button-hover-text: var(--paper-ivory);
-      --button-active-bg: var(--deep-rust);
-      --focus-ring: var(--soft-ember);
-      --elevation: 0 0 20px rgba(255, 74, 26, 0.15);
-    }
-
-    body.dark-mode {
-      --bg-surface: var(--charcoal-bark);
-      --surface-alt: rgba(142, 47, 42, 0.2);
-      --text-main: var(--paper-ivory);
-      --text-muted: var(--terracotta-border);
-      --heading-color: var(--soft-ember);
-      --border-color: var(--deep-rust);
-      --table-header-bg: var(--deep-rust);
-      --table-header-text: var(--paper-ivory);
-      --code-bg: rgba(245, 154, 82, 0.2);
-      --code-text: var(--paper-ivory);
-      --button-bg: var(--soft-ember);
-      --button-text: var(--charcoal-bark);
-      --button-hover-bg: var(--paper-ivory);
-      --button-hover-text: var(--charcoal-bark);
-      --button-active-bg: var(--soft-ember);
-      --focus-ring: var(--soft-ember);
-      --elevation: 0 0 20px rgba(245, 154, 82, 0.18);
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif'],
+            arcade: ['Press Start 2P', 'Space Grotesk', 'sans-serif'],
+            wordmark: ['Audiowide', 'Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            'autumn-fire': '#FF4A1A',
+            'deep-rust': '#8E2F2A',
+            'soft-ember': '#F59A52',
+            'paper-ivory': '#FCF6F3',
+            'saber-blue': '#86E8FF',
+            'obsidian-brown': '#161211',
+            'charcoal-bark': '#1D1514',
+            'maroon-core': '#3B1E1D',
+            'rust-magenta': '#6E2D34',
+            'muted-wood': '#867268',
+            'terracotta-border': '#E9C2B3',
+          },
+          backgroundImage: {
+            'knowb-autumn-core': 'linear-gradient(132deg, #FF4A1A 0%, #8E2F2A 34%, #1D1514 72%, #86E8FF 100%)',
+            'rust-charcoal': 'linear-gradient(180deg, #2A1B1A 0%, #1D1514 62%, #14100F 100%)',
+          },
+        }
       }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+
+    /* --- Section kickers --- */
+    .section-kicker {
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+      line-height: 1.8;
+    }
+    .section-kicker-ember { color: #F59A52; text-shadow: 0 0 12px rgba(245,154,82,0.24); }
+    .section-kicker-saber { color: #86E8FF; text-shadow: 0 0 12px rgba(134,232,255,0.24); }
+
+    .section-rule {
+      height: 1px;
+      margin: 0.85rem 0 1.25rem;
+      background: linear-gradient(90deg, rgba(134,232,255,0.10) 0%, #86E8FF 44%, rgba(255,74,26,0.50) 100%);
+    }
+    .section-rule-ember {
+      height: 1px;
+      margin: 0.85rem 0 1.25rem;
+      background: linear-gradient(90deg, rgba(245,154,82,0.10) 0%, #F59A52 44%, rgba(134,232,255,0.30) 100%);
+    }
+
+    /* --- Nav --- */
+    .arcade-nav-link {
+      font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.8;
+      position: relative;
+    }
+    .arcade-nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: -0.32rem;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(245,154,82,0) 0%, rgba(245,154,82,0.9) 40%, rgba(134,232,255,0.9) 60%, rgba(134,232,255,0) 100%);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .arcade-nav-link:hover::after,
+    .arcade-nav-link:focus-visible::after { opacity: 1; }
+    .arcade-nav-link:hover,
+    .arcade-nav-link:focus-visible {
+      text-shadow: 0 0 10px rgba(134,232,255,0.28), 0 0 8px rgba(245,154,82,0.24);
+    }
+
+    /* --- Chips --- */
+    .arcade-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(134,232,255,0.42);
+      background: rgba(134,232,255,0.08);
+      color: #86E8FF;
+      border-radius: 0.2rem;
+      padding: 0.45rem 0.7rem;
+      font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.6;
+    }
+    .arcade-chip.ember {
+      border-color: rgba(245,154,82,0.46);
+      background: rgba(245,154,82,0.10);
+      color: #F59A52;
+    }
+    .arcade-chip:nth-child(even) {
+      border-color: rgba(245,154,82,0.46);
+      background: rgba(245,154,82,0.10);
+      color: #F59A52;
+    }
+
+    /* --- Signal grid --- */
+    .signal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+    @media (max-width: 768px) { .signal-grid { grid-template-columns: 1fr; } }
+
+    .signal-card {
+      border: 1px solid rgba(134,232,255,0.28);
+      background: rgba(20,16,15,0.74);
+      box-shadow: inset 0 0 0 1px rgba(134,232,255,0.12);
+      border-radius: 0.2rem;
+      padding: 0.9rem 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .signal-card::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      pointer-events: none;
+      box-shadow: 0 0 18px rgba(245,154,82,0.20), 0 0 22px rgba(134,232,255,0.22);
+      opacity: 0.75;
+      mix-blend-mode: screen;
+    }
+    .signal-card h3 {
+      margin: 0 0 0.5rem;
+      font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.7;
+      color: #86E8FF;
+    }
+    .signal-card p { margin: 0; font-size: 0.96rem; color: rgba(252,246,243,0.9); }
+
+    /* Card themes */
+    .card-theme-ember {
+      border-color: rgba(245,154,82,0.44) !important;
+      box-shadow: inset 0 0 0 1px rgba(245,154,82,0.18) !important;
+    }
+    .card-theme-saber {
+      border-color: rgba(134,232,255,0.34) !important;
+      box-shadow: inset 0 0 0 1px rgba(134,232,255,0.16) !important;
+    }
+    .card-theme-ember h2, .card-theme-ember h3 {
+      color: #F59A52 !important;
+      text-shadow: 0 0 10px rgba(245,154,82,0.24);
+    }
+    .card-theme-saber h2, .card-theme-saber h3 {
+      color: #86E8FF !important;
+      text-shadow: 0 0 10px rgba(134,232,255,0.24);
+    }
+
+    /* --- Arcade card (glow frame) --- */
+    .arcade-card {
+      border: 1px solid rgba(233,194,179,0.35);
+      box-shadow: inset 0 0 0 1px rgba(134,232,255,0.18), 0 0 0 1px rgba(134,232,255,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .arcade-card::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      pointer-events: none;
+      box-shadow: 0 0 18px rgba(245,154,82,0.18), 0 0 22px rgba(134,232,255,0.20);
+      opacity: 0.75;
+      mix-blend-mode: screen;
+    }
+
+    /* --- Buttons --- */
+    .arcade-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #86E8FF;
+      background: transparent;
+      color: #86E8FF;
+      border-radius: 0.15rem;
+      padding: 0.72rem 1rem;
+      font-size: 0.66rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+      line-height: 1.6;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: inset 0 0 0 1px rgba(134,232,255,0.34), 0 0 0 1px rgba(134,232,255,0.14), 0 0 16px rgba(134,232,255,0.18);
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+    .arcade-button:hover {
+      background: #86E8FF;
+      border-color: #86E8FF;
+      color: #161211;
+      box-shadow: 0 0 0 1px rgba(134,232,255,0.24), 0 0 22px rgba(134,232,255,0.30);
+      transform: translateY(-1px);
+    }
+    .arcade-button:active { transform: translateY(0); }
+    .arcade-button:focus-visible { outline: 2px solid #86E8FF; outline-offset: 2px; }
+    .arcade-button.alt {
+      border-color: #F59A52;
+      color: #F59A52;
+      box-shadow: inset 0 0 0 1px rgba(245,154,82,0.34), 0 0 0 1px rgba(245,154,82,0.14), 0 0 16px rgba(245,154,82,0.20);
+    }
+    .arcade-button.alt:hover {
+      background: #F59A52;
+      border-color: #F59A52;
+      color: #161211;
+      box-shadow: 0 0 0 1px rgba(245,154,82,0.26), 0 0 22px rgba(245,154,82,0.30);
+    }
+    .arcade-button.alt:focus-visible { outline-color: #F59A52; }
+    .arcade-button:disabled { opacity: 0.38; cursor: not-allowed; pointer-events: none; }
+
+    /* --- Use case card (top stripe) --- */
+    .use-case-card { position: relative; overflow: hidden; }
+    .use-case-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #86E8FF 0%, #86E8FF 42%, #FF4A1A 100%);
+    }
+    .use-case-card.card-theme-ember:hover {
+      border-color: rgba(245,154,82,0.78) !important;
+      box-shadow: 0 0 24px rgba(245,154,82,0.26) !important;
+    }
+    .use-case-card.card-theme-saber:hover {
+      border-color: rgba(134,232,255,0.78) !important;
+      box-shadow: 0 0 24px rgba(134,232,255,0.26) !important;
+    }
+
+    /* --- Contact callout frame --- */
+    .contact-callout-frame {
+      border: 1px solid transparent !important;
+      background:
+        linear-gradient(180deg, rgba(29,21,20,0.96) 0%, rgba(29,21,20,0.92) 100%) padding-box,
+        linear-gradient(128deg, rgba(245,154,82,0.88) 0%, rgba(134,232,255,0.90) 52%, rgba(255,74,26,0.84) 100%) border-box;
+      box-shadow: 0 0 24px rgba(245,154,82,0.22), 0 0 28px rgba(134,232,255,0.22);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* --- Hero --- */
+    .hero-arcade { position: relative; overflow: hidden; }
+    .hero-arcade::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(22,18,17,0.48) 0%, rgba(22,18,17,0.74) 100%);
+      pointer-events: none;
+    }
+    .hero-arcade::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 52% 40%, rgba(134,232,255,0.22) 0%, rgba(134,232,255,0.07) 28%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-arcade > * { position: relative; z-index: 1; }
+
+    /* --- Demo frame / code label --- */
+    .demo-frame {
+      border: 1px solid rgba(134,232,255,0.16);
+      background: rgba(20,16,15,0.55);
+      border-radius: 0.4rem;
+      padding: 2rem 1.5rem;
+    }
+    .code-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: rgba(233,194,179,0.72);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(233,194,179,0.16);
+      border-radius: 0.2rem;
+      padding: 0.2rem 0.45rem;
+    }
+
+    /* --- Color swatch block --- */
+    .color-swatch-block {
+      border-radius: 0.4rem;
+      border: 1px solid rgba(255,255,255,0.10);
+      padding: 1.5rem 1.1rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    /* --- Gradient strip --- */
+    .gradient-strip {
+      height: 64px;
+      border-radius: 0.3rem;
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    /* --- Highlights --- */
+    .hero-highlight-ember { color: #F59A52; text-shadow: 0 0 14px rgba(245,154,82,0.30); }
+    .hero-highlight-saber { color: #86E8FF; text-shadow: 0 0 14px rgba(134,232,255,0.30); }
+    .wordmark { font-family: 'Audiowide', 'Space Grotesk', sans-serif; }
+
+    /* --- Table --- */
+    .bb-table { width: 100%; border-collapse: collapse; }
+    .bb-table th {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      color: #86E8FF;
+      border-bottom: 1px solid rgba(134,232,255,0.28);
+    }
+    .bb-table td {
+      padding: 0.75rem 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(252,246,243,0.88);
+      border-bottom: 1px solid rgba(142,47,42,0.28);
+      vertical-align: top;
+    }
+    .bb-table tr:hover td { background: rgba(29,21,20,0.5); }
+
+    /* --- Accessibility --- */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
     }
-
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg-surface);
-      color: var(--text-main);
-      line-height: 1.6;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 2rem 1.25rem 3rem;
-    }
-
-    .skip-link {
-      position: absolute;
-      left: -999px;
-      top: 0;
-      z-index: 1001;
-      background: var(--soft-ember);
-      color: var(--charcoal-bark);
-      padding: 0.75rem 1rem;
-      border-radius: 8px;
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    .skip-link:focus {
-      left: 1rem;
-      top: 1rem;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      display: flex;
-      justify-content: flex-end;
-      padding: 1rem 1.25rem 0;
-    }
-    .chip-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin: 0 0 1.25rem;
-    }
-    .arcade-chip {
-      border: 1px solid var(--border-color);
-      background: rgba(122, 34, 23, 0.55);
-      color: var(--terracotta-border);
-      border-radius: 3px;
-      padding: 0.45rem 0.65rem;
-      font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
-      font-size: 0.62rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      line-height: 1.6;
-    }
-    body:not(.dark-mode) .arcade-chip {
-      background: rgba(142, 47, 42, 0.12);
-      color: var(--deep-rust);
-      border-color: rgba(142, 47, 42, 0.35);
-    }
-    .signal-board {
-      background: var(--surface-alt);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      box-shadow: var(--elevation), inset 0 0 0 1px rgba(142, 47, 42, 0.35);
-      padding: 1rem 1.25rem;
-      margin-bottom: 2rem;
-    }
-    .signal-board h3 {
-      margin: 0.2rem 0 0.8rem;
-      font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      line-height: 1.5;
-    }
-    .signal-board ul {
-      margin: 0;
-      padding-left: 1.2rem;
-    }
-    .signal-board li {
-      font-size: 1rem;
-      margin-bottom: 0.35rem;
-    }
-
-    h1, .logo-display {
-      font-family: 'Audiowide', cursive;
-      color: var(--heading-color);
-    }
-
-    h1 {
-      margin-top: 0;
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      line-height: 1.2;
-    }
-
-    h2, h3, h4 {
-      font-family: 'Space Grotesk', sans-serif;
-      color: var(--heading-color);
-      line-height: 1.25;
-    }
-
-    h2 {
-      font-size: 2rem;
-      margin-top: 2.5rem;
-      border-bottom: 2px solid var(--border-color);
-      padding-bottom: 0.4rem;
-    }
-
-    h3 {
-      font-size: 1.5rem;
-      margin-top: 1.6rem;
-    }
-
-    p, li {
-      font-size: 1.08rem;
-    }
-
-    .muted {
-      color: var(--text-muted);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 1rem 0;
-      background: var(--surface-alt);
-    }
-
-    table th, table td {
-      border: 1px solid var(--border-color);
-      padding: 0.75rem;
-      text-align: left;
-      vertical-align: top;
-    }
-
-    table th {
-      background-color: var(--table-header-bg);
-      color: var(--table-header-text);
-      font-weight: 700;
-    }
-
-    code {
-      font-family: 'JetBrains Mono', monospace;
-      background: var(--code-bg);
-      color: var(--code-text);
-      padding: 0.2rem 0.4rem;
-      border-radius: 4px;
-    }
-
-    .hex-value {
-      display: inline-block;
-      width: 80px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.95rem;
-    }
-
-    .swatch {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      margin-left: 8px;
-      vertical-align: middle;
-      border-radius: 4px;
-      border: 1px solid var(--border-color);
-    }
-
-    .section {
-      margin-bottom: 3rem;
-    }
-
-    .card {
-      background: var(--surface-alt);
-      padding: 1.5rem;
-      border-radius: 10px;
-      border: 1px solid var(--border-color);
-      box-shadow: var(--elevation);
-    }
-
-    .btn {
-      border: 1px solid var(--soft-ember);
-      background: var(--soft-ember);
-      color: var(--charcoal-bark);
-      border-radius: 3px;
-      padding: 0.55rem 0.75rem;
-      font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
-      font-size: 0.62rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      line-height: 1.6;
-      cursor: pointer;
-      box-shadow: 0 0 0 1px rgba(245, 154, 82, 0.45);
-      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-    }
-    body:not(.dark-mode) .btn {
-      background: var(--soft-ember);
-      color: var(--charcoal-bark);
-      border-color: var(--soft-ember);
-    }
-
-    .btn:hover {
-      background: var(--paper-ivory);
-      border-color: var(--paper-ivory);
-      color: var(--charcoal-bark);
-      transform: translateY(-1px);
-    }
-    body:not(.dark-mode) .btn:hover {
-      background: var(--paper-ivory);
-      color: var(--charcoal-bark);
-    }
-
-    .btn:active {
-      transform: translateY(0);
-    }
-
-    a {
-      color: var(--deep-rust);
-    }
-
-    body.dark-mode a {
-      color: var(--soft-ember);
-    }
-
-    button:focus-visible,
-    a:focus-visible {
-      outline: 3px solid var(--focus-ring);
+    button:focus-visible, a:focus-visible {
+      outline: 2px solid #86E8FF;
       outline-offset: 2px;
     }
   </style>
 </head>
-<body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <div class="topbar">
-    <button
-      id="theme-toggle"
-      class="btn"
-      type="button"
-      aria-pressed="false"
-      aria-label="Switch to dark mode"
-    >
-      Switch to dark mode
-    </button>
-  </div>
+<body class="min-h-screen font-sans bg-obsidian-brown text-paper-ivory">
 
-  <main id="main-content" class="container">
-    <h1>KnowB AI Org Book</h1>
-    <div class="chip-row" aria-label="Style profile">
-      <span class="arcade-chip">Arcade Front End</span>
-      <span class="arcade-chip">Mission Control Back End</span>
-      <span class="arcade-chip">Low Carbon Mode</span>
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-soft-ember focus:text-charcoal-bark focus:rounded-md focus:font-semibold">
+    Skip to main content
+  </a>
+
+  <!-- Sticky nav -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-charcoal-bark/95 backdrop-blur-md border-b border-saber-blue/20">
+    <nav aria-label="Brandbook navigation" class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+      <div class="wordmark text-lg font-semibold tracking-tight text-paper-ivory">
+        knowb<span class="text-soft-ember">.</span>brandbook
+      </div>
+      <div class="flex flex-wrap gap-x-5 gap-y-2">
+        <a href="#colours"       class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">Colours</a>
+        <a href="#gradients"     class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">Gradients</a>
+        <a href="#typography"    class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">Type</a>
+        <a href="#components"    class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">Components</a>
+        <a href="#accessibility" class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">A11y</a>
+        <a href="#copy"          class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">Copy</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section id="main-content" class="pt-28 pb-20 px-6 bg-knowb-autumn-core border-b border-deep-rust/70 hero-arcade">
+    <div class="max-w-7xl mx-auto">
+      <div class="max-w-4xl">
+        <p class="section-kicker section-kicker-ember mb-5">Design System Reference</p>
+        <h1 class="wordmark text-5xl md:text-7xl leading-[1.08] tracking-tight mb-6 text-paper-ivory">
+          KnowB AI <span class="hero-highlight-saber">Brandbook</span>
+        </h1>
+        <p class="font-sans text-xl md:text-2xl text-paper-ivory/90 mb-8 max-w-3xl leading-relaxed">
+          Canonical reference for the <span class="hero-highlight-ember">KnowB Autumn</span> palette, typography, component patterns, gradients, and accessibility requirements.
+        </p>
+        <div class="flex flex-wrap gap-3 mb-10">
+          <span class="arcade-chip">KnowB Autumn</span>
+          <span class="arcade-chip">WCAG 2.2 AA</span>
+          <span class="arcade-chip">Arcade Front End</span>
+          <span class="arcade-chip">Mission Control Layer</span>
+        </div>
+        <div class="signal-grid">
+          <article class="signal-card card-theme-ember">
+            <h3>Player Side</h3>
+            <p>90s arcade pacing, clear interaction cues, readable at speed.</p>
+          </article>
+          <article class="signal-card card-theme-saber">
+            <h3>System Side</h3>
+            <p>Portal-like command surfaces for memory and orchestration.</p>
+          </article>
+          <article class="signal-card card-theme-ember">
+            <h3>Low Carbon</h3>
+            <p>Static delivery, restrained motion, reduced compute overhead.</p>
+          </article>
+        </div>
+      </div>
     </div>
-    <section class="signal-board" aria-labelledby="signal-board-heading">
-      <h3 id="signal-board-heading">Signal Board</h3>
-      <ul>
-        <li><strong>Player side:</strong> 90s arcade pacing and clear interaction cues.</li>
-        <li><strong>System side:</strong> portal-like command surfaces for memory and orchestration.</li>
-        <li><strong>Low carbon:</strong> static delivery, restrained motion, and reduced compute overhead.</li>
-      </ul>
-    </section>
+  </section>
 
-    <section class="section">
-      <h2>1. Mission & Manifesto</h2>
-      <blockquote>
-        <strong>Our mission is to solve the data management and knowledge fragmentation problem at its root.</strong>
-      </blockquote>
-      <p>Across modern organizations, data often splinters into isolated silos or becomes enmeshed in rigid privilege-access hierarchies that don’t scale with complexity. In the AI era, where output quality is directly tied to input clarity, these issues are no longer tolerable.</p>
-      <p><strong>KnowB AI</strong> offers an integrated, agent-embedded knowledge architecture that treats storage, upkeep, orchestration, and contextual integrity as a singular design problem. We believe your knowledge systems should:</p>
-      <ul>
-        <li>Be continuously organized and contextually aware</li>
-        <li>Allow flexible access and interaction across any AI model or modality</li>
-        <li>Provide a single source of truth and memory for agents, teams, and interfaces</li>
-      </ul>
-      <p>We do this by building intelligent knowledge infrastructures — bundling durable storage with intelligent agents and operators that manage context, state, and evolution of knowledge spaces over time.</p>
-      <p><strong>We specialize in:</strong></p>
-      <ul>
-        <li>Architecting Knowledge Bases that scale across people, roles, and machines</li>
-        <li>Developing autonomous Knowledge Agents that understand and maintain these spaces</li>
-        <li>Building middleware tooling that handles memory continuity, context transfer, and model interoperability</li>
-      </ul>
-      <p><strong>In a world of chaotic context, KnowB AI builds knowledge systems that think.</strong></p>
+  <main class="max-w-7xl mx-auto px-6 pb-20">
 
-      <h3>Our Key Tenets</h3>
-      <h4>1. Local-First, Globally Aware</h4>
-      <p>“Your knowledge lives where you are. And follows where you go.”</p>
-      <p>Start with local, private knowledge workspaces. Enable global memory sync through context-aware agents. Your organization’s knowledge should feel present across every device, model, or tool you use — without centralization risks.</p>
+    <!-- ── 01 MISSION ──────────────────────────────────────────────── -->
+    <section id="mission" class="scroll-mt-28 py-16 border-b border-deep-rust/40">
+      <p class="section-kicker section-kicker-saber">01 — Origin</p>
+      <div class="section-rule"></div>
+      <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-8 text-paper-ivory">Mission &amp; Manifesto</h2>
 
-      <h4>2. Fork, Switch, Clone — A New Language for Context Control</h4>
-      <p>“Every path is a thread. Every thread is portable.”</p>
-      <p>Context isn't static — it evolves. Users should be able to switch models, fork conversations, and clone threads with full preservation of their memory state and intentions. These memory actions unlock a fluid, agentic workflow across LLMs and platforms.</p>
+      <div class="grid lg:grid-cols-2 gap-10 mb-10">
+        <div>
+          <p class="font-sans text-lg text-paper-ivory/90 leading-relaxed mb-4">
+            KnowB AI solves the data management and knowledge fragmentation problem at its root. In the AI era, output quality is tied directly to input clarity. Isolated silos and rigid access hierarchies are no longer acceptable.
+          </p>
+          <p class="font-sans text-lg text-paper-ivory/90 leading-relaxed">
+            We build intelligent knowledge infrastructures that bundle durable storage with intelligent agents and operators, managing context, state, and evolution over time.
+          </p>
+          <p class="font-sans text-lg text-soft-ember mt-6 font-semibold">
+            In a world of chaotic context, KnowB AI builds knowledge systems that think.
+          </p>
+        </div>
+        <div class="arcade-card card-theme-ember bg-charcoal-bark/60 rounded-sm p-6">
+          <h3 class="font-display text-xl mb-4 text-soft-ember">We specialize in</h3>
+          <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside font-sans">
+            <li>Architecting Knowledge Bases that scale across people, roles, and machines</li>
+            <li>Developing autonomous Knowledge Agents that understand and maintain knowledge spaces</li>
+            <li>Building middleware tooling for memory continuity, context transfer, and model interoperability</li>
+          </ul>
+        </div>
+      </div>
 
-      <h4>3. Memory is Portable. Context is Sacred.</h4>
-      <p>“Knowledge continuity is the default — not the exception.”</p>
-      <p>From model to model, machine to machine, modality to modality, your working memory and active context should never be lost. KnowB creates continuity layers that preserve tone, structure, goals, and history.</p>
-    </section>
-
-    <section class="section">
-      <h2>2. Core Concepts</h2>
-
-      <h3>Knowledge Base (KB)</h3>
-      <p>A structured and queryable store of contextually rich, durable knowledge. Built for interoperability with AI models, human teams, and agents alike. Includes metadata, history, and traceable memory across time.</p>
-
-      <h3>Knowledge Agent</h3>
-      <p>An intelligent system (LLM-powered or hybrid) that performs actions, answers questions, manages memory, and evolves the Knowledge Base in real time.</p>
-
-      <h3>Operators</h3>
-      <p>Lightweight, rule-driven tools (scripts, agents, plugins) that handle tasks like tagging, summarizing, syncing, or enforcing hygiene and structure in KBs.</p>
-
-      <h3>Context</h3>
-      <p>Everything that surrounds a task, thread, or decision: tone, intention, dependencies, entities, prior steps. Context is both local and portable.</p>
-
-      <h3>Memory</h3>
-      <p>The accumulated state of what was said, done, asked, answered, linked, or concluded — in both structured and ambient form. Memory must be stored, scoped, and revived when needed.</p>
-
-      <h3>Knowledge Operating System</h3>
-      <p>A modular stack that allows KBs, Agents, and Operators to function together as a system — with synchronization, switching, versioning, and recall features across machines and models.</p>
-
-      <div class="card" style="margin-bottom: 1rem;">
-        <h3 style="margin-top: 0;">Sample Card</h3>
-        <p>This card demonstrates a reusable UI component with adaptable styling for both light and dark themes.</p>
+      <h3 class="font-display text-2xl mb-5 text-paper-ivory">Key Tenets</h3>
+      <div class="grid md:grid-cols-3 gap-5">
+        <article class="signal-card card-theme-saber">
+          <h3>Local-First, Globally Aware</h3>
+          <p>Your knowledge lives where you are and follows where you go. Start local; enable global memory sync through context-aware agents.</p>
+        </article>
+        <article class="signal-card card-theme-ember">
+          <h3>Fork, Switch, Clone</h3>
+          <p>Context is not static. Switch models, fork conversations, and clone threads with full memory-state preservation.</p>
+        </article>
+        <article class="signal-card card-theme-saber">
+          <h3>Memory is Portable</h3>
+          <p>Knowledge continuity is the default, not the exception. Across machines, models, and modalities, working memory must never be lost.</p>
+        </article>
       </div>
     </section>
 
-    <section class="section">
-      <h2>3. Brand Foundation — KnowB Autumn</h2>
-      <h3>Color Palette</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Token</th>
-            <th>Hex</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>--autumn-fire</td>
-            <td><span class="hex-value" data-token="--autumn-fire"></span> <span class="swatch" style="background-color:var(--autumn-fire);"></span></td>
-            <td>Accent and display highlight color.</td>
-          </tr>
-          <tr>
-            <td>--deep-rust</td>
-            <td><span class="hex-value" data-token="--deep-rust"></span> <span class="swatch" style="background-color:var(--deep-rust);"></span></td>
-            <td>Primary high-contrast control and depth color.</td>
-          </tr>
-          <tr>
-            <td>--soft-ember</td>
-            <td><span class="hex-value" data-token="--soft-ember"></span> <span class="swatch" style="background-color:var(--soft-ember);"></span></td>
-            <td>Warm highlight and focus color.</td>
-          </tr>
-          <tr>
-            <td>--paper-ivory</td>
-            <td><span class="hex-value" data-token="--paper-ivory"></span> <span class="swatch" style="background-color:var(--paper-ivory);"></span></td>
-            <td>Primary light surface color.</td>
-          </tr>
-          <tr>
-            <td>--saber-blue</td>
-            <td><span class="hex-value" data-token="--saber-blue"></span> <span class="swatch" style="background-color:var(--saber-blue);"></span></td>
-            <td>Approved cool signal accent for headings, links, and interactive states.</td>
-          </tr>
-          <tr>
-            <td>--charcoal-bark</td>
-            <td><span class="hex-value" data-token="--charcoal-bark"></span> <span class="swatch" style="background-color:var(--charcoal-bark);"></span></td>
-            <td>Primary dark surface and text color.</td>
-          </tr>
-          <tr>
-            <td>--muted-wood</td>
-            <td><span class="hex-value" data-token="--muted-wood"></span> <span class="swatch" style="background-color:var(--muted-wood);"></span></td>
-            <td>Secondary text and quiet metadata.</td>
-          </tr>
-          <tr>
-            <td>--terracotta-border</td>
-            <td><span class="hex-value" data-token="--terracotta-border"></span> <span class="swatch" style="background-color:var(--terracotta-border);"></span></td>
-            <td>Subtle separators and border lines.</td>
-          </tr>
-        </tbody>
-      </table>
+    <!-- ── 02 CORE CONCEPTS ────────────────────────────────────────── -->
+    <section id="concepts" class="scroll-mt-28 py-16 border-b border-deep-rust/40">
+      <p class="section-kicker section-kicker-ember">02 — Glossary</p>
+      <div class="section-rule-ember"></div>
+      <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-10 text-paper-ivory">Core Concepts</h2>
 
-      <h3>Typography</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Role</th>
-            <th>Font</th>
-            <th>Style</th>
-            <th>Use</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Headlines</td>
-            <td>Space Grotesk</td>
-            <td>Medium/Bold</td>
-            <td>Main titles and section headers</td>
-          </tr>
-          <tr>
-            <td>Body Text</td>
-            <td>Inter</td>
-            <td>Regular</td>
-            <td>Paragraphs and supporting copy</td>
-          </tr>
-          <tr>
-            <td>Code</td>
-            <td>JetBrains Mono</td>
-            <td>Monospaced</td>
-            <td>Inline code and technical snippets</td>
-          </tr>
-          <tr>
-            <td>Display / Logo</td>
-            <td>Audiowide</td>
-            <td>Display</td>
-            <td>Wordmark and identity elements</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>Font Specimens</h3>
-      <p class="logo-display">KNOWB AI</p>
-      <p>This is a sample paragraph rendered in the Inter font to demonstrate body text appearance.</p>
-      <p><code>const knowB = 'knowledge continuity';</code></p>
-    </section>
-
-    <section class="section">
-      <h2>4. Ecosystem Overview</h2>
-      <ol>
-        <li><strong>Knowledge Bases:</strong> Scalable repositories that organize and store information across multiple domains and teams.</li>
-        <li><strong>Knowledge Agents:</strong> Autonomous entities that maintain, curate, and interact with knowledge bases to ensure accuracy and relevance.</li>
-        <li><strong>Middleware Tools:</strong> Systems facilitating memory continuity, context transfer, and interoperability between models and platforms.</li>
-        <li><strong>Interfaces:</strong> User-facing applications and APIs providing flexible access to knowledge systems across modalities.</li>
-        <li><strong>Integration Layer:</strong> Connectors and adapters that enable seamless communication between internal and external services.</li>
-      </ol>
-    </section>
-
-    <section class="section">
-      <h2>5. Application Guidelines</h2>
-      <h3>Visual Guidelines</h3>
-      <ul>
-        <li>Use canonical autumn tokens consistently to maintain visual coherence and identity.</li>
-        <li>Keep strong typographic hierarchy and sufficient whitespace for scanability.</li>
-        <li>Use warm accents for signal, not for long passages of body text.</li>
-        <li>Ensure body text contrast stays at WCAG AA (minimum 4.5:1).</li>
-      </ul>
-
-      <h3>Aesthetic Direction for Knowledge Agents</h3>
-      <ul>
-        <li>Agents should feel like tools, not personalities.</li>
-        <li>Interfaces should emphasize signal clarity over visual complexity.</li>
-        <li>Use motion sparingly, only to communicate state or transition.</li>
-        <li>Visual hierarchy should mimic system layers: input → processing → output.</li>
-      </ul>
-
-      <h3>UI Components Demo</h3>
-      <div class="card" style="max-width: 420px; margin-bottom: 1rem;">
-        <h4 style="margin-top: 0;">Demo Card Title</h4>
-        <p class="muted">This card uses palette tokens to stay consistent and readable in both light and dark themes.</p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <article class="bg-charcoal-bark/60 border border-terracotta-border/25 rounded-sm p-6">
+          <h3 class="font-display text-xl mb-3 text-saber-blue">Knowledge Base</h3>
+          <p class="font-sans text-paper-ivory/85 leading-relaxed">A structured, queryable store of contextually rich, durable knowledge. Built for interoperability with AI models, human teams, and agents.</p>
+        </article>
+        <article class="bg-charcoal-bark/60 border border-terracotta-border/25 rounded-sm p-6">
+          <h3 class="font-display text-xl mb-3 text-soft-ember">Knowledge Agent</h3>
+          <p class="font-sans text-paper-ivory/85 leading-relaxed">An intelligent system that performs actions, answers questions, manages memory, and evolves the Knowledge Base in real time.</p>
+        </article>
+        <article class="bg-charcoal-bark/60 border border-terracotta-border/25 rounded-sm p-6">
+          <h3 class="font-display text-xl mb-3 text-saber-blue">Operators</h3>
+          <p class="font-sans text-paper-ivory/85 leading-relaxed">Lightweight rule-driven tools that handle tagging, summarizing, syncing, or enforcing hygiene and structure in Knowledge Bases.</p>
+        </article>
+        <article class="bg-charcoal-bark/60 border border-terracotta-border/25 rounded-sm p-6">
+          <h3 class="font-display text-xl mb-3 text-soft-ember">Context</h3>
+          <p class="font-sans text-paper-ivory/85 leading-relaxed">Everything surrounding a task, thread, or decision: tone, intention, dependencies, entities, and prior steps. Context is both local and portable.</p>
+        </article>
+        <article class="bg-charcoal-bark/60 border border-terracotta-border/25 rounded-sm p-6">
+          <h3 class="font-display text-xl mb-3 text-saber-blue">Memory</h3>
+          <p class="font-sans text-paper-ivory/85 leading-relaxed">The accumulated state of what was said, done, asked, answered, linked, or concluded. Memory must be stored, scoped, and revived when needed.</p>
+        </article>
+        <article class="bg-charcoal-bark/60 border border-terracotta-border/25 rounded-sm p-6">
+          <h3 class="font-display text-xl mb-3 text-soft-ember">Knowledge OS</h3>
+          <p class="font-sans text-paper-ivory/85 leading-relaxed">A modular stack that lets KBs, Agents, and Operators function together with synchronization, switching, versioning, and recall features.</p>
+        </article>
       </div>
-      <button class="btn" type="button">Demo Button</button>
     </section>
+
+    <!-- ── 03 COLOUR SYSTEM ────────────────────────────────────────── -->
+    <section id="colours" class="scroll-mt-28 py-16 border-b border-deep-rust/40">
+      <p class="section-kicker section-kicker-saber">03 — Colour System</p>
+      <div class="section-rule"></div>
+      <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">KnowB Autumn Palette</h2>
+      <p class="font-sans text-lg text-paper-ivory/80 mb-10 max-w-3xl leading-relaxed">
+        Eight canonical tokens only. Opacity variants are permitted; new hues are not. Saber Blue is the sole approved cool accent.
+      </p>
+
+      <!-- Swatches -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14">
+        <div class="color-swatch-block" style="background:#FF4A1A; box-shadow: 0 0 25px rgba(255,74,26,0.30);">
+          <span class="font-mono text-xs text-white/90 font-semibold">#FF4A1A</span>
+          <span class="font-display text-sm font-semibold text-white">Autumn Fire</span>
+          <span class="font-sans text-xs text-white/80">Accent &amp; display highlight</span>
+          <span class="font-mono text-[10px] text-white/55">--autumn-fire</span>
+        </div>
+        <div class="color-swatch-block" style="background:#8E2F2A;">
+          <span class="font-mono text-xs text-white/90 font-semibold">#8E2F2A</span>
+          <span class="font-display text-sm font-semibold text-white">Deep Rust</span>
+          <span class="font-sans text-xs text-white/80">Primary high-contrast control</span>
+          <span class="font-mono text-[10px] text-white/55">--deep-rust</span>
+        </div>
+        <div class="color-swatch-block" style="background:#F59A52; box-shadow: 0 0 20px rgba(245,154,82,0.30);">
+          <span class="font-mono text-xs text-[#1D1514] font-semibold">#F59A52</span>
+          <span class="font-display text-sm font-semibold text-[#1D1514]">Soft Ember</span>
+          <span class="font-sans text-xs text-[#1D1514]/75">Warm highlight &amp; focus</span>
+          <span class="font-mono text-[10px] text-[#1D1514]/55">--soft-ember</span>
+        </div>
+        <div class="color-swatch-block" style="background:#FCF6F3; border-color: rgba(122,34,23,0.20);">
+          <span class="font-mono text-xs text-[#1D1514] font-semibold">#FCF6F3</span>
+          <span class="font-display text-sm font-semibold text-[#1D1514]">Paper Ivory</span>
+          <span class="font-sans text-xs text-[#1D1514]/75">Primary light surface</span>
+          <span class="font-mono text-[10px] text-[#1D1514]/55">--paper-ivory</span>
+        </div>
+        <div class="color-swatch-block" style="background:#86E8FF; box-shadow: 0 0 20px rgba(134,232,255,0.30);">
+          <span class="font-mono text-xs text-[#1D1514] font-semibold">#86E8FF</span>
+          <span class="font-display text-sm font-semibold text-[#1D1514]">Saber Blue</span>
+          <span class="font-sans text-xs text-[#1D1514]/75">Signal accent — only cool hue</span>
+          <span class="font-mono text-[10px] text-[#1D1514]/55">--saber-blue</span>
+        </div>
+        <div class="color-swatch-block" style="background:#1D1514; border-color: rgba(245,154,82,0.18);">
+          <span class="font-mono text-xs text-paper-ivory/90 font-semibold">#1D1514</span>
+          <span class="font-display text-sm font-semibold text-paper-ivory">Charcoal Bark</span>
+          <span class="font-sans text-xs text-paper-ivory/75">Primary dark surface</span>
+          <span class="font-mono text-[10px] text-paper-ivory/55">--charcoal-bark</span>
+        </div>
+        <div class="color-swatch-block" style="background:#867268;">
+          <span class="font-mono text-xs text-white/90 font-semibold">#867268</span>
+          <span class="font-display text-sm font-semibold text-white">Muted Wood</span>
+          <span class="font-sans text-xs text-white/80">Secondary text &amp; metadata</span>
+          <span class="font-mono text-[10px] text-white/55">--muted-wood</span>
+        </div>
+        <div class="color-swatch-block" style="background:#E9C2B3; border-color: rgba(122,34,23,0.20);">
+          <span class="font-mono text-xs text-[#1D1514] font-semibold">#E9C2B3</span>
+          <span class="font-display text-sm font-semibold text-[#1D1514]">Terracotta Border</span>
+          <span class="font-sans text-xs text-[#1D1514]/75">Separators &amp; borders</span>
+          <span class="font-mono text-[10px] text-[#1D1514]/55">--terracotta-border</span>
+        </div>
+      </div>
+
+      <!-- Approved pairings -->
+      <h3 class="font-display text-2xl mb-3 text-paper-ivory">Approved Contrast Pairings</h3>
+      <p class="font-sans text-paper-ivory/65 mb-6 text-sm">All meet WCAG 2.2 AA: ≥4.5:1 normal text, ≥3:1 large text.</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
+        <div class="rounded-sm p-4" style="background:#FCF6F3;">
+          <p style="color:#7A2217; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:0.9rem; margin:0 0 4px;">Charcoal on Ivory</p>
+          <p style="color:#77584F; font-size:0.78rem; font-family:'Inter',sans-serif; margin:0;">Body text, light surfaces</p>
+        </div>
+        <div class="rounded-sm p-4" style="background:#8E2F2A;">
+          <p style="color:#FCF6F3; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:0.9rem; margin:0 0 4px;">Ivory on Deep Rust</p>
+          <p style="color:rgba(252,246,243,0.78); font-size:0.78rem; font-family:'Inter',sans-serif; margin:0;">High contrast dark</p>
+        </div>
+        <div class="rounded-sm p-4" style="background:#1D1514;">
+          <p style="color:#86E8FF; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:0.9rem; margin:0 0 4px;">Saber on Charcoal</p>
+          <p style="color:#E9C2B3; font-size:0.78rem; font-family:'Inter',sans-serif; margin:0;">Signal on dark surface</p>
+        </div>
+        <div class="rounded-sm p-4" style="background:#F59A52;">
+          <p style="color:#1D1514; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:0.9rem; margin:0 0 4px;">Charcoal on Ember</p>
+          <p style="color:rgba(29,21,20,0.7); font-size:0.78rem; font-family:'Inter',sans-serif; margin:0;">Warm highlight pairing</p>
+        </div>
+      </div>
+
+      <!-- Prohibited pairings -->
+      <h3 class="font-display text-xl mb-3 text-paper-ivory">Prohibited for Normal Body Text</h3>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+        <div class="rounded-sm p-4 relative overflow-hidden" style="background:#FCF6F3; border: 2px solid #FF4A1A;">
+          <span class="absolute top-1.5 right-2 text-xs font-mono" style="color:#FF4A1A;">✗ body</span>
+          <p style="color:#FF4A1A; font-family:'Inter',sans-serif; font-size:0.92rem; margin:0;">Fire on Ivory</p>
+        </div>
+        <div class="rounded-sm p-4 relative overflow-hidden" style="background:#FF4A1A; border: 2px solid #8E2F2A;">
+          <span class="absolute top-1.5 right-2 text-xs font-mono text-paper-ivory/80">✗ body</span>
+          <p style="color:#FCF6F3; font-family:'Inter',sans-serif; font-size:0.92rem; margin:0;">Ivory on Fire</p>
+        </div>
+        <div class="rounded-sm p-4 relative overflow-hidden" style="background:#FCF6F3; border: 2px solid #86E8FF;">
+          <span class="absolute top-1.5 right-2 text-xs font-mono" style="color:#86E8FF;">✗ body</span>
+          <p style="color:#86E8FF; font-family:'Inter',sans-serif; font-size:0.92rem; margin:0;">Saber on Ivory</p>
+        </div>
+      </div>
+      <p class="font-sans text-paper-ivory/55 text-sm mt-3">
+        <span class="text-soft-ember">Exception:</span> Autumn Fire is allowed for large display text (≥24px regular or ≥18.66px bold) where the 3:1 large-text threshold is met.
+      </p>
+    </section>
+
+    <!-- ── 04 GRADIENTS ────────────────────────────────────────────── -->
+    <section id="gradients" class="scroll-mt-28 py-16 border-b border-deep-rust/40">
+      <p class="section-kicker section-kicker-ember">04 — Gradients</p>
+      <div class="section-rule-ember"></div>
+      <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">Canonical Gradients</h2>
+      <p class="font-sans text-lg text-paper-ivory/80 mb-10 max-w-3xl">These formulas are exact. No deviation allowed. Use them as-is or with opacity.</p>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div>
+          <p class="section-kicker section-kicker-saber text-[0.58rem] mb-3">Dark / Depth</p>
+          <div class="gradient-strip mb-2" style="background: linear-gradient(135deg, #FF4A1A 0%, #8E2F2A 100%);"></div>
+          <code class="code-label block mb-5 text-[0.7rem]">linear-gradient(135deg, #FF4A1A 0%, #8E2F2A 100%)</code>
+          <div class="gradient-strip mb-2" style="background: linear-gradient(180deg, #8E2F2A 0%, #7A2217 100%);"></div>
+          <code class="code-label block text-[0.7rem]">linear-gradient(180deg, #8E2F2A 0%, #7A2217 100%)</code>
+        </div>
+        <div>
+          <p class="section-kicker section-kicker-ember text-[0.58rem] mb-3">Warm Accent</p>
+          <div class="gradient-strip mb-2" style="background: linear-gradient(145deg, #F59A52 0%, #FF4A1A 100%);"></div>
+          <code class="code-label block mb-5 text-[0.7rem]">linear-gradient(145deg, #F59A52 0%, #FF4A1A 100%)</code>
+          <div class="gradient-strip mb-2" style="background: linear-gradient(135deg, rgba(255,74,26,0.88) 0%, rgba(245,154,82,0.58) 34%, rgba(142,47,42,0.84) 100%);"></div>
+          <code class="code-label block text-[0.7rem]">linear-gradient(135deg, rgba(255,74,26,0.88) 0%, rgba(245,154,82,0.58) 34%, rgba(142,47,42,0.84) 100%)</code>
+        </div>
+        <div>
+          <p class="section-kicker section-kicker-saber text-[0.58rem] mb-3">Light / Neutral</p>
+          <div class="gradient-strip mb-2" style="background: linear-gradient(135deg, #FCF6F3 0%, #F59A52 100%); border-color: rgba(245,154,82,0.25);"></div>
+          <code class="code-label block mb-5 text-[0.7rem]">linear-gradient(135deg, #FCF6F3 0%, #F59A52 100%)</code>
+          <div class="gradient-strip mb-2" style="background: linear-gradient(90deg, #FCF6F3 0%, #8E2F2A 6%, #FCF6F3 100%); border-color: rgba(142,47,42,0.25);"></div>
+          <code class="code-label block text-[0.7rem]">linear-gradient(90deg, #FCF6F3 0%, #8E2F2A 6%, #FCF6F3 100%)</code>
+        </div>
+        <div>
+          <p class="section-kicker section-kicker-ember text-[0.58rem] mb-3">Signature</p>
+          <div class="gradient-strip mb-2" style="background: linear-gradient(135deg, #FF4A1A 0%, #8E2F2A 40%, #7A2217 100%);"></div>
+          <code class="code-label block mb-5 text-[0.7rem]">linear-gradient(135deg, #FF4A1A 0%, #8E2F2A 40%, #7A2217 100%)</code>
+          <div class="gradient-strip mb-2" style="background: linear-gradient(120deg, #FCF6F3 0%, #F59A52 30%, #8E2F2A 70%, #E9C2B3 100%); border-color: rgba(245,154,82,0.2);"></div>
+          <code class="code-label block text-[0.7rem]">linear-gradient(120deg, #FCF6F3 0%, #F59A52 30%, #8E2F2A 70%, #E9C2B3 100%)</code>
+        </div>
+        <div class="md:col-span-2">
+          <p class="section-kicker section-kicker-saber text-[0.58rem] mb-3">Signal Accent — Saber-enabled</p>
+          <div class="grid md:grid-cols-2 gap-5">
+            <div>
+              <div class="gradient-strip mb-2" style="background: linear-gradient(132deg, #FF4A1A 0%, #8E2F2A 34%, #7A2217 72%, #86E8FF 100%);"></div>
+              <code class="code-label block text-[0.7rem]">linear-gradient(132deg, #FF4A1A 0%, #8E2F2A 34%, #7A2217 72%, #86E8FF 100%)</code>
+            </div>
+            <div>
+              <div class="gradient-strip mb-2" style="background: linear-gradient(90deg, #FCF6F3 0%, #8E2F2A 8%, #86E8FF 16%, #FCF6F3 100%); border-color: rgba(134,232,255,0.2);"></div>
+              <code class="code-label block text-[0.7rem]">linear-gradient(90deg, #FCF6F3 0%, #8E2F2A 8%, #86E8FF 16%, #FCF6F3 100%)</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 05 TYPOGRAPHY ───────────────────────────────────────────── -->
+    <section id="typography" class="scroll-mt-28 py-16 border-b border-deep-rust/40">
+      <p class="section-kicker section-kicker-saber">05 — Typography</p>
+      <div class="section-rule"></div>
+      <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">Type System</h2>
+      <p class="font-sans text-lg text-paper-ivory/80 mb-12 max-w-3xl">Five font roles. Each has a defined purpose and must not be used outside it.</p>
+
+      <div class="overflow-x-auto mb-12">
+        <table class="bb-table">
+          <thead>
+            <tr>
+              <th>Role</th><th>Font</th><th>Weight</th><th>Use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Wordmark / Identity</td><td class="font-wordmark">Audiowide</td><td>Display</td><td>Logo, product name, brand hero</td></tr>
+            <tr><td>Display / Headings</td><td class="font-display">Space Grotesk</td><td>500 / 700</td><td>H1–H4, section titles, card headings</td></tr>
+            <tr><td>Body Copy</td><td class="font-sans">Inter</td><td>400 / 600</td><td>Paragraphs, lists, supporting copy</td></tr>
+            <tr><td>Arcade UI Labels</td><td class="font-arcade text-[0.8rem]">Press Start 2P</td><td>400</td><td>Chips, section kickers, button labels, nav</td></tr>
+            <tr><td>Code / Technical</td><td class="font-mono">JetBrains Mono</td><td>400 / 500</td><td>Inline code, CSS values, hex tokens</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="space-y-8">
+        <!-- Audiowide -->
+        <div class="demo-frame">
+          <span class="code-label mb-4 inline-block">Audiowide — wordmark &amp; identity</span>
+          <p class="wordmark text-6xl text-paper-ivory mt-4 mb-2">KNOWB AI</p>
+          <p class="wordmark text-3xl text-soft-ember mb-2">Knowledge Systems</p>
+          <p class="wordmark text-xl text-saber-blue">knowb.run</p>
+        </div>
+
+        <!-- Space Grotesk -->
+        <div class="demo-frame">
+          <span class="code-label mb-4 inline-block">Space Grotesk — display &amp; section headings</span>
+          <h1 class="font-display text-5xl font-bold text-paper-ivory mt-4 mb-2">H1 — Page Title (5xl, 700)</h1>
+          <h2 class="font-display text-4xl font-semibold text-paper-ivory mb-2">H2 — Section (4xl, 600)</h2>
+          <h3 class="font-display text-3xl font-semibold text-saber-blue mb-2">H3 — Card Heading (3xl, 600)</h3>
+          <h4 class="font-display text-2xl font-medium text-soft-ember">H4 — Label (2xl, 500)</h4>
+        </div>
+
+        <!-- Inter -->
+        <div class="demo-frame">
+          <span class="code-label mb-4 inline-block">Inter — body copy &amp; supporting text</span>
+          <p class="font-sans text-xl text-paper-ivory/90 leading-relaxed mb-3 mt-4">
+            Large body (text-xl): KnowB AI builds context-aware systems with durable memory, stable state transitions, and governance-first operation.
+          </p>
+          <p class="font-sans text-base text-paper-ivory/85 leading-relaxed mb-3">
+            Body (text-base): We specialize in architecting knowledge bases that scale across people, roles, and machines, developing autonomous agents that maintain context over time.
+          </p>
+          <p class="font-sans text-sm text-terracotta-border leading-relaxed">
+            Small / metadata (text-sm): Secondary details, timestamps, source labels, and supporting metadata.
+          </p>
+        </div>
+
+        <!-- Press Start 2P -->
+        <div class="demo-frame">
+          <span class="code-label mb-4 inline-block">Press Start 2P — arcade UI labels &amp; chips</span>
+          <p class="font-arcade text-[0.72rem] text-saber-blue mb-3 mt-4 tracking-widest uppercase">Arcade Front End</p>
+          <p class="font-arcade text-[0.62rem] text-soft-ember mb-3 tracking-widest uppercase">Mission Control Layer</p>
+          <p class="font-arcade text-[0.58rem] text-paper-ivory/75 tracking-widest uppercase">Low Carbon Mode — Static Surface</p>
+        </div>
+
+        <!-- JetBrains Mono -->
+        <div class="demo-frame">
+          <span class="code-label mb-4 inline-block">JetBrains Mono — code &amp; technical snippets</span>
+          <pre class="font-mono text-sm text-soft-ember mt-4 mb-3 overflow-x-auto">const knowB = 'knowledge continuity';</pre>
+          <pre class="font-mono text-sm text-saber-blue mb-3 overflow-x-auto">--autumn-fire: #FF4A1A;  /* Accent highlight */</pre>
+          <pre class="font-mono text-xs text-paper-ivory/70 overflow-x-auto">linear-gradient(132deg, #FF4A1A 0%, #8E2F2A 34%, #1D1514 72%, #86E8FF 100%)</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 06 COMPONENTS ───────────────────────────────────────────── -->
+    <section id="components" class="scroll-mt-28 py-16 border-b border-deep-rust/40">
+      <p class="section-kicker section-kicker-ember">06 — Components</p>
+      <div class="section-rule-ember"></div>
+      <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">UI Component Library</h2>
+      <p class="font-sans text-lg text-paper-ivory/80 mb-14 max-w-3xl">Live examples of every pattern used across the KnowB interface surface.</p>
+
+      <!-- 6.1 Section Kickers -->
+      <div class="mb-14">
+        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Section Kickers + Rules</h3>
+        <p class="font-sans text-paper-ivory/65 text-sm mb-5">Label each section with Press Start 2P, uppercase. Two accent variants: ember and saber. Always follow with a section-rule line.</p>
+        <div class="demo-frame space-y-8">
+          <div>
+            <p class="section-kicker section-kicker-saber">Saber Kicker</p>
+            <div class="section-rule"></div>
+            <p class="font-sans text-paper-ivory/50 text-xs"><code class="code-label">.section-kicker.section-kicker-saber</code> + <code class="code-label">.section-rule</code></p>
+          </div>
+          <div>
+            <p class="section-kicker section-kicker-ember">Ember Kicker</p>
+            <div class="section-rule-ember"></div>
+            <p class="font-sans text-paper-ivory/50 text-xs"><code class="code-label">.section-kicker.section-kicker-ember</code> + <code class="code-label">.section-rule-ember</code></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6.2 Arcade Chips -->
+      <div class="mb-14">
+        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Arcade Chips</h3>
+        <p class="font-sans text-paper-ivory/65 text-sm mb-5">Saber (default) and Ember (.ember / even-child) variants. Used for tagging, profiling, and feature labels.</p>
+        <div class="demo-frame">
+          <div class="flex flex-wrap gap-3 mb-5">
+            <span class="arcade-chip">Saber Chip</span>
+            <span class="arcade-chip ember">Ember Chip</span>
+            <span class="arcade-chip">Static-first Surface</span>
+            <span class="arcade-chip ember">Reduced Motion</span>
+            <span class="arcade-chip">WCAG 2.2 AA</span>
+            <span class="arcade-chip ember">Low Carbon Mode</span>
+          </div>
+          <code class="code-label">.arcade-chip</code>&ensp;<code class="code-label">.arcade-chip.ember</code>
+        </div>
+      </div>
+
+      <!-- 6.3 Arcade Buttons -->
+      <div class="mb-14">
+        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Arcade Buttons</h3>
+        <p class="font-sans text-paper-ivory/65 text-sm mb-5">Saber (primary) and Ember (.alt) variants. Both carry hover lift, active reset, and focus-visible outline states.</p>
+        <div class="demo-frame">
+          <div class="flex flex-wrap gap-4 mb-6">
+            <button class="arcade-button" type="button">Saber Primary</button>
+            <button class="arcade-button alt" type="button">Ember Alternate</button>
+            <button class="arcade-button" type="button" disabled>Disabled</button>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <code class="code-label">.arcade-button</code>
+            <code class="code-label">.arcade-button.alt</code>
+            <code class="code-label">disabled attr + opacity:0.38</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6.4 Signal Cards -->
+      <div class="mb-14">
+        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Signal Cards</h3>
+        <p class="font-sans text-paper-ivory/65 text-sm mb-5">Three-column grid for hero profiles, feature summaries, and at-a-glance metrics. Ember and saber theme variants.</p>
+        <div class="demo-frame">
+          <div class="signal-grid mb-5">
+            <article class="signal-card card-theme-ember">
+              <h3>Power Profile</h3>
+              <p>Lean visual primitives, no heavy runtime animations, and clear hierarchy for fast scan speed.</p>
+            </article>
+            <article class="signal-card card-theme-saber">
+              <h3>Memory Profile</h3>
+              <p>State and context are treated as product layers, not hidden behavior.</p>
+            </article>
+            <article class="signal-card card-theme-ember">
+              <h3>Operator Profile</h3>
+              <p>Arcade cues for users, mission-control semantics for teams and agents.</p>
+            </article>
+          </div>
+          <code class="code-label">.signal-card.card-theme-ember</code>&ensp;<code class="code-label">.signal-card.card-theme-saber</code>
+        </div>
+      </div>
+
+      <!-- 6.5 Arcade Cards — border-left -->
+      <div class="mb-14">
+        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Arcade Cards — Bottleneck Style</h3>
+        <p class="font-sans text-paper-ivory/65 text-sm mb-5">Left-border accent + full-card inner glow. Used for deep content blocks with structured lists.</p>
+        <div class="demo-frame">
+          <div class="grid md:grid-cols-2 gap-5 mb-5">
+            <article class="bg-charcoal-bark/55 border-l-2 border-saber-blue border-y border-r border-deep-rust/70 rounded-sm p-6 arcade-card card-theme-saber">
+              <h3 class="font-display text-xl mb-3 text-saber-blue">Saber Variant</h3>
+              <ul class="space-y-2 text-paper-ivory/90 leading-relaxed list-disc list-inside font-sans text-sm">
+                <li>Left border: <code class="code-label">border-l-2 border-saber-blue</code></li>
+                <li>Inner glow: <code class="code-label">rgba(134,232,255,0.16)</code></li>
+                <li>Heading: <code class="code-label">text-saber-blue</code> with soft shadow</li>
+              </ul>
+            </article>
+            <article class="bg-charcoal-bark/55 border-l-2 border-soft-ember border-y border-r border-deep-rust/70 rounded-sm p-6 arcade-card card-theme-ember">
+              <h3 class="font-display text-xl mb-3 text-soft-ember">Ember Variant</h3>
+              <ul class="space-y-2 text-paper-ivory/90 leading-relaxed list-disc list-inside font-sans text-sm">
+                <li>Left border: <code class="code-label">border-l-2 border-soft-ember</code></li>
+                <li>Inner glow: <code class="code-label">rgba(245,154,82,0.18)</code></li>
+                <li>Heading: <code class="code-label">text-soft-ember</code> with warm shadow</li>
+              </ul>
+            </article>
+          </div>
+          <code class="code-label">bg-charcoal-bark/55 border-l-2 border-saber-blue .arcade-card .card-theme-saber</code>
+        </div>
+      </div>
+
+      <!-- 6.6 Use Case Cards — top stripe -->
+      <div class="mb-14">
+        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Use Case Cards — Top Stripe</h3>
+        <p class="font-sans text-paper-ivory/65 text-sm mb-5">A 2px saber-to-fire gradient stripe crowns each card. Hover amplifies the card border glow.</p>
+        <div class="demo-frame">
+          <div class="grid md:grid-cols-2 gap-5 mb-5">
+            <article class="use-case-card arcade-card card-theme-ember bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-6 transition-all">
+              <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-3">RFP Label</p>
+              <h3 class="font-arcade text-[0.82rem] leading-loose mb-4 text-soft-ember uppercase">Ember Use Case</h3>
+              <p class="font-sans text-base text-paper-ivory/90 leading-relaxed mb-3">Hover this card to see the ember border glow animate in. The 2px saber-to-fire stripe sits at top.</p>
+              <p class="text-sm text-terracotta-border">Outcome text and source note goes here.</p>
+            </article>
+            <article class="use-case-card arcade-card card-theme-saber bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-6 transition-all">
+              <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-3">RFP Label</p>
+              <h3 class="font-arcade text-[0.82rem] leading-loose mb-4 text-saber-blue uppercase">Saber Use Case</h3>
+              <p class="font-sans text-base text-paper-ivory/90 leading-relaxed mb-3">Hover this card to see the saber border glow animate in. Both cards share the same top stripe.</p>
+              <p class="text-sm text-terracotta-border">Outcome text and source note goes here.</p>
+            </article>
+          </div>
+          <code class="code-label">.use-case-card .arcade-card .card-theme-ember</code>
+        </div>
+      </div>
+
+      <!-- 6.7 Contact Callout Frame -->
+      <div class="mb-14">
+        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Contact Callout Frame</h3>
+        <p class="font-sans text-paper-ivory/65 text-sm mb-5">Gradient-border CTA frame. Ember-to-saber border with dual-spectrum glow. Used for high-priority collaboration blocks.</p>
+        <div class="demo-frame p-2">
+          <div class="rounded-2xl contact-callout-frame">
+            <div class="px-8 py-8">
+              <p class="section-kicker section-kicker-saber text-[0.58rem] mb-4">Collaboration Callout</p>
+              <h2 class="font-display text-2xl md:text-3xl tracking-tight text-paper-ivory mb-3">Contact us to build with us</h2>
+              <p class="font-sans text-paper-ivory/90 leading-relaxed max-w-2xl mb-6">
+                We are actively looking for partners who want to ship practical context-agent systems in controlled pilots.
+              </p>
+              <a href="mailto:ping@knowb.run" class="arcade-button">Contact ping@knowb.run</a>
+            </div>
+          </div>
+        </div>
+        <code class="code-label mt-3 inline-block">.contact-callout-frame</code>
+      </div>
+
+      <!-- 6.8 Shadow / Glow Tokens -->
+      <div class="mb-6">
+        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Shadow / Glow Tokens</h3>
+        <p class="font-sans text-paper-ivory/65 text-sm mb-5">Four canonical definitions for depth and signal emphasis.</p>
+        <div class="demo-frame">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="flex flex-col items-center gap-3">
+              <div class="w-16 h-16 rounded-md bg-charcoal-bark/80" style="box-shadow: 0 0 30px rgba(245,154,82,0.35);"></div>
+              <code class="code-label text-center text-[0.65rem]">ember-glow</code>
+              <p class="text-[10px] text-paper-ivory/50 text-center font-mono">rgba(245,154,82,0.35)</p>
+            </div>
+            <div class="flex flex-col items-center gap-3">
+              <div class="w-16 h-16 rounded-md bg-charcoal-bark/80" style="box-shadow: 0 0 25px rgba(255,74,26,0.30);"></div>
+              <code class="code-label text-center text-[0.65rem]">fire-glow</code>
+              <p class="text-[10px] text-paper-ivory/50 text-center font-mono">rgba(255,74,26,0.30)</p>
+            </div>
+            <div class="flex flex-col items-center gap-3">
+              <div class="w-16 h-16 rounded-md bg-charcoal-bark/80" style="box-shadow: 0 0 30px rgba(134,232,255,0.30);"></div>
+              <code class="code-label text-center text-[0.65rem]">saber-glow</code>
+              <p class="text-[10px] text-paper-ivory/50 text-center font-mono">rgba(134,232,255,0.30)</p>
+            </div>
+            <div class="flex flex-col items-center gap-3">
+              <div class="w-16 h-16 rounded-md bg-charcoal-bark/80" style="box-shadow: 0 0 20px rgba(252,246,243,0.15);"></div>
+              <code class="code-label text-center text-[0.65rem]">paper-shadow</code>
+              <p class="text-[10px] text-paper-ivory/50 text-center font-mono">rgba(252,246,243,0.15)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 07 ACCESSIBILITY ────────────────────────────────────────── -->
+    <section id="accessibility" class="scroll-mt-28 py-16 border-b border-deep-rust/40">
+      <p class="section-kicker section-kicker-saber">07 — Accessibility</p>
+      <div class="section-rule"></div>
+      <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">Accessibility Requirements</h2>
+      <p class="font-sans text-lg text-paper-ivory/80 mb-10 max-w-3xl">All pages and components must meet WCAG 2.2 AA. These rules are non-negotiable.</p>
+
+      <div class="grid md:grid-cols-2 gap-5 mb-10">
+        <article class="arcade-card card-theme-saber bg-charcoal-bark/60 rounded-sm p-6">
+          <h3 class="font-display text-xl mb-4 text-saber-blue">Contrast</h3>
+          <ul class="space-y-3 font-sans text-paper-ivory/90 leading-relaxed list-disc list-inside">
+            <li>Normal text: <strong>≥ 4.5:1</strong></li>
+            <li>Large text (≥24px reg / ≥18.66px bold): <strong>≥ 3:1</strong></li>
+            <li>UI boundaries and focus indicators: <strong>≥ 3:1</strong></li>
+          </ul>
+        </article>
+        <article class="arcade-card card-theme-ember bg-charcoal-bark/60 rounded-sm p-6">
+          <h3 class="font-display text-xl mb-4 text-soft-ember">Keyboard &amp; Focus</h3>
+          <ul class="space-y-3 font-sans text-paper-ivory/90 leading-relaxed list-disc list-inside">
+            <li>Full keyboard accessibility for all controls</li>
+            <li>Visible <code class="code-label">focus-visible</code> style on every interactive element</li>
+            <li>Skip-to-content link on long pages with persistent nav</li>
+            <li>Semantic landmarks: <code class="code-label">&lt;main&gt;</code>, proper heading order</li>
+          </ul>
+        </article>
+        <article class="arcade-card card-theme-saber bg-charcoal-bark/60 rounded-sm p-6">
+          <h3 class="font-display text-xl mb-4 text-saber-blue">Motion</h3>
+          <ul class="space-y-3 font-sans text-paper-ivory/90 leading-relaxed list-disc list-inside">
+            <li>Respect <code class="code-label">prefers-reduced-motion</code> on all pages</li>
+            <li>All transitions set to <code class="code-label">0.01ms</code> under reduced-motion</li>
+            <li>CRT jitter: ≤120ms active, ≥8s between bursts</li>
+            <li>All CRT motion effects disabled under reduced-motion</li>
+          </ul>
+        </article>
+        <article class="arcade-card card-theme-ember bg-charcoal-bark/60 rounded-sm p-6">
+          <h3 class="font-display text-xl mb-4 text-soft-ember">CRT Exception Scope</h3>
+          <ul class="space-y-3 font-sans text-paper-ivory/90 leading-relaxed list-disc list-inside">
+            <li>Chromatic split: display text only, ≥32px</li>
+            <li>Scanlines, vignette: hero and high-priority callouts only</li>
+            <li>Body text and small labels: no flicker, no chromatic split</li>
+            <li>Legibility degrades: remove CRT from that component first</li>
+          </ul>
+        </article>
+      </div>
+
+      <h3 class="font-display text-2xl mb-4 text-paper-ivory">Live Focus Demo</h3>
+      <div class="demo-frame">
+        <p class="font-sans text-paper-ivory/65 text-sm mb-5">Tab through these elements to verify the saber-blue focus ring: <code class="code-label">outline: 2px solid #86E8FF; outline-offset: 2px</code></p>
+        <div class="flex flex-wrap gap-4">
+          <button class="arcade-button" type="button">Tab focus me</button>
+          <button class="arcade-button alt" type="button">Or me</button>
+          <a href="#accessibility" class="arcade-button">Or this link</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 08 COPY & TONE ──────────────────────────────────────────── -->
+    <section id="copy" class="scroll-mt-28 py-16">
+      <p class="section-kicker section-kicker-ember">08 — Copy &amp; Tone</p>
+      <div class="section-rule-ember"></div>
+      <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">Writing Guidelines</h2>
+      <p class="font-sans text-lg text-paper-ivory/80 mb-10 max-w-3xl">Public-facing copy must be concrete, operational, and privacy-safe.</p>
+
+      <div class="grid md:grid-cols-2 gap-8 mb-12">
+        <div>
+          <h3 class="font-display text-2xl mb-4 text-soft-ember">Rules</h3>
+          <ul class="space-y-3 font-sans text-paper-ivory/90 leading-relaxed list-disc list-inside">
+            <li>Position around capabilities, reliability, and measurable outcomes</li>
+            <li>No em dashes (U+2014). Use commas, semicolons, colons, or short sentences</li>
+            <li>Direct, scannable sentence structure</li>
+            <li>No internal hierarchy labels in public copy</li>
+            <li>Concrete and operational; prefer specifics over hype</li>
+            <li>Privacy-safe language for data collection or crawling features</li>
+            <li>Consistent product naming, capitalization, and punctuation</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-display text-2xl mb-4 text-saber-blue">Do vs. Don't</h3>
+          <div class="space-y-3">
+            <div class="bg-charcoal-bark/60 border border-saber-blue/28 rounded-sm p-4">
+              <p class="font-arcade text-[0.6rem] text-saber-blue uppercase tracking-wider mb-2">Do</p>
+              <p class="font-sans text-paper-ivory/90 text-sm">"We ship controlled pilots with measurable delivery milestones."</p>
+            </div>
+            <div class="bg-charcoal-bark/60 border border-autumn-fire/28 rounded-sm p-4">
+              <p class="font-arcade text-[0.6rem] text-autumn-fire uppercase tracking-wider mb-2">Don't</p>
+              <p class="font-sans text-paper-ivory/55 text-sm line-through">"We're revolutionizing AI with our groundbreaking platform!"</p>
+            </div>
+            <div class="bg-charcoal-bark/60 border border-saber-blue/28 rounded-sm p-4">
+              <p class="font-arcade text-[0.6rem] text-saber-blue uppercase tracking-wider mb-2">Do</p>
+              <p class="font-sans text-paper-ivory/90 text-sm">"Context isn't static; it evolves."</p>
+            </div>
+            <div class="bg-charcoal-bark/60 border border-autumn-fire/28 rounded-sm p-4">
+              <p class="font-arcade text-[0.6rem] text-autumn-fire uppercase tracking-wider mb-2">Don't</p>
+              <p class="font-sans text-paper-ivory/55 text-sm line-through">"Context isn't static — it evolves." &ensp;(em dash)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Acceptance checklist -->
+      <h3 class="font-display text-2xl mb-4 text-paper-ivory">Acceptance Checklist</h3>
+      <div class="overflow-x-auto">
+        <table class="bb-table">
+          <thead>
+            <tr>
+              <th class="w-10">☐</th>
+              <th>Requirement</th>
+              <th>Section</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-soft-ember">☐</td>
+              <td>All colors from the 8-token palette (or opacity variants)</td>
+              <td class="text-terracotta-border">§03</td>
+            </tr>
+            <tr>
+              <td class="text-soft-ember">☐</td>
+              <td>Gradients are exact canonical formulas</td>
+              <td class="text-terracotta-border">§04</td>
+            </tr>
+            <tr>
+              <td class="text-soft-ember">☐</td>
+              <td>All normal text and controls meet WCAG 2.2 AA (≥4.5:1)</td>
+              <td class="text-terracotta-border">§07</td>
+            </tr>
+            <tr>
+              <td class="text-soft-ember">☐</td>
+              <td>Focus-visible, keyboard navigation, and reduced-motion support are present</td>
+              <td class="text-terracotta-border">§07</td>
+            </tr>
+            <tr>
+              <td class="text-soft-ember">☐</td>
+              <td>Skip-to-content link present on long pages</td>
+              <td class="text-terracotta-border">§07</td>
+            </tr>
+            <tr>
+              <td class="text-soft-ember">☐</td>
+              <td>Brand tone is warm, structured, and signal-forward</td>
+              <td class="text-terracotta-border">§08</td>
+            </tr>
+            <tr>
+              <td class="text-soft-ember">☐</td>
+              <td>No em dashes in copy</td>
+              <td class="text-terracotta-border">§08</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
   </main>
 
-  <script>
-    function updateColorHexValues() {
-      const rootStyles = getComputedStyle(document.body);
-      document.querySelectorAll('.hex-value').forEach(el => {
-        const token = el.dataset.token;
-        const hex = rootStyles.getPropertyValue(token).trim();
-        el.textContent = hex.toUpperCase();
-      });
-    }
+  <!-- Footer -->
+  <footer class="px-6 pt-14 pb-10 bg-charcoal-bark text-paper-ivory border-t border-deep-rust/50">
+    <div class="max-w-7xl mx-auto rounded-[1.35rem] border border-terracotta-border/45 bg-charcoal-bark/95 shadow-[0_-1px_0_rgba(233,194,179,0.26),0_22px_50px_rgba(0,0,0,0.38)]">
+      <div class="px-8 md:px-10 pt-10 pb-8">
+        <div class="grid gap-10 md:grid-cols-[minmax(0,1fr)_auto] md:items-start">
+          <div class="max-w-md">
+            <div class="wordmark text-2xl font-semibold tracking-tight mb-3">knowb.run</div>
+            <p class="text-paper-ivory/75 text-xs leading-relaxed">
+              KnowB AI Systems builds practical knowledge-agent systems that improve context continuity, operational trust, and long-run memory quality.
+            </p>
+          </div>
+          <nav aria-label="Footer navigation" class="md:justify-self-end">
+            <ul class="space-y-2 md:text-right text-sm">
+              <li class="text-paper-ivory/65 text-[0.64rem] font-semibold uppercase tracking-[0.12em]">Brandbook</li>
+              <li><a href="#colours"       class="text-paper-ivory/85 hover:text-saber-blue transition-colors">Colours</a></li>
+              <li><a href="#gradients"     class="text-paper-ivory/85 hover:text-saber-blue transition-colors">Gradients</a></li>
+              <li><a href="#typography"    class="text-paper-ivory/85 hover:text-saber-blue transition-colors">Typography</a></li>
+              <li><a href="#components"    class="text-paper-ivory/85 hover:text-saber-blue transition-colors">Components</a></li>
+              <li><a href="#accessibility" class="text-paper-ivory/85 hover:text-saber-blue transition-colors">Accessibility</a></li>
+              <li><a href="#copy"          class="text-paper-ivory/85 hover:text-saber-blue transition-colors">Copy &amp; Tone</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="mt-10 pt-6 border-t border-terracotta-border/20 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm">
+          <ul class="flex flex-wrap gap-x-5 gap-y-2">
+            <li><a href="/"        class="text-paper-ivory/85 hover:text-saber-blue transition-colors">Home</a></li>
+            <li><a href="/terms/"  class="text-paper-ivory/85 hover:text-saber-blue transition-colors">Terms</a></li>
+            <li><a href="/privacy/" class="text-paper-ivory/85 hover:text-saber-blue transition-colors">Privacy</a></li>
+          </ul>
+          <span class="text-paper-ivory/75">© 2026 knowb.run</span>
+        </div>
+      </div>
+    </div>
+  </footer>
 
-    function syncThemeButtonState() {
-      const button = document.getElementById('theme-toggle');
-      const isDark = document.body.classList.contains('dark-mode');
-      button.setAttribute('aria-pressed', String(isDark));
-      button.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
-      button.textContent = isDark ? 'Switch to light mode' : 'Switch to dark mode';
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      updateColorHexValues();
-      syncThemeButtonState();
-    });
-
-    document.getElementById('theme-toggle').addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      updateColorHexValues();
-      syncThemeButtonState();
-    });
-  </script>
 </body>
 </html>
