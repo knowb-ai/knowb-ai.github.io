@@ -248,7 +248,19 @@ They are separated because they must be.
 
 ---
 
-## 11. Final Line (Non-Negotiable)
+## 11. Interface Brand Canon (Kenobi)
+
+Operator has no visual identity requirement because it is headless runtime infrastructure.
+
+Kenobi, as the product interface layer, uses the canonical digital-surface system:
+- gold/date-yellow signal family for actions and emphasis
+- dark indigo-midnight-purple family as the heavy depth/accent mix
+
+This canon applies to Kenobi UI specs, mocks, and product-surface documentation.
+
+---
+
+## 12. Final Line (Non-Negotiable)
 
 > Operator is the system.  
 > Kenobi is a client of the system.

@@ -7,11 +7,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Inter:wght@400;600&family=JetBrains+Mono&family=Press+Start+2P&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --autumn-fire: #E14719;
-      --deep-rust: #8C2F14;
-      --soft-ember: #F7AD6A;
+      --autumn-fire: #FF4A1A;
+      --deep-rust: #8E2F2A;
+      --soft-ember: #F59A52;
       --paper-ivory: #FCF6F3;
-      --charcoal-bark: #2D140B;
+      --charcoal-bark: #7A2217;
       --muted-wood: #77584F;
       --terracotta-border: #E9C2B3;
 
@@ -23,7 +23,7 @@
       --border-color: var(--terracotta-border);
       --table-header-bg: var(--soft-ember);
       --table-header-text: var(--charcoal-bark);
-      --code-bg: rgba(247, 173, 106, 0.25);
+      --code-bg: rgba(245, 154, 82, 0.25);
       --code-text: var(--charcoal-bark);
       --button-bg: var(--deep-rust);
       --button-text: var(--paper-ivory);
@@ -31,19 +31,19 @@
       --button-hover-text: var(--paper-ivory);
       --button-active-bg: var(--deep-rust);
       --focus-ring: var(--soft-ember);
-      --elevation: 0 0 20px rgba(225, 71, 25, 0.15);
+      --elevation: 0 0 20px rgba(255, 74, 26, 0.15);
     }
 
     body.dark-mode {
       --bg-surface: var(--charcoal-bark);
-      --surface-alt: rgba(140, 47, 20, 0.2);
+      --surface-alt: rgba(142, 47, 42, 0.2);
       --text-main: var(--paper-ivory);
       --text-muted: var(--terracotta-border);
       --heading-color: var(--soft-ember);
       --border-color: var(--deep-rust);
       --table-header-bg: var(--deep-rust);
       --table-header-text: var(--paper-ivory);
-      --code-bg: rgba(247, 173, 106, 0.2);
+      --code-bg: rgba(245, 154, 82, 0.2);
       --code-text: var(--paper-ivory);
       --button-bg: var(--soft-ember);
       --button-text: var(--charcoal-bark);
@@ -51,7 +51,7 @@
       --button-hover-text: var(--charcoal-bark);
       --button-active-bg: var(--soft-ember);
       --focus-ring: var(--soft-ember);
-      --elevation: 0 0 20px rgba(247, 173, 106, 0.18);
+      --elevation: 0 0 20px rgba(245, 154, 82, 0.18);
     }
 
     html {
@@ -117,7 +117,7 @@
     }
     .arcade-chip {
       border: 1px solid var(--border-color);
-      background: rgba(45, 20, 11, 0.55);
+      background: rgba(122, 34, 23, 0.55);
       color: var(--terracotta-border);
       border-radius: 3px;
       padding: 0.45rem 0.65rem;
@@ -128,15 +128,15 @@
       line-height: 1.6;
     }
     body:not(.dark-mode) .arcade-chip {
-      background: rgba(140, 47, 20, 0.12);
+      background: rgba(142, 47, 42, 0.12);
       color: var(--deep-rust);
-      border-color: rgba(140, 47, 20, 0.35);
+      border-color: rgba(142, 47, 42, 0.35);
     }
     .signal-board {
       background: var(--surface-alt);
       border: 1px solid var(--border-color);
       border-radius: 10px;
-      box-shadow: var(--elevation), inset 0 0 0 1px rgba(140, 47, 20, 0.35);
+      box-shadow: var(--elevation), inset 0 0 0 1px rgba(142, 47, 42, 0.35);
       padding: 1rem 1.25rem;
       margin-bottom: 2rem;
     }
@@ -263,7 +263,7 @@
       text-transform: uppercase;
       line-height: 1.6;
       cursor: pointer;
-      box-shadow: 0 0 0 1px rgba(247, 173, 106, 0.45);
+      box-shadow: 0 0 0 1px rgba(245, 154, 82, 0.45);
       transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
     }
     body:not(.dark-mode) .btn {

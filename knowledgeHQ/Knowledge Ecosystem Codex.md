@@ -382,7 +382,9 @@ For advanced trust systems, memory evolution can be cryptographically verified t
 
 ## **10. Brand / System Identity**
 
-KnowB Autumn is the org identity system.
+KnowB AI Systems operates two canonical visual systems.
+
+### **10.1 KnowB Autumn (Org / Ecosystem Surfaces)**
 
 Canonical colors:
 
@@ -401,7 +403,30 @@ Typography:
 - Body: Inter
 - Code: JetBrains Mono
 
-The brand system explicitly forbids cold hues, neon colors, blues, greens, purples, glassmorphism, and cyberpunk effects.
+### **10.2 Kenobi Digital Surface Canon (Product Interfaces)**
+
+Kenobi interfaces use high-signal yellow/gold actions over dark indigo-midnight-purple depth layers.
+
+Primary signal family:
+
+- Kenobi Gold `#FFD500`
+- Firewatch Yellow `#FFB300`
+- Kodak Yellow `#F7C700`
+- Playmate Yellow `#FFC61A`
+- Date Yellow `#F2C14E`
+
+Dark depth/accent family:
+
+- Midnight Indigo `#15163D`
+- Deep Indigo `#1E2259`
+- Night Purple `#2D1F5B`
+- Dark Plum `#221338`
+
+### **10.3 Canonical Usage Rules**
+
+- Use KnowB Autumn for org/ecosystem narrative surfaces and collateral.
+- Use Kenobi Digital Surface canon for runtime UI, dashboard, workflow, and product interaction layers.
+- Kenobi intentionally uses a heavy indigo-midnight-purple mix for depth; this is canonical.
 
 ---
 

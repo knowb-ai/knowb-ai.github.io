@@ -5,8 +5,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }} — knowb.run</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'autumn-fire': '#FF4A1A',
+                        'deep-rust': '#8E2F2A',
+                        'soft-ember': '#F59A52',
+                        'paper-ivory': '#FCF6F3',
+                        'obsidian-brown': '#7A2217',
+                        'charcoal-bark': '#7A2217',
+                        'terracotta-border': '#E9C2B3',
+                    },
+                    backgroundImage: {
+                        'knowb-autumn-core': 'linear-gradient(135deg, #FF4A1A 0%, #FF4A1A 24%, #8E2F2A 56%, #7A2217 100%)',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        .policy-content h1 {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            color: #FCF6F3;
+        }
+        .policy-content h2 {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-size: clamp(1.35rem, 3vw, 1.8rem);
+            line-height: 1.25;
+            margin-top: 2.1rem;
+            margin-bottom: 0.8rem;
+            color: #F59A52;
+        }
+        .policy-content h3 {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-size: 1.15rem;
+            margin-top: 1.35rem;
+            margin-bottom: 0.45rem;
+            color: #FCF6F3;
+        }
+        .policy-content p,
+        .policy-content li {
+            color: rgba(252,246,243,0.9);
+            line-height: 1.75;
+        }
+        .policy-content p + p {
+            margin-top: 0.9rem;
+        }
+        .policy-content ul,
+        .policy-content ol {
+            margin-top: 0.5rem;
+            margin-bottom: 0.85rem;
+            padding-left: 1.3rem;
+        }
+        .policy-content ul {
+            list-style: disc;
+        }
+        .policy-content ol {
+            list-style: decimal;
+        }
+        .policy-content a {
+            color: #F59A52;
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 0.18em;
+        }
+        .policy-content a:hover {
+            color: #FCF6F3;
+        }
+        .policy-content strong {
+            color: #FCF6F3;
+            font-weight: 600;
+        }
+    </style>
 </head>
-<body>
-    {{ page.content | safe }}
+<body class="min-h-screen font-sans bg-charcoal-bark text-paper-ivory">
+    <header class="sticky top-0 z-40 bg-charcoal-bark/95 backdrop-blur-md border-b border-terracotta-border/25">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="font-display text-2xl tracking-tight text-paper-ivory">knowb.run</a>
+            <nav aria-label="Policy navigation" class="flex items-center gap-4 text-sm">
+                <a href="/terms/" class="text-paper-ivory/85 hover:text-soft-ember transition-colors">Terms</a>
+                <a href="/privacy/" class="text-paper-ivory/85 hover:text-soft-ember transition-colors">Privacy</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="px-6 py-10 md:py-14">
+        <section class="max-w-5xl mx-auto rounded-2xl border border-terracotta-border/30 bg-knowb-autumn-core shadow-[0_24px_55px_rgba(0,0,0,0.35)]">
+            <div class="px-7 py-8 md:px-10 md:py-10 border-b border-terracotta-border/25">
+                <p class="text-xs uppercase tracking-[0.14em] text-soft-ember">KnowB Policy Surface</p>
+                <h1 class="font-display text-3xl md:text-4xl tracking-tight mt-2 text-paper-ivory">{{ page.title }}</h1>
+            </div>
+            <article class="policy-content px-7 py-8 md:px-10 md:py-10">
+                {{ page.content | safe }}
+            </article>
+        </section>
+    </main>
 </body>
 </html>

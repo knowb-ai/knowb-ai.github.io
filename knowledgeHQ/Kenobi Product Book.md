@@ -358,9 +358,10 @@ Kenobi is:
 
 ### **Visual System**
 
-- Kenobi Yellow (`#FFD500`) as primary signal
-- Warm, high-contrast, non-corporate UI
-- Functional clarity over ornamentation
+- Kenobi Yellow (`#FFD500`) remains the primary signal color.
+- Gold and date-yellow tones carry interactive signal priority.
+- Dark indigo-midnight-purple tones provide depth and structural contrast.
+- See **v1.1 Section 22** for the active canonical digital-surface palette.
 
 ---
 
@@ -809,7 +810,31 @@ The following decisions remain intentionally open:
 
 ## **22. Product Identity**
 
-Design principles:
+### **22.1 Kenobi Digital Surface Brand Canon (Active)**
+
+Kenobi digital interfaces use a two-family system: high-signal gold/yellow for action and dark indigo-midnight-purple for depth.
+
+Primary signal family:
+- Kenobi Gold `#FFD500`
+- Firewatch Yellow `#FFB300`
+- Kodak Yellow `#F7C700`
+- Playmate Yellow `#FFC61A`
+- Date Yellow `#F2C14E`
+
+Dark depth/accent family (heavy mix):
+- Midnight Indigo `#15163D`
+- Deep Indigo `#1E2259`
+- Night Purple `#2D1F5B`
+- Dark Plum `#221338`
+
+### **22.2 Usage Rules**
+
+- Primary actions, highlights, and interactive affordances use the yellow family.
+- Base layers, shells, nav surfaces, and depth panels use the indigo-midnight-purple family.
+- Keep contrast high and state transitions obvious on dark backgrounds.
+- Avoid washed-out neutrals that flatten signal hierarchy.
+
+### **22.3 Design Principles**
 - high signal density
 - minimal abstraction
 - no hidden state

@@ -159,6 +159,17 @@ CLI commands like `operator status` and `operator logs` hit these endpoints when
 
 ---
 
+## Interface Brand Canon (Client Layers)
+
+This architecture document is runtime-first, but any Kenobi interface layer built on top of Operator should follow the canonical digital-surface system:
+
+- gold/date-yellow family for primary signal and interactive emphasis
+- dark indigo-midnight-purple family as the heavy depth/accent mix
+
+This keeps product-surface decisions consistent across design, docs, and implementation handoff.
+
+---
+
 ## Development Flow
 
 1. Create `knowb-ai/operator`, scaffold single package

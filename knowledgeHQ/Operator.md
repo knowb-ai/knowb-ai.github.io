@@ -112,6 +112,19 @@ Violating these rules collapses the system into a chat application.
 
 ---
 
+## Interface Brand Alignment (Kenobi Clients)
+
+Operator itself is headless and has no visual theming requirement.
+
+When documentation or demos describe Kenobi-facing digital surfaces, use the canonical Kenobi interface palette:
+
+- gold/date-yellow family for primary signal and interaction emphasis
+- dark indigo-midnight-purple family as the heavy depth/accent mix
+
+This keeps runtime architecture docs and product-surface docs aligned without coupling UI concerns to Operator internals.
+
+---
+
 ## What Operator Is Not
 
 - A product UI

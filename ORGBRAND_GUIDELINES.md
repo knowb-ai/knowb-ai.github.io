@@ -7,11 +7,11 @@ All UI implementations must satisfy both:
 
 ## 1) Canonical Base Palette
 Only these seven base colors are allowed for UI color tokens:
-- **Autumn Fire**: `#E14719`
-- **Deep Rust**: `#8C2F14`
-- **Soft Ember**: `#F7AD6A`
+- **Autumn Fire**: `#FF4A1A`
+- **Deep Rust**: `#8E2F2A`
+- **Soft Ember**: `#F59A52`
 - **Paper Ivory**: `#FCF6F3`
-- **Charcoal Bark**: `#2D140B`
+- **Charcoal Bark**: `#7A2217` (burnt rust base)
 - **Muted Wood**: `#77584F`
 - **Light Terracotta Border**: `#E9C2B3`
 
@@ -25,33 +25,33 @@ All gradient usage must match these formulas exactly.
 
 ### 2.1 Dark / Depth
 ```css
-linear-gradient(135deg, #E14719 0%, #8C2F14 100%)
-linear-gradient(180deg, #8C2F14 0%, #2D140B 100%)
+linear-gradient(135deg, #FF4A1A 0%, #8E2F2A 100%)
+linear-gradient(180deg, #8E2F2A 0%, #7A2217 100%)
 ```
 
 ### 2.2 Warm Accent
 ```css
-linear-gradient(145deg, #F7AD6A 0%, #E14719 100%)
-linear-gradient(135deg, rgba(247,173,106,0.9) 0%, rgba(247,173,106,0.55) 50%, rgba(141,47,20,0.8) 100%)
+linear-gradient(145deg, #F59A52 0%, #FF4A1A 100%)
+linear-gradient(135deg, rgba(255,74,26,0.88) 0%, rgba(245,154,82,0.58) 34%, rgba(142,47,42,0.84) 100%)
 ```
 
 ### 2.3 Light / Neutral
 ```css
-linear-gradient(135deg, #FCF6F3 0%, #F7AD6A 100%)
-linear-gradient(90deg, #FCF6F3 0%, #8C2F14 6%, #FCF6F3 100%)
+linear-gradient(135deg, #FCF6F3 0%, #F59A52 100%)
+linear-gradient(90deg, #FCF6F3 0%, #8E2F2A 6%, #FCF6F3 100%)
 ```
 
 ### 2.4 Signature
 ```css
-linear-gradient(135deg, #E14719 0%, #8C2F14 40%, #2D140B 100%)
-linear-gradient(180deg, #8C2F14 0%, #2D140B 35%, #E14719 100%)
-linear-gradient(120deg, #FCF6F3 0%, #F7AD6A 30%, #8C2F14 70%, #E9C2B3 100%)
+linear-gradient(135deg, #FF4A1A 0%, #8E2F2A 40%, #7A2217 100%)
+linear-gradient(180deg, #8E2F2A 0%, #7A2217 35%, #FF4A1A 100%)
+linear-gradient(120deg, #FCF6F3 0%, #F59A52 30%, #8E2F2A 70%, #E9C2B3 100%)
 ```
 
 ## 3) Canonical Shadow / Glow Tokens
 ```css
-0 0 30px rgba(247,173,106,0.35) /* ember glow */
-0 0 25px rgba(225,71,25,0.25)   /* fire glow */
+0 0 30px rgba(245,154,82,0.35) /* ember glow */
+0 0 25px rgba(255,74,26,0.30)  /* fire glow */
 0 0 20px rgba(252,246,243,0.15) /* paper shadow */
 ```
 
@@ -66,30 +66,30 @@ All pages and components must meet WCAG 2.2 AA:
 
 ## 5) Approved Contrast Pairings
 Use these as defaults for body text and controls:
-- `#2D140B` on `#FCF6F3` (16.12:1)
-- `#77584F` on `#FCF6F3` (5.96:1)
-- `#FCF6F3` on `#8C2F14` (7.75:1)
-- `#FCF6F3` on `#2D140B` (16.12:1)
-- `#2D140B` on `#F7AD6A` (9.16:1)
-- `#E9C2B3` on `#2D140B` (10.55:1)
+- `#7A2217` on `#FCF6F3`
+- `#77584F` on `#FCF6F3`
+- `#FCF6F3` on `#8E2F2A`
+- `#FCF6F3` on `#7A2217`
+- `#7A2217` on `#F59A52`
+- `#E9C2B3` on `#7A2217`
 
 ## 6) Prohibited / Restricted Pairings
 Do not use for normal body text:
-- `#E14719` on `#FCF6F3` (3.83:1)
-- `#FCF6F3` on `#E14719` (3.83:1)
-- `#2D140B` on `#E14719` (4.21:1)
+- `#FF4A1A` on `#FCF6F3`
+- `#FCF6F3` on `#FF4A1A`
+- `#7A2217` on `#FF4A1A`
 
 Allowed exception:
-- `#E14719` may be used for **large display text** that still meets the 3:1 large-text requirement.
+- `#FF4A1A` may be used for **large display text** that still meets the 3:1 large-text requirement.
 
 ## 7) Component Rules
 ### 7.1 Surfaces
 - Default light surface: `#FCF6F3`
-- Default dark surface: `#2D140B`
+- Default dark surface: `#7A2217`
 - Borders/separators: `#E9C2B3` (or opacity variants with preserved perceptibility)
 
 ### 7.2 Typography
-- Primary body text: `#2D140B` on light surfaces
+- Primary body text: `#7A2217` on light surfaces
 - Secondary text: `#77584F` on light surfaces
 - On dark surfaces, use `#FCF6F3` (primary) and `#E9C2B3` (secondary)
 

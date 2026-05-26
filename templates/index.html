@@ -19,26 +19,30 @@
                         arcade: ['Press Start 2P', 'Space Grotesk', 'sans-serif'],
                     },
                     colors: {
-                        'autumn-fire': '#E14719',
-                        'deep-rust': '#8C2F14',
-                        'soft-ember': '#F7AD6A',
+                        'autumn-fire': '#FF4A1A',
+                        'deep-rust': '#8E2F2A',
+                        'soft-ember': '#F59A52',
                         'paper-ivory': '#FCF6F3',
-                        'charcoal-bark': '#2D140B',
-                        'muted-wood': '#77584F',
+                        'saber-blue': '#86E8FF',
+                        'obsidian-brown': '#161211',
+                        'charcoal-bark': '#1D1514',
+                        'maroon-core': '#3B1E1D',
+                        'rust-magenta': '#6E2D34',
+                        'muted-wood': '#867268',
                         'terracotta-border': '#E9C2B3',
                     },
                     backgroundImage: {
-                        'fire-rust': 'linear-gradient(135deg, #E14719 0%, #8C2F14 100%)',
-                        'rust-charcoal': 'linear-gradient(180deg, #8C2F14 0%, #2D140B 100%)',
-                        'ember-fire': 'linear-gradient(145deg, #F7AD6A 0%, #E14719 100%)',
-                        'ember-glow': 'linear-gradient(135deg, rgba(247,173,106,0.9) 0%, rgba(247,173,106,0.55) 50%, rgba(141,47,20,0.8) 100%)',
-                        'ivory-rust-edge': 'linear-gradient(90deg, #FCF6F3 0%, #8C2F14 6%, #FCF6F3 100%)',
-                        'knowb-autumn-core': 'linear-gradient(135deg, #E14719 0%, #8C2F14 40%, #2D140B 100%)',
-                        'knowb-autumn-vertical': 'linear-gradient(180deg, #8C2F14 0%, #2D140B 35%, #E14719 100%)',
+                        'fire-rust': 'linear-gradient(132deg, #FF4A1A 0%, #8E2F2A 36%, #1D1514 74%, #86E8FF 100%)',
+                        'rust-charcoal': 'linear-gradient(180deg, #2A1B1A 0%, #1D1514 62%, #14100F 100%)',
+                        'ember-fire': 'linear-gradient(145deg, #F59A52 0%, #FF4A1A 60%, #86E8FF 100%)',
+                        'ember-glow': 'linear-gradient(135deg, rgba(255,74,26,0.82) 0%, rgba(142,47,42,0.74) 44%, rgba(134,232,255,0.86) 100%)',
+                        'ivory-rust-edge': 'linear-gradient(90deg, #FCF6F3 0%, #8E2F2A 8%, #86E8FF 16%, #FCF6F3 100%)',
+                        'knowb-autumn-core': 'linear-gradient(132deg, #FF4A1A 0%, #8E2F2A 34%, #1D1514 72%, #86E8FF 100%)',
+                        'knowb-autumn-vertical': 'linear-gradient(180deg, #8E2F2A 0%, #1D1514 52%, #86E8FF 100%)',
                     },
                     boxShadow: {
-                        'ember-glow': '0 0 30px rgba(247,173,106,0.35)',
-                        'fire-glow': '0 0 25px rgba(225,71,25,0.25)',
+                        'ember-glow': '0 0 30px rgba(134,232,255,0.30)',
+                        'fire-glow': '0 0 25px rgba(255,74,26,0.22)',
                     }
                 }
             }
@@ -52,20 +56,164 @@
             letter-spacing: 0.16em;
             text-transform: uppercase;
             font-size: 0.72rem;
-            color: #F7AD6A;
+            color: #86E8FF;
+            text-shadow: 0 0 12px rgba(134,232,255,0.22);
+        }
+        .section-kicker-ember {
+            color: #F59A52;
+            text-shadow: 0 0 12px rgba(245,154,82,0.24);
+        }
+        .section-kicker-saber {
+            color: #86E8FF;
+            text-shadow: 0 0 12px rgba(134,232,255,0.24);
+        }
+        .hero-highlight-ember {
+            color: #F59A52;
+            text-shadow: 0 0 14px rgba(245,154,82,0.30);
+        }
+        .hero-highlight-saber {
+            color: #86E8FF;
+            text-shadow: 0 0 14px rgba(134,232,255,0.30);
         }
         .section-rule {
             height: 1px;
             margin: 0.85rem 0 1.25rem;
-            background: linear-gradient(90deg, #E14719 0%, #8C2F14 35%, rgba(252,246,243,0.12) 100%);
+            background: linear-gradient(90deg, rgba(134,232,255,0.10) 0%, #86E8FF 44%, rgba(255,74,26,0.50) 100%);
+        }
+        .arcade-nav-link {
+            font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+            font-size: 0.58rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            line-height: 1.8;
+        }
+        .arcade-nav-heading {
+            font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+            font-size: 0.58rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            line-height: 1.8;
+        }
+        .arcade-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(134,232,255,0.42);
+            background: rgba(134,232,255,0.08);
+            color: #86E8FF;
+            border-radius: 0.2rem;
+            padding: 0.45rem 0.7rem;
+            font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+            font-size: 0.58rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            line-height: 1.6;
+        }
+        .arcade-chip:nth-child(even) {
+            border-color: rgba(245,154,82,0.46);
+            background: rgba(245,154,82,0.10);
+            color: #F59A52;
+        }
+        .signal-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.75rem;
+            margin: 1.25rem 0 0;
+        }
+        @media (max-width: 768px) {
+            .signal-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .signal-card {
+            border: 1px solid rgba(134,232,255,0.28);
+            background: rgba(20,16,15,0.74);
+            box-shadow: inset 0 0 0 1px rgba(134,232,255,0.12);
+            border-radius: 0.2rem;
+            padding: 0.9rem 1rem;
+        }
+        .signal-card h3 {
+            margin: 0 0 0.5rem;
+            font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+            font-size: 0.62rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            line-height: 1.7;
+            color: #86E8FF;
+        }
+        .signal-card p {
+            margin: 0;
+            font-size: 0.96rem;
+            color: rgba(252,246,243,0.9);
+        }
+        .card-theme-ember {
+            border-color: rgba(245,154,82,0.44) !important;
+            box-shadow: inset 0 0 0 1px rgba(245,154,82,0.18) !important;
+        }
+        .card-theme-saber {
+            border-color: rgba(134,232,255,0.34) !important;
+            box-shadow: inset 0 0 0 1px rgba(134,232,255,0.16) !important;
+        }
+        .card-theme-ember h3 {
+            color: #F59A52 !important;
+            text-shadow: 0 0 10px rgba(245,154,82,0.24);
+        }
+        .card-theme-saber h3 {
+            color: #86E8FF !important;
+            text-shadow: 0 0 10px rgba(134,232,255,0.24);
+        }
+        .card-theme-ember a {
+            color: #F59A52 !important;
+        }
+        .card-theme-ember a.underline {
+            text-decoration-color: #F59A52 !important;
+        }
+        .card-theme-saber a {
+            color: #86E8FF !important;
+        }
+        .card-theme-saber a.underline {
+            text-decoration-color: #86E8FF !important;
+        }
+        .hero-arcade {
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-arcade::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(22,18,17,0.56) 0%, rgba(22,18,17,0.78) 100%);
+            pointer-events: none;
+        }
+        .hero-arcade::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 52% 40%, rgba(134,232,255,0.24) 0%, rgba(134,232,255,0.08) 26%, transparent 60%),
+                repeating-linear-gradient(
+                    180deg,
+                    rgba(134,232,255,0.04) 0px,
+                    rgba(134,232,255,0.04) 1px,
+                    transparent 1px,
+                    transparent 4px
+                );
+            pointer-events: none;
+        }
+        .hero-arcade > * {
+            position: relative;
+            z-index: 1;
+        }
+        .hero-arcade .arcade-button {
+            background: rgba(20,16,15,0.78);
         }
         .arcade-button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid #F7AD6A;
-            background: #F7AD6A;
-            color: #2D140B;
+            border: 1px solid #86E8FF;
+            background: transparent;
+            color: #86E8FF;
             border-radius: 0.15rem;
             padding: 0.72rem 1rem;
             font-size: 0.66rem;
@@ -74,25 +222,65 @@
             font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
             line-height: 1.6;
             text-decoration: none;
-            box-shadow: 0 0 0 1px rgba(247,173,106,0.45);
+            box-shadow: inset 0 0 0 1px rgba(134,232,255,0.34), 0 0 0 1px rgba(134,232,255,0.14), 0 0 16px rgba(134,232,255,0.18);
             transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
         }
         .arcade-button:hover {
-            background: #FCF6F3;
-            border-color: #FCF6F3;
-            color: #2D140B;
+            background: #86E8FF;
+            border-color: #86E8FF;
+            color: #161211;
+            box-shadow: 0 0 0 1px rgba(134,232,255,0.24), 0 0 22px rgba(134,232,255,0.30);
             transform: translateY(-1px);
         }
         .arcade-button:active {
             transform: translateY(0);
         }
         .arcade-button:focus-visible {
-            outline: 2px solid #F7AD6A;
+            outline: 2px solid #86E8FF;
             outline-offset: 2px;
+        }
+        .arcade-button.alt {
+            border-color: #F59A52;
+            color: #F59A52;
+            box-shadow: inset 0 0 0 1px rgba(245,154,82,0.34), 0 0 0 1px rgba(245,154,82,0.14), 0 0 16px rgba(245,154,82,0.20);
+        }
+        .arcade-button.alt:hover {
+            background: #F59A52;
+            border-color: #F59A52;
+            color: #161211;
+            box-shadow: 0 0 0 1px rgba(245,154,82,0.26), 0 0 22px rgba(245,154,82,0.30);
+        }
+        .arcade-button.alt:focus-visible {
+            outline-color: #F59A52;
         }
         .use-case-card {
             position: relative;
             overflow: hidden;
+        }
+        .usecase-arcade-title {
+            font-family: 'Press Start 2P', 'Space Grotesk', sans-serif !important;
+            font-size: 0.82rem;
+            line-height: 1.6;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(134,232,255,0.26);
+        }
+        @media (min-width: 768px) {
+            .usecase-arcade-title {
+                font-size: 0.9rem;
+            }
+        }
+        .arcade-card {
+            border: 1px solid rgba(233,194,179,0.35);
+            box-shadow: inset 0 0 0 1px rgba(134,232,255,0.28), 0 0 0 1px rgba(134,232,255,0.10);
+        }
+        .use-case-card.card-theme-ember:hover {
+            border-color: rgba(245,154,82,0.78) !important;
+            box-shadow: 0 0 24px rgba(245,154,82,0.26) !important;
+        }
+        .use-case-card.card-theme-saber:hover {
+            border-color: rgba(134,232,255,0.78) !important;
+            box-shadow: 0 0 24px rgba(134,232,255,0.26) !important;
         }
         .use-case-card::before {
             content: '';
@@ -101,7 +289,14 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(90deg, #E14719 0%, #F7AD6A 100%);
+            background: linear-gradient(90deg, #86E8FF 0%, #86E8FF 42%, #FF4A1A 100%);
+        }
+        .contact-callout-frame {
+            border: 1px solid transparent !important;
+            background:
+                linear-gradient(180deg, rgba(29,21,20,0.96) 0%, rgba(29,21,20,0.92) 100%) padding-box,
+                linear-gradient(128deg, rgba(245,154,82,0.88) 0%, rgba(134,232,255,0.90) 52%, rgba(255,74,26,0.84) 100%) border-box;
+            box-shadow: 0 0 24px rgba(245,154,82,0.22), 0 0 28px rgba(134,232,255,0.22);
         }
         @media (prefers-reduced-motion: reduce) {
             html {
@@ -115,40 +310,59 @@
         }
     </style>
 </head>
-<body class="min-h-screen font-sans bg-charcoal-bark text-paper-ivory">
+<body class="min-h-screen font-sans bg-obsidian-brown text-paper-ivory">
     <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-soft-ember focus:text-charcoal-bark focus:rounded-md focus:font-semibold">
         Skip to main content
     </a>
 
-    <header class="fixed top-0 left-0 right-0 z-50 bg-charcoal-bark/96 backdrop-blur-md border-b border-terracotta-border/30">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-charcoal-bark/95 backdrop-blur-md border-b border-saber-blue/30">
         <nav aria-label="Primary" class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div class="text-2xl font-display font-semibold tracking-tight text-paper-ivory">knowb.run</div>
-            <div class="flex flex-wrap gap-x-5 gap-y-2 font-arcade text-[0.58rem] uppercase tracking-[0.08em] leading-[1.8]">
-                <a href="#home" class="text-paper-ivory/90 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Home</a>
-                <a href="#challenges" class="text-paper-ivory/90 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Challenges</a>
-                <a href="#use-cases" class="text-paper-ivory/90 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Use Cases</a>
-                <a href="#contact" class="text-paper-ivory/90 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Contact</a>
+            <div class="flex flex-wrap gap-x-5 gap-y-2">
+                <a href="#home" class="arcade-nav-link text-paper-ivory/90 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Home</a>
+                <a href="#challenges" class="arcade-nav-link text-paper-ivory/90 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Challenges</a>
+                <a href="#use-cases" class="arcade-nav-link text-paper-ivory/90 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Use Cases</a>
+                <a href="#contact" class="arcade-nav-link text-paper-ivory/90 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Contact</a>
             </div>
         </nav>
     </header>
 
     <main id="main-content" class="pt-32">
-        <section id="home" class="scroll-mt-44 py-20 px-6 bg-knowb-autumn-core text-paper-ivory border-b border-deep-rust/70">
+        <section id="home" class="scroll-mt-44 py-20 px-6 bg-knowb-autumn-core text-paper-ivory border-b border-deep-rust/70 hero-arcade">
             <div class="max-w-7xl mx-auto">
                 <div class="max-w-5xl">
-                    <p class="section-kicker font-arcade mb-5 text-[0.62rem]">Front Deck</p>
+                    <p class="section-kicker section-kicker-ember font-arcade mb-5 text-[0.62rem]">Front Deck</p>
                     <h1 class="font-display text-5xl md:text-7xl leading-[1.03] tracking-tight mb-7">
-                        Context agents with arcade energy and mission-control discipline
+                        Building <span class="hero-highlight-ember">context-aware agents</span> with better <span class="hero-highlight-saber">knowledge and memory capabilities</span>
                     </h1>
                     <p class="font-sans text-xl md:text-2xl text-paper-ivory/92 mb-10 max-w-4xl leading-relaxed">
                         We build context-aware systems with durable memory, stable state transitions, and governance-first operation.
                         The front-facing experience stays playful and readable, while the systems layer feels like a space-race control deck.
                     </p>
+                    <div class="flex flex-wrap gap-3 mb-8">
+                        <span class="arcade-chip">Static-first surface</span>
+                        <span class="arcade-chip">Reduced motion defaults</span>
+                        <span class="arcade-chip">High-contrast signal UI</span>
+                    </div>
+                    <div class="signal-grid mb-10">
+                        <article class="signal-card card-theme-ember">
+                            <h3>Power Profile</h3>
+                            <p>Lean visual primitives, no heavy runtime animations, and clear hierarchy for fast scan speed.</p>
+                        </article>
+                        <article class="signal-card card-theme-saber">
+                            <h3>Memory Profile</h3>
+                            <p>State and context are treated as product layers, not hidden behavior.</p>
+                        </article>
+                        <article class="signal-card card-theme-ember">
+                            <h3>Operator Profile</h3>
+                            <p>Arcade cues for users, mission-control semantics for teams and agents.</p>
+                        </article>
+                    </div>
                     <div class="flex flex-col sm:flex-row gap-4">
                         <a href="#use-cases" class="arcade-button">
                             Explore Use Cases
                         </a>
-                        <a href="#roadmap" class="arcade-button">
+                        <a href="#roadmap" class="arcade-button alt">
                             View Delivery Roadmap
                         </a>
                     </div>
@@ -160,7 +374,7 @@
         <section id="challenges" class="scroll-mt-44 py-20 px-6 bg-charcoal-bark border-t border-deep-rust/60">
             <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-10">
                 <div class="lg:col-span-4">
-                    <p class="section-kicker font-arcade text-[0.62rem]">System Pressure</p>
+                    <p class="section-kicker section-kicker-saber font-arcade text-[0.62rem]">System Pressure</p>
                     <div class="section-rule"></div>
                     <h2 class="font-display text-4xl md:text-5xl tracking-tight text-paper-ivory">Challenges at Scale</h2>
                 </div>
@@ -177,16 +391,16 @@
 
         <section id="bottlenecks" class="scroll-mt-44 py-20 px-6 bg-rust-charcoal text-paper-ivory border-t border-deep-rust/70">
             <div class="max-w-7xl mx-auto">
-                <p class="section-kicker font-arcade text-[0.62rem]">Failure Points</p>
-                <div class="section-rule"></div>
+                <p class="section-kicker section-kicker-ember font-arcade text-[0.62rem]">Failure Points</p>
+                <div class="section-rule" style="background: linear-gradient(90deg, rgba(134,232,255,0.20) 0%, #86E8FF 50%, rgba(134,232,255,0.20) 100%);"></div>
                 <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-4 text-paper-ivory">The Bottlenecks</h2>
                 <p class="font-sans text-lg md:text-xl text-paper-ivory/88 mb-14 max-w-4xl leading-relaxed">
                     These are the zones where production context systems usually break first.
                 </p>
 
                 <div class="grid md:grid-cols-3 gap-6">
-                    <article class="bg-charcoal-bark/55 border-l-2 border-soft-ember border-y border-r border-deep-rust/70 rounded-sm p-7">
-                        <h3 class="font-display text-2xl mb-4 text-soft-ember">Knowledge Tooling</h3>
+                    <article class="bg-charcoal-bark/55 border-l-2 border-saber-blue border-y border-r border-deep-rust/70 rounded-sm p-7 arcade-card card-theme-saber">
+                        <h3 class="font-display text-2xl mb-4 text-saber-blue">Knowledge Tooling</h3>
                         <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
                             <li>Most tooling is prompt-first and session-bound.</li>
                             <li>Retrieval, evaluation, and state mutation are often disconnected.</li>
@@ -194,8 +408,7 @@
                             <li>Tooling must function as a control plane for autonomous operators.</li>
                         </ul>
                     </article>
-
-                    <article class="bg-charcoal-bark/55 border-l-2 border-soft-ember border-y border-r border-deep-rust/70 rounded-sm p-7">
+                    <article class="bg-charcoal-bark/55 border-l-2 border-soft-ember border-y border-r border-deep-rust/70 rounded-sm p-7 arcade-card card-theme-ember">
                         <h3 class="font-display text-2xl mb-4 text-soft-ember">Knowledge Bases</h3>
                         <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
                             <li>Most databases are designed for human admins first.</li>
@@ -204,9 +417,8 @@
                             <li>Machine-managed knowledge ops need purpose-built data layers.</li>
                         </ul>
                     </article>
-
-                    <article class="bg-charcoal-bark/55 border-l-2 border-soft-ember border-y border-r border-deep-rust/70 rounded-sm p-7">
-                        <h3 class="font-display text-2xl mb-4 text-soft-ember">Knowledge Agents</h3>
+                    <article class="bg-charcoal-bark/55 border-l-2 border-saber-blue border-y border-r border-deep-rust/70 rounded-sm p-7 arcade-card card-theme-saber">
+                        <h3 class="font-display text-2xl mb-4 text-saber-blue">Knowledge Agents</h3>
                         <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
                             <li>Continuity fails across handoffs and long workflows.</li>
                             <li>State changes are often implicit and hard to recover.</li>
@@ -219,37 +431,35 @@
         </section>
         <section id="use-cases" class="scroll-mt-44 py-20 px-6 bg-charcoal-bark border-t border-deep-rust/60">
             <div class="max-w-7xl mx-auto">
-                <p class="section-kicker font-arcade text-[0.62rem]">Playable Builds</p>
+                <p class="section-kicker section-kicker-saber font-arcade text-[0.62rem]">Playable Builds</p>
                 <div class="section-rule"></div>
                 <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-4 text-paper-ivory">Top Use Cases</h2>
                 <p class="font-sans text-lg md:text-xl text-paper-ivory/88 mb-14 max-w-4xl leading-relaxed">
-                    These RFP concepts map directly to the bottlenecks above, and they are scoped for fast, low-energy pilot delivery. Interested parties can contact us at <a href="mailto:ping@knowb.run" class="underline decoration-soft-ember underline-offset-4 hover:text-soft-ember">ping@knowb.run</a>.
+                    These RFP concepts map directly to the bottlenecks above, and they are scoped for fast, low-energy pilot delivery. Interested parties can contact us at <a href="mailto:ping@knowb.run" class="underline decoration-saber-blue underline-offset-4 hover:text-saber-blue">ping@knowb.run</a>.
                 </p>
 
                 <div class="grid md:grid-cols-3 gap-6">
-                    <article class="use-case-card bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all hover:border-soft-ember/80 hover:shadow-fire-glow">
+                    <article class="use-case-card arcade-card card-theme-ember bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all">
                         <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">RFP 01</p>
-                        <h3 class="font-display text-3xl mb-4 text-soft-ember">Underminer</h3>
+                        <h3 class="usecase-arcade-title font-arcade mb-5 text-soft-ember">Underminer</h3>
                         <p class="font-sans text-lg text-paper-ivory/90 leading-relaxed mb-5">
                             Extract semantic understanding from paywalled reporting and reconstruct the story from alternate sources plus LLM context-tracing experiments.
                         </p>
                         <p class="text-sm text-terracotta-border mb-2">Outcome: evidence-linked narrative reconstruction with source traceability.</p>
                         <p class="text-sm text-paper-ivory/85">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run" class="underline decoration-soft-ember underline-offset-2 hover:text-soft-ember">ping@knowb.run</a>.</p>
                     </article>
-
-                    <article class="use-case-card bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all hover:border-soft-ember/80 hover:shadow-fire-glow">
+                    <article class="use-case-card arcade-card card-theme-saber bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all">
                         <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">RFP 02</p>
-                        <h3 class="font-display text-3xl mb-4 text-soft-ember">X-Poser</h3>
+                        <h3 class="usecase-arcade-title font-arcade mb-5 text-saber-blue">X-Poser</h3>
                         <p class="font-sans text-lg text-paper-ivory/90 leading-relaxed mb-5">
                             Submit an X link, run claim checks, and generate a report that marks the post as true, uncertain, or fabricated, with export-ready output for sharing on X.
                         </p>
                         <p class="text-sm text-terracotta-border mb-2">Outcome: compact fact-check report with evidence confidence notes.</p>
-                        <p class="text-sm text-paper-ivory/85">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run" class="underline decoration-soft-ember underline-offset-2 hover:text-soft-ember">ping@knowb.run</a>.</p>
+                        <p class="text-sm text-paper-ivory/85">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run" class="underline decoration-saber-blue underline-offset-2 hover:text-saber-blue">ping@knowb.run</a>.</p>
                     </article>
-
-                    <article class="use-case-card bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all hover:border-soft-ember/80 hover:shadow-fire-glow">
+                    <article class="use-case-card arcade-card card-theme-ember bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all">
                         <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">RFP 03</p>
-                        <h3 class="font-display text-3xl mb-4 text-soft-ember">Precongnition</h3>
+                        <h3 class="usecase-arcade-title font-arcade mb-5 text-soft-ember">Precongnition</h3>
                         <p class="font-sans text-lg text-paper-ivory/90 leading-relaxed mb-5">
                             Detect missing or mismatched conference talks, tutorials, or demos, then crawl for alternate watch links and nearest neighboring sessions.
                         </p>
@@ -262,25 +472,25 @@
 
         <section id="roadmap" class="scroll-mt-44 py-20 px-6 bg-charcoal-bark">
             <div class="max-w-7xl mx-auto">
-                <p class="section-kicker font-arcade text-[0.62rem]">Launch Plan</p>
+                <p class="section-kicker section-kicker-ember font-arcade text-[0.62rem]">Launch Plan</p>
                 <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-4 text-paper-ivory">Delivery Roadmap</h2>
                 <p class="font-sans text-lg md:text-xl text-paper-ivory/88 mb-14 max-w-4xl leading-relaxed">
                     The rollout starts with lightweight RFP pilots, then moves into governed link-collection systems for proprietary dataset growth and efficient long-run operation.
                 </p>
 
                 <div class="grid md:grid-cols-2 gap-6">
-                    <article class="bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7">
+                    <article class="bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 arcade-card card-theme-saber">
                         <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">Phase 1</p>
-                        <h3 class="font-display text-3xl mb-4 text-soft-ember">RFP Projects</h3>
+                        <h3 class="font-display text-3xl mb-4 text-saber-blue">RFP Projects</h3>
                         <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
                             <li>Ship simple, testable prototypes with clear outcomes.</li>
                             <li>Validate retrieval quality, context tracking, and report utility.</li>
                             <li>Define stable agent contracts and data boundaries.</li>
-                            <li>Interested parties can contact us at <a href="mailto:ping@knowb.run" class="underline decoration-soft-ember underline-offset-2 hover:text-soft-ember">ping@knowb.run</a>.</li>
+                            <li>Interested parties can contact us at <a href="mailto:ping@knowb.run" class="underline decoration-saber-blue underline-offset-2 hover:text-saber-blue">ping@knowb.run</a>.</li>
                         </ul>
                     </article>
 
-                    <article class="bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7">
+                    <article class="bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 arcade-card card-theme-ember">
                         <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">Phase 2</p>
                         <h3 class="font-display text-3xl mb-4 text-soft-ember">Link Collection Systems</h3>
                         <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
@@ -292,34 +502,57 @@
                 </div>
             </div>
         </section>
+
+        <section class="px-6 pb-6 bg-charcoal-bark">
+            <div class="max-w-7xl mx-auto rounded-2xl contact-callout-frame">
+                <div class="px-8 md:px-10 py-10 md:py-12">
+                    <p class="section-kicker section-kicker-saber font-arcade text-[0.62rem] mb-4">Collaboration Callout</p>
+                    <h2 class="font-display text-3xl md:text-4xl tracking-tight text-paper-ivory mb-4">Contact us to build with us</h2>
+                    <p class="font-sans text-paper-ivory/92 text-lg leading-relaxed max-w-4xl mb-7">
+                        We are actively looking for partners who want to ship practical context-agent systems in controlled pilots. The current collaboration formats are listed below.
+                    </p>
+                    <ul class="space-y-3 text-paper-ivory/92 leading-relaxed list-disc list-inside mb-8">
+                        <li>RFP build partners to prototype Underminer, X-Poser, and Precongnition with measurable delivery milestones.</li>
+                        <li>Knowledge and dataset partners who can support governed link-collection workflows and source validation loops.</li>
+                        <li>Operations and compliance collaborators who can help productionize policy-scoped memory and retrieval systems.</li>
+                    </ul>
+                    <a href="mailto:ping@knowb.run?subject=Collaboration%20Inquiry" class="arcade-button">
+                        Contact us at ping@knowb.run
+                    </a>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer id="contact" class="scroll-mt-28 border-t border-deep-rust bg-charcoal-bark text-paper-ivory">
-        <div class="max-w-6xl mx-auto px-6 pt-14 pb-10">
-            <div class="grid gap-10 md:grid-cols-2">
-                <div class="lg:pr-4">
-                    <div class="text-3xl font-display font-semibold tracking-tight mb-3">knowb.run</div>
-                    <p class="text-paper-ivory/75 text-xs leading-relaxed">
-                        KnowB AI Systems builds practical knowledge-agent systems that improve context continuity, operational trust, and long-run memory quality.
-                    </p>
+    <footer id="contact" class="scroll-mt-28 px-6 pt-8 pb-10 bg-charcoal-bark text-paper-ivory">
+        <div class="max-w-7xl mx-auto rounded-[1.35rem] border border-terracotta-border/25 bg-charcoal-bark/95 shadow-[0_22px_50px_rgba(0,0,0,0.38)]">
+            <div class="px-8 md:px-10 pt-12 pb-8">
+                <div class="grid gap-10 md:grid-cols-[minmax(0,1fr)_auto] md:items-start">
+                    <div class="max-w-md lg:pr-4">
+                        <div class="text-3xl font-display font-semibold tracking-tight mb-3">knowb.run</div>
+                        <p class="text-paper-ivory/75 text-xs leading-relaxed">
+                            KnowB AI Systems builds practical knowledge-agent systems that improve context continuity, operational trust, and long-run memory quality.
+                        </p>
+                    </div>
+
+                    <nav aria-label="Footer navigation" class="md:justify-self-end">
+                        <ul class="space-y-2 md:text-right text-sm">
+                            <li class="text-paper-ivory/70 text-[0.64rem] font-semibold uppercase tracking-[0.12em]">Navigation</li>
+                            <li><a href="#home" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Home</a></li>
+                            <li><a href="#challenges" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Challenges</a></li>
+                            <li><a href="#use-cases" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Use Cases</a></li>
+                            <li><a href="#contact" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Contact</a></li>
+                        </ul>
+                    </nav>
                 </div>
 
-                <ul class="space-y-3 font-arcade text-[0.58rem] leading-[1.8]">
-                    <li class="text-paper-ivory uppercase tracking-[0.08em]">Navigation</li>
-                    <li><a href="#home" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Home</a></li>
-                    <li><a href="#challenges" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Challenges</a></li>
-                    <li><a href="#use-cases" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Use Cases</a></li>
-                    <li><a href="#contact" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Contact</a></li>
-                </ul>
-            </div>
-
-            <div class="mt-10 pt-6 border-t border-deep-rust/80 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm">
-                <ul class="flex flex-wrap gap-x-5 gap-y-2">
-                    <li><a href="mailto:ping@knowb.run" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Contact</a></li>
-                    <li><a href="/terms/" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Terms</a></li>
-                    <li><a href="/privacy/" class="text-paper-ivory/85 hover:text-soft-ember transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-soft-ember focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Privacy</a></li>
-                </ul>
-                <span class="text-paper-ivory/85">© 2026 knowb.run</span>
+                <div class="mt-10 pt-6 border-t border-terracotta-border/20 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm">
+                    <ul class="flex flex-wrap gap-x-5 gap-y-2">
+                        <li><a href="/terms/" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Terms</a></li>
+                        <li><a href="/privacy/" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Privacy</a></li>
+                    </ul>
+                    <span class="text-paper-ivory/85">© 2026 knowb.run</span>
+                </div>
             </div>
         </div>
     </footer>
