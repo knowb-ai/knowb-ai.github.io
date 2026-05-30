@@ -112,6 +112,11 @@ html {
     background: rgba(245,154,82,0.10);
     color: #F59A52;
 }
+.arcade-chip.saber {
+    border-color: rgba(134,232,255,0.42) !important;
+    background: rgba(134,232,255,0.08) !important;
+    color: #86E8FF !important;
+}
 
 /* --- Signal Grid --- */
 .signal-grid {
