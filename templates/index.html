@@ -4,9 +4,10 @@
 
 {% block header %}
     <header class="fixed top-0 left-0 right-0 z-50 bg-charcoal-bark/95 backdrop-blur-md border-b border-saber-blue/30">
-        <nav aria-label="Primary" class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <nav aria-label="Primary" class="max-w-7xl mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-2">
             <div class="text-xl font-semibold tracking-tight text-paper-ivory" style="font-family:'Audiowide','Space Grotesk',sans-serif;">knowb<span class="text-soft-ember">.</span>run</div>
-            <div class="flex flex-wrap gap-x-5 gap-y-2">
+            <button id="nav-toggle" class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle navigation">Menu</button>
+            <div id="nav-links" class="nav-links">
                 <a href="#home" class="arcade-nav-link text-paper-ivory/90 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Home</a>
                 <a href="#challenges" class="arcade-nav-link text-paper-ivory/90 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Challenges</a>
                 <a href="#use-cases" class="arcade-nav-link text-paper-ivory/90 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Use Cases</a>
@@ -19,11 +20,16 @@
 {% block content %}
     <main id="main-content" class="pt-32">
         <section id="home" class="scroll-mt-44 py-20 px-6 bg-knowb-autumn-core text-paper-ivory border-b border-deep-rust/70 hero-arcade">
+            <div class="hero-fx" aria-hidden="true">
+                <div class="perspective-grid"></div>
+                <div class="hero-orb orb-ember"></div>
+                <div class="hero-orb orb-saber"></div>
+            </div>
             <div class="max-w-7xl mx-auto">
                 <div class="max-w-5xl">
                     <p class="section-kicker section-kicker-ember font-arcade mb-5 text-[0.62rem]">Front Deck</p>
                     <h1 class="font-display text-5xl md:text-7xl leading-[1.03] tracking-tight mb-7">
-                        Building <span class="hero-highlight-ember">context-aware agents</span> with better <span class="hero-highlight-saber">knowledge and memory capabilities</span>
+                        Building <span class="hero-highlight-ember glitch-text" data-text="context-aware agents">context-aware agents</span> with better <span class="hero-highlight-saber glitch-text" data-text="knowledge and memory capabilities">knowledge and memory capabilities</span>
                     </h1>
                     <p class="font-sans text-xl md:text-2xl text-paper-ivory/92 mb-10 max-w-4xl leading-relaxed">
                         We build context-aware systems with durable memory, stable state transitions, and governance-first operation.
@@ -89,7 +95,7 @@
                 </p>
 
                 <div class="grid md:grid-cols-3 gap-6">
-                    <article class="bg-charcoal-bark/55 border-l-2 border-saber-blue border-y border-r border-deep-rust/70 rounded-sm p-7 arcade-card card-theme-saber">
+                    <article class="bg-charcoal-bark/55 border-l-2 border-saber-blue border-y border-r border-deep-rust/70 rounded-sm p-7 arcade-card card-theme-saber reveal-fade">
                         <h3 class="font-display text-2xl mb-4 text-saber-blue">Knowledge Tooling</h3>
                         <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
                             <li>Most tooling is prompt-first and session-bound.</li>
@@ -98,7 +104,7 @@
                             <li>Tooling must function as a control plane for autonomous operators.</li>
                         </ul>
                     </article>
-                    <article class="bg-charcoal-bark/55 border-l-2 border-soft-ember border-y border-r border-deep-rust/70 rounded-sm p-7 arcade-card card-theme-ember">
+                    <article class="bg-charcoal-bark/55 border-l-2 border-soft-ember border-y border-r border-deep-rust/70 rounded-sm p-7 arcade-card card-theme-ember reveal-fade" style="transition-delay:0.12s">
                         <h3 class="font-display text-2xl mb-4 text-soft-ember">Knowledge Bases</h3>
                         <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
                             <li>Most databases are designed for human admins first.</li>
@@ -107,7 +113,7 @@
                             <li>Machine-managed knowledge ops need purpose-built data layers.</li>
                         </ul>
                     </article>
-                    <article class="bg-charcoal-bark/55 border-l-2 border-saber-blue border-y border-r border-deep-rust/70 rounded-sm p-7 arcade-card card-theme-saber">
+                    <article class="bg-charcoal-bark/55 border-l-2 border-saber-blue border-y border-r border-deep-rust/70 rounded-sm p-7 arcade-card card-theme-saber reveal-fade" style="transition-delay:0.24s">
                         <h3 class="font-display text-2xl mb-4 text-saber-blue">Knowledge Agents</h3>
                         <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
                             <li>Continuity fails across handoffs and long workflows.</li>
@@ -135,7 +141,7 @@
                 </div>
 
                 <div class="mb-8 grid gap-6">
-                    <article class="use-case-card arcade-card card-theme-saber bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all">
+                    <article class="use-case-card arcade-card card-theme-saber bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all reveal-fade">
                         <div class="grid gap-6 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:items-start">
                             <div>
                                 <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">Featured RFP 01</p>
@@ -161,7 +167,7 @@
                 </div>
 
                 <div class="grid sm:grid-cols-2 gap-6">
-                    <article class="use-case-card arcade-card card-theme-ember bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all">
+                    <article class="use-case-card arcade-card card-theme-ember bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all reveal-fade">
                         <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">RFP 01</p>
                         <h3 class="usecase-arcade-title font-arcade mb-5 text-soft-ember">Underminer</h3>
                         <p class="font-sans text-lg text-paper-ivory/90 leading-relaxed mb-5">
@@ -170,7 +176,7 @@
                         <p class="text-sm text-terracotta-border mb-2">Outcome: evidence-linked narrative reconstruction with source traceability.</p>
                         <p class="text-sm text-paper-ivory/85">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run" class="underline decoration-soft-ember underline-offset-2 hover:text-soft-ember">ping@knowb.run</a>.</p>
                     </article>
-                    <article class="use-case-card arcade-card card-theme-saber bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all">
+                    <article class="use-case-card arcade-card card-theme-saber bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all reveal-fade" style="transition-delay:0.1s">
                         <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">RFP 02</p>
                         <h3 class="usecase-arcade-title font-arcade mb-5 text-saber-blue">X-Poser</h3>
                         <p class="font-sans text-lg text-paper-ivory/90 leading-relaxed mb-5">
@@ -182,7 +188,7 @@
                         <p class="text-sm text-terracotta-border mb-2">Outcome: compact fact-check report with evidence confidence notes.</p>
                         <p class="text-sm text-paper-ivory/85">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run" class="underline decoration-saber-blue underline-offset-2 hover:text-saber-blue">ping@knowb.run</a>.</p>
                     </article>
-                    <article class="use-case-card arcade-card card-theme-saber bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all">
+                    <article class="use-case-card arcade-card card-theme-saber bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all reveal-fade" style="transition-delay:0.2s">
                         <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">RFP 03</p>
                         <h3 class="usecase-arcade-title font-arcade mb-5 text-saber-blue">Precongnition</h3>
                         <p class="font-sans text-lg text-paper-ivory/90 leading-relaxed mb-5">
@@ -191,7 +197,7 @@
                         <p class="text-sm text-terracotta-border mb-2">Outcome: continuity-preserving discovery graph for learning resources.</p>
                         <p class="text-sm text-paper-ivory/85">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run" class="underline decoration-saber-blue underline-offset-2 hover:text-saber-blue">ping@knowb.run</a>.</p>
                     </article>
-                    <article class="use-case-card arcade-card card-theme-ember bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all">
+                    <article class="use-case-card arcade-card card-theme-ember bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all reveal-fade" style="transition-delay:0.3s">
                         <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">RFP 04</p>
                         <h3 class="usecase-arcade-title font-arcade mb-5 text-soft-ember">MarkSweep</h3>
                         <p class="font-sans text-lg text-paper-ivory/90 leading-relaxed mb-5">
@@ -203,7 +209,7 @@
                 </div>
 
                 <div class="mt-8">
-                    <article class="use-case-card arcade-card card-theme-ember bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all">
+                    <article class="use-case-card arcade-card card-theme-ember bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all reveal-fade">
                         <div class="grid gap-6 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:items-start">
                             <div>
                                 <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">Closing Highlight</p>
@@ -239,7 +245,7 @@
                 </p>
 
                 <div class="grid md:grid-cols-2 gap-6">
-                    <article class="bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 arcade-card card-theme-saber">
+                    <article class="bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 arcade-card card-theme-saber reveal-fade">
                         <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">Phase 1</p>
                         <h3 class="font-display text-3xl mb-4 text-saber-blue">RFP Projects</h3>
                         <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
@@ -250,7 +256,7 @@
                         </ul>
                     </article>
 
-                    <article class="bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 arcade-card card-theme-ember">
+                    <article class="bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 arcade-card card-theme-ember reveal-fade" style="transition-delay:0.14s">
                         <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">Phase 2</p>
                         <h3 class="font-display text-3xl mb-4 text-soft-ember">Link Collection Systems</h3>
                         <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
@@ -320,3 +326,87 @@
         </div>
     </footer>
 {% endblock footer %}
+
+{% block scripts %}
+<script>
+(function () {
+    // Scroll progress bar
+    var bar = document.getElementById('scroll-progress');
+    if (bar) {
+        window.addEventListener('scroll', function () {
+            var pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+            bar.style.width = Math.min(pct, 100) + '%';
+        }, { passive: true });
+    }
+
+    // Scroll reveal via IntersectionObserver
+    if ('IntersectionObserver' in window) {
+        var revealObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.10 });
+        document.querySelectorAll('.reveal-fade').forEach(function (el) {
+            revealObserver.observe(el);
+        });
+    } else {
+        // Fallback: show all immediately
+        document.querySelectorAll('.reveal-fade').forEach(function (el) {
+            el.classList.add('is-visible');
+        });
+    }
+
+    // Glitch text — brand bible §12.1: <=120ms burst, >=8s between bursts
+    var glitchEls = document.querySelectorAll('.glitch-text');
+    var motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (motionOK) {
+        glitchEls.forEach(function (el) {
+            function fire() {
+                el.classList.add('is-glitching');
+                setTimeout(function () { el.classList.remove('is-glitching'); }, 120);
+                setTimeout(fire, 8000 + Math.random() * 8000);
+            }
+            setTimeout(fire, 3000 + Math.random() * 6000);
+        });
+    }
+
+    // Mobile nav toggle
+    var toggle = document.getElementById('nav-toggle');
+    var navLinks = document.getElementById('nav-links');
+    if (toggle && navLinks) {
+        toggle.addEventListener('click', function () {
+            var open = navLinks.classList.toggle('is-open');
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        // Close nav when a link is clicked
+        navLinks.querySelectorAll('a').forEach(function (a) {
+            a.addEventListener('click', function () {
+                navLinks.classList.remove('is-open');
+                toggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+    }
+
+    // Active nav highlight on scroll
+    if ('IntersectionObserver' in window) {
+        var sections = document.querySelectorAll('section[id]');
+        var navItems = document.querySelectorAll('.arcade-nav-link');
+        var activeObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    navItems.forEach(function (a) {
+                        var isActive = a.getAttribute('href') === '#' + entry.target.id;
+                        a.style.color = isActive ? '#86E8FF' : '';
+                        a.style.textShadow = isActive ? '0 0 10px rgba(134,232,255,0.40)' : '';
+                    });
+                }
+            });
+        }, { rootMargin: '-35% 0px -60% 0px' });
+        sections.forEach(function (s) { activeObserver.observe(s); });
+    }
+}());
+</script>
+{% endblock scripts %}
