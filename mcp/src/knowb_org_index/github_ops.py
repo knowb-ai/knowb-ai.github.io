@@ -130,12 +130,15 @@ class GitHubOperations:
         success_criteria: str,
         brand_tone: str,
         blueprint_digest: str,
+        display_name: str = "",
         visibility: str = "private",
         interface_mode: str = "internal",
         tech_stack: list[str] | None = None,
         license_name: str = "MIT",
         design_remix: dict[str, Any] | None = None,
         remix_digest: str = "",
+        seed_documents: dict[str, str] | None = None,
+        knowledge_visibility: str = "local",
         local_parent: str | None = None,
         idempotency_key: str | None = None,
     ) -> dict[str, Any]:
@@ -144,6 +147,7 @@ class GitHubOperations:
         try:
             blueprint = build_repository_blueprint(
                 name=name,
+                display_name=display_name,
                 purpose=purpose,
                 audience=audience,
                 primary_users=primary_users,
@@ -156,6 +160,8 @@ class GitHubOperations:
                 license_name=license_name,
                 design_remix=design_remix,
                 remix_digest=remix_digest,
+                seed_documents=seed_documents,
+                knowledge_visibility=knowledge_visibility,
                 require_complete=True,
             )
             brief = blueprint["brief"]

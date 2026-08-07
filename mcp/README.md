@@ -173,6 +173,15 @@ docs/
 └── operations/README.md
 ~~~
 
+`seed_documents` may add up to 64 reviewed Markdown files under `docs/` to that same
+first commit. It cannot overwrite the required scaffold files or write outside `docs/`.
+Use the repository-safe `name` as the GitHub slug and `display_name` for the human-facing
+project identity in the README, wiki, contribution guidance, agent instructions, and
+local manifest.
+Repository visibility and knowledge visibility are intentionally separate: repositories
+default to private, and the local MCP knowledge directory is always `local` even when a
+future repository is explicitly made public.
+
 The visual document contains the accepted `/remix` result: compact semantic tokens,
 baseline components, narrative, metaphor, and composition rules adapted to public,
 internal, or explicitly scoped hybrid use. The

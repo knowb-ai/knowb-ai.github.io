@@ -146,6 +146,7 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
     @server.tool()
     def draft_repository_blueprint(
         name: str,
+        display_name: str = "",
         purpose: str = "",
         audience: str = "",
         primary_users: str = "",
@@ -158,11 +159,13 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
         license_name: str = "MIT",
         design_remix: dict[str, Any] | None = None,
         remix_digest: str = "",
+        seed_documents: dict[str, str] | None = None,
     ) -> dict[str, Any]:
         """Ideate a new repository; returns questions until the required brief is complete."""
 
         return service.draft_repository_blueprint(
             name=name,
+            display_name=display_name,
             purpose=purpose,
             audience=audience,
             primary_users=primary_users,
@@ -175,6 +178,7 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
             license_name=license_name,
             design_remix=design_remix,
             remix_digest=remix_digest,
+            seed_documents=seed_documents,
         )
 
     @server.tool()
@@ -187,12 +191,15 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
         success_criteria: str,
         brand_tone: str,
         blueprint_digest: str,
+        display_name: str = "",
         visibility: str = "private",
         interface_mode: str = "internal",
         tech_stack: list[str] | None = None,
         license_name: str = "MIT",
         design_remix: dict[str, Any] | None = None,
         remix_digest: str = "",
+        seed_documents: dict[str, str] | None = None,
+        knowledge_visibility: str = "local",
         local_parent: str | None = None,
         idempotency_key: str | None = None,
     ) -> dict[str, Any]:
@@ -200,6 +207,7 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
 
         return service.github.propose_repository_create(
             name=name,
+            display_name=display_name,
             purpose=purpose,
             audience=audience,
             primary_users=primary_users,
@@ -213,6 +221,8 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
             license_name=license_name,
             design_remix=design_remix,
             remix_digest=remix_digest,
+            seed_documents=seed_documents,
+            knowledge_visibility=knowledge_visibility,
             local_parent=local_parent,
             idempotency_key=idempotency_key,
         )
