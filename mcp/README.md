@@ -13,7 +13,7 @@ serve the website.
 - Brandbook/Org Book sources remain public on the website but are denied from the
   private MCP knowledge index.
 - The MCP transport is local stdio by default and opens no listening port.
-- GitHub is contacted only by explicit ticket/project tools.
+- GitHub is contacted only by explicit ticket/project/repository tools.
 - GitHub writes require a durable proposal, a short-lived confirmation token,
   idempotency protection, and a local audit record.
 
@@ -25,7 +25,7 @@ and client. This is a client boundary, not a server configuration switch.
 
 - Python 3.11+
 - `uv`
-- GitHub CLI (`gh`) for ticket/project operations
+- GitHub CLI (`gh`) and Git for ticket/project/repository operations
 - MCP Python SDK 2.x
 
 The implementation follows the current MCP Python SDK v2 surface: `MCPServer`
@@ -97,7 +97,54 @@ Mutations are intentionally two-step:
 
 Confirmation tokens expire, are single-purpose, and return the cached result if
 a completed token is replayed. `audit_log` reports proposals, completions,
-failures, and expirations. No mutation tool edits a local repository or document.
+failures, and expirations. Ticket and project mutations never read local project
+documents.
+
+## Create a new KnowB repository
+
+Repository creation is a guided, three-tool workflow. It supports both public and
+private repositories, but it will not create a generic empty repo or silently invent
+the product direction.
+
+1. Call `draft_repository_blueprint` with what is already known. It returns focused
+   questions until purpose, audience, primary users, 6-12 month direction, success
+   criteria, brand tone, and stack are complete.
+2. Review the rendered brand narrative, strategic direction, visual design system,
+   visibility, license, and either `public-facing` or `internal` interface mode.
+3. Call `propose_repository_create` with the unchanged completed brief and its
+   `blueprint_digest`; review the exact target and file list.
+4. Call `confirm_repository_create` with the proposal token.
+
+Confirmation creates a new directory beneath a configured `allowed_root`, initializes
+`main`, commits the scaffold, creates `knowb-ai/<name>`, and pushes it. Existing paths
+are never overwritten. The generated baseline contains:
+
+~~~text
+README.md
+.gitignore
+LICENSE
+CONTRIBUTING.md
+AGENTS.md
+.knowb/project.yml
+docs/
+├── README.md
+├── brand-narrative-and-strategic-direction.md
+├── visual-design-system.md
+├── architecture/README.md
+├── decisions/README.md
+├── decisions/0000-decision-template.md
+├── research/README.md
+└── operations/README.md
+~~~
+
+The visual document includes compact semantic tokens and baseline components adapted
+to either the public KnowB brand or the denser internal mission-control style. The
+project manifest makes the new repo a candidate for local discovery immediately; add
+it to `config/local-projects.yml` when it should be indexed.
+
+If GitHub creation or push fails after local initialization, the local repository is
+kept for diagnosis and recovery, and the failed confirmation is recorded in the audit
+log. The tool does not delete or overwrite work to simulate a rollback.
 
 ## Adopt a project-owned knowledge wiki
 
@@ -109,6 +156,8 @@ project/
 │   └── project.yml
 └── docs/
     ├── README.md
+    ├── brand-narrative-and-strategic-direction.md
+    ├── visual-design-system.md
     ├── architecture/
     ├── decisions/
     ├── research/

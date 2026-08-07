@@ -28,6 +28,13 @@ Brandbook/Org Book sources remain public web pages but are denied from this loca
 knowledge index. GitHub ticket and Projects operations use a separate boundary;
 writes require a preview plus confirmation and are audited locally.
 
+The same MCP can guide creation of new public or private `knowb-ai` repositories. It
+requires a reviewed product/brand brief before confirmation, then initializes the repo
+with contribution and agent guidance plus a project-owned knowledge wiki. Every new
+wiki begins with brand narrative and strategic direction, a compact visual token and
+component system adapted to public or internal use, and architecture, decision,
+research, and operations sections.
+
 See [`mcp/README.md`](mcp/README.md) for setup, tools, privacy boundaries, and the
 project manifest contract.
 

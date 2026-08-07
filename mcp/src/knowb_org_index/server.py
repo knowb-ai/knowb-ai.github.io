@@ -112,6 +112,78 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
         return service.github.get_project(project_number, include_items=include_items)
 
     @server.tool()
+    def draft_repository_blueprint(
+        name: str,
+        purpose: str = "",
+        audience: str = "",
+        primary_users: str = "",
+        strategic_direction: str = "",
+        success_criteria: str = "",
+        brand_tone: str = "",
+        visibility: str = "private",
+        interface_mode: str = "internal",
+        tech_stack: list[str] | None = None,
+        license_name: str = "MIT",
+    ) -> dict[str, Any]:
+        """Ideate a new repository; returns questions until the required brief is complete."""
+
+        return service.draft_repository_blueprint(
+            name=name,
+            purpose=purpose,
+            audience=audience,
+            primary_users=primary_users,
+            strategic_direction=strategic_direction,
+            success_criteria=success_criteria,
+            brand_tone=brand_tone,
+            visibility=visibility,
+            interface_mode=interface_mode,
+            tech_stack=tech_stack,
+            license_name=license_name,
+        )
+
+    @server.tool()
+    def propose_repository_create(
+        name: str,
+        purpose: str,
+        audience: str,
+        primary_users: str,
+        strategic_direction: str,
+        success_criteria: str,
+        brand_tone: str,
+        blueprint_digest: str,
+        visibility: str = "private",
+        interface_mode: str = "internal",
+        tech_stack: list[str] | None = None,
+        license_name: str = "MIT",
+        local_parent: str | None = None,
+        idempotency_key: str | None = None,
+    ) -> dict[str, Any]:
+        """Preview a reviewed repo bootstrap; no local or GitHub writes occur yet."""
+
+        return service.github.propose_repository_create(
+            name=name,
+            purpose=purpose,
+            audience=audience,
+            primary_users=primary_users,
+            strategic_direction=strategic_direction,
+            success_criteria=success_criteria,
+            brand_tone=brand_tone,
+            blueprint_digest=blueprint_digest,
+            visibility=visibility,
+            interface_mode=interface_mode,
+            tech_stack=tech_stack,
+            license_name=license_name,
+            local_parent=local_parent,
+            idempotency_key=idempotency_key,
+        )
+
+    @server.tool()
+    def confirm_repository_create(token: str) -> dict[str, Any]:
+        """Create, initialize, commit, and push a reviewed repository exactly once."""
+
+        return _confirm_kind(service, token, "repository_create")
+
+    @server.tool()
     def propose_ticket_create(
         repository: str,
         title: str,
