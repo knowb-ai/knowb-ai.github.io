@@ -16,6 +16,34 @@ Knowledge Agents are intelligent systems that combine three layers of knowledge:
 - **Tailwind CSS** — Via CDN with inline config for brand color tokens
 - **Typography** — Audiowide, Space Grotesk, Inter, Press Start 2P, JetBrains Mono (Google Fonts)
 
+## Local Organization Index
+
+This repository also contains a local-first MCP directory and GitHub work control
+plane under `mcp/`. It is operationally separate from the Zola site: the current
+public routes and build remain unchanged.
+
+The server discovers explicitly allowlisted local `knowb-ai` clones, indexes only
+their approved knowledge roots, and exposes project context through local stdio.
+Brandbook/Org Book sources remain public web pages but are denied from this local
+knowledge index. GitHub ticket and Projects operations use a separate boundary;
+writes require a preview plus confirmation and are audited locally.
+
+The same MCP can guide creation of new public or private `knowb-ai` repositories. It
+requires a reviewed product/brand brief before confirmation, then initializes the repo
+with contribution and agent guidance plus a project-owned knowledge wiki. Every new
+wiki begins with brand narrative and strategic direction, a compact visual token and
+component system adapted to public or internal use, and architecture, decision,
+research, and operations sections.
+
+The `remix` MCP tool provides the preceding Socratic design loop. It keeps public/org
+surfaces in the KnowB Autumn system and product/workflow surfaces in the Kenobi
+gold-on-indigo system, then remixes narrative, metaphor, hierarchy, density, and imagery
+for the specific project. Its accepted digest drives the generated project docs and its
+gallery brief lets an image-capable host return one six-panel design contact sheet.
+
+See [`mcp/README.md`](mcp/README.md) for setup, tools, privacy boundaries, and the
+project manifest contract.
+
 ## Run Locally
 
 ```bash
@@ -53,6 +81,9 @@ knowb-run/
 │   ├── vite.svg
 │   └── CNAME                # Custom domain config
 ├── knowledgeHQ/             # Reference docs (not part of site)
+├── mcp/                     # Local MCP org directory and ticket control plane
+├── config/                  # Example local registry, client config, manifest schema
+├── .knowb/project.yml       # Repo-owned knowledge policy (knowledgeHQ only)
 ├── ORGBRAND_GUIDELINES.md
 ├── WARP.md
 └── README.md

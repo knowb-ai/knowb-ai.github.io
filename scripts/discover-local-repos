@@ -1,0 +1,18 @@
+#!/bin/sh
+set -eu
+
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+REPO_DIR=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
+INDEX_CONFIG="$REPO_DIR/config/local-projects.yml"
+
+if [ ! -f "$INDEX_CONFIG" ]; then
+  INDEX_CONFIG="$REPO_DIR/config/local-projects.example.yml"
+fi
+
+if [ -x "$REPO_DIR/mcp/.venv/bin/knowb-org" ]; then
+  exec "$REPO_DIR/mcp/.venv/bin/knowb-org" \
+    --config "$INDEX_CONFIG" discover "$@"
+fi
+
+exec uv run --project "$REPO_DIR/mcp" knowb-org \
+  --config "$INDEX_CONFIG" discover "$@"
