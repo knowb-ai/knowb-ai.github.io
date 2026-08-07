@@ -16,6 +16,21 @@ Knowledge Agents are intelligent systems that combine three layers of knowledge:
 - **Tailwind CSS** — Via CDN with inline config for brand color tokens
 - **Typography** — Audiowide, Space Grotesk, Inter, Press Start 2P, JetBrains Mono (Google Fonts)
 
+## Local Organization Index
+
+This repository also contains a local-first MCP directory and GitHub work control
+plane under `mcp/`. It is operationally separate from the Zola site: the current
+public routes and build remain unchanged.
+
+The server discovers explicitly allowlisted local `knowb-ai` clones, indexes only
+their approved knowledge roots, and exposes project context through local stdio.
+Brandbook/Org Book sources remain public web pages but are denied from this local
+knowledge index. GitHub ticket and Projects operations use a separate boundary;
+writes require a preview plus confirmation and are audited locally.
+
+See [`mcp/README.md`](mcp/README.md) for setup, tools, privacy boundaries, and the
+project manifest contract.
+
 ## Run Locally
 
 ```bash
@@ -53,6 +68,9 @@ knowb-run/
 │   ├── vite.svg
 │   └── CNAME                # Custom domain config
 ├── knowledgeHQ/             # Reference docs (not part of site)
+├── mcp/                     # Local MCP org directory and ticket control plane
+├── config/                  # Example local registry, client config, manifest schema
+├── .knowb/project.yml       # Repo-owned knowledge policy (knowledgeHQ only)
 ├── ORGBRAND_GUIDELINES.md
 ├── WARP.md
 └── README.md

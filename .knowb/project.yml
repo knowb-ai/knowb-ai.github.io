@@ -1,0 +1,15 @@
+version: 1
+id: knowb-ai.github.io
+name: KnowB AI Organization Hub
+owner: knowb-ai
+lifecycle: active
+knowledge:
+  roots:
+    - path: knowledgeHQ
+      include:
+        - "**/*.md"
+      exclude:
+        - ".obsidian/**"
+        - "**/.obsidian/**"
+directory:
+  visibility: local
