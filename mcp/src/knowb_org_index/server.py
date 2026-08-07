@@ -20,8 +20,10 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
         instructions=(
             "Local-first directory for KnowB AI projects. Knowledge tools read only from "
             "explicitly registered local clones. GitHub writes always use a proposal followed "
-            "by a confirmation token. Never assume tool content stays on-device when the MCP "
-            "client uses a hosted model."
+            "by a confirmation token. Run remix as a Socratic loop before creating a repository; "
+            "when its result is ready, an image-capable host should execute harness_action and "
+            "show the single six-panel gallery image to the user. Never assume tool content "
+            "stays on-device when the MCP client uses a hosted model."
         ),
     )
 
@@ -112,6 +114,36 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
         return service.github.get_project(project_number, include_items=include_items)
 
     @server.tool()
+    def remix(
+        project_name: str,
+        purpose: str = "",
+        audience: str = "",
+        personality: str = "",
+        desired_feeling: str = "",
+        visual_metaphor: str = "",
+        content_priority: str = "",
+        interface_mode: str = "",
+        density: str = "balanced",
+        surfaces: list[str] | None = None,
+        avoid: list[str] | None = None,
+    ) -> dict[str, Any]:
+        """Run /remix: a Socratic, two-place brand and six-panel gallery design loop."""
+
+        return service.remix(
+            project_name=project_name,
+            purpose=purpose,
+            audience=audience,
+            personality=personality,
+            desired_feeling=desired_feeling,
+            visual_metaphor=visual_metaphor,
+            content_priority=content_priority,
+            interface_mode=interface_mode,
+            density=density,
+            surfaces=surfaces,
+            avoid=avoid,
+        )
+
+    @server.tool()
     def draft_repository_blueprint(
         name: str,
         purpose: str = "",
@@ -124,6 +156,8 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
         interface_mode: str = "internal",
         tech_stack: list[str] | None = None,
         license_name: str = "MIT",
+        design_remix: dict[str, Any] | None = None,
+        remix_digest: str = "",
     ) -> dict[str, Any]:
         """Ideate a new repository; returns questions until the required brief is complete."""
 
@@ -139,6 +173,8 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
             interface_mode=interface_mode,
             tech_stack=tech_stack,
             license_name=license_name,
+            design_remix=design_remix,
+            remix_digest=remix_digest,
         )
 
     @server.tool()
@@ -155,6 +191,8 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
         interface_mode: str = "internal",
         tech_stack: list[str] | None = None,
         license_name: str = "MIT",
+        design_remix: dict[str, Any] | None = None,
+        remix_digest: str = "",
         local_parent: str | None = None,
         idempotency_key: str | None = None,
     ) -> dict[str, Any]:
@@ -173,6 +211,8 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
             interface_mode=interface_mode,
             tech_stack=tech_stack,
             license_name=license_name,
+            design_remix=design_remix,
+            remix_digest=remix_digest,
             local_parent=local_parent,
             idempotency_key=idempotency_key,
         )
@@ -299,6 +339,21 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
             "then search_knowledge for the objective. Cite local document paths. "
             "Do not mutate GitHub until a proposal preview has been shown and its token "
             "is explicitly confirmed."
+        )
+
+    @server.prompt(name="remix")
+    def remix_prompt(project_name: str, known_context: str = "") -> str:
+        """Run the complete Socratic remix and visual proof workflow."""
+
+        return (
+            f"Run the KnowB /remix workflow for {project_name!r}. Known context: "
+            f"{known_context or 'none supplied'}. Call the remix tool with known answers, ask "
+            "the user its returned questions without inventing project direction, and call remix "
+            "again until ready. Review the two-place selection, narrative, tokens, components, "
+            "six panels, compliance report, and digest with the user. Then execute the returned "
+            "harness_action using the host's image-generation capability and display exactly one "
+            "six-panel landscape gallery image inline. If creating a repository, pass the accepted "
+            "brief and remix_digest unchanged into draft_repository_blueprint."
         )
 
     return server
