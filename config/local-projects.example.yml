@@ -1,0 +1,119 @@
+version: 1
+organization: knowb-ai
+strict_manifests: false
+max_discovery_depth: 2
+max_file_bytes: 1048576
+
+# Paths are resolved relative to this file. Discovery only inspects these roots,
+# never the whole computer. A discovered repo is a candidate, not automatically
+# registered or indexed.
+allowed_roots:
+  - ../../
+
+# State remains local and is ignored by git.
+state_dir: ../.knowb-state
+
+# These public-site and brand-system sources may remain web-accessible, but must
+# never enter the private/local MCP knowledge index.
+forbidden_paths:
+  - content/org-book.md
+  - templates/orgbook.html
+  - ORGBRAND_GUIDELINES.md
+
+# Explicit migration registry. A repo-owned .knowb/project.yml wins when present.
+# The inline knowledge policy keeps existing local repos usable while they adopt
+# the manifest. Set enabled: false for named projects that are not cloned yet.
+projects:
+  - id: knowb-ai.github.io
+    name: KnowB AI Organization Hub
+    path: ..
+    enabled: true
+    knowledge:
+      roots:
+        - path: knowledgeHQ
+          include: ["**/*.md"]
+          exclude: [".obsidian/**", "**/.obsidian/**"]
+
+  - id: BetterHackdays
+    path: ../../BetterHackdays
+    enabled: true
+    knowledge:
+      roots:
+        - path: docs
+          include: ["**/*.md"]
+        - path: .
+          include: ["README.md"]
+
+  - id: underminer
+    path: ../../underminer
+    enabled: true
+    knowledge:
+      roots:
+        - path: .
+          include: ["README.md", "**/README.md"]
+
+  - id: OnePunchTrainer
+    path: ../../OnePunchTrainer
+    enabled: true
+    knowledge:
+      roots:
+        - path: .
+          include: ["README.md", "docs/**/*.md"]
+
+  - id: unlink
+    path: ../../unlink
+    enabled: true
+    knowledge:
+      roots:
+        - path: .
+          include: ["README.md", "**/README.md", "docs/**/*.md"]
+
+  - id: cloud-builder-stack
+    path: ../../cloud-builder-stack
+    enabled: true
+    knowledge:
+      roots:
+        - path: .
+          include: ["README.md", "**/README.md", "docs/**/*.md"]
+
+  - id: x-poser
+    path: ../../x-poser
+    enabled: true
+    knowledge:
+      roots:
+        - path: .
+          include: ["README.md", "docs/**/*.md"]
+
+  - id: precongnition
+    path: ../../precongnition
+    enabled: true
+    knowledge:
+      roots:
+        - path: .
+          include: ["README.md", "**/README.md", "docs/**/*.md"]
+
+  - id: kenobi
+    path: ../../kenobi
+    enabled: true
+    knowledge:
+      roots:
+        - path: .
+          include: ["README.md", "docs/**/*.md"]
+
+  - id: BetterLover
+    path: ../../BetterLover
+    enabled: true
+    knowledge:
+      roots:
+        - path: .
+          include: ["README.md", "docs/**/*.md"]
+
+  - id: sepnu_pues
+    path: ../../sepnu_pues
+    enabled: false
+    knowledge:
+      roots:
+        - path: docs
+          include: ["**/*.md"]
+        - path: .
+          include: ["README.md"]

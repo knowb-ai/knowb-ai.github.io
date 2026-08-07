@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "knowb-org-index": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--project",
+        "/absolute/path/to/knowb-ai.github.io/mcp",
+        "knowb-org-mcp"
+      ],
+      "env": {
+        "KNOWB_ORG_CONFIG": "/absolute/path/to/knowb-ai.github.io/config/local-projects.yml"
+      }
+    }
+  }
+}
