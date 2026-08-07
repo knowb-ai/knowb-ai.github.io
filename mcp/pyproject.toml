@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "knowb-org-index"
+version = "0.1.0"
+description = "Local-first MCP directory and GitHub work control plane for KnowB AI projects"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+  "mcp>=2.0,<3.0",
+  "PyYAML>=6.0,<7.0"
+]
+
+[project.scripts]
+knowb-org = "knowb_org_index.cli:main"
+knowb-org-mcp = "knowb_org_index.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/knowb_org_index"]
+
+[tool.uv]
+package = true

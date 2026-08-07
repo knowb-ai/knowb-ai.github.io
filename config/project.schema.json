@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://knowb.run/schemas/project.schema.json",
+  "title": "KnowB project manifest",
+  "type": "object",
+  "required": ["version", "id", "name", "knowledge"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": 1 },
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9_.-]+$" },
+    "name": { "type": "string", "minLength": 1 },
+    "owner": { "type": "string" },
+    "lifecycle": {
+      "type": "string",
+      "enum": ["proposed", "incubating", "active", "maintenance", "archived"]
+    },
+    "knowledge": {
+      "type": "object",
+      "oneOf": [
+        { "required": ["root"] },
+        { "required": ["roots"] }
+      ],
+      "properties": {
+        "root": { "type": "string" },
+        "include": { "type": "array", "items": { "type": "string" } },
+        "exclude": { "type": "array", "items": { "type": "string" } },
+        "roots": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              {
+                "type": "object",
+                "required": ["path"],
+                "additionalProperties": false,
+                "properties": {
+                  "path": { "type": "string" },
+                  "include": { "type": "array", "items": { "type": "string" } },
+                  "exclude": { "type": "array", "items": { "type": "string" } }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "directory": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "visibility": { "enum": ["local", "public", "hidden"] }
+      }
+    }
+  }
+}

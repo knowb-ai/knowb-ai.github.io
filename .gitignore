@@ -11,3 +11,19 @@ public/
 
 # Obsidian metadata
 */.obsidian/
+
+# KnowB local org index state (never commit local paths or indexed knowledge)
+config/local-projects.yml
+.knowb-state/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# Local MCP Python environment
+mcp/.venv/
+mcp/.pytest_cache/
+mcp/**/__pycache__/
+*.py[cod]
+
+# Local assistant/client state
+.claude/
