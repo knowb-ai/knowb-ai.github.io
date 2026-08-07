@@ -11,6 +11,7 @@ from .discovery import discover_candidates
 from .github_ops import GitHubOperations
 from .index import IndexError, LocalIndex
 from .models import Project, Registry
+from .scaffold import build_repository_blueprint
 
 
 _TICKET_REFERENCE = re.compile(r"(?<![\w/])#(?P<number>\d+)\b")
@@ -22,7 +23,14 @@ class OrgIndexService:
     def __init__(self, config_path: str | Path | None = None) -> None:
         self.registry: Registry = load_registry(config_path)
         self.index = LocalIndex(self.registry)
-        self.github = GitHubOperations(self.registry.organization, self.index)
+        self.github = GitHubOperations(
+            self.registry.organization, self.index, self.registry.allowed_roots
+        )
+
+    def draft_repository_blueprint(self, **brief: Any) -> dict[str, Any]:
+        """Ideate and render a reviewable repository blueprint without writing files."""
+
+        return build_repository_blueprint(**brief)
 
     def _project(self, project_id: str) -> Project:
         project = self.registry.project_map().get(project_id)

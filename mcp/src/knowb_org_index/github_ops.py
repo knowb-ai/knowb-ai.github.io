@@ -6,9 +6,17 @@ import json
 import re
 import shutil
 import subprocess
+from pathlib import Path
 from typing import Any
 
 from .index import LocalIndex
+from .scaffold import (
+    ScaffoldError,
+    build_repository_blueprint,
+    render_repository_files,
+    validate_blueprint_digest,
+    write_repository_scaffold,
+)
 
 
 _REPO = re.compile(r"^(?P<owner>[A-Za-z0-9_.-]+)/(?P<name>[A-Za-z0-9_.-]+)$")
@@ -21,9 +29,12 @@ class GitHubError(RuntimeError):
 class GitHubOperations:
     """GitHub boundary. No method reads or uploads local project documents."""
 
-    def __init__(self, organization: str, index: LocalIndex) -> None:
+    def __init__(
+        self, organization: str, index: LocalIndex, allowed_roots: tuple[Path, ...]
+    ) -> None:
         self.organization = organization
         self.index = index
+        self.allowed_roots = tuple(root.resolve() for root in allowed_roots)
 
     def _repo(self, repository: str) -> str:
         match = _REPO.fullmatch(repository.strip())
@@ -74,6 +85,116 @@ class GitHubOperations:
             return json.loads(output)
         except json.JSONDecodeError as exc:
             raise GitHubError("GitHub CLI returned invalid JSON") from exc
+
+    @staticmethod
+    def _run_git(args: list[str], *, cwd: Path) -> str:
+        if shutil.which("git") is None:
+            raise GitHubError("Git is required for repository creation")
+        try:
+            result = subprocess.run(
+                ["git", *args],
+                cwd=cwd,
+                check=False,
+                capture_output=True,
+                text=True,
+                timeout=45,
+            )
+        except subprocess.TimeoutExpired as exc:
+            raise GitHubError("Local git operation timed out") from exc
+        except OSError as exc:
+            raise GitHubError(f"Cannot execute git: {exc}") from exc
+        if result.returncode != 0:
+            detail = (result.stderr or result.stdout).strip()
+            raise GitHubError(detail[:1500] or f"git exited with status {result.returncode}")
+        return result.stdout.strip()
+
+    def _local_parent(self, requested: str | None) -> Path:
+        if not self.allowed_roots:
+            raise GitHubError("No allowed local repository roots are configured")
+        parent = Path(requested).expanduser().resolve() if requested else self.allowed_roots[0]
+        if parent not in self.allowed_roots:
+            allowed = ", ".join(str(root) for root in self.allowed_roots)
+            raise GitHubError(f"local_parent must be one of the configured roots: {allowed}")
+        if not parent.is_dir():
+            raise GitHubError(f"Configured local root does not exist: {parent}")
+        return parent
+
+    def propose_repository_create(
+        self,
+        *,
+        name: str,
+        purpose: str,
+        audience: str,
+        primary_users: str,
+        strategic_direction: str,
+        success_criteria: str,
+        brand_tone: str,
+        blueprint_digest: str,
+        visibility: str = "private",
+        interface_mode: str = "internal",
+        tech_stack: list[str] | None = None,
+        license_name: str = "MIT",
+        local_parent: str | None = None,
+        idempotency_key: str | None = None,
+    ) -> dict[str, Any]:
+        """Persist a reviewed repo creation plan without creating anything."""
+
+        try:
+            blueprint = build_repository_blueprint(
+                name=name,
+                purpose=purpose,
+                audience=audience,
+                primary_users=primary_users,
+                strategic_direction=strategic_direction,
+                success_criteria=success_criteria,
+                brand_tone=brand_tone,
+                visibility=visibility,
+                interface_mode=interface_mode,
+                tech_stack=tech_stack,
+                license_name=license_name,
+                require_complete=True,
+            )
+            brief = blueprint["brief"]
+            validate_blueprint_digest(brief, blueprint_digest)
+        except ScaffoldError as exc:
+            raise GitHubError(str(exc)) from exc
+
+        parent = self._local_parent(local_parent)
+        target = (parent / brief["name"]).resolve()
+        if target.parent != parent:
+            raise GitHubError("Repository target escapes the configured local root")
+        if target.exists():
+            raise GitHubError(f"Local repository target already exists: {target}")
+
+        repository = f"{self.organization}/{brief['name']}"
+        payload = {
+            "repository": repository,
+            "brief": brief,
+            "blueprint_digest": blueprint_digest,
+            "local_parent": str(parent),
+            "local_target": str(target),
+        }
+        preview = {
+            "operation": "create and initialize GitHub repository",
+            "target": repository,
+            "visibility": brief["visibility"],
+            "interface_mode": brief["interface_mode"],
+            "local_target": str(target),
+            "files": blueprint["files"],
+            "brand_narrative_preview": blueprint["brand_narrative_preview"],
+            "visual_design_preview": blueprint["visual_design_preview"],
+            "requires_confirmation": True,
+            "partial_failure_policy": (
+                "A local initialized repository is retained if GitHub creation or push fails; "
+                "the audit error describes the recovery step."
+            ),
+        }
+        return self.index.create_pending_action(
+            kind="repository_create",
+            payload=payload,
+            preview=preview,
+            idempotency_key=idempotency_key,
+        )
 
     def list_work(
         self,
@@ -352,7 +473,54 @@ class GitHubOperations:
             return self._execute_ticket_update(payload)
         if kind == "project_update":
             return self._execute_project_update(payload)
+        if kind == "repository_create":
+            return self._execute_repository_create(payload)
         raise GitHubError(f"Unsupported action kind: {kind}")
+
+    def _execute_repository_create(self, payload: dict[str, Any]) -> dict[str, Any]:
+        brief = payload["brief"]
+        try:
+            validate_blueprint_digest(brief, payload["blueprint_digest"])
+            files = render_repository_files(brief)
+        except ScaffoldError as exc:
+            raise GitHubError(str(exc)) from exc
+
+        parent = self._local_parent(payload["local_parent"])
+        target = Path(payload["local_target"]).resolve()
+        if target.parent != parent or target.name != brief["name"]:
+            raise GitHubError("Confirmed local repository target no longer matches its blueprint")
+        if target.exists():
+            raise GitHubError(f"Local repository target now exists: {target}")
+
+        write_repository_scaffold(target, files)
+        self._run_git(["init", "-b", "main"], cwd=target)
+        self._run_git(["add", "--all"], cwd=target)
+        self._run_git(["commit", "-m", f"Initialize {brief['name']}"], cwd=target)
+
+        args = [
+            "repo",
+            "create",
+            payload["repository"],
+            f"--{brief['visibility']}",
+            "--description",
+            brief["purpose"][:350],
+            "--source",
+            str(target),
+            "--remote",
+            "origin",
+            "--push",
+        ]
+        self._run(args)
+        commit = self._run_git(["rev-parse", "HEAD"], cwd=target)
+        return {
+            "repository": payload["repository"],
+            "url": f"https://github.com/{payload['repository']}",
+            "visibility": brief["visibility"],
+            "local_path": str(target),
+            "default_branch": "main",
+            "commit": commit,
+            "files": sorted(files),
+        }
 
     def _execute_ticket_create(self, payload: dict[str, Any]) -> dict[str, Any]:
         args = [

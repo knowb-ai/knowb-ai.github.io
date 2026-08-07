@@ -24,3 +24,6 @@ mcp/.venv/
 mcp/.pytest_cache/
 mcp/**/__pycache__/
 *.py[cod]
+
+# Local assistant/client state
+.claude/
