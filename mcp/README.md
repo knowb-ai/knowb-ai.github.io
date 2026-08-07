@@ -31,6 +31,15 @@ and client. This is a client boundary, not a server configuration switch.
 The implementation follows the current MCP Python SDK v2 surface: `MCPServer`
 with local stdio as the default transport.
 
+## Cloud runtime and deployment direction
+
+The local MCP server is not a hosted cloud service. For the broader KnowB Cloud
+runtime and application deployments, see the [Cloud Runtime and Deployment
+Strategy](../knowledgeHQ/KnowB%20Cloud%20Runtime%20and%20Deployment%20Strategy.md).
+It records the serverless-first direction, Daytona's preferred evaluation role,
+Render's demo role, and the conditions under which Railway or Fly.io may be a better
+fit.
+
 ## Start locally
 
 From the repository root:
