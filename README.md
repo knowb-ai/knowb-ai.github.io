@@ -35,6 +35,12 @@ wiki begins with brand narrative and strategic direction, a compact visual token
 component system adapted to public or internal use, and architecture, decision,
 research, and operations sections.
 
+The `remix` MCP tool provides the preceding Socratic design loop. It keeps public/org
+surfaces in the KnowB Autumn system and product/workflow surfaces in the Kenobi
+gold-on-indigo system, then remixes narrative, metaphor, hierarchy, density, and imagery
+for the specific project. Its accepted digest drives the generated project docs and its
+gallery brief lets an image-capable host return one six-panel design contact sheet.
+
 See [`mcp/README.md`](mcp/README.md) for setup, tools, privacy boundaries, and the
 project manifest contract.
 

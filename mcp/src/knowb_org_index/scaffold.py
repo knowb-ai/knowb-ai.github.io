@@ -10,10 +10,12 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from .remix import RemixError, render_remix_documents, validate_remix_digest
+
 
 _REPOSITORY_NAME = re.compile(r"^[A-Za-z0-9_.-]+$")
 _VISIBILITIES = {"private", "public"}
-_INTERFACE_MODES = {"internal", "public-facing"}
+_INTERFACE_MODES = {"internal", "public-facing", "hybrid"}
 _LICENSES = {"MIT", "Proprietary"}
 
 
@@ -47,6 +49,8 @@ def build_repository_blueprint(
     interface_mode: str = "internal",
     tech_stack: list[str] | None = None,
     license_name: str = "MIT",
+    design_remix: dict[str, Any] | None = None,
+    remix_digest: str = "",
     require_complete: bool = False,
 ) -> dict[str, Any]:
     """Create the reviewable blueprint that must precede repository creation."""
@@ -81,6 +85,8 @@ def build_repository_blueprint(
         "interface_mode": interface_mode,
         "tech_stack": normalized_stack,
         "license": license_name,
+        "design_remix": design_remix or {},
+        "remix_digest": remix_digest.strip(),
     }
     questions = []
     prompts = {
@@ -91,6 +97,8 @@ def build_repository_blueprint(
         "success_criteria": "What observable outcome proves the project is working?",
         "brand_tone": "Which 3-5 words should describe how this project feels and communicates?",
         "tech_stack": "Which implementation stack or documentation mode should the scaffold support?",
+        "design_remix": "Run /remix with the user, review its gallery direction, then pass its brief and remix_digest.",
+        "remix_digest": "Confirm the reviewed /remix result by passing its remix_digest unchanged.",
     }
     for field, prompt in prompts.items():
         if not brief[field]:
@@ -98,6 +106,26 @@ def build_repository_blueprint(
     if require_complete and questions:
         missing = ", ".join(item["field"] for item in questions)
         raise ScaffoldError(f"Repository ideation is incomplete; answer: {missing}")
+    if brief["design_remix"] and brief["remix_digest"]:
+        try:
+            validate_remix_digest(brief["design_remix"], brief["remix_digest"])
+        except RemixError as exc:
+            raise ScaffoldError(str(exc)) from exc
+        remix = brief["design_remix"]
+        linked_fields = {
+            "project_name": brief["name"],
+            "purpose": brief["purpose"],
+            "audience": brief["audience"],
+            "interface_mode": brief["interface_mode"],
+        }
+        mismatched = [
+            field for field, expected in linked_fields.items() if remix.get(field) != expected
+        ]
+        if mismatched:
+            raise ScaffoldError(
+                "The /remix brief must match the repository brief for: "
+                + ", ".join(mismatched)
+            )
 
     result: dict[str, Any] = {
         "ready": not questions,
@@ -106,6 +134,7 @@ def build_repository_blueprint(
         "required_review": [
             "Confirm the brand narrative and 6-12 month strategic direction.",
             "Confirm public-facing vs internal organization interface mode.",
+            "Confirm the /remix narrative, visual metaphor, gallery direction, and digest.",
             "Confirm visual tokens, accessibility stance, and component baseline.",
             "Confirm visibility, stack, license, and measurable success criteria.",
         ],
@@ -143,6 +172,12 @@ def render_repository_files(brief: dict[str, Any]) -> dict[str, str]:
     name = brief["name"]
     purpose = brief["purpose"]
     docs_visibility = "public" if brief["visibility"] == "public" else "local"
+    try:
+        narrative, visual_system = render_remix_documents(
+            brief["design_remix"], brief["remix_digest"]
+        )
+    except (KeyError, RemixError) as exc:
+        raise ScaffoldError("A complete, reviewed /remix result is required") from exc
     files = {
         "README.md": _readme(brief),
         ".gitignore": _gitignore(brief["tech_stack"]),
@@ -166,8 +201,8 @@ def render_repository_files(brief: dict[str, Any]) -> dict[str, str]:
             f"  visibility: {docs_visibility}\n"
         ),
         "docs/README.md": _docs_index(brief),
-        "docs/brand-narrative-and-strategic-direction.md": _brand_strategy(brief),
-        "docs/visual-design-system.md": _visual_system(brief),
+        "docs/brand-narrative-and-strategic-direction.md": narrative,
+        "docs/visual-design-system.md": visual_system,
         "docs/architecture/README.md": _section(
             "Architecture",
             "Record the system boundaries, primary data flows, trust boundaries, and deployment shape.",

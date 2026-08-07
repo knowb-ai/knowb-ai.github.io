@@ -102,18 +102,54 @@ documents.
 
 ## Create a new KnowB repository
 
-Repository creation is a guided, three-tool workflow. It supports both public and
+Repository creation is a guided, four-tool workflow. It supports both public and
 private repositories, but it will not create a generic empty repo or silently invent
 the product direction.
 
-1. Call `draft_repository_blueprint` with what is already known. It returns focused
+1. Invoke the MCP prompt `/remix`, which drives the MCP tool named `remix` with what is
+   already known. The tool returns
+   Socratic questions until the project's purpose, audience, personality, desired
+   feeling, visual metaphor, content priority, interface place, and proof surfaces are
+   explicit. Review its narrative, visual system, six-panel gallery direction, and
+   `remix_digest`.
+2. Call `draft_repository_blueprint` with what is already known plus the reviewed
+   `design_remix` brief and `remix_digest`. It returns focused
    questions until purpose, audience, primary users, 6-12 month direction, success
    criteria, brand tone, and stack are complete.
-2. Review the rendered brand narrative, strategic direction, visual design system,
-   visibility, license, and either `public-facing` or `internal` interface mode.
-3. Call `propose_repository_create` with the unchanged completed brief and its
+3. Review the rendered brand narrative, strategic direction, visual design system,
+   visibility, license, and `public-facing`, `internal`, or scoped `hybrid` mode.
+4. Call `propose_repository_create` with the unchanged completed brief and its
    `blueprint_digest`; review the exact target and file list.
-4. Call `confirm_repository_create` with the proposal token.
+5. Call `confirm_repository_create` with the proposal token.
+
+### `/remix` contract
+
+The remix follows the existing two-place KnowB visual system:
+
+- **KnowB Autumn** owns public organization, ecosystem narrative, editorial, campaign,
+  and collateral surfaces.
+- **Kenobi Digital Surface** owns authenticated runtime, dashboard, workflow, library,
+  and product interaction surfaces: high-signal gold/yellow over indigo-midnight-purple
+  depth.
+- **Hybrid** projects may use both, but each surface stays in its correct place. The
+  palettes are not blended into a third theme.
+
+Project identity is created by remixing narrative, metaphor, composition, density,
+type emphasis, imagery, and content hierarchy while retaining canonical hue roles,
+copy rules, explicit product state, and WCAG 2.2 AA requirements. The result includes:
+
+- a project-specific brand narrative and strategic direction;
+- semantic tokens and component rules for the selected place or scoped hybrid;
+- provenance back to the KnowB system documents and local Kenobi precedent;
+- a deterministic digest required by repository creation;
+- six proof surfaces and one image-generation prompt for a single 3x2 carousel/contact
+  sheet containing a landing page, library/dashboard, detail/evidence view, mobile flow,
+  campaign asset, and token/component specimen (or six user-selected surfaces).
+
+The `/remix` prompt tells an image-capable MCP host to execute the returned
+`harness_action` after the user accepts the remix and display the one generated image
+inline. The MCP server itself does not contact an image service or send local project
+documents over the network.
 
 Confirmation creates a new directory beneath a configured `allowed_root`, initializes
 `main`, commits the scaffold, creates `knowb-ai/<name>`, and pushes it. Existing paths
@@ -137,8 +173,9 @@ docs/
 └── operations/README.md
 ~~~
 
-The visual document includes compact semantic tokens and baseline components adapted
-to either the public KnowB brand or the denser internal mission-control style. The
+The visual document contains the accepted `/remix` result: compact semantic tokens,
+baseline components, narrative, metaphor, and composition rules adapted to public,
+internal, or explicitly scoped hybrid use. The
 project manifest makes the new repo a candidate for local discovery immediately; add
 it to `config/local-projects.yml` when it should be indexed.
 

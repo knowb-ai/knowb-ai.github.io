@@ -11,6 +11,7 @@ from .discovery import discover_candidates
 from .github_ops import GitHubOperations
 from .index import IndexError, LocalIndex
 from .models import Project, Registry
+from .remix import build_design_remix
 from .scaffold import build_repository_blueprint
 
 
@@ -31,6 +32,11 @@ class OrgIndexService:
         """Ideate and render a reviewable repository blueprint without writing files."""
 
         return build_repository_blueprint(**brief)
+
+    def remix(self, **brief: Any) -> dict[str, Any]:
+        """Run the two-place Socratic design remix without writing files."""
+
+        return build_design_remix(**brief)
 
     def _project(self, project_id: str) -> Project:
         project = self.registry.project_map().get(project_id)

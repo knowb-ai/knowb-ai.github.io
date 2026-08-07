@@ -134,6 +134,8 @@ class GitHubOperations:
         interface_mode: str = "internal",
         tech_stack: list[str] | None = None,
         license_name: str = "MIT",
+        design_remix: dict[str, Any] | None = None,
+        remix_digest: str = "",
         local_parent: str | None = None,
         idempotency_key: str | None = None,
     ) -> dict[str, Any]:
@@ -152,6 +154,8 @@ class GitHubOperations:
                 interface_mode=interface_mode,
                 tech_stack=tech_stack,
                 license_name=license_name,
+                design_remix=design_remix,
+                remix_digest=remix_digest,
                 require_complete=True,
             )
             brief = blueprint["brief"]
