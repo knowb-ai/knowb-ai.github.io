@@ -17,6 +17,9 @@ _REPOSITORY_NAME = re.compile(r"^[A-Za-z0-9_.-]+$")
 _VISIBILITIES = {"private", "public"}
 _INTERFACE_MODES = {"internal", "public-facing", "hybrid"}
 _LICENSES = {"MIT", "Proprietary"}
+_KNOWLEDGE_VISIBILITIES = {"local"}
+_MAX_SEED_DOCUMENTS = 64
+_MAX_SEED_DOCUMENT_BYTES = 1_048_576
 
 
 class ScaffoldError(ValueError):
@@ -39,6 +42,7 @@ def _brief_digest(brief: dict[str, Any]) -> str:
 def build_repository_blueprint(
     *,
     name: str,
+    display_name: str = "",
     purpose: str = "",
     audience: str = "",
     primary_users: str = "",
@@ -51,6 +55,8 @@ def build_repository_blueprint(
     license_name: str = "MIT",
     design_remix: dict[str, Any] | None = None,
     remix_digest: str = "",
+    seed_documents: dict[str, str] | None = None,
+    knowledge_visibility: str = "local",
     require_complete: bool = False,
 ) -> dict[str, Any]:
     """Create the reviewable blueprint that must precede repository creation."""
@@ -62,12 +68,17 @@ def build_repository_blueprint(
         )
     if repository_name in {".", ".."} or len(repository_name) > 100:
         raise ScaffoldError("Repository name must be 1-100 characters and cannot be . or ..")
+    project_display_name = _clean(display_name) or repository_name
+    if len(project_display_name) > 160:
+        raise ScaffoldError("display_name cannot exceed 160 characters")
     if visibility not in _VISIBILITIES:
         raise ScaffoldError(f"visibility must be one of {sorted(_VISIBILITIES)}")
     if interface_mode not in _INTERFACE_MODES:
         raise ScaffoldError(f"interface_mode must be one of {sorted(_INTERFACE_MODES)}")
     if license_name not in _LICENSES:
         raise ScaffoldError(f"license_name must be one of {sorted(_LICENSES)}")
+    if knowledge_visibility not in _KNOWLEDGE_VISIBILITIES:
+        raise ScaffoldError("knowledge_visibility must be local")
 
     normalized_stack = sorted(
         {_clean(item) for item in (tech_stack or []) if isinstance(item, str) and _clean(item)},
@@ -75,6 +86,7 @@ def build_repository_blueprint(
     )
     brief = {
         "name": repository_name,
+        "display_name": project_display_name,
         "purpose": _clean(purpose),
         "audience": _clean(audience),
         "primary_users": _clean(primary_users),
@@ -87,6 +99,8 @@ def build_repository_blueprint(
         "license": license_name,
         "design_remix": design_remix or {},
         "remix_digest": remix_digest.strip(),
+        "seed_documents": _normalize_seed_documents(seed_documents),
+        "knowledge_visibility": knowledge_visibility,
     }
     questions = []
     prompts = {
@@ -113,7 +127,7 @@ def build_repository_blueprint(
             raise ScaffoldError(str(exc)) from exc
         remix = brief["design_remix"]
         linked_fields = {
-            "project_name": brief["name"],
+            "project_name": brief["display_name"],
             "purpose": brief["purpose"],
             "audience": brief["audience"],
             "interface_mode": brief["interface_mode"],
@@ -137,6 +151,7 @@ def build_repository_blueprint(
             "Confirm the /remix narrative, visual metaphor, gallery direction, and digest.",
             "Confirm visual tokens, accessibility stance, and component baseline.",
             "Confirm visibility, stack, license, and measurable success criteria.",
+            "Confirm any seeded docs are local, Markdown-only, and included in the first commit.",
         ],
     }
     if not questions:
@@ -170,8 +185,9 @@ def render_repository_files(brief: dict[str, Any]) -> dict[str, str]:
     """Render a complete initial repository from an already validated brief."""
 
     name = brief["name"]
+    display_name = brief.get("display_name", name)
     purpose = brief["purpose"]
-    docs_visibility = "public" if brief["visibility"] == "public" else "local"
+    docs_visibility = brief.get("knowledge_visibility", "local")
     try:
         narrative, visual_system = render_remix_documents(
             brief["design_remix"], brief["remix_digest"]
@@ -182,12 +198,12 @@ def render_repository_files(brief: dict[str, Any]) -> dict[str, str]:
         "README.md": _readme(brief),
         ".gitignore": _gitignore(brief["tech_stack"]),
         "LICENSE": _license(brief["license"]),
-        "CONTRIBUTING.md": _contributing(name),
-        "AGENTS.md": _agents(name),
+        "CONTRIBUTING.md": _contributing(display_name),
+        "AGENTS.md": _agents(display_name),
         ".knowb/project.yml": (
             "version: 1\n"
             f"id: {_yaml(name)}\n"
-            f"name: {_yaml(name)}\n"
+            f"name: {_yaml(display_name)}\n"
             "owner: knowb-ai\n"
             "lifecycle: incubating\n"
             "knowledge:\n"
@@ -223,7 +239,42 @@ def render_repository_files(brief: dict[str, Any]) -> dict[str, str]:
     }
     if not purpose:
         raise ScaffoldError("Cannot render a repository without a purpose")
+    for path, content in brief.get("seed_documents", {}).items():
+        if path in files:
+            raise ScaffoldError(f"Seed document conflicts with required scaffold file: {path}")
+        files[path] = content
     return {path: content.rstrip() + "\n" for path, content in files.items()}
+
+
+def _normalize_seed_documents(value: dict[str, str] | None) -> dict[str, str]:
+    """Accept bounded reviewed Markdown additions to the first repository commit."""
+
+    if value is None:
+        return {}
+    if not isinstance(value, dict) or len(value) > _MAX_SEED_DOCUMENTS:
+        raise ScaffoldError(f"seed_documents must contain at most {_MAX_SEED_DOCUMENTS} files")
+    normalized: dict[str, str] = {}
+    total_bytes = 0
+    for raw_path, content in value.items():
+        if not isinstance(raw_path, str) or not isinstance(content, str):
+            raise ScaffoldError("seed_documents must map string paths to string content")
+        path = Path(raw_path)
+        if (
+            path.is_absolute()
+            or ".." in path.parts
+            or len(path.parts) < 2
+            or path.parts[0] != "docs"
+            or path.suffix.casefold() != ".md"
+        ):
+            raise ScaffoldError("Seed documents must be safe Markdown files below docs/")
+        if not content.strip():
+            raise ScaffoldError(f"Seed document cannot be empty: {raw_path}")
+        encoded = content.encode("utf-8")
+        total_bytes += len(encoded)
+        if total_bytes > _MAX_SEED_DOCUMENT_BYTES:
+            raise ScaffoldError("Seed documents exceed the 1 MiB reviewed blueprint limit")
+        normalized[path.as_posix()] = content
+    return dict(sorted(normalized.items()))
 
 
 def write_repository_scaffold(target: Path, files: dict[str, str]) -> None:
@@ -248,7 +299,7 @@ def write_repository_scaffold(target: Path, files: dict[str, str]) -> None:
 
 def _readme(brief: dict[str, Any]) -> str:
     stack = ", ".join(brief["tech_stack"])
-    return f"""# {brief['name']}
+    return f"""# {brief.get('display_name', brief['name'])}
 
 {brief['purpose']}
 
@@ -291,7 +342,7 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md) before changi
 
 
 def _docs_index(brief: dict[str, Any]) -> str:
-    return f"""# {brief['name']} knowledge wiki
+    return f"""# {brief.get('display_name', brief['name'])} knowledge wiki
 
 This is the project-owned, OKF-style living knowledge space: small Markdown files,
 clear entry points, explicit decisions, and context that stays useful to humans and agents.
