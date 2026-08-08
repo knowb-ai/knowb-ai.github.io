@@ -78,7 +78,6 @@ knowb-run/
 │   ├── css/
 │   │   └── global.css       # Global stylesheet (all component styles)
 │   ├── favicon.svg          # Brand favicon (▮▮▮ — outer ember, middle saber blue)
-│   ├── vite.svg
 │   └── CNAME                # Custom domain config
 ├── knowledgeHQ/             # Reference docs (not part of site)
 ├── mcp/                     # Local MCP org directory and ticket control plane
