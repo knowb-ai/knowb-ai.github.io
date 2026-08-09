@@ -85,6 +85,40 @@ class Project:
 
 
 @dataclass(frozen=True, slots=True)
+class DesignAssetConfig:
+    """Explicit policy for the private Google Drive design-asset vault."""
+
+    enabled: bool = False
+    google_drive_folder_id: str = ""
+    allowed_google_email: str = ""
+    allowed_github_logins: tuple[str, ...] = ()
+    allowed_upload_roots: tuple[Path, ...] = ()
+    max_file_bytes: int = 5 * 1024 * 1024
+    allowed_extensions: tuple[str, ...] = (
+        ".avif",
+        ".gif",
+        ".jpeg",
+        ".jpg",
+        ".png",
+        ".svg",
+        ".webp",
+    )
+
+    def to_dict(self) -> dict[str, Any]:
+        """Return safe diagnostics without credentials or access tokens."""
+
+        return {
+            "enabled": self.enabled,
+            "google_drive_folder_id_configured": bool(self.google_drive_folder_id),
+            "allowed_google_email_configured": bool(self.allowed_google_email),
+            "allowed_github_logins": list(self.allowed_github_logins),
+            "allowed_upload_roots": [str(root) for root in self.allowed_upload_roots],
+            "max_file_bytes": self.max_file_bytes,
+            "allowed_extensions": list(self.allowed_extensions),
+        }
+
+
+@dataclass(frozen=True, slots=True)
 class Registry:
     """Validated local registry configuration."""
 
@@ -98,6 +132,7 @@ class Registry:
     max_file_bytes: int
     forbidden_paths: tuple[str, ...]
     projects: tuple[Project, ...]
+    design_assets: DesignAssetConfig = field(default_factory=DesignAssetConfig)
     warnings: tuple[str, ...] = field(default_factory=tuple)
 
     @property

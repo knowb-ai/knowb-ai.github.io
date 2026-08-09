@@ -10,6 +10,8 @@ from pathlib import Path
 from typing import Any, Sequence
 
 from .config import ConfigurationError
+from .design_assets import DesignAssetError
+from .env import EnvironmentFileError
 from .github_ops import GitHubError
 from .index import IndexError
 from .service import OrgIndexService
@@ -65,6 +67,29 @@ def _parser() -> argparse.ArgumentParser:
     project = sub.add_parser("github-project", help="Read one organization GitHub Project")
     project.add_argument("number", type=int)
     project.add_argument("--no-items", action="store_true")
+
+    sub.add_parser(
+        "design-assets-verify",
+        help="Verify the private Google Drive design-asset vault and identities",
+    )
+    sub.add_parser(
+        "design-assets-auth",
+        help="Approve Google Drive access in the browser and store the grant in Keychain",
+    )
+    assets = sub.add_parser("design-assets-list", help="List private Google Drive design assets")
+    assets.add_argument("--limit", type=int, default=100)
+    read_asset = sub.add_parser("design-assets-read", help="Read one private design asset")
+    read_asset.add_argument("file_id")
+    upload = sub.add_parser(
+        "design-assets-propose-upload", help="Propose a private design-asset upload"
+    )
+    upload.add_argument("local_path")
+    upload.add_argument("--name", dest="display_name")
+    upload.add_argument("--idempotency-key")
+    confirm_upload = sub.add_parser(
+        "design-assets-confirm-upload", help="Confirm a proposed design-asset upload"
+    )
+    confirm_upload.add_argument("token")
 
     sub.add_parser("serve", help="Run the MCP server over local stdio")
     return parser
@@ -127,6 +152,24 @@ def run(argv: Sequence[str] | None = None) -> int:
             _json(service.github.get_ticket(args.repository, args.number))
         elif args.command == "github-project":
             _json(service.github.get_project(args.number, include_items=not args.no_items))
+        elif args.command == "design-assets-verify":
+            _json(service.design_assets.verify())
+        elif args.command == "design-assets-auth":
+            _json(service.design_assets.authenticate())
+        elif args.command == "design-assets-list":
+            _json(service.design_assets.list_assets(limit=args.limit))
+        elif args.command == "design-assets-read":
+            _json(service.design_assets.read_asset(args.file_id))
+        elif args.command == "design-assets-propose-upload":
+            _json(
+                service.design_assets.propose_upload(
+                    local_path=args.local_path,
+                    display_name=args.display_name,
+                    idempotency_key=args.idempotency_key,
+                )
+            )
+        elif args.command == "design-assets-confirm-upload":
+            _json(service.design_assets.confirm(args.token))
         elif args.command == "serve":
             from .server import create_server
 
@@ -134,7 +177,14 @@ def run(argv: Sequence[str] | None = None) -> int:
         else:
             raise ConfigurationError(f"Unknown command: {args.command}")
         return 0
-    except (ConfigurationError, GitHubError, IndexError, OSError) as exc:
+    except (
+        ConfigurationError,
+        DesignAssetError,
+        EnvironmentFileError,
+        GitHubError,
+        IndexError,
+        OSError,
+    ) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
 

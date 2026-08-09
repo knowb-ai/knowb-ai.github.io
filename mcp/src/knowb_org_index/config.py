@@ -10,10 +10,12 @@ from typing import Any
 import yaml
 
 from .discovery import read_origin
-from .models import KnowledgeSource, Project, Registry
+from .models import DesignAssetConfig, KnowledgeSource, Project, Registry
 
 
 _PROJECT_ID = re.compile(r"^[A-Za-z0-9_.-]+$")
+_DRIVE_ID = re.compile(r"^[A-Za-z0-9_-]+$")
+_EMAIL = re.compile(r"^[^@\s]+@[^@\s]+$")
 
 
 class ConfigurationError(ValueError):
@@ -112,6 +114,80 @@ def _knowledge_sources(value: Any) -> tuple[KnowledgeSource, ...]:
     return tuple(sources)
 
 
+def _design_assets(
+    value: Any,
+    *,
+    base: Path,
+    allowed_roots: tuple[Path, ...],
+) -> DesignAssetConfig:
+    """Load a disabled-by-default, explicitly scoped private Drive policy."""
+
+    if value is None:
+        return DesignAssetConfig()
+    if not isinstance(value, dict):
+        raise ConfigurationError("design_assets must be a mapping")
+
+    enabled = bool(value.get("enabled", False))
+    folder_id = str(value.get("google_drive_folder_id", "")).strip()
+    google_email = str(value.get("allowed_google_email", "")).strip().casefold()
+    github_logins = tuple(
+        login.strip().casefold()
+        for login in _string_list(value.get("allowed_github_logins"))
+        if login.strip()
+    )
+    if folder_id and not _DRIVE_ID.fullmatch(folder_id):
+        raise ConfigurationError("design_assets.google_drive_folder_id is not a valid Drive id")
+    if google_email and not _EMAIL.fullmatch(google_email):
+        raise ConfigurationError("design_assets.allowed_google_email must be an email address")
+    if enabled and not folder_id:
+        raise ConfigurationError("Enabled design_assets must define google_drive_folder_id")
+    if enabled and not google_email:
+        raise ConfigurationError("Enabled design_assets must define allowed_google_email")
+    if enabled and not github_logins:
+        raise ConfigurationError("Enabled design_assets must define allowed_github_logins")
+
+    raw_upload_roots = value.get("allowed_upload_roots", [])
+    if not isinstance(raw_upload_roots, list) or not all(
+        isinstance(item, str) and item.strip() for item in raw_upload_roots
+    ):
+        raise ConfigurationError("design_assets.allowed_upload_roots must be a list of paths")
+    upload_roots = tuple(_resolve(base, item) for item in raw_upload_roots)
+    if enabled and not upload_roots:
+        raise ConfigurationError("Enabled design_assets must define allowed_upload_roots")
+    for root in upload_roots:
+        if not any(_is_within(root, allowed_root) for allowed_root in allowed_roots):
+            raise ConfigurationError(
+                f"Design asset upload root is outside allowed_roots: {root}"
+            )
+
+    max_file_bytes = max(
+        1024,
+        min(int(value.get("max_file_bytes", 5 * 1024 * 1024)), 20_971_520),
+    )
+    extensions = tuple(
+        extension.strip().casefold()
+        if extension.strip().startswith(".")
+        else f".{extension.strip().casefold()}"
+        for extension in _string_list(
+            value.get("allowed_extensions"),
+            default=DesignAssetConfig().allowed_extensions,
+        )
+        if extension.strip()
+    )
+    if not extensions:
+        raise ConfigurationError("design_assets.allowed_extensions cannot be empty")
+
+    return DesignAssetConfig(
+        enabled=enabled,
+        google_drive_folder_id=folder_id,
+        allowed_google_email=google_email,
+        allowed_github_logins=github_logins,
+        allowed_upload_roots=upload_roots,
+        max_file_bytes=max_file_bytes,
+        allowed_extensions=extensions,
+    )
+
+
 def load_registry(config_path: str | Path | None = None) -> Registry:
     """Load and validate the local registry plus repo-owned manifests."""
 
@@ -137,6 +213,9 @@ def load_registry(config_path: str | Path | None = None) -> Registry:
     forbidden_paths = _string_list(data.get("forbidden_paths"))
     max_depth = max(0, min(int(data.get("max_discovery_depth", 2)), 5))
     max_file_bytes = max(1024, min(int(data.get("max_file_bytes", 1_048_576)), 20_971_520))
+    design_assets = _design_assets(
+        data.get("design_assets"), base=base, allowed_roots=allowed_roots
+    )
 
     raw_projects = data.get("projects", [])
     if not isinstance(raw_projects, list):
@@ -221,4 +300,5 @@ def load_registry(config_path: str | Path | None = None) -> Registry:
         max_file_bytes=max_file_bytes,
         forbidden_paths=forbidden_paths,
         projects=tuple(projects),
+        design_assets=design_assets,
     )

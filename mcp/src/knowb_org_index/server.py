@@ -20,7 +20,9 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
         instructions=(
             "Local-first directory for KnowB AI projects. Knowledge tools read only from "
             "explicitly registered local clones. GitHub writes always use a proposal followed "
-            "by a confirmation token. Run remix as a Socratic loop before creating a repository; "
+            "by a confirmation token. Private design-asset tools require verified GitHub and "
+            "Google identities plus non-public Drive ACLs; uploads also require confirmation. "
+            "Run remix as a Socratic loop before creating a repository; "
             "when its result is ready, an image-capable host should execute harness_action and "
             "show the single six-panel gallery image to the user. Never assume tool content "
             "stays on-device when the MCP client uses a hosted model."
@@ -80,6 +82,57 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
         return service.find_related_work(
             project=project, ticket=ticket, query=query, limit=limit
         )
+
+    @server.tool()
+    def verify_design_asset_vault() -> dict[str, Any]:
+        """Verify the configured Google account, GitHub login, and private Drive folder ACL."""
+
+        return service.design_assets.verify()
+
+    @server.tool()
+    def authenticate_design_asset_vault() -> dict[str, Any]:
+        """Open Google browser consent and store the resulting grant in local Keychain."""
+
+        return service.design_assets.authenticate()
+
+    @server.tool()
+    def list_design_assets(limit: int = 100) -> dict[str, Any]:
+        """List private design assets inside the configured Drive folder."""
+
+        return service.design_assets.list_assets(limit=limit)
+
+    @server.tool()
+    def read_design_asset(file_id: str) -> dict[str, Any]:
+        """Read one private Drive design asset as metadata plus bounded base64 content."""
+
+        return service.design_assets.read_asset(file_id)
+
+    @server.tool()
+    def propose_design_asset_upload(
+        local_path: str,
+        display_name: str | None = None,
+        idempotency_key: str | None = None,
+    ) -> dict[str, Any]:
+        """Preview a private Drive design-asset upload without changing Drive."""
+
+        return service.design_assets.propose_upload(
+            local_path=local_path,
+            display_name=display_name,
+            idempotency_key=idempotency_key,
+        )
+
+    @server.tool()
+    def confirm_design_asset_upload(token: str) -> dict[str, Any]:
+        """Execute one previously proposed private Drive design-asset upload."""
+
+        pending = service.index.get_pending_action(token)
+        if pending is None:
+            raise ValueError("Unknown confirmation token")
+        if pending["kind"] != "design_asset_upload":
+            raise ValueError(
+                f"Confirmation token is for {pending['kind']}, not design_asset_upload"
+            )
+        return service.design_assets.confirm(token)
 
     @server.tool()
     def list_work(

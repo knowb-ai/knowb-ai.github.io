@@ -16,6 +16,11 @@ serve the website.
 - GitHub is contacted only by explicit ticket/project/repository tools.
 - GitHub writes require a durable proposal, a short-lived confirmation token,
   idempotency protection, and a local audit record.
+- Private design assets are a separate, disabled-by-default capability. Every
+  Drive read requires an allowlisted GitHub login, an allowlisted verified Google
+  account, and a folder/file ACL with no public, domain, or group permission.
+- Design-asset uploads are restricted to configured local roots and require the
+  same proposal/confirmation/audit flow as other external writes.
 
 The local server cannot guarantee that returned content stays on-device when its
 client uses a hosted model. For strict no-egress use, connect it to a local model
@@ -58,6 +63,12 @@ The default loader uses `config/local-projects.yml` when present, otherwise
 export KNOWB_ORG_CONFIG=/absolute/path/to/local-projects.yml
 ~~~
 
+The CLI and local MCP server also load the repository-root `.env` automatically.
+Create it from [`.env.example`](../.env.example). Existing shell variables take
+precedence, and `KNOWB_ENV_FILE` can point to another local env file when the
+package is launched from elsewhere. The real `.env` is ignored by git; never
+put a long-lived credential or refresh token in it.
+
 Local state is stored in `.knowb-state/org-index.sqlite` and ignored by git.
 The SQLite database is a disposable cache and audit ledger; project files remain
 the knowledge source of truth.
@@ -83,6 +94,60 @@ over stdin/stdout.
 - `read_project_doc` — safe allowlisted document retrieval
 - `get_project_context` — project map, decisions, documents, ticket references
 - `find_related_work` — ticket/query-to-local-knowledge lookup
+
+## Private design-asset vault
+
+KnowB MCP Atlas design inspiration lives in a private Google Drive folder. This
+repository stores the policy and tool boundary, never the real folder ID,
+OAuth tokens, refresh tokens, or private asset contents. Configure the ignored
+`config/local-projects.yml` from `config/local-projects.example.yml` with:
+
+- `design_assets.enabled: true`
+- the private Drive folder ID
+- the one allowed Google email address
+- the allowed GitHub login(s)
+- one or more explicit local upload roots
+
+Configure a Google Desktop OAuth client ID, or point
+`KNOWB_GOOGLE_OAUTH_CLIENT_FILE` at the downloaded Desktop OAuth JSON. Then run
+the browser approval flow:
+
+~~~sh
+uv run --project mcp knowb-org design-assets-auth
+uv run --project mcp knowb-org design-assets-verify
+~~~
+
+Before the first approval, enable the Google Drive API in a Google Cloud
+project and create a Desktop OAuth client. Configure the OAuth consent screen
+and add the intended Google account as a test user when the app is in testing
+mode. The default full-Drive scope is necessary because this vault reads an
+existing private folder and can upload into it; Google may show an unverified-app
+warning for an unverified external OAuth project.
+
+The flow uses PKCE and a random `127.0.0.1` loopback callback. It stores only
+the refresh grant in the macOS Keychain; short-lived access tokens stay in
+memory. No Google access token is accepted as an MCP argument or written to
+the audit log.
+
+The MCP tools are:
+
+- `verify_design_asset_vault` — verify both identities and the non-public folder ACL
+- `authenticate_design_asset_vault` — start browser consent and store the local grant
+- `list_design_assets` — list bounded private descendant metadata
+- `read_design_asset` — read one private asset as bounded base64 content
+- `propose_design_asset_upload` — preview a local upload without changing Drive
+- `confirm_design_asset_upload` — execute one reviewed upload token
+
+The corresponding CLI commands are `design-assets-auth`, `design-assets-verify`,
+`design-assets-list`, `design-assets-read`, `design-assets-propose-upload`, and
+`design-assets-confirm-upload`. File-level ACLs are rechecked before reads and
+after uploads. If a newly uploaded file fails the private ACL check, the tool
+removes the file it just created and records the failure.
+
+The repository cannot report that the actual personal folder is private until
+the verification command runs with the real local configuration and Google
+account. No Google Drive account is connected to the current Codex app session.
+See the durable [Design Asset Vault Decision](../knowledgeHQ/Design%20Asset%20Vault%20Decision.md).
 
 Directory resources:
 
@@ -243,6 +308,12 @@ knowb-org manifest PROJECT
 knowb-org work [--repo knowb-ai/REPO]
 knowb-org ticket knowb-ai/REPO NUMBER
 knowb-org github-project NUMBER
+knowb-org design-assets-auth
+knowb-org design-assets-verify
+knowb-org design-assets-list [--limit N]
+knowb-org design-assets-read FILE_ID
+knowb-org design-assets-propose-upload PATH [--name NAME]
+knowb-org design-assets-confirm-upload TOKEN
 knowb-org serve
 ~~~
 

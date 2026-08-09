@@ -35,6 +35,10 @@ wiki begins with brand narrative and strategic direction, a compact visual token
 component system adapted to public or internal use, and architecture, decision,
 research, and operations sections.
 
+The MCP Atlas design-asset vault is documented in [`knowledgeHQ/Design Asset Vault Decision.md`](knowledgeHQ/Design%20Asset%20Vault%20Decision.md). It keeps private inspiration assets in a Google Drive folder and exposes them only after verified GitHub and Google identity checks plus non-public Drive ACL checks.
+
+The companion [`knowledgeHQ/J2ME and Symbian Preservation Bootstrap.md`](knowledgeHQ/J2ME%20and%20Symbian%20Preservation%20Bootstrap.md) records the recommended SquirrelJME, FreeJ2ME-Plus, and EKA2L1 bootstrap boundary for lawful preservation experiments.
+
 The `remix` MCP tool provides the preceding Socratic design loop. It keeps public/org
 surfaces in the KnowB Autumn system and product/workflow surfaces in the Kenobi
 gold-on-indigo system, then remixes narrative, metaphor, hierarchy, density, and imagery

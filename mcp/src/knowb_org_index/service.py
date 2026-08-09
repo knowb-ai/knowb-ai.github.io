@@ -7,7 +7,9 @@ from pathlib import Path
 from typing import Any
 
 from .config import ConfigurationError, load_registry
+from .design_assets import DesignAssetOperations
 from .discovery import discover_candidates
+from .env import load_dotenv
 from .github_ops import GitHubOperations
 from .index import IndexError, LocalIndex
 from .models import Project, Registry
@@ -22,11 +24,13 @@ class OrgIndexService:
     """Single local control-plane facade used by both the CLI and MCP server."""
 
     def __init__(self, config_path: str | Path | None = None) -> None:
+        load_dotenv()
         self.registry: Registry = load_registry(config_path)
         self.index = LocalIndex(self.registry)
         self.github = GitHubOperations(
             self.registry.organization, self.index, self.registry.allowed_roots
         )
+        self.design_assets = DesignAssetOperations(self.registry.design_assets, self.index)
 
     def draft_repository_blueprint(self, **brief: Any) -> dict[str, Any]:
         """Ideate and render a reviewable repository blueprint without writing files."""
@@ -191,6 +195,11 @@ class OrgIndexService:
                 "knowledge_source": "explicitly registered local clones only",
                 "transport": "stdio by default",
                 "network_boundary": "GitHub is contacted only by explicit ticket/project tools",
+                "design_asset_vault": self.registry.design_assets.to_dict(),
+                "design_asset_network_boundary": (
+                    "Google Drive is contacted only by identity-gated design-asset tools; "
+                    "folder and file ACLs must not include public, domain, or group access"
+                ),
                 "hosted_model_warning": (
                     "A hosted MCP client can transmit returned tool content to its model provider. "
                     "Use a local client/model for strict no-egress handling."

@@ -27,3 +27,13 @@ mcp/**/__pycache__/
 
 # Local assistant/client state
 .claude/
+
+# Local environment secrets and overrides
+.env
+.env.*
+!.env.example
+
+# Local Google OAuth desktop-client files
+credentials.json
+google-oauth-client*.json
+google-desktop-client*.json

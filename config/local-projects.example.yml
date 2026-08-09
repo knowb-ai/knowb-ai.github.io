@@ -20,6 +20,20 @@ forbidden_paths:
   - templates/orgbook.html
   - ORGBRAND_GUIDELINES.md
 
+# Private design inspiration vault. Keep the real values in the ignored
+# config/local-projects.yml file. The MCP refuses to use this capability until
+# both identities are verified and the Drive folder has no public, domain, or
+# group permissions. The OAuth access token is supplied at runtime, never here.
+design_assets:
+  enabled: false
+  google_drive_folder_id: ""
+  allowed_google_email: "your-private-google-account@example.com"
+  allowed_github_logins: ["your-github-login"]
+  allowed_upload_roots:
+    - ../static/design-system
+  max_file_bytes: 5242880
+  allowed_extensions: [avif, gif, jpeg, jpg, png, svg, webp]
+
 # Explicit migration registry. A repo-owned .knowb/project.yml wins when present.
 # The inline knowledge policy keeps existing local repos usable while they adopt
 # the manifest. Set enabled: false for named projects that are not cloned yet.
