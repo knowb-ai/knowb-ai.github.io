@@ -691,3 +691,55 @@ a:focus-visible {
     background: linear-gradient(180deg, #F59A52 0%, #8E2F2A 55%, #86E8FF 100%);
     border-radius: 3px;
 }
+
+/* --- Diagram Design System --- */
+.diagram-system-note {
+    border: 1px solid rgba(134,232,255,0.42);
+    border-radius: 0.25rem;
+    background: rgba(134,232,255,0.06);
+    padding: 1.1rem 1.2rem;
+}
+.diagram-embed {
+    overflow: hidden;
+    border: 1px solid rgba(233,194,179,0.38);
+    border-radius: 0.35rem;
+    background: #7A2217;
+}
+.diagram-embed iframe {
+    display: block;
+    width: 100%;
+    min-height: 44rem;
+    border: 0;
+}
+.diagram-type-card {
+    min-height: 13rem;
+    border: 1px solid rgba(233,194,179,0.3);
+    border-radius: 0.35rem;
+    background: rgba(122,34,23,0.32);
+    padding: 1.3rem;
+}
+.diagram-type-card-ember { border-color: rgba(245,154,82,0.52); }
+.diagram-type-card-saber { border-color: rgba(134,232,255,0.52); }
+.diagram-type-label {
+    margin: 0 0 1.1rem;
+    color: #E9C2B3;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+.diagram-type-card h3 {
+    margin: 0 0 0.65rem;
+    color: #FCF6F3;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+}
+.diagram-type-card p:last-child {
+    margin: 0;
+    color: rgba(252,246,243,0.8);
+    line-height: 1.55;
+}
+@media (max-width: 640px) {
+    .diagram-embed iframe { min-height: 35rem; }
+}
