@@ -35,9 +35,11 @@ wiki begins with brand narrative and strategic direction, a compact visual token
 component system adapted to public or internal use, and architecture, decision,
 research, and operations sections.
 
-The MCP Atlas design-asset vault is documented in [`knowledgeHQ/Design Asset Vault Decision.md`](knowledgeHQ/Design%20Asset%20Vault%20Decision.md). It keeps private inspiration assets in a Google Drive folder and exposes them only after verified GitHub and Google identity checks plus non-public Drive ACL checks.
+The private [`knowledgeHQ` repository](https://github.com/knowb-ai/knowledgeHQ) is the canonical wiki for KnowB AI Systems. It contains the MCP Atlas design-asset vault decision, product and runtime strategy, operator architecture, and preservation research. Its contents are not part of this public site.
 
-The companion [`knowledgeHQ/J2ME and Symbian Preservation Bootstrap.md`](knowledgeHQ/J2ME%20and%20Symbian%20Preservation%20Bootstrap.md) records the recommended SquirrelJME, FreeJ2ME-Plus, and EKA2L1 bootstrap boundary for lawful preservation experiments.
+After cloning this repository with GitHub access, initialize the private wiki with
+`git submodule update --init knowledgeHQ`. The MCP and local knowledge index continue
+to use the familiar `knowledgeHQ/` path once the submodule is initialized.
 
 The `remix` MCP tool provides the preceding Socratic design loop. It keeps public/org
 surfaces in the KnowB Autumn system and product/workflow surfaces in the Kenobi
@@ -83,7 +85,7 @@ knowb-run/
 │   │   └── global.css       # Global stylesheet (all component styles)
 │   ├── favicon.svg          # Brand favicon (▮▮▮ — outer ember, middle saber blue)
 │   └── CNAME                # Custom domain config
-├── knowledgeHQ/             # Reference docs (not part of site)
+├── knowledgeHQ/             # Private Git submodule (not part of site)
 ├── mcp/                     # Local MCP org directory and ticket control plane
 ├── config/                  # Example local registry, client config, manifest schema
 ├── .knowb/project.yml       # Repo-owned knowledge policy (knowledgeHQ only)
