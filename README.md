@@ -37,9 +37,10 @@ research, and operations sections.
 
 The private [`knowledgeHQ` repository](https://github.com/knowb-ai/knowledgeHQ) is the canonical wiki for KnowB AI Systems. It contains the MCP Atlas design-asset vault decision, product and runtime strategy, operator architecture, and preservation research. Its contents are not part of this public site.
 
-After cloning this repository with GitHub access, initialize the private wiki with
-`git submodule update --init knowledgeHQ`. The MCP and local knowledge index continue
-to use the familiar `knowledgeHQ/` path once the submodule is initialized.
+Clone the private wiki separately with GitHub access, for example:
+`git clone https://github.com/knowb-ai/knowledgeHQ.git ../knowledgeHQ`. The MCP and
+local knowledge index use that separate `knowledgeHQ/` checkout; this public
+repository has no submodule or copy of the private files.
 
 The `remix` MCP tool provides the preceding Socratic design loop. It keeps public/org
 surfaces in the KnowB Autumn system and product/workflow surfaces in the Kenobi
@@ -85,7 +86,6 @@ knowb-run/
 │   │   └── global.css       # Global stylesheet (all component styles)
 │   ├── favicon.svg          # Brand favicon (▮▮▮ — outer ember, middle saber blue)
 │   └── CNAME                # Custom domain config
-├── knowledgeHQ/             # Private Git submodule (not part of site)
 ├── mcp/                     # Local MCP org directory and ticket control plane
 ├── config/                  # Example local registry, client config, manifest schema
 ├── .knowb/project.yml       # Repo-owned knowledge policy (knowledgeHQ only)

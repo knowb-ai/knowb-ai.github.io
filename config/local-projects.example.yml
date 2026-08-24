@@ -42,11 +42,18 @@ projects:
     name: KnowB AI Organization Hub
     path: ..
     enabled: true
+
+  # Clone this private repository separately beside the public site:
+  # git clone https://github.com/knowb-ai/knowledgeHQ.git ../../knowledgeHQ
+  - id: knowledgeHQ
+    name: KnowB AI Systems Knowledge HQ
+    path: ../../knowledgeHQ
+    enabled: true
     knowledge:
       roots:
-        - path: knowledgeHQ
+        - path: .
           include: ["**/*.md"]
-          exclude: [".obsidian/**", "**/.obsidian/**"]
+          exclude: [".obsidian/**", ".knowb/**", ".knowb-state/**"]
 
   - id: BetterHackdays
     path: ../../BetterHackdays
