@@ -3,5 +3,20 @@ id: knowb-ai.github.io
 name: KnowB AI Organization Hub
 owner: knowb-ai
 lifecycle: active
+knowledge:
+  roots:
+    - path: .
+      include:
+        - README.md
+        - AGENTS.md
+        - CONTRIBUTING.md
+        - docs/**/*.md
+        - mcp/**/*.md
+      exclude:
+        - .git/**
+        - .venv/**
+        - node_modules/**
+        - dist/**
+        - build/**
 directory:
   visibility: local
