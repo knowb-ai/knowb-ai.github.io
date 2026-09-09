@@ -17,6 +17,20 @@ from urllib.parse import quote
 import yaml
 
 from .index import IndexError
+from .protocol import (
+    ADAPTER_VERSION,
+    MAX_INFO_BYTES,
+    MAX_QUERY_BYTES,
+    MAX_REQUEST_BYTES,
+    MAX_RESULTS,
+    OKF_RS_REVISION,
+    AdapterInfo,
+    parse_adapter_info,
+)
+
+
+class AdapterError(IndexError):
+    """A bounded, typed failure while invoking or validating the bridge."""
 
 
 def bridge_path() -> str:
@@ -35,13 +49,48 @@ def diagnostics() -> dict[str, Any]:
     return {"backend": "okf-rs", "binary": binary, "available": available}
 
 
+def adapter_info(binary: str | None = None, *, timeout: float = 5.0) -> AdapterInfo:
+    """Run the bridge handshake and validate its advertised contract."""
+
+    selected = binary or bridge_path()
+    path = Path(selected)
+    if not path.is_file():
+        raise AdapterError("okf-rs adapter is missing")
+    if not os.access(path, os.X_OK):
+        raise AdapterError("okf-rs adapter is not executable")
+    try:
+        result = subprocess.run(
+            [str(path), "--info"],
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise AdapterError("okf-rs adapter handshake timed out") from exc
+    except OSError as exc:
+        raise AdapterError("okf-rs adapter could not be executed") from exc
+    if result.returncode:
+        raise AdapterError("okf-rs adapter handshake failed")
+    output = result.stdout
+    if len(output.encode("utf-8", errors="replace")) > MAX_INFO_BYTES:
+        raise AdapterError("okf-rs adapter handshake exceeded output limit")
+    try:
+        parsed = parse_adapter_info(json.loads(output))
+    except (ValueError, json.JSONDecodeError) as exc:
+        raise AdapterError("okf-rs adapter returned invalid handshake metadata") from exc
+    if parsed.okf_rs_revision != OKF_RS_REVISION:
+        raise AdapterError("okf-rs adapter revision is incompatible")
+    return parsed
+
+
 def search_documents(
     documents: list[dict[str, Any]], query: str, limit: int, state_dir: Path,
 ) -> list[dict[str, Any]]:
     """One scoped bundle gives all selected projects comparable BM25 scores."""
     if not query.strip():
         raise IndexError("query cannot be empty")
-    if len(query.encode("utf-8")) > 16384:
+    if len(query.encode("utf-8")) > MAX_QUERY_BYTES:
         raise IndexError("query exceeds 16 KiB")
     if not documents:
         return []
@@ -51,7 +100,7 @@ def search_documents(
             "okf-rs search adapter is missing. Build with: cargo build --release --locked "
             "--manifest-path mcp/okf-bridge/Cargo.toml; or set KNOWB_OKF_BRIDGE."
         )
-    limit = max(1, min(limit, 50))
+    limit = max(1, min(limit, MAX_RESULTS))
     # Per-call private snapshots isolate simultaneous requests and never include
     # unselected projects, disabled repositories, or arbitrary source files.
     with tempfile.TemporaryDirectory(prefix="okf-", dir=state_dir) as directory:
@@ -77,17 +126,21 @@ def search_documents(
             + "\n".join(f"- [{key}]({key}.md)" for key in identities) + "\n",
             encoding="utf-8",
         )
-        request = json.dumps({"bundle": directory, "query": query, "limit": limit, "documents": len(documents)})
+        request = json.dumps(
+            {"bundle": directory, "query": query, "limit": limit, "documents": len(documents)}
+        )
+        if len(request.encode("utf-8")) > MAX_REQUEST_BYTES:
+            raise AdapterError("okf-rs request exceeds 64 KiB")
         try:
             result = subprocess.run(
                 [binary], input=request, text=True, capture_output=True, timeout=60,
                 cwd=directory, check=False,
             )
         except (OSError, subprocess.TimeoutExpired) as exc:
-            raise IndexError("okf-rs adapter unavailable or timed out") from exc
+            raise AdapterError("okf-rs adapter unavailable or timed out") from exc
         if result.returncode:
             # Never echo source-bearing diagnostics to an unrelated tool caller.
-            raise IndexError("okf-rs search failed; check the adapter build and bundle compatibility")
+            raise AdapterError("okf-rs search failed; check the adapter build and bundle compatibility")
         try:
             response = json.loads(result.stdout)
             hits = response["results"]
@@ -117,4 +170,4 @@ def search_documents(
                 })
             return results
         except (ValueError, KeyError, TypeError) as exc:
-            raise IndexError("Invalid response from okf-rs adapter") from exc
+            raise AdapterError("Invalid response from okf-rs adapter") from exc
