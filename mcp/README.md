@@ -30,6 +30,7 @@ and client. This is a client boundary, not a server configuration switch.
 
 - Python 3.11+
 - `uv`
+- Rust/Cargo to build the pinned `okf-rs` search adapter once
 - GitHub CLI (`gh`) and Git for ticket/project/repository operations
 - MCP Python SDK 2.x
 
@@ -50,6 +51,7 @@ fit.
 From the repository root:
 
 ~~~sh
+cargo build --release --locked --manifest-path mcp/okf-bridge/Cargo.toml
 uv sync --project mcp
 uv run --project mcp knowb-org doctor
 uv run --project mcp knowb-org index
@@ -70,8 +72,10 @@ package is launched from elsewhere. The real `.env` is ignored by git; never
 put a long-lived credential or refresh token in it.
 
 Local state is stored in `.knowb-state/org-index.sqlite` and ignored by git.
-The SQLite database is a disposable cache and audit ledger; project files remain
-the knowledge source of truth.
+SQLite stores document snapshots and the durable action/audit ledger; project files
+remain the knowledge source of truth. Preserve the database when migrating: it
+contains pending confirmations and action history. Ranked retrieval uses `okf-rs`,
+not SQLite FTS.
 
 ## Connect an MCP client
 
@@ -90,7 +94,7 @@ over stdin/stdout.
 - `list_projects` — registered projects and optional local candidates
 - `discover_local_repos` — bounded inventory of all local organization clones
 - `refresh_index` — incremental changed-file refresh
-- `search_knowledge` — local FTS search with exact source paths and `knowb://` URIs
+- `search_knowledge` — `okf-rs` ranked full-text search with exact source paths and `knowb://` URIs
 - `read_project_doc` — safe allowlisted document retrieval
 - `get_project_context` — project map, decisions, documents, ticket references
 - `find_related_work` — ticket/query-to-local-knowledge lookup
@@ -319,3 +323,54 @@ knowb-org serve
 
 `scripts/discover-local-repos` is a convenience wrapper around the bounded
 discovery command.
+
+## okf-rs retrieval backend
+
+The connector embeds [okf-rs](https://github.com/jyjeanne/okf-rs) through the small
+`mcp/okf-bridge` Rust adapter. `Cargo.toml` pins upstream revision
+`6d52cc7ad0b5afea2e0001779b4498e268905ddc` (0.7.0); `Cargo.lock` pins the dependency graph.
+Build it with the command above. `knowb-org doctor` checks adapter availability and
+returns a failing exit status if it is missing. Set `KNOWB_OKF_BRIDGE` to an absolute
+executable path when deploying a built binary separately; an installed
+`knowb-okf-bridge` on PATH is also supported. On macOS with a broken Xcode selection,
+use `DEVELOPER_DIR=/Library/Developer/CommandLineTools` for the Cargo build if those
+tools are installed. No global developer-tool setting needs to change.
+
+Existing MCP tool names, client launch configuration, registry allowlists, document
+reads, context results, GitHub confirmations, and design-vault operations remain
+available. `search_knowledge` and `find_related_work` now use the Rust backend.
+Scores are positive BM25 relevance values, with higher values ranked first; they
+are not comparable to the former SQLite scores. `tags` retains its existing role
+as additional query terms, rather than a strict metadata filter.
+
+For each search, the connector refreshes selected active projects, exports their
+allowlisted document snapshots into a private temporary OKF bundle under
+`state_dir`, queries it, and removes the bundle. All selected projects share one
+index so their scores are comparable. Stable hashed concept IDs map results back
+to original paths and `knowb://` citations, including files named `index.md` and
+`log.md`. Original Markdown/frontmatter is retained as the generated concept body;
+no authored wiki is rewritten and export does not assert human verification.
+
+Upstream's reader currently accepts language-qualified types only. The adapter's
+internal bundle uses its supported `DITA Document` type for documentation; this is
+an interoperability label, not an XML import. Upstream search normally indexes
+only descriptions/signatures. The bridge supplies the full original Markdown as
+in-memory search text, preserving full-body retrieval. A document-count check
+fails if the upstream parser silently drops a concept. The protocol returns JSON
+IDs/scores, never parsed CLI display text. No source-code generation, enrichment,
+embeddings, external network calls, or agent-file rewrites run during retrieval.
+
+The initial backend builds an in-memory index per search, matching the upstream
+search API. Large corpora may need a persistent worker after measurement. Missing
+binaries, timeouts, or invalid responses fail explicitly; there is no silent SQLite
+fallback. Existing SQLite FTS tables, if present, are unused and left intact during
+migration along with all action history.
+
+Verify the migration:
+
+```sh
+cargo build --release --locked --manifest-path mcp/okf-bridge/Cargo.toml
+mcp/.venv/bin/python -m unittest discover -s mcp/tests -v
+```
+
+The real-engine tests require the compiled adapter; CI builds it before testing.

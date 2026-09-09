@@ -10,16 +10,16 @@ import secrets
 import sqlite3
 import time
 import uuid
+from contextlib import contextmanager
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Iterable, Iterator
 from urllib.parse import quote
 
 from .models import Project, Registry
 
 
 _HEADING = re.compile(r"^(#{1,6})\s+(.+?)\s*$", re.MULTILINE)
-_TOKEN = re.compile(r"[\w]+", re.UNICODE)
 _IGNORED_PARTS = {
     ".git",
     ".hg",
@@ -60,22 +60,26 @@ def _within(path: Path, root: Path) -> bool:
 
 
 class LocalIndex:
-    """A local SQLite/FTS5 cache; project files remain the source of truth."""
+    """A document snapshot and audit cache; okf-rs supplies ranked retrieval."""
 
     def __init__(self, registry: Registry) -> None:
         self.registry = registry
         self.registry.state_dir.mkdir(parents=True, exist_ok=True)
         self.path = registry.database_path
-        self._fts_enabled = True
         self._initialize()
 
-    def _connect(self) -> sqlite3.Connection:
+    @contextmanager
+    def _connect(self) -> Iterator[sqlite3.Connection]:
         connection = sqlite3.connect(self.path, timeout=15)
         connection.row_factory = sqlite3.Row
         connection.execute("PRAGMA foreign_keys = ON")
         connection.execute("PRAGMA journal_mode = WAL")
         connection.execute("PRAGMA busy_timeout = 15000")
-        return connection
+        try:
+            with connection:
+                yield connection
+        finally:
+            connection.close()
 
     def _initialize(self) -> None:
         with self._connect() as connection:
@@ -126,33 +130,24 @@ class LocalIndex:
                 );
                 """
             )
-            try:
-                connection.execute(
-                    """
-                    CREATE VIRTUAL TABLE IF NOT EXISTS documents_fts USING fts5(
-                        project_id UNINDEXED,
-                        relative_path UNINDEXED,
-                        title,
-                        headings,
-                        content,
-                        tokenize = 'unicode61 remove_diacritics 2'
-                    )
-                    """
-                )
-            except sqlite3.OperationalError:
-                self._fts_enabled = False
 
     def _candidate_files(self, project: Project) -> dict[str, Path]:
         project_root = project.path.resolve()
         files: dict[str, Path] = {}
         for source in project.sources:
-            source_root = (project_root / source.path).resolve()
+            raw_root = project_root / source.path
+            if any(parent.is_symlink() for parent in (raw_root, *raw_root.parents)
+                   if parent != project_root and _within(parent, project_root)):
+                continue
+            source_root = raw_root.resolve()
             if not _within(source_root, project_root) or not source_root.is_dir():
                 continue
             try:
                 iterator = source_root.rglob("*")
                 for candidate in iterator:
-                    if candidate.is_symlink() or not candidate.is_file():
+                    if (any(parent.is_symlink() for parent in (candidate, *candidate.parents)
+                            if parent != project_root and _within(parent, project_root))
+                            or not candidate.is_file()):
                         continue
                     resolved = candidate.resolve()
                     if not _within(resolved, project_root):
@@ -187,6 +182,9 @@ class LocalIndex:
         """Incrementally refresh one registered project from local files only."""
 
         if not project.active:
+            with self._connect() as connection:
+                connection.execute("DELETE FROM documents WHERE project_id = ?", (project.id,))
+                connection.execute("DELETE FROM projects WHERE project_id = ?", (project.id,))
             return {
                 "project": project.id,
                 "status": project.status,
@@ -286,18 +284,6 @@ class LocalIndex:
                         now,
                     ),
                 )
-                if self._fts_enabled:
-                    connection.execute(
-                        "DELETE FROM documents_fts WHERE project_id = ? AND relative_path = ?",
-                        (project.id, relative_path),
-                    )
-                    connection.execute(
-                        """
-                        INSERT INTO documents_fts(project_id, relative_path, title, headings, content)
-                        VALUES (?, ?, ?, ?, ?)
-                        """,
-                        (project.id, relative_path, title, headings, content),
-                    )
                 indexed += 1
 
             for relative_path in set(existing) - set(candidates):
@@ -305,11 +291,6 @@ class LocalIndex:
                     "DELETE FROM documents WHERE project_id = ? AND relative_path = ?",
                     (project.id, relative_path),
                 )
-                if self._fts_enabled:
-                    connection.execute(
-                        "DELETE FROM documents_fts WHERE project_id = ? AND relative_path = ?",
-                        (project.id, relative_path),
-                    )
                 deleted += 1
 
         return {
@@ -330,83 +311,22 @@ class LocalIndex:
     ) -> list[dict[str, Any]]:
         """Search indexed local knowledge with source citations."""
 
-        clean_query = query.strip()
-        if not clean_query:
-            raise IndexError("query cannot be empty")
-        limit = max(1, min(limit, 50))
-        projects = [item for item in (project_ids or []) if item]
+        from .okf import search_documents
 
+        selected = set(project_ids) if project_ids is not None else None
+        active = [project.id for project in self.registry.projects
+                  if project.active and (selected is None or project.id in selected)]
+        if not active:
+            if not query.strip():
+                raise IndexError("query cannot be empty")
+            return []
         with self._connect() as connection:
-            if self._fts_enabled:
-                terms = _TOKEN.findall(clean_query)
-                if not terms:
-                    return []
-                match_query = " OR ".join(f'"{term.replace(chr(34), chr(34) * 2)}"*' for term in terms)
-                filters = ""
-                params: list[Any] = [match_query]
-                if projects:
-                    placeholders = ",".join("?" for _ in projects)
-                    filters = f" AND f.project_id IN ({placeholders})"
-                    params.extend(projects)
-                params.append(limit)
-                rows = connection.execute(
-                    f"""
-                    SELECT
-                        f.project_id,
-                        f.relative_path,
-                        f.title,
-                        f.headings,
-                        snippet(documents_fts, 4, '<mark>', '</mark>', ' … ', 28) AS excerpt,
-                        bm25(documents_fts, 8.0, 3.0, 1.0) AS score,
-                        d.source_path,
-                        d.indexed_at
-                    FROM documents_fts AS f
-                    JOIN documents AS d
-                      ON d.project_id = f.project_id
-                     AND d.relative_path = f.relative_path
-                    WHERE documents_fts MATCH ?{filters}
-                    ORDER BY score ASC
-                    LIMIT ?
-                    """,
-                    params,
-                ).fetchall()
-            else:
-                filters = ""
-                params = [f"%{clean_query}%"]
-                if projects:
-                    placeholders = ",".join("?" for _ in projects)
-                    filters = f" AND project_id IN ({placeholders})"
-                    params.extend(projects)
-                params.append(limit)
-                rows = connection.execute(
-                    f"""
-                    SELECT project_id, relative_path, title, headings,
-                           substr(content, 1, 500) AS excerpt,
-                           0.0 AS score, source_path, indexed_at
-                    FROM documents
-                    WHERE content LIKE ?{filters}
-                    LIMIT ?
-                    """,
-                    params,
-                ).fetchall()
-
-        return [self._row_to_search_result(row) for row in rows]
-
-    @staticmethod
-    def _row_to_search_result(row: sqlite3.Row) -> dict[str, Any]:
-        project_id = row["project_id"]
-        relative_path = row["relative_path"]
-        return {
-            "project": project_id,
-            "path": relative_path,
-            "title": row["title"],
-            "headings": [item for item in row["headings"].splitlines() if item],
-            "excerpt": row["excerpt"],
-            "score": row["score"],
-            "source_path": row["source_path"],
-            "uri": f"knowb://project/{quote(project_id, safe='')}/doc/{quote(relative_path)}",
-            "indexed_at": row["indexed_at"],
-        }
+            placeholders = ",".join("?" for _ in active)
+            documents = [dict(row) for row in connection.execute(
+                f"SELECT * FROM documents WHERE project_id IN ({placeholders}) "
+                "ORDER BY project_id, relative_path", active,
+            )]
+        return search_documents(documents, query, limit, self.registry.state_dir)
 
     def get_document(self, project_id: str, relative_path: str) -> dict[str, Any] | None:
         normalized = Path(relative_path).as_posix().lstrip("/")

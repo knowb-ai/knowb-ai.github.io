@@ -14,6 +14,7 @@ from .design_assets import DesignAssetError
 from .env import EnvironmentFileError
 from .github_ops import GitHubError
 from .index import IndexError
+from .okf import diagnostics
 from .service import OrgIndexService
 
 
@@ -107,7 +108,8 @@ def run(argv: Sequence[str] | None = None) -> int:
             directory = service.list_projects(include_candidates=True)
             _json(
                 {
-                    "ok": True,
+                    "ok": diagnostics()["available"],
+                    "search": diagnostics(),
                     "config": str(service.registry.config_path),
                     "database": str(service.registry.database_path),
                     "git": shutil.which("git"),
@@ -120,6 +122,8 @@ def run(argv: Sequence[str] | None = None) -> int:
                     ],
                 }
             )
+            if not diagnostics()["available"]:
+                return 2
         elif args.command == "index":
             _json(service.refresh_index(args.projects or None))
         elif args.command == "search":

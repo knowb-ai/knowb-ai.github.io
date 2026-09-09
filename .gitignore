@@ -37,3 +37,6 @@ mcp/**/__pycache__/
 credentials.json
 google-oauth-client*.json
 google-desktop-client*.json
+
+# Compiled okf-rs adapter
+mcp/okf-bridge/target/

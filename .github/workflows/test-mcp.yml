@@ -1,0 +1,23 @@
+name: Test MCP connector
+
+on:
+  pull_request:
+    paths: ["mcp/**", ".github/workflows/test-mcp.yml"]
+  push:
+    branches: [main]
+    paths: ["mcp/**", ".github/workflows/test-mcp.yml"]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: astral-sh/setup-uv@v6
+      - run: cargo build --release --locked --manifest-path mcp/okf-bridge/Cargo.toml
+      - run: uv sync --locked --project mcp
+      - run: mcp/.venv/bin/python -m unittest discover -s mcp/tests -v
+      - run: git diff --check

@@ -124,15 +124,19 @@ class OrgIndexService:
         tags: list[str] | None = None,
         limit: int = 10,
     ) -> dict[str, Any]:
-        selected = projects or [project.id for project in self.registry.projects if project.active]
-        for project_id in selected:
-            self.index.refresh_project(self._project(project_id))
+        selected_projects = ([self._project(project_id) for project_id in projects]
+                             if projects is not None else list(self.registry.projects))
+        selected = list(dict.fromkeys(project.id for project in selected_projects if project.active))
+        for project in selected_projects:
+            self.index.refresh_project(project)
         combined = " ".join([query, *(tags or [])]).strip()
         results = self.index.search(combined, project_ids=selected, limit=limit)
         return {"query": query, "projects": selected, "tags": tags or [], "results": results}
 
     def read_project_doc(self, project_id: str, path: str) -> dict[str, Any]:
         project = self._project(project_id)
+        if not project.active:
+            raise IndexError(f"Project is not active: {project.id}")
         self.index.refresh_project(project)
         document = self.index.get_document(project.id, path)
         if document is None:
