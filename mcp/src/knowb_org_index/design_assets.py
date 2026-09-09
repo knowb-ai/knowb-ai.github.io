@@ -206,9 +206,12 @@ class _GoogleDriveClient:
 class DesignAssetOperations:
     """Identity-gated read access and confirmed uploads for one private Drive folder."""
 
-    def __init__(self, config: DesignAssetConfig, index: LocalIndex) -> None:
+    def __init__(
+        self, config: DesignAssetConfig, index: LocalIndex, *, github_enabled: bool = True
+    ) -> None:
         self.config = config
         self.index = index
+        self.github_enabled = github_enabled
         self.oauth: GoogleOAuth | None = None
         self.drive = _GoogleDriveClient(self._oauth)
 
@@ -218,6 +221,8 @@ class DesignAssetOperations:
         return self.oauth
 
     def _enabled(self) -> None:
+        if not self.github_enabled:
+            raise DesignAssetError("GitHub capability is disabled by registry policy")
         if not self.config.enabled:
             raise DesignAssetError(
                 "Private design assets are disabled; configure design_assets locally first"
@@ -508,6 +513,7 @@ class DesignAssetOperations:
         )
 
     def confirm(self, token: str) -> dict[str, Any]:
+        self._enabled()
         existing = self.index.get_pending_action(token)
         if existing is None:
             raise DesignAssetError("Unknown confirmation token")
