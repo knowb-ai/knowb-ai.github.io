@@ -4,6 +4,10 @@ Local-first directory, knowledge index, and GitHub work control plane for the
 `knowb-ai` organization. It runs beside the Zola site; it does not alter or
 serve the website.
 
+Portable installation and folder onboarding are scoped in the
+[packaging implementation and test plan](docs/portable-packaging-plan.md).
+That plan describes the next release; the current checkout setup is below.
+
 ## Guarantees
 
 - Project knowledge is read only from explicitly registered local clones.
