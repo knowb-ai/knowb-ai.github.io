@@ -56,7 +56,7 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
         return Err("request exceeds 64 KiB".into());
     }
     let request: Request = serde_json::from_str(&input)?;
-    if request.query.as_bytes().len() > MAX_QUERY_BYTES {
+    if request.query.len() > MAX_QUERY_BYTES {
         return Err("query exceeds 16 KiB".into());
     }
     if request.documents > MAX_DOCUMENTS {

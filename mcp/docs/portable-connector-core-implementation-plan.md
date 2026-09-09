@@ -1,6 +1,6 @@
 # Portable connector core implementation plan
 
-Branch: `codex/portable-connector-core`
+Branch: `codex/portable-connector-implementation`
 
 Issues:
 

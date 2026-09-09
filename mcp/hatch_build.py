@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import platform
 import shutil
 import subprocess
 import sys
@@ -30,7 +31,17 @@ def _native_target() -> str:
     for line in result.stdout.splitlines():
         if line.startswith("host:"):
             return line.split(":", 1)[1].strip()
-        raise RuntimeError("rustc did not report a host target")
+    machine = platform.machine().casefold()
+    arch = "aarch64" if machine in {"arm64", "aarch64"} else "x86_64"
+    system = platform.system().casefold()
+    fallback = {
+        "darwin": f"{arch}-apple-darwin",
+        "linux": f"{arch}-unknown-linux-gnu",
+        "windows": f"{arch}-pc-windows-msvc",
+    }.get(system)
+    if fallback:
+        return fallback
+    raise RuntimeError("rustc did not report a host target")
 
 
 class CustomBuildHook(BuildHookInterface):
