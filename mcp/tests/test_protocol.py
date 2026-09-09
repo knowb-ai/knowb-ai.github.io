@@ -6,7 +6,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from knowb_org_index.okf import AdapterError, adapter_info
+from knowb_org_index.okf import AdapterError, adapter_info, bridge_path, diagnostics
 from knowb_org_index.protocol import (
     ADAPTER_VERSION,
     MAX_QUERY_BYTES,
@@ -66,6 +66,20 @@ class ProtocolTests(unittest.TestCase):
             ):
                 with self.assertRaisesRegex(AdapterError, "handshake timed out"):
                     adapter_info(str(binary))
+
+    def test_lookup_never_uses_ambient_path_and_rejects_relative_override(self):
+        with tempfile.TemporaryDirectory() as directory:
+            checkout = Path(directory) / "checkout-bridge"
+            checkout.write_text("#!/bin/sh\n", encoding="utf-8")
+            checkout.chmod(0o755)
+            with patch.dict(os.environ, {"KNOWB_OKF_BRIDGE": "relative/bridge"}, clear=False):
+                result = diagnostics()
+                self.assertFalse(result["available"])
+                self.assertIn("absolute", result["error"])
+            with patch.dict(os.environ, {}, clear=True), patch(
+                "knowb_org_index.okf._packaged_bridge", return_value=None
+            ), patch("knowb_org_index.okf._checkout_bridge", return_value=checkout):
+                self.assertEqual(bridge_path(), str(checkout))
 
 
 if __name__ == "__main__":

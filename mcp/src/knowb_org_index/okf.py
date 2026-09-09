@@ -7,9 +7,10 @@ import json
 import math
 import os
 import re
-import shutil
 import subprocess
 import tempfile
+import platform
+from importlib import resources
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote
@@ -27,6 +28,7 @@ from .protocol import (
     AdapterInfo,
     parse_adapter_info,
 )
+from .build_targets import TARGET_PLATFORMS
 
 
 class AdapterError(IndexError):
@@ -34,19 +36,90 @@ class AdapterError(IndexError):
 
 
 def bridge_path() -> str:
-    configured = os.environ.get("KNOWB_OKF_BRIDGE")
+    """Return the deterministic adapter path selected for this installation."""
+
+    configured = os.environ.get("KNOWB_OKF_BRIDGE", "").strip()
     if configured:
         return str(Path(configured).expanduser())
-    installed = shutil.which("knowb-okf-bridge")
-    if installed:
-        return installed
+    package = _packaged_bridge()
+    if package is not None and package.is_file():
+        return str(package)
+    checkout = _checkout_bridge()
+    if checkout is not None:
+        return str(checkout)
+    if package is not None:
+        return str(package)
     return str(Path(__file__).resolve().parents[2] / "okf-bridge/target/release/knowb-okf-bridge")
+
+
+def _runtime_target() -> str | None:
+    machine = platform.machine().casefold()
+    if sys_platform := platform.system().casefold():
+        if sys_platform == "darwin":
+            target = f"{'aarch64' if machine in {'arm64', 'aarch64'} else 'x86_64'}-apple-darwin"
+        elif sys_platform == "linux":
+            target = f"{'aarch64' if machine in {'arm64', 'aarch64'} else 'x86_64'}-unknown-linux-gnu"
+        elif sys_platform == "windows":
+            target = f"{'aarch64' if machine in {'arm64', 'aarch64'} else 'x86_64'}-pc-windows-msvc"
+        else:
+            return None
+        return target if target in TARGET_PLATFORMS else None
+    return None
+
+
+def _packaged_bridge() -> Path | None:
+    target = _runtime_target()
+    if target is None:
+        return None
+    name = f"knowb-okf-bridge-{target}" + (".exe" if os.name == "nt" else "")
+    resource = resources.files("knowb_org_index").joinpath("_bin", name)
+    try:
+        return Path(resource)
+    except TypeError:
+        # A zipped/non-filesystem loader cannot safely execute a native resource.
+        return None
+
+
+def _checkout_bridge() -> Path | None:
+    root = Path(__file__).resolve().parents[2]
+    if not (
+        (root / "okf-bridge" / "Cargo.toml").is_file()
+        and (root.parent / "config.toml").is_file()
+        and (root.parent / "config").is_dir()
+    ):
+        return None
+    binary = root / "okf-bridge" / "target" / "release" / "knowb-okf-bridge"
+    if os.name == "nt":
+        binary = binary.with_suffix(".exe")
+    return binary
 
 
 def diagnostics() -> dict[str, Any]:
     binary = bridge_path()
-    available = Path(binary).is_file() and os.access(binary, os.X_OK)
-    return {"backend": "okf-rs", "binary": binary, "available": available}
+    configured = os.environ.get("KNOWB_OKF_BRIDGE", "").strip()
+    source = "override" if configured else "package"
+    packaged = _packaged_bridge()
+    if not configured and (packaged is None or not packaged.is_file()):
+        source = "checkout" if _checkout_bridge() else "package"
+    path = Path(binary)
+    result: dict[str, Any] = {
+        "backend": "okf-rs",
+        "binary": str(path),
+        "source": source,
+        "target": _runtime_target(),
+        "available": path.is_file() and os.access(path, os.X_OK) and not path.is_symlink(),
+    }
+    if configured and not path.is_absolute():
+        result.update({"available": False, "error": "KNOWB_OKF_BRIDGE must be absolute"})
+    elif path.is_symlink():
+        result.update({"available": False, "error": "adapter path must not be a symlink"})
+    if result["available"]:
+        try:
+            info = adapter_info(str(path))
+            result["info"] = info.to_dict()
+        except AdapterError as exc:
+            result.update({"available": False, "error": str(exc)})
+    return result
 
 
 def adapter_info(binary: str | None = None, *, timeout: float = 5.0) -> AdapterInfo:
@@ -81,6 +154,8 @@ def adapter_info(binary: str | None = None, *, timeout: float = 5.0) -> AdapterI
         raise AdapterError("okf-rs adapter returned invalid handshake metadata") from exc
     if parsed.okf_rs_revision != OKF_RS_REVISION:
         raise AdapterError("okf-rs adapter revision is incompatible")
+    if parsed.adapter_version != ADAPTER_VERSION:
+        raise AdapterError("okf-rs adapter version is incompatible")
     return parsed
 
 
@@ -95,10 +170,12 @@ def search_documents(
     if not documents:
         return []
     binary = bridge_path()
-    if not diagnostics()["available"]:
-        raise IndexError(
+    diag = diagnostics()
+    if not diag["available"]:
+        detail = diag.get("error", "adapter is missing")
+        raise AdapterError(
             "okf-rs search adapter is missing. Build with: cargo build --release --locked "
-            "--manifest-path mcp/okf-bridge/Cargo.toml; or set KNOWB_OKF_BRIDGE."
+            f"--manifest-path mcp/okf-bridge/Cargo.toml; {detail}."
         )
     limit = max(1, min(limit, MAX_RESULTS))
     # Per-call private snapshots isolate simultaneous requests and never include
@@ -141,6 +218,8 @@ def search_documents(
         if result.returncode:
             # Never echo source-bearing diagnostics to an unrelated tool caller.
             raise AdapterError("okf-rs search failed; check the adapter build and bundle compatibility")
+        if len((result.stdout or "").encode("utf-8", errors="replace")) > MAX_REQUEST_BYTES:
+            raise AdapterError("Invalid response from okf-rs adapter")
         try:
             response = json.loads(result.stdout)
             hits = response["results"]
