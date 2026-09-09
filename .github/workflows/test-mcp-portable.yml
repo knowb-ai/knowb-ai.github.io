@@ -1,0 +1,65 @@
+name: test-mcp-portable
+
+on:
+  push:
+    paths:
+      - "mcp/**"
+      - ".github/workflows/test-mcp-portable.yml"
+  pull_request:
+    paths:
+      - "mcp/**"
+      - ".github/workflows/test-mcp-portable.yml"
+
+jobs:
+  portable-matrix:
+    name: portable ${{ matrix.os }} / python ${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python: ["3.11", "3.14"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.os == 'macos-latest' && 'aarch64-apple-darwin' || 'x86_64-unknown-linux-gnu' }}
+
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Build the platform wheel
+        run: |
+          $HOME/.local/bin/uv build --wheel --project mcp --out-dir dist
+          ls -1 dist
+
+      - name: Install the wheel into an isolated venv
+        run: |
+          $HOME/.local/bin/uv venv --python ${{ matrix.python }} /tmp/portable-venv
+          $HOME/.local/bin/uv pip install --python /tmp/portable-venv/bin/python dist/*.whl
+
+      - name: Run the installed-artifact acceptance tests
+        env:
+          KNOWB_PORTABLE_WHEEL: ${{ steps.wheel.outputs.path }}
+        run: |
+          WHEEL=$(ls -1 dist/*.whl | head -1)
+          echo "Using wheel: $WHEEL"
+          KNOWB_PORTABLE_WHEEL="$WHEEL" KNOWB_PORTABLE_PYTHON=/tmp/portable-venv/bin/python \
+            /tmp/portable-venv/bin/python -m unittest discover -s mcp/tests -p test_portable.py -v
+
+      - name: Upload wheel artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheel-${{ matrix.os }}-${{ matrix.python }}
+          path: dist/*.whl
+          if-no-files-found: error

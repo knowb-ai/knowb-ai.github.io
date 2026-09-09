@@ -1,4 +1,11 @@
-"""Load a repo-local .env file without overriding the parent environment."""
+"""Load an explicit environment file without overriding the parent environment.
+
+Loading a project's `.env` merely because it was selected for reading is a
+runtime checkout dependency. The default loader loads nothing: process
+environment variables always win, and an explicit `KNOWB_ENV_FILE` is the only
+file loaded by default. A documented legacy mode (`KNOWB_LEGACY_ENV=1`)
+re-enables the old checkout-root `.env` behavior for migration.
+"""
 
 from __future__ import annotations
 
@@ -15,19 +22,23 @@ class EnvironmentFileError(ValueError):
     """Raised when the local environment file contains an unsafe/malformed line."""
 
 
-def default_env_path() -> Path:
-    """Return the explicit env path or the repository-local .env path."""
+def default_env_path() -> Path | None:
+    """Return the explicit env path, the legacy checkout path, or None.
+
+    An explicit `KNOWB_ENV_FILE` always wins. Otherwise the legacy checkout
+    path is used only when `KNOWB_LEGACY_ENV=1` is set. The default is no file,
+    so an installed application never depends on a checkout layout.
+    """
 
     explicit = os.environ.get("KNOWB_ENV_FILE", "").strip()
     if explicit:
         return Path(explicit).expanduser().resolve()
-    root = os.environ.get("KNOWB_ORG_ROOT", "").strip()
-    repository_root = (
-        Path(root).expanduser().resolve()
-        if root
-        else Path(__file__).resolve().parents[3]
-    )
-    return repository_root / ".env"
+    if os.environ.get("KNOWB_LEGACY_ENV", "").strip() in {"1", "true", "yes"}:
+        root = os.environ.get("KNOWB_ORG_ROOT", "").strip()
+        if root:
+            return Path(root).expanduser().resolve() / ".env"
+        return Path(__file__).resolve().parents[3] / ".env"
+    return None
 
 
 def _parse_value(raw: str) -> str:
@@ -48,8 +59,12 @@ def _parse_value(raw: str) -> str:
 def load_dotenv(path: str | Path | None = None) -> Path | None:
     """Load simple KEY=VALUE entries; existing process variables always win."""
 
-    resolved = Path(path).expanduser().resolve() if path else default_env_path()
-    if not resolved.is_file():
+    resolved = (
+        Path(path).expanduser().resolve()
+        if path
+        else default_env_path()
+    )
+    if resolved is None or not resolved.is_file():
         return None
     try:
         lines = resolved.read_text(encoding="utf-8").splitlines()

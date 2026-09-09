@@ -167,7 +167,7 @@ class LocalIndex:
                             continue
                     except OSError:
                         continue
-                    files[project_relative] = resolved
+                    files[project_relative] = (project.path / project_relative).resolve()
             except OSError:
                 continue
         return files

@@ -1,9 +1,17 @@
-"""Registry and repo-owned manifest loading with strict path containment."""
+"""Registry and repo-owned manifest loading with strict path containment.
+
+Configuration resolution is explicit and portable. An installed application
+never depends on the website checkout layout: an explicit `--config` or
+`KNOWB_ORG_CONFIG` wins, then a discovered `.knowb/connector.yml` in the
+current folder, and finally a legacy compatibility path that still honours
+`KNOWB_ORG_ROOT` or the checkout layout for existing portfolios.
+"""
 
 from __future__ import annotations
 
 import os
 import re
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -47,27 +55,57 @@ def _resolve(base: Path, raw: str | os.PathLike[str]) -> Path:
     return (base / value).resolve() if not value.is_absolute() else value.resolve()
 
 
-def _find_repository_root() -> Path:
-    override = os.environ.get("KNOWB_ORG_ROOT")
+def _find_repository_root() -> Path | None:
+    """Locate the legacy website checkout, or None when it is absent.
+
+    This is a deliberate compatibility path only. Installed applications must
+    not depend on it; an explicit configuration wins first.
+    """
+
+    override = os.environ.get("KNOWB_ORG_ROOT", "").strip()
     if override:
         return Path(override).expanduser().resolve()
-    candidates = [Path.cwd().resolve(), Path(__file__).resolve()]
-    for candidate in candidates:
+    for candidate in (Path.cwd().resolve(), Path(__file__).resolve()):
         for parent in (candidate, *candidate.parents):
             if (parent / "config.toml").is_file() and (parent / "config").is_dir():
                 return parent
-    raise ConfigurationError(
-        "Cannot locate the KnowB repository root. Set KNOWB_ORG_ROOT explicitly."
-    )
+    return None
+
+
+def _platform_state_dir(stem: str) -> Path:
+    """A per-application user state directory keyed by a canonical location."""
+
+    home = Path.home()
+    if sys.platform == "darwin":
+        return home / "Library" / "Application Support" / "knowb" / stem
+    if sys.platform == "win32":
+        return home / "AppData" / "Local" / "knowb" / stem
+    return home / ".local" / "share" / "knowb" / stem
 
 
 def default_config_path() -> Path:
-    override = os.environ.get("KNOWB_ORG_CONFIG")
+    """Resolve the active registry configuration.
+
+    Order: explicit `KNOWB_ORG_CONFIG`, then a discovered
+    `.knowb/connector.yml` in the current folder, then the legacy checkout
+    path. An uninitialized folder never falls back to a broad registry.
+    """
+
+    override = os.environ.get("KNOWB_ORG_CONFIG", "").strip()
     if override:
         return Path(override).expanduser().resolve()
+    local = Path.cwd().resolve() / ".knowb" / "connector.yml"
+    if local.is_file():
+        return local
     root = _find_repository_root()
-    local = root / "config" / "local-projects.yml"
-    return local if local.is_file() else root / "config" / "local-projects.example.yml"
+    if root is not None:
+        candidate = root / "config" / "local-projects.yml"
+        if candidate.is_file():
+            return candidate
+        return root / "config" / "local-projects.example.yml"
+    raise ConfigurationError(
+        "No KnowB configuration found. Run: knowb-org init /absolute/path/to/project"
+    )
 
 
 def _string_list(value: Any, *, default: tuple[str, ...] = ()) -> tuple[str, ...]:
@@ -191,12 +229,15 @@ def _design_assets(
 def load_registry(config_path: str | Path | None = None) -> Registry:
     """Load and validate the local registry plus repo-owned manifests."""
 
-    resolved_config = Path(config_path).expanduser().resolve() if config_path else default_config_path()
+    resolved_config = (
+        Path(config_path).expanduser().resolve()
+        if config_path
+        else default_config_path()
+    )
     data = _load_yaml(resolved_config)
     if data.get("version") != 1:
         raise ConfigurationError("Registry version must be 1")
 
-    repository_root = _find_repository_root()
     base = resolved_config.parent
     raw_roots = data.get("allowed_roots")
     if not isinstance(raw_roots, list) or not raw_roots:
@@ -209,7 +250,16 @@ def load_registry(config_path: str | Path | None = None) -> Registry:
     if not organization:
         raise ConfigurationError("organization cannot be empty")
     strict_manifests = bool(data.get("strict_manifests", True))
-    state_dir = _resolve(base, data.get("state_dir", "../.knowb-state"))
+
+    # State location: an explicit value is preserved exactly. Otherwise a
+    # platform-appropriate user directory keyed by the canonical config
+    # location keeps state outside any project folder.
+    explicit_state = data.get("state_dir")
+    if explicit_state:
+        state_dir = _resolve(base, explicit_state)
+    else:
+        state_dir = _platform_state_dir(resolved_config.stem or "knowb")
+
     forbidden_paths = _string_list(data.get("forbidden_paths"))
     max_depth = max(0, min(int(data.get("max_discovery_depth", 2)), 5))
     max_file_bytes = max(1024, min(int(data.get("max_file_bytes", 1_048_576)), 20_971_520))
@@ -289,6 +339,7 @@ def load_registry(config_path: str | Path | None = None) -> Registry:
             )
         )
 
+    repository_root = _find_repository_root()
     return Registry(
         config_path=resolved_config,
         repository_root=repository_root,

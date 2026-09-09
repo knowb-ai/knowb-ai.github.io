@@ -42,6 +42,34 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
         return service.discover_local_repos()
 
     @server.tool()
+    def health() -> dict[str, Any]:
+        """Report adapter readiness, project status, and declared capability boundaries."""
+
+        return service.health()
+
+    @server.tool()
+    def onboard_folder(folder: str, name: str = "", project_id: str = "", visibility: str = "local") -> dict[str, Any]:
+        """Create a portable KnowB folder with manifest, connector, and client config."""
+
+        from .onboarding import init_folder
+
+        return init_folder(
+            folder, name=name or None, project_id=project_id or None, visibility=visibility
+        )
+
+    @server.tool()
+    def client_config(folder: str, name: str = "", project_id: str = "", command: str = "knowb-org-mcp") -> dict[str, Any]:
+        """Emit or refresh the portable MCP client configuration for a folder."""
+
+        from .onboarding import client_config_for, write_client_config
+
+        if name or project_id:
+            if not project_id:
+                raise ValueError("--id is required when writing a client config")
+            return write_client_config(folder, project_id, name or project_id, command=command)
+        return client_config_for(folder)
+
+    @server.tool()
     def refresh_index(projects: list[str] | None = None) -> dict[str, Any]:
         """Incrementally refresh local knowledge for selected or all registered projects."""
 
