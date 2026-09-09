@@ -4,13 +4,15 @@ from __future__ import annotations
 
 import os
 import re
+import hashlib
+import sys
 from pathlib import Path
 from typing import Any
 
 import yaml
 
 from .discovery import read_origin
-from .models import DesignAssetConfig, KnowledgeSource, Project, Registry
+from .models import CapabilityConfig, DesignAssetConfig, KnowledgeSource, Project, Registry
 
 
 _PROJECT_ID = re.compile(r"^[A-Za-z0-9_.-]+$")
@@ -47,14 +49,30 @@ def _resolve(base: Path, raw: str | os.PathLike[str]) -> Path:
     return (base / value).resolve() if not value.is_absolute() else value.resolve()
 
 
+def _is_verified_checkout(root: Path) -> bool:
+    """Recognize the connector source layout without trusting arbitrary folders."""
+
+    return (
+        (root / "config.toml").is_file()
+        and (root / "config").is_dir()
+        and (root / "mcp" / "pyproject.toml").is_file()
+    )
+
+
 def _find_repository_root() -> Path:
     override = os.environ.get("KNOWB_ORG_ROOT")
     if override:
-        return Path(override).expanduser().resolve()
-    candidates = [Path.cwd().resolve(), Path(__file__).resolve()]
+        root = Path(override).expanduser().resolve()
+        if _is_verified_checkout(root):
+            return root
+        raise ConfigurationError(
+            "KNOWB_ORG_ROOT must point to a verified KnowB checkout containing "
+            "config.toml, config/, and mcp/pyproject.toml"
+        )
+    candidates = [Path.cwd().resolve()]
     for candidate in candidates:
         for parent in (candidate, *candidate.parents):
-            if (parent / "config.toml").is_file() and (parent / "config").is_dir():
+            if _is_verified_checkout(parent):
                 return parent
     raise ConfigurationError(
         "Cannot locate the KnowB repository root. Set KNOWB_ORG_ROOT explicitly."
@@ -68,6 +86,45 @@ def default_config_path() -> Path:
     root = _find_repository_root()
     local = root / "config" / "local-projects.yml"
     return local if local.is_file() else root / "config" / "local-projects.example.yml"
+
+
+def _default_state_root() -> Path:
+    override = os.environ.get("KNOWB_STATE_ROOT", "").strip()
+    if override:
+        path = Path(override).expanduser()
+        if not path.is_absolute():
+            raise ConfigurationError("KNOWB_STATE_ROOT must be an absolute path")
+        return path.resolve()
+    if sys.platform == "darwin":
+        return (Path.home() / "Library" / "Application Support").resolve()
+    if os.name == "nt":
+        return Path(os.environ.get("LOCALAPPDATA", Path.home() / "AppData/Local")).resolve()
+    return Path(os.environ.get("XDG_STATE_HOME", Path.home() / ".local/state")).expanduser().resolve()
+
+
+def _state_dir(base: Path, data: dict[str, Any], resolved_config: Path) -> Path:
+    if "state_dir" in data:
+        return _resolve(base, data["state_dir"])
+    key = hashlib.sha256(str(resolved_config).encode("utf-8")).hexdigest()[:24]
+    return _default_state_root() / "knowb-org-index" / key
+
+
+def _capabilities(value: Any) -> CapabilityConfig:
+    if value is None:
+        return CapabilityConfig()
+    if not isinstance(value, dict):
+        raise ConfigurationError("capabilities must be a mapping")
+    github = value.get("github", {})
+    if isinstance(github, bool):
+        enabled = github
+    elif isinstance(github, dict):
+        raw_enabled = github.get("enabled", True)
+        if not isinstance(raw_enabled, bool):
+            raise ConfigurationError("capabilities.github.enabled must be a boolean")
+        enabled = raw_enabled
+    else:
+        raise ConfigurationError("capabilities.github must be a mapping or boolean")
+    return CapabilityConfig(github_enabled=enabled)
 
 
 def _string_list(value: Any, *, default: tuple[str, ...] = ()) -> tuple[str, ...]:
@@ -191,13 +248,14 @@ def _design_assets(
 def load_registry(config_path: str | Path | None = None) -> Registry:
     """Load and validate the local registry plus repo-owned manifests."""
 
+    explicit_config = config_path is not None or bool(os.environ.get("KNOWB_ORG_CONFIG", "").strip())
     resolved_config = Path(config_path).expanduser().resolve() if config_path else default_config_path()
     data = _load_yaml(resolved_config)
     if data.get("version") != 1:
         raise ConfigurationError("Registry version must be 1")
 
-    repository_root = _find_repository_root()
     base = resolved_config.parent
+    repository_root = base if explicit_config else _find_repository_root()
     raw_roots = data.get("allowed_roots")
     if not isinstance(raw_roots, list) or not raw_roots:
         raise ConfigurationError("allowed_roots must contain at least one local directory")
@@ -209,13 +267,14 @@ def load_registry(config_path: str | Path | None = None) -> Registry:
     if not organization:
         raise ConfigurationError("organization cannot be empty")
     strict_manifests = bool(data.get("strict_manifests", True))
-    state_dir = _resolve(base, data.get("state_dir", "../.knowb-state"))
+    state_dir = _state_dir(base, data, resolved_config)
     forbidden_paths = _string_list(data.get("forbidden_paths"))
     max_depth = max(0, min(int(data.get("max_discovery_depth", 2)), 5))
     max_file_bytes = max(1024, min(int(data.get("max_file_bytes", 1_048_576)), 20_971_520))
     design_assets = _design_assets(
         data.get("design_assets"), base=base, allowed_roots=allowed_roots
     )
+    capabilities = _capabilities(data.get("capabilities"))
 
     raw_projects = data.get("projects", [])
     if not isinstance(raw_projects, list):
@@ -301,4 +360,5 @@ def load_registry(config_path: str | Path | None = None) -> Registry:
         forbidden_paths=forbidden_paths,
         projects=tuple(projects),
         design_assets=design_assets,
+        capabilities=capabilities,
     )

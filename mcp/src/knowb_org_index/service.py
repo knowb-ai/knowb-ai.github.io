@@ -3,10 +3,11 @@
 from __future__ import annotations
 
 import re
+import os
 from pathlib import Path
 from typing import Any
 
-from .config import ConfigurationError, load_registry
+from .config import ConfigurationError, _find_repository_root, load_registry
 from .design_assets import DesignAssetOperations
 from .discovery import discover_candidates
 from .env import load_dotenv
@@ -24,7 +25,13 @@ class OrgIndexService:
     """Single local control-plane facade used by both the CLI and MCP server."""
 
     def __init__(self, config_path: str | Path | None = None) -> None:
-        load_dotenv()
+        legacy_root = None
+        if config_path is None and not os.environ.get("KNOWB_ORG_CONFIG", "").strip():
+            try:
+                legacy_root = _find_repository_root()
+            except ConfigurationError:
+                legacy_root = None
+        load_dotenv(legacy_checkout_root=legacy_root)
         self.registry: Registry = load_registry(config_path)
         self.index = LocalIndex(self.registry)
         self.github = GitHubOperations(

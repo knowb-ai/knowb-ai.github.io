@@ -15,19 +15,13 @@ class EnvironmentFileError(ValueError):
     """Raised when the local environment file contains an unsafe/malformed line."""
 
 
-def default_env_path() -> Path:
-    """Return the explicit env path or the repository-local .env path."""
+def default_env_path(*, legacy_checkout_root: Path | None = None) -> Path | None:
+    """Return an explicitly selected env path or verified legacy checkout path."""
 
     explicit = os.environ.get("KNOWB_ENV_FILE", "").strip()
     if explicit:
         return Path(explicit).expanduser().resolve()
-    root = os.environ.get("KNOWB_ORG_ROOT", "").strip()
-    repository_root = (
-        Path(root).expanduser().resolve()
-        if root
-        else Path(__file__).resolve().parents[3]
-    )
-    return repository_root / ".env"
+    return legacy_checkout_root / ".env" if legacy_checkout_root else None
 
 
 def _parse_value(raw: str) -> str:
@@ -45,11 +39,24 @@ def _parse_value(raw: str) -> str:
     return value
 
 
-def load_dotenv(path: str | Path | None = None) -> Path | None:
+def load_dotenv(
+    path: str | Path | None = None,
+    *,
+    legacy_checkout_root: Path | None = None,
+) -> Path | None:
     """Load simple KEY=VALUE entries; existing process variables always win."""
 
-    resolved = Path(path).expanduser().resolve() if path else default_env_path()
+    explicit = path is not None or bool(os.environ.get("KNOWB_ENV_FILE", "").strip())
+    resolved = (
+        Path(path).expanduser().resolve()
+        if path
+        else default_env_path(legacy_checkout_root=legacy_checkout_root)
+    )
+    if resolved is None:
+        return None
     if not resolved.is_file():
+        if explicit:
+            raise EnvironmentFileError(f"Environment file does not exist: {resolved}")
         return None
     try:
         lines = resolved.read_text(encoding="utf-8").splitlines()
