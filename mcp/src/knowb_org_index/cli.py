@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import shutil
 import sys
 from pathlib import Path
 from typing import Any, Sequence
@@ -14,7 +13,6 @@ from .design_assets import DesignAssetError
 from .env import EnvironmentFileError
 from .github_ops import GitHubError
 from .index import IndexError
-from .okf import diagnostics
 from .service import OrgIndexService
 
 
@@ -105,24 +103,9 @@ def run(argv: Sequence[str] | None = None) -> int:
         elif args.command == "discover":
             _json(service.discover_local_repos())
         elif args.command == "doctor":
-            directory = service.list_projects(include_candidates=True)
-            _json(
-                {
-                    "ok": diagnostics()["available"],
-                    "search": diagnostics(),
-                    "config": str(service.registry.config_path),
-                    "database": str(service.registry.database_path),
-                    "git": shutil.which("git"),
-                    "gh": shutil.which("gh"),
-                    "registered": directory["summary"],
-                    "warnings": [
-                        {"project": project.id, "warnings": list(project.warnings)}
-                        for project in service.registry.projects
-                        if project.warnings
-                    ],
-                }
-            )
-            if not diagnostics()["available"]:
+            report = service.doctor()
+            _json(report)
+            if not report["ok"]:
                 return 2
         elif args.command == "index":
             _json(service.refresh_index(args.projects or None))

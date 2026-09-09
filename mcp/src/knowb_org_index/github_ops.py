@@ -30,11 +30,21 @@ class GitHubOperations:
     """GitHub boundary. No method reads or uploads local project documents."""
 
     def __init__(
-        self, organization: str, index: LocalIndex, allowed_roots: tuple[Path, ...]
+        self,
+        organization: str,
+        index: LocalIndex,
+        allowed_roots: tuple[Path, ...],
+        *,
+        enabled: bool = True,
     ) -> None:
         self.organization = organization
         self.index = index
         self.allowed_roots = tuple(root.resolve() for root in allowed_roots)
+        self.enabled = enabled
+
+    def _ensure_enabled(self) -> None:
+        if not self.enabled:
+            raise GitHubError("GitHub capability is disabled by registry policy")
 
     def _repo(self, repository: str) -> str:
         match = _REPO.fullmatch(repository.strip())
@@ -144,6 +154,8 @@ class GitHubOperations:
     ) -> dict[str, Any]:
         """Persist a reviewed repo creation plan without creating anything."""
 
+        self._ensure_enabled()
+
         try:
             blueprint = build_repository_blueprint(
                 name=name,
@@ -216,6 +228,7 @@ class GitHubOperations:
         query: str | None = None,
         limit: int = 50,
     ) -> dict[str, Any]:
+        self._ensure_enabled()
         if state not in {"open", "closed", "all"}:
             raise GitHubError("state must be open, closed, or all")
         terms = [f"org:{self.organization}", "is:issue"]
@@ -263,6 +276,7 @@ class GitHubOperations:
         }
 
     def get_ticket(self, repository: str, number: int) -> dict[str, Any]:
+        self._ensure_enabled()
         repo = self._repo(repository)
         issue_number = int(number)
         if issue_number < 1:
@@ -285,6 +299,7 @@ class GitHubOperations:
         }
 
     def get_project(self, project_number: int, *, include_items: bool = True) -> dict[str, Any]:
+        self._ensure_enabled()
         number = self._project_number(project_number)
         project = self._run(
             [
@@ -326,6 +341,7 @@ class GitHubOperations:
         project_number: int | None = None,
         idempotency_key: str | None = None,
     ) -> dict[str, Any]:
+        self._ensure_enabled()
         repo = self._repo(repository)
         clean_title = title.strip()
         if not clean_title:
@@ -373,6 +389,7 @@ class GitHubOperations:
         remove_assignees: list[str] | None = None,
         idempotency_key: str | None = None,
     ) -> dict[str, Any]:
+        self._ensure_enabled()
         repo = self._repo(repository)
         issue_number = int(number)
         if issue_number < 1:
@@ -420,6 +437,7 @@ class GitHubOperations:
         value: str | float | None = None,
         idempotency_key: str | None = None,
     ) -> dict[str, Any]:
+        self._ensure_enabled()
         number = self._project_number(project_number)
         allowed_types = {"text", "number", "date", "single_select", "iteration", "clear"}
         if value_type not in allowed_types:
@@ -451,6 +469,7 @@ class GitHubOperations:
         )
 
     def confirm(self, token: str) -> dict[str, Any]:
+        self._ensure_enabled()
         pending, claimed = self.index.claim_pending_action(token)
         if pending is None:
             raise GitHubError("Unknown confirmation token")
