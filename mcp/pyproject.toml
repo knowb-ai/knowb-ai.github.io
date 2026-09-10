@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "knowb-org-index"
-version = "0.1.0"
+version = "0.2.0"
 description = "Local-first MCP directory and GitHub work control plane for KnowB AI projects"
 readme = "README.md"
 requires-python = ">=3.11"
