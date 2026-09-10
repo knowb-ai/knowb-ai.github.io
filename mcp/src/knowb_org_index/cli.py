@@ -99,11 +99,13 @@ def _parser() -> argparse.ArgumentParser:
     init.add_argument("--visibility", default="local", choices=["local", "public", "hidden"])
     init.add_argument("--force", action="store_true")
 
-    client = sub.add_parser("client-config", help="Emit or refresh the portable MCP client configuration for a folder")
-    client.add_argument("folder")
+    client = sub.add_parser("client-config", help="Emit or refresh the portable MCP client configuration")
+    client.add_argument("folder", nargs="?", help="Onboarded folder; omit when --config names a registry")
     client.add_argument("--name")
     client.add_argument("--id", dest="project_id")
-    client.add_argument("--command", default="knowb-org-mcp")
+    client.add_argument("--command", dest="server_command", default="knowb-org-mcp")
+    client.add_argument("--output", type=Path, help="Explicit output JSON path for a legacy registry")
+    client.add_argument("--server-name")
     client.add_argument("--force", action="store_true")
 
     return parser
@@ -137,26 +139,43 @@ def _onboard(argv: Sequence[str] | None = None) -> int:
     return 0
 
 
-def _client_config(argv: Sequence[str] | None = None) -> int:
-    from .onboarding import OnboardingError, client_config_for, write_client_config
-
-    parser = argparse.ArgumentParser(
-        prog="knowb-org client-config",
-        description="Emit or refresh the portable MCP client configuration for a folder",
+def _client_config(args: argparse.Namespace) -> int:
+    from .onboarding import (
+        OnboardingError,
+        client_config_for,
+        write_client_config,
+        write_registry_client_config,
     )
-    parser.add_argument("folder")
-    parser.add_argument("--name")
-    parser.add_argument("--id", dest="project_id")
-    parser.add_argument("--command", default="knowb-org-mcp")
-    parser.add_argument("--force", action="store_true")
-    args = parser.parse_args(argv)
+
     try:
-        if args.force or args.name or args.project_id:
-            if not args.project_id:
-                raise OnboardingError("--id is required when writing a client config")
-            result = write_client_config(args.folder, args.project_id, args.name or args.project_id, command=args.command)
+        if args.config:
+            if args.folder or args.name or args.project_id:
+                raise OnboardingError(
+                    "--config registry mode cannot be combined with folder identity options"
+                )
+            result = write_registry_client_config(
+                args.config,
+                output=args.output,
+                command=args.server_command,
+                server_name=args.server_name or "knowb-ai-portfolio",
+                force=args.force,
+            )
         else:
-            result = client_config_for(args.folder)
+            if not args.folder:
+                raise OnboardingError("provide a folder or global --config registry path")
+            if args.output or args.server_name:
+                raise OnboardingError("--output and --server-name require global --config registry mode")
+            if args.force or args.name or args.project_id:
+                if not args.project_id:
+                    raise OnboardingError("--id is required when writing a client config")
+                result = write_client_config(
+                    args.folder,
+                    args.project_id,
+                    args.name or args.project_id,
+                    command=args.server_command,
+                )
+            else:
+                result = client_config_for(args.folder)
     except (OnboardingError, OSError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
@@ -170,7 +189,7 @@ def run(argv: Sequence[str] | None = None) -> int:
     if args.command == "init":
         return _onboard(argv[1:])
     if args.command == "client-config":
-        return _client_config(argv[1:])
+        return _client_config(args)
     try:
         service = OrgIndexService(args.config)
         if args.command == "status":

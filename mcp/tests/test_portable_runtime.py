@@ -1,4 +1,5 @@
 import os
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -9,6 +10,7 @@ import yaml
 from knowb_org_index.config import ConfigurationError, load_registry
 from knowb_org_index.env import EnvironmentFileError, load_dotenv
 from knowb_org_index.service import OrgIndexService
+from knowb_org_index.onboarding import write_registry_client_config
 
 
 class PortableRuntimeTests(unittest.TestCase):
@@ -89,6 +91,25 @@ class PortableRuntimeTests(unittest.TestCase):
             data.pop("capabilities")
             config.write_text(yaml.safe_dump(data), encoding="utf-8")
             self.assertTrue(load_registry(config).capabilities.github_enabled)
+
+    def test_legacy_registry_client_config_is_explicit_and_preserves_registry(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            config = self._config(root, "portfolio")
+            original = config.read_text(encoding="utf-8")
+            output = root / "mcp" / "portfolio.client.json"
+            result = write_registry_client_config(
+                config,
+                output=output,
+                server_name="knowb-ai-portfolio",
+                force=True,
+            )
+            self.assertEqual(config.read_text(encoding="utf-8"), original)
+            self.assertEqual(result["config"]["mcpServers"]["knowb-ai-portfolio"]["command"], "knowb-org-mcp")
+            payload = json.loads(output.read_text(encoding="utf-8"))
+            server = payload["mcpServers"]["knowb-ai-portfolio"]
+            self.assertEqual(server["args"], ["--config", str(config)])
+            self.assertEqual(server["env"]["KNOWB_ORG_CONFIG"], str(config))
 
 
 if __name__ == "__main__":
