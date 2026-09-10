@@ -31,6 +31,20 @@ completed under issue #9.
 - Design-asset uploads are restricted to configured local roots and require the
   same proposal/confirmation/audit flow as other external writes.
 
+## New repository contract
+
+The reviewed repository-creation flow initializes every new repository with a
+`.knowb/project.yml` passport, a `.knowb/mcp-client.example.json` client template,
+MCP-first `AGENTS.md` instructions, and
+`docs/operations/knowb-mcp-validation.md`. The generated instructions tell agents
+to retrieve approved KnowledgeHQ decisions, boundaries, constraints, and direction
+before running the repository's native checks.
+
+The passport makes a repository connector-ready and a candidate for discovery. An
+owner or operator must still explicitly add and enable its local clone in the private
+KnowledgeHQ registry before it is indexed. Private registry contents and proprietary
+documents are never copied into a new project repository.
+
 The local server cannot guarantee that returned content stays on-device when its
 client uses a hosted model. For strict no-egress use, connect it to a local model
 and client. This is a client boundary, not a server configuration switch.

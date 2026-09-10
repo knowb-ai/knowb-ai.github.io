@@ -33,7 +33,14 @@ requires a reviewed product/brand brief before confirmation, then initializes th
 with contribution and agent guidance plus a project-owned knowledge wiki. Every new
 wiki begins with brand narrative and strategic direction, a compact visual token and
 component system adapted to public or internal use, and architecture, decision,
-research, and operations sections.
+research, and operations sections. New repositories also receive a project passport,
+portable MCP client example, and MCP-first validation guide so they can map approved
+KnowledgeHQ decisions, boundaries, constraints, and direction into local work.
+
+Registration remains explicit: the passport makes a repository a discovery candidate,
+but an owner or operator must enable its local clone in the private KnowledgeHQ
+registry before it is indexed. Private registry contents and proprietary documents are
+never copied into the new repository.
 
 The private [`knowledgeHQ` repository](https://github.com/knowb-ai/knowledgeHQ) is the canonical wiki for KnowB AI Systems. It contains the MCP Atlas design-asset vault decision, product and runtime strategy, operator architecture, and preservation research. Its contents are not part of this public site.
 

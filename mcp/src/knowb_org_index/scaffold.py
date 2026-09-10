@@ -199,7 +199,7 @@ def render_repository_files(brief: dict[str, Any]) -> dict[str, str]:
         ".gitignore": _gitignore(brief["tech_stack"]),
         "LICENSE": _license(brief["license"]),
         "CONTRIBUTING.md": _contributing(display_name),
-        "AGENTS.md": _agents(display_name),
+        "AGENTS.md": _agents(display_name, name),
         ".knowb/project.yml": (
             "version: 1\n"
             f"id: {_yaml(name)}\n"
@@ -236,6 +236,8 @@ def render_repository_files(brief: dict[str, Any]) -> dict[str, str]:
             "Operations",
             "Document how to run, observe, recover, release, and safely retire the system.",
         ),
+        ".knowb/mcp-client.example.json": _mcp_client_example(),
+        "docs/operations/knowb-mcp-validation.md": _knowb_validation(name),
     }
     if not purpose:
         raise ScaffoldError("Cannot render a repository without a purpose")
@@ -330,6 +332,22 @@ def _readme(brief: dict[str, Any]) -> str:
 - [Decisions](docs/decisions/README.md)
 - [Research](docs/research/README.md)
 - [Operations](docs/operations/README.md)
+- [KnowB MCP validation](docs/operations/knowb-mcp-validation.md)
+
+## KnowB MCP and KnowledgeHQ
+
+This repository is initialized with a KnowB project passport and a portable MCP
+client template. The shared connector implementation lives in the public
+`knowb-ai.github.io/mcp` repository; the private KnowledgeHQ registry remains the
+canonical source for approved cross-project decisions, boundaries, constraints,
+and strategic direction.
+
+Use [.knowb/mcp-client.example.json](.knowb/mcp-client.example.json) and
+[the validation guide](docs/operations/knowb-mcp-validation.md) when configuring
+an MCP host. The project passport makes this repository discoverable, but an
+owner or operator must explicitly register its local clone in KnowledgeHQ before
+the private index reads it. No private registry, proprietary document, or MCP
+server source is copied into this repository.
 
 ## Status
 
@@ -355,6 +373,7 @@ clear entry points, explicit decisions, and context that stays useful to humans 
 4. [Decisions](decisions/README.md)
 5. [Research](research/README.md)
 6. [Operations](operations/README.md)
+7. [KnowB MCP validation](operations/knowb-mcp-validation.md)
 
 ## Knowledge contract
 
@@ -363,6 +382,8 @@ clear entry points, explicit decisions, and context that stays useful to humans 
 - Record decisions when they change constraints, APIs, data, security, or product direction.
 - Update the narrative and visual system when the product direction changes.
 - Never place credentials, personal data, or private scratch material in indexed docs.
+- Treat `.knowb/project.yml` as the project passport: it declares the safe roots
+  KnowledgeHQ may map after explicit registry enablement.
 
 Current purpose: {brief['purpose']}
 """
@@ -549,6 +570,10 @@ def _gitignore(stack: list[str]) -> str:
         "build/",
         ".claude/",
         ".codex/",
+        ".knowb-state/",
+        ".knowb/connector.yml",
+        ".knowb/mcp-client.json",
+        "knowb.json",
     ]
     normalized = " ".join(stack).casefold()
     if any(token in normalized for token in ("python", "django", "flask", "fastapi")):
@@ -620,7 +645,7 @@ A change is ready when its behavior, documentation, and operational consequences
 """
 
 
-def _agents(name: str) -> str:
+def _agents(name: str, project_id: str) -> str:
     return f"""# AGENTS.md — {name}
 
 These instructions apply to the entire repository unless a deeper `AGENTS.md` narrows them.
@@ -630,6 +655,26 @@ These instructions apply to the entire repository unless a deeper `AGENTS.md` na
 - Read `README.md` and `docs/README.md` before acting.
 - Read the brand narrative, strategic direction, and visual design system before changing UI or copy.
 - Check current branch, worktree state, and the linked GitHub issue.
+
+## KnowB MCP and KnowledgeHQ
+
+- Use the shared KnowB MCP Connector from `knowb-ai.github.io/mcp` for every
+  build, test, release, or implementation validation.
+- Before changing direction or validating work, run `doctor` against the
+  private KnowledgeHQ registry, retrieve context for `knowledgeHQ` and the
+  `{project_id}` project, then search and read the exact source documents that
+  support the decision.
+- Treat KnowledgeHQ as the source for cross-project decisions, boundaries,
+  constraints, and strategic direction. Treat this repository as authoritative
+  for its own code, tests, and local implementation runbooks.
+- After MCP context validation, run this repository's native checks and inspect
+  Git status/diff separately. MCP context does not replace native verification.
+- Follow `docs/operations/knowb-mcp-validation.md` and copy
+  `.knowb/mcp-client.example.json` to a machine-local client config only after
+  replacing its absolute paths. Never commit credentials, local state, or a
+  private KnowledgeHQ checkout.
+- If the connector is unavailable, report MCP validation as incomplete; do not
+  silently substitute unverified assumptions for KnowledgeHQ context.
 
 ## Working rules
 
@@ -645,6 +690,79 @@ These instructions apply to the entire repository unless a deeper `AGENTS.md` na
 - Run the mandatory build/smoke path for the changed surface.
 - Review the final diff for scope, security, and documentation alignment.
 - Report what changed, what was validated, and any remaining operational step.
+"""
+
+
+def _mcp_client_example() -> str:
+    return json.dumps(
+        {
+            "mcpServers": {
+                "knowb-ai-portfolio": {
+                    "command": "uv",
+                    "args": [
+                        "run",
+                        "--project",
+                        "/absolute/path/to/knowb-ai.github.io/mcp",
+                        "knowb-org-mcp",
+                        "--config",
+                        "/absolute/path/to/knowledgeHQ/.knowb/knowb-ai-portfolio.yml",
+                    ],
+                    "env": {
+                        "KNOWB_ORG_CONFIG": (
+                            "/absolute/path/to/knowledgeHQ/.knowb/knowb-ai-portfolio.yml"
+                        )
+                    },
+                }
+            }
+        },
+        indent=2,
+    )
+
+
+def _knowb_validation(project_id: str) -> str:
+    return f"""# KnowB MCP validation
+
+This project is initialized to use the shared KnowB MCP Connector for portfolio
+context. It can retrieve KnowledgeHQ decisions, boundaries, constraints, and
+direction while keeping implementation truth in this repository.
+
+## Configure a local MCP host
+
+1. Clone or locate the public `knowb-ai.github.io` checkout and the private
+   `knowledgeHQ` checkout side by side.
+2. Copy `.knowb/mcp-client.example.json` into your machine-local MCP client
+   configuration and replace both absolute path placeholders.
+3. Do not commit the machine-local config, credentials, connector state, or a
+   copy of private KnowledgeHQ documents.
+
+## Required validation sequence
+
+Run the connector first, then the repository's native checks:
+
+```sh
+KNOWB_MCP=/absolute/path/to/knowb-ai.github.io/mcp
+KNOWB_HQ=/absolute/path/to/knowledgeHQ/.knowb/knowb-ai-portfolio.yml
+
+uv run --project "$KNOWB_MCP" knowb-org --config "$KNOWB_HQ" doctor
+uv run --project "$KNOWB_MCP" knowb-org --config "$KNOWB_HQ" context knowledgeHQ
+uv run --project "$KNOWB_MCP" knowb-org --config "$KNOWB_HQ" context {project_id}
+uv run --project "$KNOWB_MCP" knowb-org --config "$KNOWB_HQ" search "<decision or constraint>" --limit 5
+uv run --project "$KNOWB_MCP" knowb-org --config "$KNOWB_HQ" read {project_id} docs/decisions/<source>.md
+```
+
+Then run the language, framework, packaging, security, and smoke checks owned by
+this repository. Review `git status` and the final diff separately. The connector
+uses the Rust-backed `okf-rs` adapter for local knowledge search when available;
+that does not replace the project's native toolchain.
+
+## Registration boundary
+
+`.knowb/project.yml` is this repository's project passport. It declares the
+allowlisted knowledge roots and makes the project a candidate for discovery, but
+it does not grant automatic private-index access. An owner or operator must
+review and explicitly enable this local clone in the private KnowledgeHQ
+registry before it is indexed. This preserves the portfolio allowlist while
+making every newly initialized repository connector-ready.
 """
 
 
