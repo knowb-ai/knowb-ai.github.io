@@ -7,9 +7,11 @@ serve the website.
 Portable installation and folder onboarding are scoped in the
 [packaging implementation and test plan](docs/portable-packaging-plan.md) and the
 [core implementation plan](docs/portable-connector-core-implementation-plan.md).
+The release and knowledgeHQ migration procedure is in the
+[P6 release plan](docs/portable-release-migration-plan.md).
 This branch packages the native `okf-rs` adapter and keeps source-checkout launch
-available as verified legacy mode while the release and knowledgeHQ migration stay
-in issue #9.
+available as verified legacy mode while the release and knowledgeHQ migration are
+completed under issue #9.
 
 ## Guarantees
 
@@ -88,9 +90,15 @@ retrieval uses `okf-rs`, not SQLite FTS.
 
 ### Portable wheel installation
 
-Build a native wheel on each target runner. The wheel is non-pure and contains one
-target-named `knowb-okf-bridge` executable, so an installed connector does not need
-Cargo, Git, `gh`, the website checkout, or network access for local knowledge work:
+The 0.2.0 release candidate supports macOS ARM64 and Linux x86_64 after their
+native wheel and installed-artifact checks pass. macOS x86_64 and Windows x86_64
+remain explicitly excluded until their native release evidence is attached; the
+full policy is in [`release/support-matrix.yml`](release/support-matrix.yml).
+
+Build a native wheel on each supported target runner. The wheel is non-pure and
+contains one target-named `knowb-okf-bridge` executable, so an installed connector
+does not need Cargo, Git, `gh`, the website checkout, or network access for local
+knowledge work:
 
 ~~~sh
 uv build --sdist --wheel --project mcp
@@ -105,6 +113,11 @@ adapter is selected before any source-checkout fallback, and an ambient
 absolute developer override. `doctor` reports adapter source, protocol metadata,
 state readiness, synthetic search status, and optional GitHub/design-vault status.
 
+The release workflow produces one exact wheel per target plus `checksums.txt`,
+`release-manifest.json`, `sbom.cdx.json`, and `licenses.json`. Publish only those
+files after the installed-artifact and rollback gates pass; never rebuild a file
+after its checksum is recorded.
+
 ## Connect an MCP client
 
 Use the shape in `config/mcp-client.example.json`, replacing the repository path
@@ -116,6 +129,26 @@ uv run --project /absolute/path/to/knowb-ai.github.io/mcp knowb-org-mcp
 
 No HTTP endpoint is created. The MCP host launches this process and communicates
 over stdin/stdout.
+
+### Existing knowledgeHQ registry
+
+The portfolio registry remains explicit and stays in the private knowledgeHQ
+checkout. Generate an installed-server entry without copying that registry into
+the package:
+
+```sh
+knowb-org --config /absolute/path/to/knowledgeHQ/.knowb/knowb-ai-portfolio.yml \
+  client-config \
+  --output /absolute/path/to/knowledgeHQ/mcp/knowb-ai-portfolio.client.json \
+  --server-name knowb-ai-portfolio \
+  --force
+```
+
+Review the generated JSON before applying it to an MCP client. It contains an
+absolute `--config` argument and matching `KNOWB_ORG_CONFIG` environment value,
+but no credentials or registry contents. `knowb-org-mcp --config PATH` consumes
+that entry directly. The command writes a file only when `--output` is supplied;
+without it, the generated config is printed for review.
 
 ## Knowledge tools
 
@@ -416,3 +449,17 @@ PYTHONPATH=mcp/src mcp/.venv/bin/python mcp/scripts/audit_artifact.py mcp/dist/k
 ```
 
 The real-engine tests require the compiled adapter; CI builds it before testing.
+
+Before changing the shared knowledgeHQ client, stop the existing MCP process and
+create an online SQLite backup:
+
+```sh
+python mcp/scripts/backup_sqlite.py \
+  /absolute/path/to/knowledgeHQ/.knowb-state/org-index.sqlite \
+  /absolute/path/to/recovery/knowledgeHQ-org-index.sqlite
+```
+
+The backup command reports only schema, table counts, integrity, and a checksum.
+Use the preserved registry and backup to rehearse the candidate and to restore the
+prior connector if rollback is required. Do not delete the old state or apply an
+automatic schema migration.

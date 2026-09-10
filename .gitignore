@@ -40,3 +40,7 @@ google-desktop-client*.json
 
 # Compiled okf-rs adapter
 mcp/okf-bridge/target/
+
+# Release artifacts and evidence are generated in CI and must not be committed.
+mcp/release/artifacts/
+mcp/release/evidence/
