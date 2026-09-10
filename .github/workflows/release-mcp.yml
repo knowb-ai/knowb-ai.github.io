@@ -53,7 +53,10 @@ jobs:
       - name: Build exact artifacts
         env:
           KNOWB_BUILD_TARGET: ${{ matrix.target }}
-        run: uv build --sdist --wheel --project mcp --out-dir dist/${{ matrix.id }}
+        run: uv build --wheel --project mcp --out-dir dist/${{ matrix.id }}
+      - name: Build the source distribution once
+        if: ${{ matrix.id == 'macos-arm64' }}
+        run: uv build --sdist --project mcp --out-dir dist/${{ matrix.id }}
       - name: Audit wheel
         run: |
           PYTHONPATH=mcp/src python mcp/scripts/audit_artifact.py dist/${{ matrix.id }}/*.whl
@@ -72,9 +75,65 @@ jobs:
             evidence/${{ matrix.id }}/*
           if-no-files-found: error
 
+  verify:
+    name: verify ${{ matrix.id }} / Python ${{ matrix.python }}
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - id: macos-arm64
+            os: macos-14
+            python: "3.11"
+          - id: macos-arm64
+            os: macos-14
+            python: "3.12"
+          - id: macos-arm64
+            os: macos-14
+            python: "3.13"
+          - id: macos-arm64
+            os: macos-14
+            python: "3.14"
+          - id: linux-x86_64
+            os: ubuntu-22.04
+            python: "3.11"
+          - id: linux-x86_64
+            os: ubuntu-22.04
+            python: "3.12"
+          - id: linux-x86_64
+            os: ubuntu-22.04
+            python: "3.13"
+          - id: linux-x86_64
+            os: ubuntu-22.04
+            python: "3.14"
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: astral-sh/setup-uv@v6
+      - uses: actions/download-artifact@v4
+        with:
+          name: mcp-release-${{ matrix.id }}
+          path: release
+      - name: Install the exact wheel
+        run: |
+          WHEEL=$(find release -type f -name '*.whl' -print -quit)
+          test -n "$WHEEL"
+          uv venv --python "${{ matrix.python }}" /tmp/portable-venv
+          uv pip install --python /tmp/portable-venv/bin/python "$WHEEL"
+          echo "WHEEL=$WHEEL" >> "$GITHUB_ENV"
+      - name: Run installed-artifact acceptance tests
+        run: |
+          KNOWB_PORTABLE_WHEEL="$WHEEL" KNOWB_PORTABLE_PYTHON=/tmp/portable-venv/bin/python \
+            /tmp/portable-venv/bin/python -m unittest discover -s mcp/tests -p 'test_portable.py' -v
+          KNOWB_PORTABLE_PYTHON=/tmp/portable-venv/bin/python \
+            /tmp/portable-venv/bin/python -m unittest discover -s mcp/tests -p 'test_stdio.py' -v
+
   publish:
     name: publish reviewed release
-    needs: build
+    needs: [build, verify]
     if: ${{ inputs.publish == true }}
     runs-on: ubuntu-22.04
     steps:
@@ -82,7 +141,6 @@ jobs:
         with:
           pattern: mcp-release-*
           path: release
-          merge-multiple: true
       - name: Verify artifact set before publication
         run: |
           test -n "$(find release -type f -name '*.whl' -print -quit)"

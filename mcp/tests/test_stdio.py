@@ -45,7 +45,10 @@ class StdioAcceptanceTests(unittest.TestCase):
                 for key, value in os.environ.items()
                 if key not in {"KNOWB_ORG_ROOT", "KNOWB_ORG_CONFIG", "PYTHONPATH"}
             }
-            environment["PYTHONPATH"] = str(Path(__file__).resolve().parents[1] / "src")
+            if os.environ.get("KNOWB_PORTABLE_PYTHON"):
+                environment.pop("PYTHONPATH", None)
+            else:
+                environment["PYTHONPATH"] = str(Path(__file__).resolve().parents[1] / "src")
             process = subprocess.Popen(
                 [sys.executable, "-m", "knowb_org_index.server", "--config", str(config)],
                 stdin=subprocess.PIPE,

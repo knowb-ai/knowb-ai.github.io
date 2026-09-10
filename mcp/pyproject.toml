@@ -33,6 +33,7 @@ include = [
   "/src/knowb_org_index/**",
   "/okf-bridge/**",
   "/docs/**",
+  "/release/**",
   "/scripts/**",
 ]
 exclude = [
