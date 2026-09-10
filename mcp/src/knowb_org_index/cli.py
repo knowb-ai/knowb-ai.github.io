@@ -30,6 +30,7 @@ def _parser() -> argparse.ArgumentParser:
 
     sub.add_parser("status", help="Show registered projects and local candidates")
     sub.add_parser("discover", help="Discover KnowB candidates within allowed roots")
+    sub.add_parser("health", help="Report adapter readiness, project status, and capability boundaries")
     sub.add_parser("doctor", help="Check runtime, paths, and project availability")
 
     index = sub.add_parser("index", help="Incrementally index local project knowledge")
@@ -91,17 +92,93 @@ def _parser() -> argparse.ArgumentParser:
     confirm_upload.add_argument("token")
 
     sub.add_parser("serve", help="Run the MCP server over local stdio")
+    init = sub.add_parser("init", help="Create a portable KnowB folder with manifest, connector, and client config")
+    init.add_argument("folder")
+    init.add_argument("--name")
+    init.add_argument("--id", dest="project_id")
+    init.add_argument("--visibility", default="local", choices=["local", "public", "hidden"])
+    init.add_argument("--force", action="store_true")
+
+    client = sub.add_parser("client-config", help="Emit or refresh the portable MCP client configuration for a folder")
+    client.add_argument("folder")
+    client.add_argument("--name")
+    client.add_argument("--id", dest="project_id")
+    client.add_argument("--command", default="knowb-org-mcp")
+    client.add_argument("--force", action="store_true")
+
     return parser
 
 
+def _onboard(argv: Sequence[str] | None = None) -> int:
+    from .onboarding import OnboardingError, init_folder
+
+    parser = argparse.ArgumentParser(
+        prog="knowb-org init",
+        description="Create a portable KnowB folder with manifest, connector, and client config",
+    )
+    parser.add_argument("folder")
+    parser.add_argument("--name")
+    parser.add_argument("--id", dest="project_id")
+    parser.add_argument("--visibility", default="local", choices=["local", "public", "hidden"])
+    parser.add_argument("--force", action="store_true")
+    args = parser.parse_args(argv)
+    try:
+        result = init_folder(
+            args.folder,
+            name=args.name,
+            project_id=args.project_id,
+            visibility=args.visibility,
+            force=args.force,
+        )
+    except (OnboardingError, OSError) as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+    _json(result)
+    return 0
+
+
+def _client_config(argv: Sequence[str] | None = None) -> int:
+    from .onboarding import OnboardingError, client_config_for, write_client_config
+
+    parser = argparse.ArgumentParser(
+        prog="knowb-org client-config",
+        description="Emit or refresh the portable MCP client configuration for a folder",
+    )
+    parser.add_argument("folder")
+    parser.add_argument("--name")
+    parser.add_argument("--id", dest="project_id")
+    parser.add_argument("--command", default="knowb-org-mcp")
+    parser.add_argument("--force", action="store_true")
+    args = parser.parse_args(argv)
+    try:
+        if args.force or args.name or args.project_id:
+            if not args.project_id:
+                raise OnboardingError("--id is required when writing a client config")
+            result = write_client_config(args.folder, args.project_id, args.name or args.project_id, command=args.command)
+        else:
+            result = client_config_for(args.folder)
+    except (OnboardingError, OSError) as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+    _json(result)
+    return 0
+
+
 def run(argv: Sequence[str] | None = None) -> int:
+    argv = list(sys.argv[1:] if argv is None else argv)
     args = _parser().parse_args(argv)
+    if args.command == "init":
+        return _onboard(argv[1:])
+    if args.command == "client-config":
+        return _client_config(argv[1:])
     try:
         service = OrgIndexService(args.config)
         if args.command == "status":
             _json(service.list_projects(include_candidates=True))
         elif args.command == "discover":
             _json(service.discover_local_repos())
+        elif args.command == "health":
+            _json(service.health())
         elif args.command == "doctor":
             report = service.doctor()
             _json(report)

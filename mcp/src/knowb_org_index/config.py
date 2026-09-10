@@ -83,9 +83,12 @@ def default_config_path() -> Path:
     override = os.environ.get("KNOWB_ORG_CONFIG")
     if override:
         return Path(override).expanduser().resolve()
+    local = Path.cwd().resolve() / ".knowb" / "connector.yml"
+    if local.is_file():
+        return local
     root = _find_repository_root()
-    local = root / "config" / "local-projects.yml"
-    return local if local.is_file() else root / "config" / "local-projects.example.yml"
+    portfolio = root / "config" / "local-projects.yml"
+    return portfolio if portfolio.is_file() else root / "config" / "local-projects.example.yml"
 
 
 def _default_state_root() -> Path:
@@ -248,7 +251,12 @@ def _design_assets(
 def load_registry(config_path: str | Path | None = None) -> Registry:
     """Load and validate the local registry plus repo-owned manifests."""
 
-    explicit_config = config_path is not None or bool(os.environ.get("KNOWB_ORG_CONFIG", "").strip())
+    local_config = Path.cwd().resolve() / ".knowb" / "connector.yml"
+    explicit_config = (
+        config_path is not None
+        or bool(os.environ.get("KNOWB_ORG_CONFIG", "").strip())
+        or local_config.is_file()
+    )
     resolved_config = Path(config_path).expanduser().resolve() if config_path else default_config_path()
     data = _load_yaml(resolved_config)
     if data.get("version") != 1:

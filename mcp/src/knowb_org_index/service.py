@@ -49,6 +49,91 @@ class OrgIndexService:
             github_enabled=self.registry.capabilities.github_enabled,
         )
 
+    def health(self) -> dict[str, Any]:
+        """Report adapter readiness, project status, and capability boundaries."""
+
+        adapter = diagnostics()
+        projects = []
+        for project in self.registry.projects:
+            stats = self.index.project_stats(project.id)
+            projects.append(
+                {
+                    "id": project.id,
+                    "active": project.active,
+                    "available": project.available,
+                    "manifest_present": project.manifest_present,
+                    "manifest_source": project.manifest_source,
+                    "documents": stats.get("documents", 0),
+                    "status": stats.get("status"),
+                    "warnings": list(project.warnings),
+                }
+            )
+        return {
+            "ok": bool(adapter["available"]) and not any(
+                project["warnings"] for project in projects
+            ),
+            "adapter": adapter,
+            "config_path": str(self.registry.config_path),
+            "state_dir": str(self.registry.state_dir),
+            "database_path": str(self.registry.database_path),
+            "organization": self.registry.organization,
+            "strict_manifests": self.registry.strict_manifests,
+            "projects": projects,
+            "capabilities": self.capabilities(),
+        }
+
+    def capabilities(self) -> dict[str, Any]:
+        """Declare available operations and their local/network boundaries."""
+
+        adapter = diagnostics()
+        return {
+            "search_backend": "okf-rs" if adapter["available"] else "unavailable",
+            "search_backend_note": (
+                "okf-rs ranked full-text retrieval over scoped project snapshots"
+                if adapter["available"]
+                else "search_knowledge will fail until the adapter is installed"
+            ),
+            "knowledge_scopes": [
+                "list_projects",
+                "discover_local_repos",
+                "refresh_index",
+                "search_knowledge",
+                "read_project_doc",
+                "get_project_context",
+                "find_related_work",
+            ],
+            "github_scopes": [
+                "list_work",
+                "get_ticket",
+                "get_github_project",
+                "propose_ticket_create",
+                "propose_ticket_update",
+                "propose_project_update",
+                "confirm_ticket_create",
+                "confirm_ticket_update",
+                "confirm_project_update",
+                "audit_log",
+            ],
+            "design_asset_scopes": [
+                "verify_design_asset_vault",
+                "authenticate_design_asset_vault",
+                "list_design_assets",
+                "read_design_asset",
+                "propose_design_asset_upload",
+                "confirm_design_asset_upload",
+            ],
+            "remix_scopes": ["remix", "draft_repository_blueprint"],
+            "boundaries": {
+                "discovery": "bounded to allowed_roots; never scans the whole computer",
+                "discovered_are_candidates": True,
+                "knowledge_source": "explicitly registered local clones only",
+                "transport": "local stdio; no listening port",
+                "network_egress": "GitHub only via explicit ticket/project tools",
+                "no_silent_fallback": "missing adapter fails search; no SQLite FTS fallback",
+                "design_assets_disabled_by_default": not self.registry.design_assets.enabled,
+            },
+        }
+
     def draft_repository_blueprint(self, **brief: Any) -> dict[str, Any]:
         """Ideate and render a reviewable repository blueprint without writing files."""
 

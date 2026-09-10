@@ -133,7 +133,7 @@ class Registry:
     """Validated local registry configuration."""
 
     config_path: Path
-    repository_root: Path
+    repository_root: Path | None
     organization: str
     allowed_roots: tuple[Path, ...]
     state_dir: Path
