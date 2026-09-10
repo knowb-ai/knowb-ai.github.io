@@ -157,15 +157,11 @@ def write_client_config(
             f"Connector registry missing: {registry_path}. Run knowb-org init first."
         )
 
-    config = {
-        "mcpServers": {
-            "knowb-org-index": {
-                "command": command,
-                "args": ["--config", str(registry_path)],
-                "env": {"KNOWB_ORG_CONFIG": str(registry_path)},
-            }
-        }
-    }
+    config = _client_config_payload(
+        registry_path,
+        command=command,
+        server_name="knowb-org-index",
+    )
     client_path = project_path / "knowb.json"
     client_path.write_text(
         json.dumps(config, indent=_JSON_INDENT, sort_keys=True) + "\n",
@@ -173,6 +169,68 @@ def write_client_config(
     )
     return {
         "path": str(client_path),
+        "command": command,
+        "registry": str(registry_path),
+        "config": config,
+    }
+
+
+def _client_config_payload(
+    registry_path: Path,
+    *,
+    command: str,
+    server_name: str,
+) -> dict[str, Any]:
+    if not command.strip():
+        raise OnboardingError("Client command cannot be empty")
+    if not server_name.strip():
+        raise OnboardingError("MCP server name cannot be empty")
+    return {
+        "mcpServers": {
+            server_name: {
+                "command": command,
+                "args": ["--config", str(registry_path)],
+                "env": {"KNOWB_ORG_CONFIG": str(registry_path)},
+            }
+        }
+    }
+
+
+def write_registry_client_config(
+    registry: str | Path,
+    *,
+    output: str | Path | None = None,
+    command: str = "knowb-org-mcp",
+    server_name: str = "knowb-ai-portfolio",
+    force: bool = False,
+) -> dict[str, Any]:
+    """Generate an installed-server config for an existing explicit registry.
+
+    With no ``output`` path this is a print-only operation. Supplying ``output``
+    is the explicit approval boundary for writing a client settings file.
+    """
+
+    registry_path = Path(registry).expanduser().resolve()
+    if not registry_path.is_file():
+        raise OnboardingError(f"Connector registry missing: {registry_path}")
+    config = _client_config_payload(
+        registry_path,
+        command=command,
+        server_name=server_name,
+    )
+    output_path = Path(output).expanduser().resolve() if output else None
+    if output_path is not None:
+        if output_path.exists() and not force:
+            raise OnboardingError(
+                f"Client configuration already exists: {output_path}. Pass --force to overwrite."
+            )
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(
+            json.dumps(config, indent=_JSON_INDENT, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+    return {
+        "path": str(output_path) if output_path else None,
         "command": command,
         "registry": str(registry_path),
         "config": config,

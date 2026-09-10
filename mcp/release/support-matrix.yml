@@ -1,0 +1,39 @@
+schema_version: 1
+package: knowb-org-index
+release_version: 0.2.0
+python: ">=3.11"
+adapter:
+  upstream: okf-rs
+  revision: 6d52cc7ad0b5afea2e0001779b4498e268905ddc
+  protocol: 1
+
+# A target is advertised only after the native wheel and installed-artifact
+# acceptance suite pass on that target. The first release is intentionally
+# limited to the targets with executable evidence in this repository/CI.
+supported:
+  - id: macos-arm64
+    runner: macos-14
+    rust_target: aarch64-apple-darwin
+    wheel_tag: macosx_11_0_arm64
+    python: ["3.11", "3.12", "3.13", "3.14"]
+  - id: linux-x86_64
+    runner: ubuntu-22.04
+    rust_target: x86_64-unknown-linux-gnu
+    wheel_tag: manylinux_2_17_x86_64
+    python: ["3.11", "3.12", "3.13", "3.14"]
+
+# These targets are tracked explicitly so a missing runner cannot be mistaken
+# for support. Add them only with native build and installed-runtime evidence.
+excluded:
+  - id: macos-x86_64
+    rust_target: x86_64-apple-darwin
+    reason: no native release-runner evidence yet
+  - id: windows-x86_64
+    rust_target: x86_64-pc-windows-msvc
+    reason: no native release-runner evidence yet
+  - id: linux-arm64
+    rust_target: aarch64-unknown-linux-gnu
+    reason: outside the first release support claim
+  - id: windows-arm64
+    rust_target: aarch64-pc-windows-msvc
+    reason: outside the first release support claim

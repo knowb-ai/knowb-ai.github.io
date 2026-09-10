@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import json
+import argparse
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -465,10 +467,13 @@ def _confirm_kind(service: OrgIndexService, token: str, expected: str) -> dict[s
     return service.github.confirm(token)
 
 
-def main() -> None:
+def main(argv: list[str] | None = None) -> None:
     """Run the local server over stdio (the MCP SDK default transport)."""
 
-    create_server().run()
+    parser = argparse.ArgumentParser(prog="knowb-org-mcp")
+    parser.add_argument("--config", type=Path, help="Local registry YAML path")
+    args = parser.parse_args(sys.argv[1:] if argv is None else argv)
+    create_server(args.config).run()
 
 
 if __name__ == "__main__":

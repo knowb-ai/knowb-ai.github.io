@@ -1,0 +1,167 @@
+name: Release MCP connector
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version, for example 0.2.0"
+        required: true
+        type: string
+      publish:
+        description: "Publish the already validated artifacts as a GitHub release"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-mcp-${{ inputs.version }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: build ${{ matrix.id }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - id: macos-arm64
+            os: macos-14
+            target: aarch64-apple-darwin
+            python: "3.11"
+          - id: linux-x86_64
+            os: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
+            python: "3.11"
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - uses: astral-sh/setup-uv@v6
+      - name: Verify requested version
+        shell: bash
+        run: test "$(sed -n 's/^version = "\([^"]*\)"/\1/p' mcp/pyproject.toml | head -1)" = "${{ inputs.version }}"
+      - name: Build exact artifacts
+        env:
+          KNOWB_BUILD_TARGET: ${{ matrix.target }}
+        run: uv build --wheel --project mcp --out-dir dist/${{ matrix.id }}
+      - name: Build the source distribution once
+        if: ${{ matrix.id == 'macos-arm64' }}
+        run: uv build --sdist --project mcp --out-dir dist/${{ matrix.id }}
+      - name: Audit wheel
+        run: |
+          PYTHONPATH=mcp/src python mcp/scripts/audit_artifact.py dist/${{ matrix.id }}/*.whl
+      - name: Generate provenance, SBOM, licenses, and checksums
+        run: |
+          python mcp/scripts/release_evidence.py \
+            --artifact-dir dist/${{ matrix.id }} \
+            --output-dir evidence/${{ matrix.id }} \
+            --source-commit "$GITHUB_SHA" \
+            --target "${{ matrix.target }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mcp-release-${{ matrix.id }}
+          path: |
+            dist/${{ matrix.id }}/*
+            evidence/${{ matrix.id }}/*
+          if-no-files-found: error
+
+  verify:
+    name: verify ${{ matrix.id }} / Python ${{ matrix.python }}
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - id: macos-arm64
+            os: macos-14
+            python: "3.11"
+          - id: macos-arm64
+            os: macos-14
+            python: "3.12"
+          - id: macos-arm64
+            os: macos-14
+            python: "3.13"
+          - id: macos-arm64
+            os: macos-14
+            python: "3.14"
+          - id: linux-x86_64
+            os: ubuntu-22.04
+            python: "3.11"
+          - id: linux-x86_64
+            os: ubuntu-22.04
+            python: "3.12"
+          - id: linux-x86_64
+            os: ubuntu-22.04
+            python: "3.13"
+          - id: linux-x86_64
+            os: ubuntu-22.04
+            python: "3.14"
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: astral-sh/setup-uv@v6
+      - uses: actions/download-artifact@v4
+        with:
+          name: mcp-release-${{ matrix.id }}
+          path: release
+      - name: Install the exact wheel
+        run: |
+          WHEEL=$(find release -type f -name '*.whl' -print -quit)
+          test -n "$WHEEL"
+          uv venv --python "${{ matrix.python }}" /tmp/portable-venv
+          uv pip install --python /tmp/portable-venv/bin/python "$WHEEL"
+          echo "WHEEL=$WHEEL" >> "$GITHUB_ENV"
+      - name: Run installed-artifact acceptance tests
+        run: |
+          KNOWB_PORTABLE_WHEEL="$WHEEL" KNOWB_PORTABLE_PYTHON=/tmp/portable-venv/bin/python \
+            /tmp/portable-venv/bin/python -m unittest discover -s mcp/tests -p 'test_portable.py' -v
+          KNOWB_PORTABLE_PYTHON=/tmp/portable-venv/bin/python \
+            /tmp/portable-venv/bin/python -m unittest discover -s mcp/tests -p 'test_stdio.py' -v
+
+  publish:
+    name: publish reviewed release
+    needs: [build, verify]
+    if: ${{ inputs.publish == true }}
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: mcp-release-*
+          path: release
+      - name: Verify artifact set before publication
+        run: |
+          test -n "$(find release -type f -name '*.whl' -print -quit)"
+          test -n "$(find release -type f -name 'checksums.txt' -print -quit)"
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+
+          for checksum_file in Path("release").rglob("checksums.txt"):
+              for line in checksum_file.read_text().splitlines():
+                  expected, name = line.split(maxsplit=1)
+                  artifact = checksum_file.parent / name.strip()
+                  digest = hashlib.sha256(artifact.read_bytes()).hexdigest()
+                  if digest != expected:
+                      raise SystemExit(f"checksum mismatch: {artifact}")
+          PY
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mapfile -t artifacts < <(find release -type f \( -name '*.whl' -o -name '*.tar.gz' \) | sort)
+          gh release create "mcp-v${{ inputs.version }}" "${artifacts[@]}" \
+            --repo "$GITHUB_REPOSITORY" --title "knowb-org-index ${{ inputs.version }}" \
+            --generate-notes
