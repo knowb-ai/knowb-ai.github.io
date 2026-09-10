@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Local-first MCP directory and GitHub work control plane for KnowB AI projects"
 readme = "README.md"
 requires-python = ">=3.11"
-license = { text = "MIT" }
+license = { file = "LICENSE" }
 dependencies = [
   "mcp>=2.0,<3.0",
   "PyYAML>=6.0,<7.0"
@@ -22,20 +22,24 @@ knowb-org-mcp = "knowb_org_index.server:main"
 packages = ["src/knowb_org_index"]
 
 [tool.hatch.build.hooks.custom]
-path = "hatch_build.py"
 
 [tool.hatch.build.targets.sdist]
 include = [
-  "hatch_build.py",
-  "pyproject.toml",
-  "README.md",
-  "src/knowb_org_index",
-  "okf-bridge/Cargo.toml",
-  "okf-bridge/Cargo.lock",
-  "okf-bridge/src/main.rs",
-  "tests",
-  "docs",
-  "licenses",
+  "/LICENSE",
+  "/README.md",
+  "/pyproject.toml",
+  "/uv.lock",
+  "/hatch_build.py",
+  "/src/knowb_org_index/**",
+  "/okf-bridge/**",
+  "/docs/**",
+  "/scripts/**",
+]
+exclude = [
+  "/okf-bridge/target/**",
+  "/dist/**",
+  "/.venv/**",
+  "/tests/**",
 ]
 
 [tool.uv]

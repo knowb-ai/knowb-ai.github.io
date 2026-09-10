@@ -20,4 +20,6 @@ jobs:
       - run: cargo build --release --locked --manifest-path mcp/okf-bridge/Cargo.toml
       - run: uv sync --locked --project mcp
       - run: mcp/.venv/bin/python -m unittest discover -s mcp/tests -v
+      - run: uv build --sdist --wheel --project mcp
+      - run: PYTHONPATH=mcp/src mcp/.venv/bin/python mcp/scripts/audit_artifact.py mcp/dist/knowb_org_index-*.whl
       - run: git diff --check

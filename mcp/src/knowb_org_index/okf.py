@@ -1,11 +1,4 @@
-"""Export scoped documents as OKF and query the pinned Rust search adapter.
-
-The adapter is bundled inside the installed package at
-`knowb_org_index/_bin/knowb-okf-bridge`. An explicit `KNOWB_OKF_BRIDGE`
-override is accepted for development builds and must be an absolute path.
-Ambient PATH preference is intentionally removed so an unrelated stale
-binary cannot replace the packaged version.
-"""
+"""Export scoped documents as OKF and query the pinned Rust search adapter."""
 
 from __future__ import annotations
 
@@ -14,10 +7,10 @@ import json
 import math
 import os
 import re
-import shutil
 import subprocess
 import tempfile
-from importlib import resources as importlib_resources
+import platform
+from importlib import resources
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote
@@ -25,128 +18,166 @@ from urllib.parse import quote
 import yaml
 
 from .index import IndexError
+from .protocol import (
+    ADAPTER_VERSION,
+    MAX_INFO_BYTES,
+    MAX_QUERY_BYTES,
+    MAX_REQUEST_BYTES,
+    MAX_RESULTS,
+    OKF_RS_REVISION,
+    AdapterInfo,
+    parse_adapter_info,
+)
+from .build_targets import TARGET_PLATFORMS
 
 
-_ADAPTER_NAME = "knowb-okf-bridge.exe" if os.name == "nt" else "knowb-okf-bridge"
-
-
-def _bundled_adapter() -> Path:
-    """Return the adapter shipped inside the installed package, if present."""
-
-    try:
-        files = importlib_resources.files("knowb_org_index") / "_bin" / _ADAPTER_NAME
-        with importlib_resources.as_file(files) as path:
-            return Path(path)
-    except (ModuleNotFoundError, FileNotFoundError):
-        return Path(__file__).resolve().parent / "_bin" / _ADAPTER_NAME
-
-
-def _dev_fallback() -> Path | None:
-    """A documented fallback for development checkouts only.
-
-    The bundled adapter is always preferred. When it is absent and the
-    application is running from a checkout (a repository root was found),
-    fall back to the checked-in build path so developers can run the
-    real-engine tests without setting an override. Installed wheels never
-    reach this path: they ship the adapter inside the package.
-    """
-
-    from .config import _find_repository_root
-
-    root = _find_repository_root()
-    if root is None:
-        return None
-    candidate = root / "mcp" / "okf-bridge" / "target" / "release" / _ADAPTER_NAME
-    return candidate if candidate.is_file() else None
+class AdapterError(IndexError):
+    """A bounded, typed failure while invoking or validating the bridge."""
 
 
 def bridge_path() -> str:
-    """Resolve the active okf-rs adapter.
-
-    Order: an explicit absolute override, then the bundled package resource,
-    then a documented development fallback to the checkout build path. An
-    ambient PATH lookup is deliberately not consulted so a stale, unrelated
-    binary can never shadow the shipped adapter.
-    """
+    """Return the deterministic adapter path selected for this installation."""
 
     configured = os.environ.get("KNOWB_OKF_BRIDGE", "").strip()
     if configured:
-        path = Path(configured).expanduser()
-        if not path.is_absolute():
-            raise IndexError(
-                "KNOWB_OKF_BRIDGE must be an absolute executable path"
-            )
-        return str(path)
-    bundled = _bundled_adapter()
-    if bundled.is_file():
-        return str(bundled)
-    fallback = _dev_fallback()
-    if fallback is not None:
-        return str(fallback)
-    return str(bundled)
+        return str(Path(configured).expanduser())
+    package = _packaged_bridge()
+    if package is not None and package.is_file():
+        return str(package)
+    checkout = _checkout_bridge()
+    if checkout is not None:
+        return str(checkout)
+    if package is not None:
+        return str(package)
+    return str(Path(__file__).resolve().parents[2] / "okf-bridge/target/release/knowb-okf-bridge")
 
 
-def _bridge_version() -> str:
-    """Return the adapter's self-reported version, or '' if it cannot run."""
+def _runtime_target() -> str | None:
+    machine = platform.machine().casefold()
+    if sys_platform := platform.system().casefold():
+        if sys_platform == "darwin":
+            target = f"{'aarch64' if machine in {'arm64', 'aarch64'} else 'x86_64'}-apple-darwin"
+        elif sys_platform == "linux":
+            target = f"{'aarch64' if machine in {'arm64', 'aarch64'} else 'x86_64'}-unknown-linux-gnu"
+        elif sys_platform == "windows":
+            target = f"{'aarch64' if machine in {'arm64', 'aarch64'} else 'x86_64'}-pc-windows-msvc"
+        else:
+            return None
+        return target if target in TARGET_PLATFORMS else None
+    return None
 
-    binary = bridge_path()
+
+def _packaged_bridge() -> Path | None:
+    target = _runtime_target()
+    if target is None:
+        return None
+    name = f"knowb-okf-bridge-{target}" + (".exe" if os.name == "nt" else "")
+    resource = resources.files("knowb_org_index").joinpath("_bin", name)
     try:
-        result = subprocess.run(
-            [binary, "--version"],
-            check=False,
-            capture_output=True,
-            text=True,
-            timeout=10,
-        )
-    except (OSError, subprocess.TimeoutExpired):
-        return ""
-    return result.stdout.strip()
+        return Path(resource)
+    except TypeError:
+        # A zipped/non-filesystem loader cannot safely execute a native resource.
+        return None
+
+
+def _checkout_bridge() -> Path | None:
+    root = Path(__file__).resolve().parents[2]
+    if not (
+        (root / "okf-bridge" / "Cargo.toml").is_file()
+        and (root.parent / "config.toml").is_file()
+        and (root.parent / "config").is_dir()
+    ):
+        return None
+    binary = root / "okf-bridge" / "target" / "release" / "knowb-okf-bridge"
+    if os.name == "nt":
+        binary = binary.with_suffix(".exe")
+    return binary
 
 
 def diagnostics() -> dict[str, Any]:
     binary = bridge_path()
-    available = Path(binary).is_file() and os.access(binary, os.X_OK)
-    version = _bridge_version() if available else ""
-    return {
+    configured = os.environ.get("KNOWB_OKF_BRIDGE", "").strip()
+    source = "override" if configured else "package"
+    packaged = _packaged_bridge()
+    if not configured and (packaged is None or not packaged.is_file()):
+        source = "checkout" if _checkout_bridge() else "package"
+    path = Path(binary)
+    result: dict[str, Any] = {
         "backend": "okf-rs",
-        "binary": binary,
-        "available": available,
-        "version": version,
-        "protocol": 1 if version else 0,
+        "binary": str(path),
+        "source": source,
+        "target": _runtime_target(),
+        "available": path.is_file() and os.access(path, os.X_OK) and not path.is_symlink(),
     }
+    if configured and not path.is_absolute():
+        result.update({"available": False, "error": "KNOWB_OKF_BRIDGE must be absolute"})
+    elif path.is_symlink():
+        result.update({"available": False, "error": "adapter path must not be a symlink"})
+    if result["available"]:
+        try:
+            info = adapter_info(str(path))
+            result["info"] = info.to_dict()
+        except AdapterError as exc:
+            result.update({"available": False, "error": str(exc)})
+    return result
 
 
-def _protocol_mismatch(diag: dict[str, Any]) -> bool:
-    """A bundled adapter must speak protocol 1; an override may be anything."""
+def adapter_info(binary: str | None = None, *, timeout: float = 5.0) -> AdapterInfo:
+    """Run the bridge handshake and validate its advertised contract."""
 
-    if os.environ.get("KNOWB_OKF_BRIDGE", "").strip():
-        return False
-    return bool(diag.get("protocol")) and diag["protocol"] != 1
+    selected = binary or bridge_path()
+    path = Path(selected)
+    if not path.is_file():
+        raise AdapterError("okf-rs adapter is missing")
+    if not os.access(path, os.X_OK):
+        raise AdapterError("okf-rs adapter is not executable")
+    try:
+        result = subprocess.run(
+            [str(path), "--info"],
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise AdapterError("okf-rs adapter handshake timed out") from exc
+    except OSError as exc:
+        raise AdapterError("okf-rs adapter could not be executed") from exc
+    if result.returncode:
+        raise AdapterError("okf-rs adapter handshake failed")
+    output = result.stdout
+    if len(output.encode("utf-8", errors="replace")) > MAX_INFO_BYTES:
+        raise AdapterError("okf-rs adapter handshake exceeded output limit")
+    try:
+        parsed = parse_adapter_info(json.loads(output))
+    except (ValueError, json.JSONDecodeError) as exc:
+        raise AdapterError("okf-rs adapter returned invalid handshake metadata") from exc
+    if parsed.okf_rs_revision != OKF_RS_REVISION:
+        raise AdapterError("okf-rs adapter revision is incompatible")
+    if parsed.adapter_version != ADAPTER_VERSION:
+        raise AdapterError("okf-rs adapter version is incompatible")
+    return parsed
 
 
 def search_documents(
     documents: list[dict[str, Any]], query: str, limit: int, state_dir: Path,
 ) -> list[dict[str, Any]]:
     """One scoped bundle gives all selected projects comparable BM25 scores."""
-
     if not query.strip():
         raise IndexError("query cannot be empty")
-    if len(query.encode("utf-8")) > 16384:
+    if len(query.encode("utf-8")) > MAX_QUERY_BYTES:
         raise IndexError("query exceeds 16 KiB")
     if not documents:
         return []
     binary = bridge_path()
     diag = diagnostics()
     if not diag["available"]:
-        raise IndexError(
-            "okf-rs search adapter is missing. Install the platform wheel or "
-            "set KNOWB_OKF_BRIDGE to an absolute executable path."
+        detail = diag.get("error", "adapter is missing")
+        raise AdapterError(
+            "okf-rs search adapter is missing. Build with: cargo build --release --locked "
+            f"--manifest-path mcp/okf-bridge/Cargo.toml; {detail}."
         )
-    if _protocol_mismatch(diag):
-        raise IndexError(
-            "okf-rs adapter protocol mismatch; reinstall the packaged connector."
-        )
-    limit = max(1, min(limit, 50))
+    limit = max(1, min(limit, MAX_RESULTS))
     # Per-call private snapshots isolate simultaneous requests and never include
     # unselected projects, disabled repositories, or arbitrary source files.
     with tempfile.TemporaryDirectory(prefix="okf-", dir=state_dir) as directory:
@@ -172,17 +203,23 @@ def search_documents(
             + "\n".join(f"- [{key}]({key}.md)" for key in identities) + "\n",
             encoding="utf-8",
         )
-        request = json.dumps({"bundle": directory, "query": query, "limit": limit, "documents": len(documents)})
+        request = json.dumps(
+            {"bundle": directory, "query": query, "limit": limit, "documents": len(documents)}
+        )
+        if len(request.encode("utf-8")) > MAX_REQUEST_BYTES:
+            raise AdapterError("okf-rs request exceeds 64 KiB")
         try:
             result = subprocess.run(
                 [binary], input=request, text=True, capture_output=True, timeout=60,
                 cwd=directory, check=False,
             )
         except (OSError, subprocess.TimeoutExpired) as exc:
-            raise IndexError("okf-rs adapter unavailable or timed out") from exc
+            raise AdapterError("okf-rs adapter unavailable or timed out") from exc
         if result.returncode:
             # Never echo source-bearing diagnostics to an unrelated tool caller.
-            raise IndexError("okf-rs search failed; check the adapter build and bundle compatibility")
+            raise AdapterError("okf-rs search failed; check the adapter build and bundle compatibility")
+        if len((result.stdout or "").encode("utf-8", errors="replace")) > MAX_REQUEST_BYTES:
+            raise AdapterError("Invalid response from okf-rs adapter")
         try:
             response = json.loads(result.stdout)
             hits = response["results"]
@@ -212,4 +249,4 @@ def search_documents(
                 })
             return results
         except (ValueError, KeyError, TypeError) as exc:
-            raise IndexError("Invalid response from okf-rs adapter") from exc
+            raise AdapterError("Invalid response from okf-rs adapter") from exc

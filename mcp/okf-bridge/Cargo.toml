@@ -3,6 +3,7 @@ name = "knowb-okf-bridge"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
+build = "build.rs"
 
 [dependencies]
 okf-parser = { git = "https://github.com/jyjeanne/okf-rs", rev = "6d52cc7ad0b5afea2e0001779b4498e268905ddc" }

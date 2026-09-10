@@ -5,8 +5,11 @@ Local-first directory, knowledge index, and GitHub work control plane for the
 serve the website.
 
 Portable installation and folder onboarding are scoped in the
-[packaging implementation and test plan](docs/portable-packaging-plan.md).
-That plan describes the next release; the current checkout setup is below.
+[packaging implementation and test plan](docs/portable-packaging-plan.md) and the
+[core implementation plan](docs/portable-connector-core-implementation-plan.md).
+This branch packages the native `okf-rs` adapter and keeps source-checkout launch
+available as verified legacy mode while the release and knowledgeHQ migration stay
+in issue #9.
 
 ## Guarantees
 
@@ -34,7 +37,7 @@ and client. This is a client boundary, not a server configuration switch.
 
 - Python 3.11+
 - `uv`
-- Rust/Cargo to build the pinned `okf-rs` search adapter once
+- Rust/Cargo only when building from source; released wheels carry the pinned adapter
 - GitHub CLI (`gh`) and Git for ticket/project/repository operations
 - MCP Python SDK 2.x
 
@@ -52,7 +55,7 @@ fit.
 
 ## Start locally
 
-From the repository root:
+From the repository root during development:
 
 ~~~sh
 cargo build --release --locked --manifest-path mcp/okf-bridge/Cargo.toml
@@ -69,17 +72,38 @@ The default loader uses `config/local-projects.yml` when present, otherwise
 export KNOWB_ORG_CONFIG=/absolute/path/to/local-projects.yml
 ~~~
 
-The CLI and local MCP server also load the repository-root `.env` automatically.
-Create it from [`.env.example`](../.env.example). Existing shell variables take
-precedence, and `KNOWB_ENV_FILE` can point to another local env file when the
-package is launched from elsewhere. The real `.env` is ignored by git; never
-put a long-lived credential or refresh token in it.
+In verified legacy checkout mode the CLI and local MCP server may load the
+checkout-root `.env`. A portable install loads an environment file only when
+`KNOWB_ENV_FILE` explicitly names it; existing shell variables always win. The
+real `.env` is ignored by git; never put a long-lived credential or refresh token
+in it.
 
-Local state is stored in `.knowb-state/org-index.sqlite` and ignored by git.
-SQLite stores document snapshots and the durable action/audit ledger; project files
-remain the knowledge source of truth. Preserve the database when migrating: it
-contains pending confirmations and action history. Ranked retrieval uses `okf-rs`,
-not SQLite FTS.
+If the registry declares `state_dir`, SQLite remains at that path for compatibility.
+Otherwise the connector derives an isolated directory under the platform user-state
+root using the canonical registry path; `KNOWB_STATE_ROOT` is an absolute test or
+operations override. SQLite stores document snapshots and the durable action/audit
+ledger; project files remain the knowledge source of truth. Preserve the database
+when migrating: it contains pending confirmations and action history. Ranked
+retrieval uses `okf-rs`, not SQLite FTS.
+
+### Portable wheel installation
+
+Build a native wheel on each target runner. The wheel is non-pure and contains one
+target-named `knowb-okf-bridge` executable, so an installed connector does not need
+Cargo, Git, `gh`, the website checkout, or network access for local knowledge work:
+
+~~~sh
+uv build --sdist --wheel --project mcp
+uv pip install --python /path/to/project/.venv/bin/python mcp/dist/knowb_org_index-*.whl
+KNOWB_ORG_CONFIG=/absolute/path/to/registry.yml \
+  /path/to/project/.venv/bin/knowb-org doctor
+~~~
+
+Use an absolute `KNOWB_ORG_CONFIG` path for a project-folder install. The packaged
+adapter is selected before any source-checkout fallback, and an ambient
+`knowb-okf-bridge` on `PATH` is never used. `KNOWB_OKF_BRIDGE` remains an explicit
+absolute developer override. `doctor` reports adapter source, protocol metadata,
+state readiness, synthetic search status, and optional GitHub/design-vault status.
 
 ## Connect an MCP client
 
@@ -95,6 +119,7 @@ over stdin/stdout.
 
 ## Knowledge tools
 
+- `doctor` — bounded config, state, adapter, synthetic-search, and capability health report
 - `list_projects` — registered projects and optional local candidates
 - `discover_local_repos` — bounded inventory of all local organization clones
 - `refresh_index` — incremental changed-file refresh
@@ -102,6 +127,17 @@ over stdin/stdout.
 - `read_project_doc` — safe allowlisted document retrieval
 - `get_project_context` — project map, decisions, documents, ticket references
 - `find_related_work` — ticket/query-to-local-knowledge lookup
+
+The optional GitHub policy defaults to enabled for version 1 registries. To run a
+knowledge-only connector, add this block; every GitHub read, proposal, confirmation,
+and design-vault operation then fails before invoking `gh`, Git, OAuth, Keychain, or
+Google Drive:
+
+~~~yaml
+capabilities:
+  github:
+    enabled: false
+~~~
 
 ## Private design-asset vault
 
@@ -333,12 +369,12 @@ discovery command.
 The connector embeds [okf-rs](https://github.com/jyjeanne/okf-rs) through the small
 `mcp/okf-bridge` Rust adapter. `Cargo.toml` pins upstream revision
 `6d52cc7ad0b5afea2e0001779b4498e268905ddc` (0.7.0); `Cargo.lock` pins the dependency graph.
-Build it with the command above. `knowb-org doctor` checks adapter availability and
-returns a failing exit status if it is missing. Set `KNOWB_OKF_BRIDGE` to an absolute
-executable path when deploying a built binary separately; an installed
-`knowb-okf-bridge` on PATH is also supported. On macOS with a broken Xcode selection,
-use `DEVELOPER_DIR=/Library/Developer/CommandLineTools` for the Cargo build if those
-tools are installed. No global developer-tool setting needs to change.
+Build it with the command above. `knowb-org doctor` performs a bounded `--info`
+handshake and synthetic search, returning exit code 2 for missing, incompatible, or
+unusable adapters. Set `KNOWB_OKF_BRIDGE` to an absolute executable path only for a
+developer override. On macOS with a broken Xcode selection, the build hook prefers
+`/Library/Developer/CommandLineTools` when present; no global developer-tool setting
+needs to change.
 
 Existing MCP tool names, client launch configuration, registry allowlists, document
 reads, context results, GitHub confirmations, and design-vault operations remain
@@ -375,6 +411,8 @@ Verify the migration:
 ```sh
 cargo build --release --locked --manifest-path mcp/okf-bridge/Cargo.toml
 mcp/.venv/bin/python -m unittest discover -s mcp/tests -v
+uv build --sdist --wheel --project mcp
+PYTHONPATH=mcp/src mcp/.venv/bin/python mcp/scripts/audit_artifact.py mcp/dist/knowb_org_index-*.whl
 ```
 
 The real-engine tests require the compiled adapter; CI builds it before testing.

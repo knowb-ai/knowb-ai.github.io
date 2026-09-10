@@ -3,6 +3,10 @@
 Status: scoped proposal, ready for implementation. Packaging changes described below
 are not shipped. Prepared 2026-09-09 following a wheel audit and baseline tests.
 
+Issues #4, #5, and #7 are grouped on `codex/portable-connector-core`; see the
+[core implementation plan](portable-connector-core-implementation-plan.md) for its
+architecture, commit sequence, test gates, risk controls, and rollback contract.
+
 ## Outcome
 
 A user installs a versioned connector, points it at a project folder, and connects

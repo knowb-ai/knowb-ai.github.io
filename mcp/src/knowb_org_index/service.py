@@ -2,18 +2,21 @@
 
 from __future__ import annotations
 
+import os
 import re
+import shutil
+import tempfile
 from pathlib import Path
 from typing import Any
 
-from .config import ConfigurationError, load_registry
+from .config import ConfigurationError, _find_repository_root, load_registry
 from .design_assets import DesignAssetOperations
 from .discovery import discover_candidates
 from .env import load_dotenv
 from .github_ops import GitHubOperations
 from .index import IndexError, LocalIndex
 from .models import Project, Registry
-from .okf import diagnostics as _adapter_diagnostics
+from .okf import AdapterError, diagnostics, search_documents
 from .remix import build_design_remix
 from .scaffold import build_repository_blueprint
 
@@ -25,23 +28,31 @@ class OrgIndexService:
     """Single local control-plane facade used by both the CLI and MCP server."""
 
     def __init__(self, config_path: str | Path | None = None) -> None:
-        load_dotenv()
+        legacy_root = None
+        if config_path is None and not os.environ.get("KNOWB_ORG_CONFIG", "").strip():
+            try:
+                legacy_root = _find_repository_root()
+            except ConfigurationError:
+                legacy_root = None
+        load_dotenv(legacy_checkout_root=legacy_root)
         self.registry: Registry = load_registry(config_path)
         self.index = LocalIndex(self.registry)
         self.github = GitHubOperations(
-            self.registry.organization, self.index, self.registry.allowed_roots
+            self.registry.organization,
+            self.index,
+            self.registry.allowed_roots,
+            enabled=self.registry.capabilities.github_enabled,
         )
-        self.design_assets = DesignAssetOperations(self.registry.design_assets, self.index)
+        self.design_assets = DesignAssetOperations(
+            self.registry.design_assets,
+            self.index,
+            github_enabled=self.registry.capabilities.github_enabled,
+        )
 
     def health(self) -> dict[str, Any]:
-        """Structured capability and readiness report.
+        """Report adapter readiness, project status, and capability boundaries."""
 
-        The report never returns a silent degraded state: every capability is
-        declared, and a failing adapter is reported as unavailable rather than
-        silently falling back to SQLite. Clients can gate behavior on this.
-        """
-
-        adapter = _adapter_diagnostics()
+        adapter = diagnostics()
         projects = []
         for project in self.registry.projects:
             stats = self.index.project_stats(project.id)
@@ -72,9 +83,9 @@ class OrgIndexService:
         }
 
     def capabilities(self) -> dict[str, Any]:
-        """Declare what the server can do and what it cannot."""
+        """Declare available operations and their local/network boundaries."""
 
-        adapter = _adapter_diagnostics()
+        adapter = diagnostics()
         return {
             "search_backend": "okf-rs" if adapter["available"] else "unavailable",
             "search_backend_note": (
@@ -291,6 +302,7 @@ class OrgIndexService:
                 "transport": "stdio by default",
                 "network_boundary": "GitHub is contacted only by explicit ticket/project tools",
                 "design_asset_vault": self.registry.design_assets.to_dict(),
+                "capabilities": self.registry.capabilities.to_dict(),
                 "design_asset_network_boundary": (
                     "Google Drive is contacted only by identity-gated design-asset tools; "
                     "folder and file ACLs must not include public, domain, or group access"
@@ -301,6 +313,107 @@ class OrgIndexService:
                 ),
             },
             "directory": directory,
+        }
+
+    def doctor(self) -> dict[str, Any]:
+        """Run bounded local health checks without contacting optional services."""
+
+        config_section = {
+            "path": str(self.registry.config_path),
+            "status": "ok",
+            "organization": self.registry.organization,
+            "projects": len(self.registry.projects),
+            "active_projects": sum(project.active for project in self.registry.projects),
+            "capabilities": self.registry.capabilities.to_dict(),
+        }
+        state_section: dict[str, Any] = {
+            "path": str(self.registry.state_dir),
+            "directory": self.registry.state_dir.is_dir(),
+            "writable": False,
+            "database": str(self.registry.database_path),
+            "database_open": False,
+            "schema_version": 0,
+        }
+        try:
+            self.registry.state_dir.mkdir(parents=True, exist_ok=True)
+            with tempfile.NamedTemporaryFile(
+                prefix=".doctor-", dir=self.registry.state_dir, delete=True
+            ):
+                state_section["writable"] = True
+            with self.index._connect() as connection:
+                connection.execute("SELECT 1")
+                state_section["database_open"] = True
+                tables = {
+                    row["name"]
+                    for row in connection.execute(
+                        "SELECT name FROM sqlite_master WHERE type='table'"
+                    )
+                }
+                state_section["schema_version"] = 1 if "documents" in tables else 0
+        except (OSError, ValueError) as exc:
+            state_section["error"] = str(exc)[:300]
+
+        search_section: dict[str, Any] = diagnostics()
+        search_section["self_test"] = False
+        if search_section.get("available"):
+            token = "knowb-doctor-token-7f4c"
+            try:
+                with tempfile.TemporaryDirectory(
+                    prefix="doctor-", dir=self.registry.state_dir
+                ) as directory:
+                    source = Path(directory) / "doctor.md"
+                    content = f"# Doctor\n{token}\n"
+                    source.write_text(content, encoding="utf-8")
+                    hits = search_documents(
+                        [
+                            {
+                                "project_id": "__doctor__",
+                                "relative_path": "doctor.md",
+                                "title": "Doctor",
+                                "headings": "Doctor",
+                                "source_path": str(source),
+                                "content": content,
+                                "indexed_at": "doctor",
+                            }
+                        ],
+                        token,
+                        1,
+                        self.registry.state_dir,
+                    )
+                    search_section["self_test"] = bool(
+                        hits and hits[0]["path"] == "doctor.md"
+                    )
+            except (AdapterError, IndexError, OSError) as exc:
+                search_section["error"] = str(exc)[:300]
+
+        capabilities = {
+            "local_knowledge": {"enabled": True, "ready": True},
+            "github": {
+                "enabled": self.registry.capabilities.github_enabled,
+                "ready": bool(
+                    self.registry.capabilities.github_enabled and shutil.which("gh")
+                ),
+                "optional": True,
+                "cli": bool(shutil.which("gh")),
+            },
+            "design_vault": {
+                "enabled": self.registry.design_assets.enabled,
+                "ready": False,
+                "optional": True,
+            },
+        }
+        core_ok = bool(
+            state_section["writable"]
+            and state_section["database_open"]
+            and search_section.get("available")
+            and search_section.get("self_test")
+        )
+        return {
+            "ok": core_ok,
+            "config": config_section,
+            "state": state_section,
+            "search": search_section,
+            "capabilities": capabilities,
         }
 
     def project_manifest_template(self, project_id: str) -> str:

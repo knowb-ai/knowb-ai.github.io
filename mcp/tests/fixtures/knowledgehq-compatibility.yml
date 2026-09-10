@@ -1,0 +1,19 @@
+# Public compatibility shape only. No document contents or credentials belong here.
+version: 1
+organization: knowb-ai
+strict_manifests: false
+allowed_roots:
+  - /workspace
+state_dir: /workspace/knowledgeHQ/.knowb-state
+projects:
+  - id: knowb-ai.github.io
+    enabled: true
+    path: /workspace/knowb-ai.github.io
+  - id: knowledgeHQ
+    enabled: true
+    path: /workspace/knowledgeHQ
+    knowledge:
+      roots:
+        - path: .
+          include: ["**/*.md"]
+          exclude: [".obsidian/**", ".knowb/**", ".knowb-state/**"]

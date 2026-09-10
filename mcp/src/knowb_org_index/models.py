@@ -119,6 +119,16 @@ class DesignAssetConfig:
 
 
 @dataclass(frozen=True, slots=True)
+class CapabilityConfig:
+    """Optional remote capability policy for one registry."""
+
+    github_enabled: bool = True
+
+    def to_dict(self) -> dict[str, Any]:
+        return {"github": {"enabled": self.github_enabled}}
+
+
+@dataclass(frozen=True, slots=True)
 class Registry:
     """Validated local registry configuration."""
 
@@ -133,6 +143,7 @@ class Registry:
     forbidden_paths: tuple[str, ...]
     projects: tuple[Project, ...]
     design_assets: DesignAssetConfig = field(default_factory=DesignAssetConfig)
+    capabilities: CapabilityConfig = field(default_factory=CapabilityConfig)
     warnings: tuple[str, ...] = field(default_factory=tuple)
 
     @property

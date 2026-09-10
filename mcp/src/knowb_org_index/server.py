@@ -36,6 +36,12 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
         return service.list_projects(include_candidates=include_candidates)
 
     @server.tool()
+    def doctor() -> dict[str, Any]:
+        """Run bounded local health checks and report optional capability readiness."""
+
+        return service.doctor()
+
+    @server.tool()
     def discover_local_repos() -> dict[str, Any]:
         """Discover every local knowb-ai clone inside configured roots, without indexing it."""
 

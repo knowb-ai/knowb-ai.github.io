@@ -1,16 +1,4 @@
-"""Hatchling build hook: compile the pinned okf-rs adapter and package it.
-
-The hook runs `cargo build --release --locked` against the checked-in
-`okf-bridge` crate, then force-includes the resulting native executable under
-`knowb_org_index/_bin/`. It also emits platform-specific wheel metadata
-(`pure_python=false`) so installers never accept a native artifact inside a
-`py3-none-any` wheel. Compilers are build-time requirements only; the shipped
-wheel contains the finished binary and no Cargo dependency graph.
-
-The hook is invoked by the `custom` build hook registered by hatchling itself.
-It is defined in `pyproject.toml` under
-`[tool.hatch.build.hooks.custom]`.
-"""
+"""Hatch build hook that embeds one native okf-rs bridge in each wheel."""
 
 from __future__ import annotations
 
@@ -19,105 +7,113 @@ import platform
 import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
-from typing import Any
 
 from hatchling.builders.hooks.plugin.interface import BuildHookInterface
 
-
-def _project_root() -> Path:
-    return Path(__file__).resolve().parent
-
-
-def _adapter_name() -> str:
-    """Native executable name for the current platform."""
-    return "knowb-okf-bridge.exe" if sys.platform == "win32" else "knowb-okf-bridge"
+_SOURCE_ROOT = Path(__file__).resolve().parent / "src"
+if str(_SOURCE_ROOT) not in sys.path:
+    sys.path.insert(0, str(_SOURCE_ROOT))
+from knowb_org_index.build_targets import platform_tag_for_target  # noqa: E402
 
 
-def _platform_tag() -> str:
-    """A PEP 425 platform tag matching the host that built the artifact."""
-    machine = platform.machine().lower()
-    if sys.platform == "darwin":
-        return f"macosx_11_0_{machine}"
-    if sys.platform.startswith("linux"):
-        return f"manylinux_2_28_{machine}"
-    if sys.platform == "win32":
-        return f"win_{machine}"
-    raise RuntimeError(f"Unsupported build platform: {sys.platform!r}")
+def _native_target() -> str:
+    configured = os.environ.get("KNOWB_BUILD_TARGET", "").strip()
+    if configured:
+        return configured
+    try:
+        result = subprocess.run(
+            ["rustc", "-vV"], check=True, capture_output=True, text=True, timeout=15
+        )
+    except (OSError, subprocess.SubprocessError) as exc:
+        raise RuntimeError("Cargo and rustc are required to build the okf-rs adapter") from exc
+    for line in result.stdout.splitlines():
+        if line.startswith("host:"):
+            return line.split(":", 1)[1].strip()
+    machine = platform.machine().casefold()
+    arch = "aarch64" if machine in {"arm64", "aarch64"} else "x86_64"
+    system = platform.system().casefold()
+    fallback = {
+        "darwin": f"{arch}-apple-darwin",
+        "linux": f"{arch}-unknown-linux-gnu",
+        "windows": f"{arch}-pc-windows-msvc",
+    }.get(system)
+    if fallback:
+        return fallback
+    raise RuntimeError("rustc did not report a host target")
 
 
-class KnowbOrgIndexBuildHook(BuildHookInterface):
-    """Compile and package the okf-rs Rust adapter for the current target."""
+class CustomBuildHook(BuildHookInterface):
+    """Compile and force-include the target-specific bridge in a wheel."""
 
-    PLUGIN_NAME = "knowb-org-index"
+    PLUGIN_NAME = "custom"
 
-    def initialize(self, version: str, build_data: dict[str, Any]) -> None:  # noqa: ARG002
-        root = _project_root()
-        adapter = _adapter_name()
-        crate = root / "okf-bridge"
-        target_dir = crate / "target" / "release"
-        binary = target_dir / adapter
-
-        # The sdist ships source/build inputs (hook, Cargo files, lockfile,
-        # Rust source) so a wheel can be rebuilt elsewhere; it never ships the
-        # compiled binary. Only the wheel target packages the native artifact.
+    def initialize(self, version: str, build_data: dict[str, object]) -> None:
         if self.target_name != "wheel":
             return
-
-        # Rebuild only when the binary is absent or older than its sources.
-        needs_build = not binary.is_file()
-        if not needs_build:
-            newest_source = max(
-                (p.stat().st_mtime for p in crate.rglob("*") if p.is_file()),
-                default=0.0,
+        configured_target = os.environ.get("KNOWB_BUILD_TARGET", "").strip()
+        target = configured_target or _native_target()
+        platform_tag = platform_tag_for_target(target)
+        if os.environ.get("KNOWB_WHEEL_PLATFORM", platform_tag) != platform_tag:
+            raise ValueError(
+                "KNOWB_WHEEL_PLATFORM does not match the declared Rust target "
+                f"{target}: expected {platform_tag}"
             )
-            needs_build = binary.stat().st_mtime < newest_source
-
-        if needs_build:
-            env = dict(os.environ)
-            # Prefer the Command Line Tools on macOS when Xcode is broken;
-            # this is a documented developer convenience, not a runtime need.
-            if sys.platform == "darwin" and "DEVELOPER_DIR" not in env:
-                clt = "/Library/Developer/CommandLineTools"
-                if Path(clt).is_dir():
-                    env["DEVELOPER_DIR"] = clt
-            result = subprocess.run(
-                ["cargo", "build", "--release", "--locked", "--manifest-path", str(crate / "Cargo.toml")],
-                cwd=str(root),
-                env=env,
-                check=False,
-                capture_output=True,
-                text=True,
+        configured_target_dir = os.environ.get("KNOWB_CARGO_TARGET_DIR", "").strip()
+        staging = None if configured_target_dir else Path(tempfile.mkdtemp(prefix="knowb-okf-build-"))
+        self._staging = staging
+        cargo_target = Path(configured_target_dir) if configured_target_dir else staging / "cargo-target"
+        manifest = Path(self.root) / "okf-bridge" / "Cargo.toml"
+        environment = os.environ.copy()
+        environment["CARGO_TARGET_DIR"] = str(cargo_target)
+        # Prefer the standalone macOS toolchain when the active Xcode selection
+        # is broken; this keeps local builds deterministic in CI and developer
+        # shells without changing the user's global xcode-select setting.
+        command_line_tools = Path("/Library/Developer/CommandLineTools")
+        if "DEVELOPER_DIR" not in environment and command_line_tools.is_dir():
+            environment["DEVELOPER_DIR"] = str(command_line_tools)
+        try:
+            cargo_args = [
+                "cargo",
+                "build",
+                "--release",
+                "--locked",
+            ]
+            if configured_target:
+                cargo_args.extend(["--target", configured_target])
+            cargo_args.extend(["--manifest-path", str(manifest)])
+            subprocess.run(
+                cargo_args,
+                cwd=self.root,
+                env=environment,
+                check=True,
+                timeout=900,
             )
-            if result.returncode != 0:
-                raise RuntimeError(
-                    "Failed to build the okf-rs adapter:\n"
-                    + (result.stderr or result.stdout)
-                )
-
-        if not binary.is_file():
-            raise RuntimeError(
-                f"okf-rs adapter binary is missing after build: {binary}"
-            )
-
-        # Force-include the native executable inside the package tree. The
-        # distribution path is stable so runtime code can locate it without
-        # guessing at checkout layout.
-        build_data["force_include"][str(binary)] = f"knowb_org_index/_bin/{adapter}"
-
-        # Runtime schemas and templates ship as package data.
-        resources = root / "src" / "knowb_org_index" / "resources"
-        if resources.is_dir():
-            build_data["force_include"][str(resources)] = "knowb_org_index/resources"
-
-        # Platform metadata: never ship native contents in a pure wheel.
+        except (OSError, subprocess.SubprocessError) as exc:
+            if staging:
+                shutil.rmtree(staging, ignore_errors=True)
+            raise RuntimeError("Failed to build the pinned okf-rs adapter") from exc
+        release_dir = cargo_target / target / "release" if configured_target else cargo_target / "release"
+        executable = release_dir / "knowb-okf-bridge"
+        if os.name == "nt":
+            executable = executable.with_suffix(".exe")
+        if not executable.is_file():
+            if staging:
+                shutil.rmtree(staging, ignore_errors=True)
+            raise RuntimeError(f"Cargo build did not produce {executable.name}")
+        if os.name != "nt":
+            executable.chmod(executable.stat().st_mode | 0o111)
+        resource_name = f"knowb-okf-bridge-{target}" + (".exe" if os.name == "nt" else "")
+        package_path = f"knowb_org_index/_bin/{resource_name}"
+        build_data.setdefault("force_include", {})[str(executable)] = package_path
         build_data["pure_python"] = False
         build_data["infer_tag"] = False
-        build_data["tag"] = f"cp311-abi3-{_platform_tag()}"
+        build_data["tag"] = f"py3-none-{platform_tag}"
 
-        # License notices travel with the wheel.
-        license_dir = root / "licenses"
-        if license_dir.is_dir():
-            for entry in sorted(license_dir.iterdir()):
-                if entry.is_file():
-                    build_data["force_include"][str(entry)] = f"licenses/{entry.name}"
+    def finalize(
+        self, version: str, build_data: dict[str, object], artifact_path: str
+    ) -> None:
+        staging = getattr(self, "_staging", None)
+        if staging:
+            shutil.rmtree(staging, ignore_errors=True)
