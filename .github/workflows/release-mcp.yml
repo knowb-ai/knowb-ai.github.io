@@ -152,7 +152,12 @@ jobs:
           for checksum_file in Path("release").rglob("checksums.txt"):
               for line in checksum_file.read_text().splitlines():
                   expected, name = line.split(maxsplit=1)
-                  artifact = checksum_file.parent / name.strip()
+                  matches = list(Path("release").rglob(name.strip()))
+                  if len(matches) != 1:
+                      raise SystemExit(
+                          f"expected one downloaded artifact named {name.strip()!r}, found {len(matches)}"
+                      )
+                  artifact = matches[0]
                   digest = hashlib.sha256(artifact.read_bytes()).hexdigest()
                   if digest != expected:
                       raise SystemExit(f"checksum mismatch: {artifact}")
