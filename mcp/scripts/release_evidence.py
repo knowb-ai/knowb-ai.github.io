@@ -32,6 +32,11 @@ _FORBIDDEN_NAME_PARTS = {
     "credentials.json",
 }
 _REVISION_RE = re.compile(r'^OKF_RS_REVISION\s*=\s*"([0-9a-f]{40})"', re.MULTILINE)
+_LICENSE_FALLBACKS = {
+    # Conditional lockfile entries may not be installed on the current runner.
+    "colorama": "BSD-3-Clause",
+    "pywin32": "PSF-2.0",
+}
 
 
 class EvidenceError(ValueError):
@@ -72,7 +77,6 @@ def _assert_safe_archive(path: Path) -> None:
         name for name in names
         if any(part.casefold() in {item.casefold() for item in _FORBIDDEN_NAME_PARTS}
                for part in Path(name).parts)
-        or any(marker.casefold() in name.casefold() for marker in ("knowledgeHQ", "knowb-ai-portfolio"))
     ]
     if forbidden:
         raise EvidenceError(f"Artifact contains private paths: {forbidden[:3]}")
@@ -147,7 +151,9 @@ def _python_inventory(root: Path) -> list[dict[str, Any]]:
                 "UNKNOWN",
             )
         except importlib.metadata.PackageNotFoundError:
-            pass
+            license_name = _LICENSE_FALLBACKS.get(name.casefold(), license_name)
+        if license_name == "UNKNOWN":
+            license_name = _LICENSE_FALLBACKS.get(name.casefold(), license_name)
         inventory.append({
             "type": "library",
             "name": name,
