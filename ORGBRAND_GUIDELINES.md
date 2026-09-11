@@ -1,12 +1,16 @@
-# KnowB Autumn Brand + Accessibility System (WCAG 2.2 AA)
+# KnowB Autumn Implementation + Accessibility System (WCAG 2.2 AA)
 ## Purpose
-This document is the canonical style and accessibility source of truth for KnowB Autumn interfaces.
+This document is the Autumn implementation and accessibility companion for the
+locked [KnowB Visual Design System](DESIGN_SYSTEM.md). The public [Org Book](/org-book/)
+shows the complete cross-axis system. This file owns the Autumn token,
+gradient, contrast, CRT, motion, and copy rules used by this repository.
 All UI implementations must satisfy both:
 - Brand consistency (palette, gradients, tone)
 - WCAG 2.2 AA accessibility requirements
 
 ## 1) Canonical Base Palette
-Only these eight base colors are allowed for UI color tokens:
+Autumn has seven core color tokens plus the optional shared Saber Blue signal.
+Only these eight available tokens are allowed for Autumn UI color usage:
 - **Autumn Fire**: `#FF4A1A`
 - **Deep Rust**: `#8E2F2A`
 - **Soft Ember**: `#F59A52`
@@ -103,6 +107,12 @@ Allowed exception:
 - Primary body text: `#7A2217` on light surfaces
 - Secondary text: `#77584F` on light surfaces
 - On dark surfaces, use `#FCF6F3` (primary) and `#E9C2B3` (secondary)
+- Functional brand and product text uses the fixed KnowB font system:
+  Audiowide for the wordmark and designated display, Space Grotesk for
+  headings and navigation, Inter for body and UI text, and JetBrains Mono for
+  code, logs, and telemetry.
+- Art-directed lettering may be drawn into an asset, but it cannot replace
+  functional UI text or accessibility labels.
 
 ### 7.3 Buttons and Interactive Controls
 - Prefer high-contrast combinations from Section 5

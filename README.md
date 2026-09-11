@@ -1,20 +1,30 @@
 # knowb.run
 
-The home of Knowledge Agents — systems that unify foundational AI models, curated expert KnowledgeBases, and real-world context.
+The home of Knowledge Agents: systems that unify foundational AI models, curated expert KnowledgeBases, and real-world context.
 
 ## What Are Knowledge Agents?
 
 Knowledge Agents are intelligent systems that combine three layers of knowledge:
 
-1. **General Knowledge** — Foundation models (GPT-4o, Claude, Gemini) + web search
-2. **Specialized Knowledge** — Curated KnowledgeBases with expert, domain-specific information
-3. **Context & Use-Case Knowledge** — Personalization, local settings, and task-specific parameters
+1. **General Knowledge**: Foundation models (GPT-4o, Claude, Gemini) + web search
+2. **Specialized Knowledge**: Curated KnowledgeBases with expert, domain-specific information
+3. **Context & Use-Case Knowledge**: Personalization, local settings, and task-specific parameters
 
 ## Tech Stack
 
-- **Zola** — Static site generator
-- **Tailwind CSS** — Via CDN with inline config for brand color tokens
-- **Typography** — Audiowide, Space Grotesk, Inter, Press Start 2P, JetBrains Mono (Google Fonts)
+- **Zola**: Static site generator
+- **Tailwind CSS**: Via CDN with inline config for brand color tokens
+- **Typography**: Audiowide, Space Grotesk, Inter, and JetBrains Mono (fixed KnowB brand system)
+
+## Design System
+
+The cross-axis canon is documented in [`DESIGN_SYSTEM.md`](DESIGN_SYSTEM.md):
+Autumn and Gold palettes, Internal, External, and Artistic channels, six
+themes, five styles, fixed typography, asset rules, and the configuration
+contract. The rendered reference is the [`KnowB AI Visual Design System`](/org-book/).
+
+[`ORGBRAND_GUIDELINES.md`](ORGBRAND_GUIDELINES.md) is the Autumn-specific
+implementation and WCAG companion for this public site.
 
 ## Local Organization Index
 
@@ -79,7 +89,7 @@ knowb-run/
 ├── config.toml              # Zola configuration
 ├── content/
 │   ├── _index.md            # Homepage content
-│   ├── org-book.md          # Org brandbook page
+│   ├── org-book.md          # Visual design system page
 │   ├── privacy.md           # Privacy policy
 │   └── terms.md             # Terms of service
 ├── templates/
@@ -91,12 +101,13 @@ knowb-run/
 ├── static/
 │   ├── css/
 │   │   └── global.css       # Global stylesheet (all component styles)
-│   ├── favicon.svg          # Brand favicon (▮▮▮ — outer ember, middle saber blue)
+│   ├── favicon.svg          # Brand favicon (▮▮▮, outer Autumn Fire, middle Saber Blue)
 │   └── CNAME                # Custom domain config
 ├── mcp/                     # Local MCP org directory and ticket control plane
 ├── config/                  # Example local registry, client config, manifest schema
 ├── .knowb/project.yml       # Repo-owned knowledge policy (knowledgeHQ only)
-├── ORGBRAND_GUIDELINES.md
+├── DESIGN_SYSTEM.md        # Public cross-axis visual canon
+├── ORGBRAND_GUIDELINES.md  # Autumn implementation and WCAG companion
 ├── WARP.md
 └── README.md
 ```
@@ -113,10 +124,10 @@ To change styles or layout globally, edit `base.html` or `static/css/global.css`
 
 ## Pages
 
-- `/` — Main homepage (use cases, roadmap, contact)
-- `/org-book/` — KnowB AI Brandbook (colors, type, components, a11y)
-- `/terms/` — Terms of service
-- `/privacy/` — Privacy policy
+- `/`: Main homepage (use cases, roadmap, contact)
+- `/org-book/`: KnowB AI Visual Design System (palettes, channels, themes, styles, type, components, a11y)
+- `/terms/`: Terms of service
+- `/privacy/`: Privacy policy
 
 ## Editing Content
 
@@ -124,7 +135,9 @@ All page content lives in `templates/`. The content markdown files in `content/`
 
 ## Favicon
 
-Three vertical bars on Entropy Black (`#0A0A0C`): outer bars in Knowledge Ember (`#FF5F2E`), middle bar in Saber Blue (`#86E8FF`). Defined in `base.html` so every page inherits it.
+Three vertical bars on Charcoal Bark (`#7A2217`): outer bars in Autumn Fire
+(`#FF4A1A`), middle bar in Saber Blue (`#86E8FF`). Defined in `base.html` so
+every page inherits it.
 
 ## License
 

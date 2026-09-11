@@ -8,6 +8,7 @@ knowledge:
     - path: .
       include:
         - README.md
+        - DESIGN_SYSTEM.md
         - AGENTS.md
         - CONTRIBUTING.md
         - docs/**/*.md

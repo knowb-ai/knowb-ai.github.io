@@ -1,5 +1,5 @@
 /* ============================================================
-   knowb.run — Global Stylesheet
+   knowb.run: Global Stylesheet
    Shared across all templates via base.html
    ============================================================ */
 
@@ -13,7 +13,7 @@ html {
     letter-spacing: 0.16em;
     text-transform: uppercase;
     font-size: 0.72rem;
-    font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
     line-height: 1.8;
     color: #86E8FF;
     text-shadow: 0 0 12px rgba(134,232,255,0.22);
@@ -51,7 +51,7 @@ html {
 
 /* --- Navigation --- */
 .arcade-nav-link {
-    font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
     font-size: 0.58rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -79,7 +79,7 @@ html {
     text-shadow: 0 0 10px rgba(134,232,255,0.28), 0 0 8px rgba(245,154,82,0.24);
 }
 .arcade-nav-heading {
-    font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
     font-size: 0.58rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -96,7 +96,7 @@ html {
     color: #86E8FF;
     border-radius: 0.2rem;
     padding: 0.45rem 0.7rem;
-    font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
     font-size: 0.58rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -134,7 +134,7 @@ html {
 /* --- Signal Cards --- */
 .signal-card {
     border: 1px solid rgba(134,232,255,0.28);
-    background: rgba(20,16,15,0.74);
+    background: rgba(122,34,23,0.74);
     box-shadow: inset 0 0 0 1px rgba(134,232,255,0.12);
     border-radius: 0.2rem;
     padding: 0.9rem 1rem;
@@ -156,7 +156,7 @@ html {
 .signal-card h2,
 .signal-card h3 {
     margin: 0 0 0.5rem;
-    font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
     font-size: 0.62rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -215,10 +215,10 @@ html {
             0deg,
             transparent,
             transparent 2px,
-            rgba(0,0,0,0.055) 2px,
-            rgba(0,0,0,0.055) 4px
+            rgba(122,34,23,0.055) 2px,
+            rgba(122,34,23,0.055) 4px
         ),
-        linear-gradient(180deg, rgba(22,18,17,0.50) 0%, rgba(22,18,17,0.72) 100%);
+        linear-gradient(180deg, rgba(122,34,23,0.50) 0%, rgba(122,34,23,0.72) 100%);
     pointer-events: none;
     z-index: 3;
 }
@@ -234,7 +234,7 @@ html {
     z-index: 1;
 }
 .hero-arcade .arcade-button {
-    background: rgba(20,16,15,0.78);
+    background: rgba(122,34,23,0.78);
 }
 
 /* --- Arcade Buttons --- */
@@ -250,7 +250,7 @@ html {
     font-size: 0.66rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
     line-height: 1.6;
     text-decoration: none;
     cursor: pointer;
@@ -260,7 +260,7 @@ html {
 .arcade-button:hover {
     background: #86E8FF;
     border-color: #86E8FF;
-    color: #161211;
+    color: #7A2217;
     box-shadow: 0 0 0 1px rgba(134,232,255,0.24), 0 0 22px rgba(134,232,255,0.30);
     transform: translateY(-1px);
 }
@@ -279,7 +279,7 @@ html {
 .arcade-button.alt:hover {
     background: #F59A52;
     border-color: #F59A52;
-    color: #161211;
+    color: #7A2217;
     box-shadow: 0 0 0 1px rgba(245,154,82,0.26), 0 0 22px rgba(245,154,82,0.30);
 }
 .arcade-button.alt:focus-visible {
@@ -305,7 +305,7 @@ html {
     overflow: hidden;
 }
 .usecase-arcade-title {
-    font-family: 'Press Start 2P', 'Space Grotesk', sans-serif !important;
+    font-family: 'Space Grotesk', 'Inter', sans-serif !important;
     font-size: 0.82rem;
     line-height: 1.6;
     letter-spacing: 0.08em;
@@ -339,7 +339,7 @@ html {
 .contact-callout-frame {
     border: 1px solid transparent !important;
     background:
-        linear-gradient(180deg, rgba(29,21,20,0.96) 0%, rgba(29,21,20,0.92) 100%) padding-box,
+        linear-gradient(180deg, rgba(122,34,23,0.96) 0%, rgba(122,34,23,0.92) 100%) padding-box,
         linear-gradient(128deg, rgba(245,154,82,0.88) 0%, rgba(134,232,255,0.90) 52%, rgba(255,74,26,0.84) 100%) border-box;
     box-shadow: 0 0 24px rgba(245,154,82,0.22), 0 0 28px rgba(134,232,255,0.22);
     position: relative;
@@ -407,7 +407,7 @@ html {
 /* --- Demo Frame / Code Label (orgbook.html) --- */
 .demo-frame {
     border: 1px solid rgba(134,232,255,0.16);
-    background: rgba(20,16,15,0.55);
+    background: rgba(122,34,23,0.55);
     border-radius: 0.4rem;
     padding: 2rem 1.5rem;
 }
@@ -415,7 +415,7 @@ html {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
     color: rgba(233,194,179,0.72);
-    background: rgba(255,255,255,0.04);
+    background: rgba(252,246,243,0.04);
     border: 1px solid rgba(233,194,179,0.16);
     border-radius: 0.2rem;
     padding: 0.2rem 0.45rem;
@@ -424,7 +424,7 @@ html {
 /* --- Color Swatch Block (orgbook.html) --- */
 .color-swatch-block {
     border-radius: 0.4rem;
-    border: 1px solid rgba(255,255,255,0.10);
+    border: 1px solid rgba(252,246,243,0.10);
     padding: 1.5rem 1.1rem 1rem;
     display: flex;
     flex-direction: column;
@@ -435,7 +435,7 @@ html {
 .gradient-strip {
     height: 64px;
     border-radius: 0.3rem;
-    border: 1px solid rgba(255,255,255,0.07);
+    border: 1px solid rgba(252,246,243,0.07);
 }
 
 /* --- Wordmark --- */
@@ -466,7 +466,7 @@ html {
     vertical-align: top;
 }
 .bb-table tr:hover td {
-    background: rgba(29,21,20,0.5);
+    background: rgba(122,34,23,0.5);
 }
 
 /* --- Focus (global) --- */
@@ -491,7 +491,7 @@ a:focus-visible {
 }
 
 /* ============================================================
-   VISUAL ENHANCEMENTS — brand-bible compliant additions
+   VISUAL ENHANCEMENTS: brand-bible compliant additions
    ============================================================ */
 
 /* --- Scroll Progress Bar --- */
@@ -525,8 +525,8 @@ a:focus-visible {
         linear-gradient(rgba(134,232,255,0.055) 1px, transparent 1px),
         linear-gradient(90deg, rgba(134,232,255,0.055) 1px, transparent 1px);
     background-size: 56px 56px;
-    mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.9) 80%, transparent 100%);
-    -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.9) 80%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, rgba(122,34,23,0.6) 40%, rgba(122,34,23,0.9) 80%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(122,34,23,0.6) 40%, rgba(122,34,23,0.9) 80%, transparent 100%);
 }
 
 /* --- Ambient Orbs (hero accent glows) --- */
@@ -561,7 +561,7 @@ a:focus-visible {
     .hero-orb { animation: none; opacity: 0.18; }
 }
 
-/* --- Glitch Text (CRT §12.1 — display text 32px+ only) --- */
+/* --- Glitch Text (CRT §12.1, display text 32px+ only) --- */
 @keyframes glitch-clip-a {
     0%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
     10%       { clip-path: inset(14% 0 66% 0); transform: translate(-2px, 1px); }
@@ -646,7 +646,7 @@ a:focus-visible {
     border-radius: 0.2rem;
     padding: 0.42rem 0.65rem;
     cursor: pointer;
-    font-family: 'Press Start 2P', 'Space Grotesk', sans-serif;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
     font-size: 0.52rem;
     letter-spacing: 0.10em;
     text-transform: uppercase;
@@ -686,7 +686,7 @@ a:focus-visible {
 
 /* --- Custom Scrollbar --- */
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #161211; }
+::-webkit-scrollbar-track { background: #7A2217; }
 ::-webkit-scrollbar-thumb {
     background: linear-gradient(180deg, #F59A52 0%, #8E2F2A 55%, #86E8FF 100%);
     border-radius: 3px;

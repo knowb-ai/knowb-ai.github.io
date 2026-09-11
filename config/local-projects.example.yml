@@ -13,8 +13,9 @@ allowed_roots:
 # State remains local and is ignored by git.
 state_dir: ../.knowb-state
 
-# These public-site and brand-system sources may remain web-accessible, but must
-# never enter the private/local MCP knowledge index.
+# The public cross-axis design canon is safe to index for validation. The
+# rendered Org Book and Autumn implementation companion remain web-accessible,
+# but are excluded from the private/local MCP knowledge index.
 forbidden_paths:
   - content/org-book.md
   - templates/orgbook.html
