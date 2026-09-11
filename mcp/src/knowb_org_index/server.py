@@ -197,6 +197,54 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
         return service.github.get_ticket(repository, number)
 
     @server.tool()
+    def propose_label_create(
+        repository: str,
+        name: str,
+        color: str,
+        description: str = "",
+        idempotency_key: str | None = None,
+    ) -> dict[str, Any]:
+        """Preview and persist a repository label creation; no GitHub write yet."""
+
+        return service.github.propose_label_create(
+            repository=repository,
+            name=name,
+            color=color,
+            description=description,
+            idempotency_key=idempotency_key,
+        )
+
+    @server.tool()
+    def confirm_label_create(token: str) -> dict[str, Any]:
+        """Execute a previously previewed repository label creation exactly once."""
+
+        return _confirm_kind(service, token, "label_create")
+
+    @server.tool()
+    def propose_milestone_create(
+        repository: str,
+        title: str,
+        description: str = "",
+        state: str = "open",
+        idempotency_key: str | None = None,
+    ) -> dict[str, Any]:
+        """Preview and persist a repository milestone creation; no GitHub write yet."""
+
+        return service.github.propose_milestone_create(
+            repository=repository,
+            title=title,
+            description=description,
+            state=state,
+            idempotency_key=idempotency_key,
+        )
+
+    @server.tool()
+    def confirm_milestone_create(token: str) -> dict[str, Any]:
+        """Execute a previously previewed repository milestone creation exactly once."""
+
+        return _confirm_kind(service, token, "milestone_create")
+
+    @server.tool()
     def get_github_project(project_number: int, include_items: bool = True) -> dict[str, Any]:
         """Read an organization GitHub Project and optionally its first 100 items."""
 
@@ -329,6 +377,7 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
         body: str = "",
         labels: list[str] | None = None,
         assignees: list[str] | None = None,
+        milestone: str | None = None,
         project_number: int | None = None,
         idempotency_key: str | None = None,
     ) -> dict[str, Any]:
@@ -340,6 +389,7 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
             body=body,
             labels=labels,
             assignees=assignees,
+            milestone=milestone,
             project_number=project_number,
             idempotency_key=idempotency_key,
         )

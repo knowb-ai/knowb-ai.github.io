@@ -338,6 +338,7 @@ class GitHubOperations:
         body: str = "",
         labels: list[str] | None = None,
         assignees: list[str] | None = None,
+        milestone: str | None = None,
         project_number: int | None = None,
         idempotency_key: str | None = None,
     ) -> dict[str, Any]:
@@ -356,6 +357,7 @@ class GitHubOperations:
             "body": body,
             "labels": [item for item in (labels or []) if item],
             "assignees": [item for item in (assignees or []) if item],
+            "milestone": milestone.strip() if milestone and milestone.strip() else None,
             "project_number": self._project_number(project_number) if project_number else None,
         }
         preview = {
@@ -364,6 +366,7 @@ class GitHubOperations:
             "title": clean_title,
             "labels": payload["labels"],
             "assignees": payload["assignees"],
+            "milestone": payload["milestone"],
             "project_number": payload["project_number"],
             "body_preview": body[:500],
             "requires_confirmation": True,
@@ -496,6 +499,10 @@ class GitHubOperations:
         return {"status": "completed", "audit_id": audit_id, "result": result}
 
     def _execute(self, kind: str, payload: dict[str, Any]) -> dict[str, Any]:
+        if kind == "label_create":
+            return self._execute_label_create(payload)
+        if kind == "milestone_create":
+            return self._execute_milestone_create(payload)
         if kind == "ticket_create":
             return self._execute_ticket_create(payload)
         if kind == "ticket_update":
@@ -505,6 +512,123 @@ class GitHubOperations:
         if kind == "repository_create":
             return self._execute_repository_create(payload)
         raise GitHubError(f"Unsupported action kind: {kind}")
+
+    def propose_label_create(
+        self,
+        *,
+        repository: str,
+        name: str,
+        color: str,
+        description: str = "",
+        idempotency_key: str | None = None,
+    ) -> dict[str, Any]:
+        """Preview and persist creation of one repository label."""
+
+        self._ensure_enabled()
+        repo = self._repo(repository)
+        clean_name = name.strip()
+        clean_color = color.strip().removeprefix("#")
+        if not clean_name or len(clean_name) > 50:
+            raise GitHubError("Label name must be 1-50 characters")
+        if not re.fullmatch(r"[0-9A-Fa-f]{6}", clean_color):
+            raise GitHubError("Label color must be a six-digit hexadecimal value")
+        if len(description) > 100:
+            raise GitHubError("Label description cannot exceed 100 characters")
+        payload = {
+            "repository": repo,
+            "name": clean_name,
+            "color": clean_color.lower(),
+            "description": description.strip(),
+        }
+        preview = {
+            "operation": "create GitHub repository label",
+            "target": repo,
+            "name": clean_name,
+            "color": clean_color.lower(),
+            "description": payload["description"],
+            "requires_confirmation": True,
+        }
+        return self.index.create_pending_action(
+            kind="label_create",
+            payload=payload,
+            preview=preview,
+            idempotency_key=idempotency_key,
+        )
+
+    def propose_milestone_create(
+        self,
+        *,
+        repository: str,
+        title: str,
+        description: str = "",
+        state: str = "open",
+        idempotency_key: str | None = None,
+    ) -> dict[str, Any]:
+        """Preview and persist creation of one repository milestone."""
+
+        self._ensure_enabled()
+        repo = self._repo(repository)
+        clean_title = title.strip()
+        if not clean_title or len(clean_title) > 256:
+            raise GitHubError("Milestone title must be 1-256 characters")
+        if len(description) > 65_536:
+            raise GitHubError("Milestone description cannot exceed 65,536 characters")
+        if state not in {"open", "closed"}:
+            raise GitHubError("Milestone state must be open or closed")
+        payload = {
+            "repository": repo,
+            "title": clean_title,
+            "description": description,
+            "state": state,
+        }
+        preview = {
+            "operation": "create GitHub repository milestone",
+            "target": repo,
+            "title": clean_title,
+            "state": state,
+            "description_preview": description[:500],
+            "requires_confirmation": True,
+        }
+        return self.index.create_pending_action(
+            kind="milestone_create",
+            payload=payload,
+            preview=preview,
+            idempotency_key=idempotency_key,
+        )
+
+    def _execute_label_create(self, payload: dict[str, Any]) -> dict[str, Any]:
+        return self._run(
+            [
+                "api",
+                "--method",
+                "POST",
+                f"repos/{payload['repository']}/labels",
+                "-f",
+                f"name={payload['name']}",
+                "-f",
+                f"color={payload['color']}",
+                "-f",
+                f"description={payload['description']}",
+            ],
+            expect_json=True,
+        )
+
+    def _execute_milestone_create(self, payload: dict[str, Any]) -> dict[str, Any]:
+        return self._run(
+            [
+                "api",
+                "--method",
+                "POST",
+                f"repos/{payload['repository']}/milestones",
+                "-f",
+                f"title={payload['title']}",
+                "-f",
+                f"description={payload['description']}",
+                "-f",
+                f"state={payload['state']}",
+            ],
+            expect_json=True,
+        )
 
     def _execute_repository_create(self, payload: dict[str, Any]) -> dict[str, Any]:
         brief = payload["brief"]
@@ -566,6 +690,8 @@ class GitHubOperations:
             args.extend(["--label", label])
         for assignee in payload.get("assignees", []):
             args.extend(["--assignee", assignee])
+        if payload.get("milestone"):
+            args.extend(["--milestone", payload["milestone"]])
         issue_url = self._run(args, input_text=payload.get("body", ""))
         result: dict[str, Any] = {"url": issue_url, "repository": payload["repository"]}
         project_number = payload.get("project_number")

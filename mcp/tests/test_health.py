@@ -76,6 +76,14 @@ class HealthAndCapabilityTests(unittest.TestCase):
                 service.github.get_ticket("knowb/repo", 1)
             with self.assertRaisesRegex(GitHubError, "disabled"):
                 service.github.propose_ticket_create(repository="knowb/repo", title="x")
+            with self.assertRaisesRegex(GitHubError, "disabled"):
+                service.github.propose_label_create(
+                    repository="knowb/repo", name="phase-1", color="0e8a16"
+                )
+            with self.assertRaisesRegex(GitHubError, "disabled"):
+                service.github.propose_milestone_create(
+                    repository="knowb/repo", title="Phase 1"
+                )
 
     def test_disabled_github_blocks_design_vault_before_identity_or_oauth(self):
         with tempfile.TemporaryDirectory() as directory:

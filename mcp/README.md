@@ -255,15 +255,15 @@ Read operations:
 
 Mutations are intentionally two-step:
 
-1. Call `propose_ticket_create`, `propose_ticket_update`, or
-   `propose_project_update`.
+1. Call the relevant `propose_*` tool for a label, milestone, ticket, or project
+   update.
 2. Review the returned preview.
 3. Call the matching `confirm_*` tool with its token.
 
 Confirmation tokens expire, are single-purpose, and return the cached result if
 a completed token is replayed. `audit_log` reports proposals, completions,
-failures, and expirations. Ticket and project mutations never read local project
-documents.
+failures, and expirations. Label, milestone, ticket, and project mutations never
+read local project documents.
 
 ## Create a new KnowB repository
 
