@@ -385,12 +385,43 @@ The manifest schema is `config/project.schema.json`. During migration,
 `strict_manifests: false` permits an explicit registry knowledge policy. Set it
 to `true` once every active repo owns its manifest.
 
+## Register and enable a local project
+
+Registration and enablement stay two separate operator decisions, and neither is
+exposed as an MCP tool: a connected model cannot widen what it is allowed to
+index. `register` writes the entry; the project stays inert until `enable`.
+
+~~~sh
+knowb-org --config /absolute/path/to/registry.yml register ../../my-project --dry-run
+knowb-org --config /absolute/path/to/registry.yml register ../../my-project
+knowb-org --config /absolute/path/to/registry.yml enable my-project
+~~~
+
+`register` derives `id` and `name` from the project's own `.knowb/project.yml`
+when present, falling back to the GitHub remote and then the directory name;
+`--id` and `--name` override. `--enabled` registers and enables in one step when
+that is the intent. `--dry-run` prints the exact entry without writing.
+
+The operation refuses paths outside `allowed_roots`, refuses a second id for an
+already-registered path, and refuses to modify a committed `*.example.yml`.
+Re-registering a known project reports `changed: false` rather than appending a
+duplicate. Edits are line-scoped so operator comments and ordering survive, the
+candidate file is validated by a full registry load before it replaces the
+original, and the replacement is atomic — an invalid result leaves the existing
+registry untouched. Results report only the affected entry, never the whole
+registry.
+
+`disable` is the inverse of `enable` and leaves the entry in place.
+
 ## Operator commands
 
 ~~~text
 knowb-org status
 knowb-org discover
 knowb-org doctor
+knowb-org register PATH [--id ID] [--name NAME] [--enabled] [--dry-run]
+knowb-org enable PROJECT [--dry-run]
+knowb-org disable PROJECT [--dry-run]
 knowb-org index [PROJECT ...]
 knowb-org search QUERY [--project PROJECT]
 knowb-org read PROJECT PATH

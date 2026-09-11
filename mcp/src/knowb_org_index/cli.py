@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 from typing import Any, Sequence
 
-from .config import ConfigurationError
+from .config import ConfigurationError, default_config_path
 from .design_assets import DesignAssetError
 from .env import EnvironmentFileError
 from .github_ops import GitHubError
@@ -51,6 +51,29 @@ def _parser() -> argparse.ArgumentParser:
 
     manifest = sub.add_parser("manifest", help="Print the repo-owned manifest template")
     manifest.add_argument("project")
+
+    register = sub.add_parser(
+        "register", help="Add a local project to the registry without enabling it"
+    )
+    register.add_argument("path", help="Local project directory inside allowed_roots")
+    register.add_argument("--id", dest="project_id", help="Override the derived project id")
+    register.add_argument("--name", help="Override the derived display name")
+    register.add_argument(
+        "--enabled",
+        action="store_true",
+        help="Enable on registration; omitted, the project is registered but inert",
+    )
+    register.add_argument(
+        "--dry-run", action="store_true", help="Print the entry that would be written"
+    )
+
+    enable = sub.add_parser("enable", help="Enable one registered project")
+    enable.add_argument("project")
+    enable.add_argument("--dry-run", action="store_true")
+
+    disable = sub.add_parser("disable", help="Disable one registered project")
+    disable.add_argument("project")
+    disable.add_argument("--dry-run", action="store_true")
 
     work = sub.add_parser("work", help="List organization GitHub issues")
     work.add_argument("--repo")
@@ -220,6 +243,30 @@ def run(argv: Sequence[str] | None = None) -> int:
             _json(service.get_project_context(args.project))
         elif args.command == "manifest":
             print(service.project_manifest_template(args.project), end="")
+        elif args.command == "register":
+            from .registry_ops import register_project
+
+            _json(
+                register_project(
+                    args.config or default_config_path(),
+                    args.path,
+                    project_id=args.project_id,
+                    name=args.name,
+                    enabled=args.enabled,
+                    dry_run=args.dry_run,
+                )
+            )
+        elif args.command in {"enable", "disable"}:
+            from .registry_ops import set_project_enabled
+
+            _json(
+                set_project_enabled(
+                    args.config or default_config_path(),
+                    args.project,
+                    enabled=args.command == "enable",
+                    dry_run=args.dry_run,
+                )
+            )
         elif args.command == "work":
             _json(
                 service.github.list_work(
