@@ -21,7 +21,8 @@ Knowledge Agents are intelligent systems that combine three layers of knowledge:
 The cross-axis canon is documented in [`DESIGN_SYSTEM.md`](DESIGN_SYSTEM.md):
 Autumn and Gold palettes, Internal, External, and Artistic channels, six
 themes, five styles, fixed typography, asset rules, and the configuration
-contract. The rendered reference is the [`KnowB AI Visual Design System`](/org-book/).
+contract, including the shared Pop-out Player side surface for media, agent
+status, and contextual assistant UI. The rendered reference is the [`KnowB AI Visual Design System`](/org-book/).
 
 [`ORGBRAND_GUIDELINES.md`](ORGBRAND_GUIDELINES.md) is the Autumn-specific
 implementation and WCAG companion for this public site.

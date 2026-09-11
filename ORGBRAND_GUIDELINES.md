@@ -123,6 +123,20 @@ Allowed exception:
 - Must be visually identifiable and keyboard focusable
 - Placeholder `href="#"` links are not allowed in production templates
 
+### 7.5 Pop-out Player
+- Use the **Pop-out Player (Side Mini-Player)** for video, curated agent
+  status, or contextual assistant UI when the user must retain the active page
+  or workflow context.
+- Render it as a compact screen-on-screen side surface, with a bottom-docked
+  or full-width compact fallback on small screens.
+- Keep mode, playback or agent-status state, source or agent identity, captions
+  or transcript, assistant cues, and controls legible; never let decorative
+  CRT, glow, or gradient treatments cover them.
+- Provide keyboard access, visible focus, captions or transcript alternatives,
+  reduced-motion behavior, and understandable loading, paused, buffering,
+  unavailable, degraded, and failed states.
+- The player is not Oplite, a generic modal, or an ad popup.
+
 ## 8) Motion and Navigation Rules
 - Include a skip-to-content link on long pages with persistent nav/toolbars
 - Use semantic landmarks (`<main>`, properly structured headings)

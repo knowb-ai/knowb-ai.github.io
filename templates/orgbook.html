@@ -561,7 +561,7 @@
       <p class="section-kicker section-kicker-ember">06: Components</p>
       <div class="section-rule-ember"></div>
       <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">UI Component Library</h2>
-      <p class="font-sans text-lg text-paper-ivory/80 mb-14 max-w-3xl">Live examples of every pattern used across the KnowB interface surface.</p>
+      <p class="font-sans text-lg text-paper-ivory/80 mb-14 max-w-3xl">Live examples of every pattern used across the KnowB interface surface, including the shared Pop-out Player side-surface contract.</p>
 
       <!-- 6.1 Section Kickers -->
       <div class="mb-14">
@@ -581,7 +581,50 @@
         </div>
       </div>
 
-      <!-- 6.2 Arcade Chips -->
+      <!-- 6.2 Pop-out Player -->
+      <div class="mb-14">
+        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Pop-out Player: Side Mini-Player</h3>
+        <p class="font-sans text-paper-ivory/65 text-sm mb-5">A real screen-on-screen side surface. Video renders and plays here, or the slot presents agent status or contextual assistant guidance, while the user keeps the primary browser, mission, game, or workflow visible.</p>
+        <div class="demo-frame">
+          <div class="grid lg:grid-cols-[1fr_20rem] gap-4 items-start">
+            <div class="min-h-48 rounded-sm border border-saber-blue/40 bg-indigo-night/70 p-6 flex flex-col justify-between">
+              <div>
+                <p class="section-kicker section-kicker-saber mb-4">Active exploration</p>
+                <h4 class="font-display text-xl text-paper-ivory mb-3">Mission / browser / game world</h4>
+                <p class="font-sans text-paper-ivory/70 text-sm leading-relaxed">The primary context remains active. Evidence, controls, decisions, and the next action stay available while media plays at the side.</p>
+              </div>
+              <div class="flex flex-wrap gap-2 mt-6">
+                <span class="arcade-chip">Context intact</span>
+                <span class="arcade-chip ember">LSD stream</span>
+              </div>
+            </div>
+            <aside class="rounded-sm border border-soft-ember/70 bg-charcoal-bark p-3 shadow-lg" aria-label="Pop-out Player preview">
+              <div class="aspect-video rounded-sm border border-saber-blue/50 bg-gold-midnight flex items-center justify-center mb-3">
+                <span class="font-display text-sm text-saber-blue uppercase tracking-[0.14em]">Media mode</span>
+              </div>
+              <div class="flex flex-wrap gap-2 mb-3" aria-label="Pop-out Player modes">
+                <span class="arcade-chip">Media</span>
+                <span class="arcade-chip ember">Agent status</span>
+                <span class="arcade-chip">Assistant</span>
+              </div>
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="font-display text-xs text-paper-ivory">Tutorial clip 01</span>
+                <span class="font-mono text-[0.65rem] text-soft-ember">02:14 / 08:30</span>
+              </div>
+              <div class="h-1 bg-paper-ivory/20 rounded-full mb-3"><div class="h-1 w-1/3 bg-soft-ember rounded-full"></div></div>
+              <div class="flex flex-wrap gap-2" role="group" aria-label="Player controls">
+                <button class="arcade-button text-xs px-3 py-2" type="button">Pause</button>
+                <button class="arcade-button alt text-xs px-3 py-2" type="button">Captions</button>
+                <button class="arcade-button text-xs px-3 py-2" type="button">Expand</button>
+              </div>
+              <p class="font-sans text-paper-ivory/55 text-[0.68rem] mt-3">Source identity · captions · minimize · restore · close</p>
+            </aside>
+          </div>
+          <p class="font-sans text-paper-ivory/55 text-xs mt-5">The player inherits the host channel, palette, theme, style, typography, and product vocabulary. It is a side-surface component, not Oplite or a generic modal.</p>
+        </div>
+      </div>
+
+      <!-- 6.3 Arcade Chips -->
       <div class="mb-14">
         <h3 class="font-display text-2xl mb-2 text-paper-ivory">Arcade Chips</h3>
         <p class="font-sans text-paper-ivory/65 text-sm mb-5">Saber (default) and Ember (.ember / even-child) variants. Used for tagging, profiling, and feature labels.</p>
@@ -598,7 +641,7 @@
         </div>
       </div>
 
-      <!-- 6.3 Arcade Buttons -->
+      <!-- 6.4 Arcade Buttons -->
       <div class="mb-14">
         <h3 class="font-display text-2xl mb-2 text-paper-ivory">Arcade Buttons</h3>
         <p class="font-sans text-paper-ivory/65 text-sm mb-5">Saber (primary) and Ember (.alt) variants. Both carry hover lift, active reset, and focus-visible outline states.</p>
@@ -616,7 +659,7 @@
         </div>
       </div>
 
-      <!-- 6.4 Signal Cards -->
+      <!-- 6.5 Signal Cards -->
       <div class="mb-14">
         <h3 class="font-display text-2xl mb-2 text-paper-ivory">Signal Cards</h3>
         <p class="font-sans text-paper-ivory/65 text-sm mb-5">Three-column grid for signal summaries, feature notes, and at-a-glance metrics. Ember and saber variants.</p>
@@ -639,7 +682,7 @@
         </div>
       </div>
 
-      <!-- 6.5 Arcade Cards: border-left -->
+      <!-- 6.6 Arcade Cards: border-left -->
       <div class="mb-14">
         <h3 class="font-display text-2xl mb-2 text-paper-ivory">Arcade Cards: Bottleneck Style</h3>
         <p class="font-sans text-paper-ivory/65 text-sm mb-5">Left-border accent + full-card inner glow. Used for deep content blocks with structured lists.</p>
@@ -666,7 +709,7 @@
         </div>
       </div>
 
-      <!-- 6.6 Use Case Cards: top stripe -->
+      <!-- 6.7 Use Case Cards: top stripe -->
       <div class="mb-14">
         <h3 class="font-display text-2xl mb-2 text-paper-ivory">Use Case Cards: Top Stripe</h3>
         <p class="font-sans text-paper-ivory/65 text-sm mb-5">A 2px saber-to-fire gradient stripe crowns each card. Hover amplifies the card border glow.</p>
@@ -689,7 +732,7 @@
         </div>
       </div>
 
-      <!-- 6.7 Contact Callout Frame -->
+      <!-- 6.8 Contact Callout Frame -->
       <div class="mb-14">
         <h3 class="font-display text-2xl mb-2 text-paper-ivory">Contact Callout Frame</h3>
         <p class="font-sans text-paper-ivory/65 text-sm mb-5">Gradient-border CTA frame. Ember-to-saber border with dual-spectrum glow. Used for high-priority collaboration blocks.</p>
@@ -708,7 +751,7 @@
         <code class="code-label mt-3 inline-block">.contact-callout-frame</code>
       </div>
 
-      <!-- 6.8 Shadow / Glow Tokens -->
+      <!-- 6.9 Shadow / Glow Tokens -->
       <div class="mb-6">
         <h3 class="font-display text-2xl mb-2 text-paper-ivory">Shadow / Glow Tokens</h3>
         <p class="font-sans text-paper-ivory/65 text-sm mb-5">Four canonical definitions for depth and signal emphasis.</p>

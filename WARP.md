@@ -29,6 +29,9 @@ it from the repository source through `.github/workflows/deploy.yml`.
   implementation, WCAG 2.2 AA, gradient, CRT, motion, and copy rules.
 - `/org-book/` is the rendered visual design system reference generated from
   `content/org-book.md` and `templates/orgbook.html`.
+- The shared Pop-out Player is a persistent side surface for media, curated
+  agent status, or contextual assistant UI; its visual contract belongs in the
+  design-system companion and the rendered Org Book.
 
 Use the design axes explicitly when adding a page or asset:
 

@@ -250,7 +250,38 @@ different forms and flight signatures. Anthro cues come from orientation,
 gesture, timing, voice, movement, and personality, while both remain visibly
 non-humanoid flying systems.
 
-## 8. Configuration contract
+## 8. Shared interactive side surface
+
+The **Pop-out Player (Side Mini-Player)** is KnowB's shared component for
+modular browsing, narrative discovery, and active workflows. When video or
+other time-based visual media is part of the active experience, it opens as a
+compact screen-on-screen side player, like a familiar video pop-out player,
+and renders and plays there while the user continues browsing, exploring,
+reading, playing, or operating the primary page or workflow. The same side
+surface can also host an agent-status terminal or a contextual assistant UI.
+
+The player is a real side surface, not a modal, advertising popup, second
+browser window, or Oplite terminal. Its shared contract owns mode, identity,
+placement, local controls, and expand/minimize/restore/close states. Media mode
+adds playback state, play/pause, seek, volume/mute, and captions or transcript;
+agent-status mode presents curated run state, progress, blockers, and activity;
+assistant mode presents contextual guidance, tutorial cues, questions, and
+bounded next actions. It inherits the host's channel, palette, theme, style,
+typography, and product vocabulary; it does not create a fifth axis or a new
+palette. On small screens it may become bottom-docked or full-width compact,
+but the active side mode must remain available without destroying primary
+context.
+
+The component is the default side-surface path for the KnowB browser/public-
+site direction and the Neo-navigation / Playdate-like experiment, and is
+available to Kenobi, Operator-hosted workflows, Shrutlekha, preservation
+projects, and AudioBoX where media, agent status, or assistant guidance
+improves continuity. It must preserve keyboard access, visible focus, captions
+or transcript alternatives where applicable, reduced motion, non-color state
+communication, and clear degraded or unavailable states. The canonical
+cross-project decision is recorded in KnowledgeHQ.
+
+## 9. Configuration contract
 
 ```yaml
 surface:
@@ -268,7 +299,7 @@ Any asset, page, or brand surface can use this contract to receive a distinct
 KnowB-compliant configuration. The configuration is a design brief, not a
 permission to invent a new palette or functional type system.
 
-## 9. Accessibility and change control
+## 10. Accessibility and change control
 
 All surfaces must provide WCAG 2.2 AA contrast, keyboard access, visible focus,
 semantic structure, reduced-motion support, and non-color state communication.
