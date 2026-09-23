@@ -16,6 +16,7 @@ from .env import load_dotenv
 from .github_ops import GitHubOperations
 from .index import IndexError, LocalIndex
 from .models import Project, Registry
+from .memo_review import review_memo as build_memo_review
 from .okf import AdapterError, diagnostics, search_documents
 from .remix import build_design_remix
 from .scaffold import build_repository_blueprint
@@ -101,6 +102,7 @@ class OrgIndexService:
                 "read_project_doc",
                 "get_project_context",
                 "find_related_work",
+                "review_memo",
             ],
             "github_scopes": [
                 "list_work",
@@ -234,6 +236,46 @@ class OrgIndexService:
         combined = " ".join([query, *(tags or [])]).strip()
         results = self.index.search(combined, project_ids=selected, limit=limit)
         return {"query": query, "projects": selected, "tags": tags or [], "results": results}
+
+    def review_memo(
+        self,
+        *,
+        project: str = "",
+        title: str = "",
+        memo_kind: str = "",
+        draft: str = "",
+        purpose: str = "",
+        scope: str = "",
+        next_actions: list[str] | None = None,
+        open_questions_reviewed: bool = False,
+        related_paths: list[str] | None = None,
+        external_sources: list[str] | None = None,
+    ) -> dict[str, Any]:
+        """Review a draft and citations without storing memo content."""
+
+        return build_memo_review(
+            project=project,
+            title=title,
+            memo_kind=memo_kind,
+            draft=draft,
+            purpose=purpose,
+            scope=scope,
+            next_actions=next_actions,
+            open_questions_reviewed=open_questions_reviewed,
+            related_paths=related_paths,
+            external_sources=external_sources,
+            project_check=self._memo_project_check,
+            read_document=self.read_project_doc,
+        )
+
+    def _memo_project_check(self, project_id: str) -> tuple[bool, str]:
+        try:
+            project = self._project(project_id)
+        except ConfigurationError as exc:
+            return False, str(exc)
+        if not project.active:
+            return False, f"Project is not active: {project.id} ({project.status})."
+        return True, f"Project {project.id} is active and registered."
 
     def read_project_doc(self, project_id: str, path: str) -> dict[str, Any]:
         project = self._project(project_id)

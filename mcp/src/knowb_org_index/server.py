@@ -22,7 +22,9 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
         instructions=(
             "Local-first directory for KnowB AI projects. Knowledge tools read only from "
             "explicitly registered local clones. GitHub writes always use a proposal followed "
-            "by a confirmation token. Private design-asset tools require verified GitHub and "
+            "by a confirmation token. Memo reviews do not save drafts; a caller must present "
+            "the ready review digest and obtain explicit user approval before recording. "
+            "Private design-asset tools require verified GitHub and "
             "Google identities plus non-public Drive ACLs; uploads also require confirmation. "
             "Run remix as a Socratic loop before creating a repository; "
             "when its result is ready, an image-capable host should execute harness_action and "
@@ -99,6 +101,34 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
         """Read one document only when it belongs to that project's indexed allowlist."""
 
         return service.read_project_doc(project, path)
+
+    @server.tool()
+    def review_memo(
+        project: str = "",
+        title: str = "",
+        memo_kind: str = "",
+        draft: str = "",
+        purpose: str = "",
+        scope: str = "",
+        next_actions: list[str] | None = None,
+        open_questions_reviewed: bool = False,
+        related_paths: list[str] | None = None,
+        external_sources: list[str] | None = None,
+    ) -> dict[str, Any]:
+        """Check a memo draft, validate citations, and return a content-bound review digest."""
+
+        return service.review_memo(
+            project=project,
+            title=title,
+            memo_kind=memo_kind,
+            draft=draft,
+            purpose=purpose,
+            scope=scope,
+            next_actions=next_actions,
+            open_questions_reviewed=open_questions_reviewed,
+            related_paths=related_paths,
+            external_sources=external_sources,
+        )
 
     @server.tool()
     def get_project_context(project: str) -> dict[str, Any]:
@@ -453,6 +483,28 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
             "harness_action using the host's image-generation capability and display exactly one "
             "six-panel landscape gallery image inline. If creating a repository, pass the accepted "
             "brief and remix_digest unchanged into draft_repository_blueprint."
+        )
+
+    @server.prompt(name="record_memo")
+    def record_memo_prompt(
+        project: str,
+        memo_kind: str = "memo",
+        known_context: str = "",
+    ) -> str:
+        """Guide a user-led memo draft, formal review, refinement, and approval loop."""
+
+        return (
+            f"Prepare a {memo_kind!r} for registered project {project!r}. Known context: "
+            f"{known_context or 'none supplied'}. Draft the memo with a clear title, purpose, "
+            "scope, concrete next actions, and explicit unresolved questions. Call review_memo "
+            "with the draft and any related local paths or external source URLs. If the result "
+            "needs_refinement, present its questions to the user, revise only from their answers, "
+            "and call review_memo again. When it is ready_for_user_approval, show the final memo, "
+            "checklist, validated citations, and SHA-256 review digest. Save nothing until the user "
+            "explicitly approves that digest. The connector does not record memos; after approval, "
+            "the caller may save the memo and include the approved digest and citations in its "
+            "metadata. If the memo changes after approval, review again and obtain approval for "
+            "the new digest."
         )
 
     return server
