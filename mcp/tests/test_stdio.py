@@ -103,7 +103,10 @@ class StdioAcceptanceTests(unittest.TestCase):
             notify({"jsonrpc": "2.0", "method": "notifications/initialized", "params": {}})
             tools = request({"jsonrpc": "2.0", "id": 2, "method": "tools/list", "params": {}})
             names = {item["name"] for item in tools["result"]["tools"]}
-            self.assertTrue({"search_knowledge", "read_project_doc", "get_project_context"} <= names)
+            self.assertTrue({
+                "search_knowledge", "read_project_doc", "get_project_context", "review_memo",
+                "propose_pull_request", "confirm_pull_request",
+            } <= names)
             search = request(
                 {
                     "jsonrpc": "2.0",
@@ -129,6 +132,52 @@ class StdioAcceptanceTests(unittest.TestCase):
                 }
             )
             self.assertIn("stdio-needle", read["result"]["structuredContent"]["content"])
+
+            refinement = request(
+                {
+                    "jsonrpc": "2.0",
+                    "id": 5,
+                    "method": "tools/call",
+                    "params": {
+                        "name": "review_memo",
+                        "arguments": {
+                            "draft": "Draft",
+                        },
+                    },
+                }
+            )
+            self.assertEqual(refinement["result"]["structuredContent"]["status"], "needs_refinement")
+
+            ready = request(
+                {
+                    "jsonrpc": "2.0",
+                    "id": 6,
+                    "method": "tools/call",
+                    "params": {
+                        "name": "review_memo",
+                        "arguments": {
+                            "project": "project", "title": "Memo", "memo_kind": "memo",
+                            "draft": "A complete memo draft.", "purpose": "Record a decision.",
+                            "scope": "This registered project.", "next_actions": ["Save after approval."],
+                            "open_questions_reviewed": True, "related_paths": ["docs/one.md"],
+                        },
+                    },
+                }
+            )
+            review = ready["result"]["structuredContent"]
+            self.assertEqual(review["status"], "ready_for_user_approval")
+            self.assertTrue(review["approval_required"])
+            self.assertEqual(len(review["sources"]["local"]), 1)
+
+            prompts = request({"jsonrpc": "2.0", "id": 7, "method": "prompts/list", "params": {}})
+            self.assertIn("record_memo", {item["name"] for item in prompts["result"]["prompts"]})
+            prompt = request(
+                {
+                    "jsonrpc": "2.0", "id": 8, "method": "prompts/get",
+                    "params": {"name": "record_memo", "arguments": {"project": "project"}},
+                }
+            )
+            self.assertIn("explicitly approves that digest", json.dumps(prompt["result"]))
 
 
 if __name__ == "__main__":

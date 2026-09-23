@@ -22,9 +22,11 @@ completed under issue #9.
 - Brandbook/Org Book sources remain public on the website but are denied from the
   private MCP knowledge index.
 - The MCP transport is local stdio by default and opens no listening port.
-- GitHub is contacted only by explicit ticket/project/repository tools.
+- GitHub is contacted only by explicit issue/pull-request/project/repository tools.
 - GitHub writes require a durable proposal, a short-lived confirmation token,
   idempotency protection, and a local audit record.
+- Memo drafts are reviewed without being stored; callers must obtain explicit user
+  approval for the ready review digest before recording a memo elsewhere.
 - Private design assets are a separate, disabled-by-default capability. Every
   Drive read requires an allowlisted GitHub login, an allowlisted verified Google
   account, and a folder/file ACL with no public, domain, or group permission.
@@ -174,6 +176,16 @@ without it, the generated config is printed for review.
 - `read_project_doc` — safe allowlisted document retrieval
 - `get_project_context` — project map, decisions, documents, ticket references
 - `find_related_work` — ticket/query-to-local-knowledge lookup
+- `review_memo` — checklist, allowlisted source validation, refinement questions,
+  and a SHA-256 digest bound to the reviewed memo and citations
+
+The `record_memo` prompt guides a user-led draft and refinement loop. Related local
+documents are read through the selected project's allowlist and returned with exact
+paths, `knowb://` URIs, titles, and content hashes. External references are checked
+for HTTP(S) URL syntax only; the connector does not fetch them. See the
+[memo review gate contract](docs/memo-review-gate.md) for required fields, size
+bounds, and the review/approval boundary. The digest is review evidence, not an
+identity signature. Any change after approval requires another review and approval.
 
 The optional GitHub policy defaults to enabled for version 1 registries. To run a
 knowledge-only connector, add this block; every GitHub read, proposal, confirmation,
@@ -255,15 +267,16 @@ Read operations:
 
 Mutations are intentionally two-step:
 
-1. Call `propose_ticket_create`, `propose_ticket_update`, or
-   `propose_project_update`.
+1. Call `propose_ticket_create`, `propose_ticket_update`,
+   `propose_pull_request`, or `propose_project_update`.
 2. Review the returned preview.
-3. Call the matching `confirm_*` tool with its token.
+3. Call the matching `confirm_*` tool with its token. PR creation applies its
+   requested labels, assignees, and milestone in that confirmed operation.
 
 Confirmation tokens expire, are single-purpose, and return the cached result if
 a completed token is replayed. `audit_log` reports proposals, completions,
-failures, and expirations. Ticket and project mutations never read local project
-documents.
+failures, and expirations. Issue, PR, and project mutations never read local
+project documents.
 
 ## Create a new KnowB repository
 
