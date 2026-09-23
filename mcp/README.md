@@ -9,9 +9,10 @@ Portable installation and folder onboarding are scoped in the
 [core implementation plan](docs/portable-connector-core-implementation-plan.md).
 The release and knowledgeHQ migration procedure is in the
 [P6 release plan](docs/portable-release-migration-plan.md).
-This branch packages the native `okf-rs` adapter and keeps source-checkout launch
-available as verified legacy mode while the release and knowledgeHQ migration are
-completed under issue #9.
+The published 0.2.0 release and source-checkout launch remain available here.
+Development of the private company connector is moving to knowledgeHQ. The
+[development handoff](docs/development-handoff.md) records the exact source
+snapshot, compatibility baseline, client transition, and rollback procedure.
 
 ## Guarantees
 

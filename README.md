@@ -32,6 +32,12 @@ This repository also contains a local-first MCP directory and GitHub work contro
 plane under `mcp/`. It is operationally separate from the Zola site: the current
 public routes and build remain unchanged.
 
+The published `knowb-org-index` 0.2.0 package and its source remain here. Active
+development of the private KnowB company connector is moving to knowledgeHQ;
+this public checkout remains a compatible source and recovery baseline during the
+client transition. See the [development handoff](mcp/docs/development-handoff.md)
+before changing a client command or preparing another public release.
+
 The server discovers explicitly allowlisted local `knowb-ai` clones, indexes only
 their approved knowledge roots, and exposes project context through local stdio.
 Brandbook/Org Book sources remain public web pages but are denied from this local
