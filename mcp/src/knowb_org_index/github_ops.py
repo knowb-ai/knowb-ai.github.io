@@ -1,4 +1,4 @@
-"""Explicit GitHub issue/project reads and confirmed mutation execution."""
+"""Explicit GitHub issue/PR/project reads and confirmed mutation execution."""
 
 from __future__ import annotations
 
@@ -20,6 +20,8 @@ from .scaffold import (
 
 
 _REPO = re.compile(r"^(?P<owner>[A-Za-z0-9_.-]+)/(?P<name>[A-Za-z0-9_.-]+)$")
+_BRANCH = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._/-]{0,254}$")
+_LOGIN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9-]{0,38}$")
 
 
 class GitHubError(RuntimeError):
@@ -62,6 +64,47 @@ class GitHubOperations:
         return number
 
     @staticmethod
+    def _branch_ref(value: str, *, allow_owner: bool) -> str:
+        ref = value.strip()
+        owner = None
+        if ":" in ref:
+            if not allow_owner or ref.count(":") != 1:
+                raise GitHubError("Branch reference is invalid")
+            owner, ref = ref.split(":", 1)
+            if not _LOGIN.fullmatch(owner):
+                raise GitHubError("Head owner must be a valid GitHub login")
+        components = ref.split("/")
+        if (
+            not _BRANCH.fullmatch(ref)
+            or ".." in ref
+            or "//" in ref
+            or ref.endswith(("/", "."))
+            or any(
+                component.startswith(".") or component.endswith(".lock")
+                for component in components
+            )
+        ):
+            raise GitHubError("Branch reference is invalid")
+        return f"{owner}:{ref}" if owner else ref
+
+    @staticmethod
+    def _metadata_names(values: list[str] | None, *, kind: str) -> list[str]:
+        if values is None:
+            return []
+        if not isinstance(values, list) or len(values) > 20:
+            raise GitHubError(f"At most 20 {kind} may be supplied")
+        result: list[str] = []
+        for value in values:
+            if not isinstance(value, str):
+                raise GitHubError(f"Each {kind} value must be text")
+            name = value.strip()
+            if not name or len(name) > 100 or not name.isprintable():
+                raise GitHubError(f"Each {kind} value must contain 1-100 printable characters")
+            if name not in result:
+                result.append(name)
+        return result
+
+    @staticmethod
     def _run(
         args: list[str],
         *,
@@ -69,7 +112,7 @@ class GitHubOperations:
         input_text: str | None = None,
     ) -> Any:
         if shutil.which("gh") is None:
-            raise GitHubError("GitHub CLI (gh) is required for ticket/project operations")
+            raise GitHubError("GitHub CLI (gh) is required for issue/PR/project operations")
         try:
             result = subprocess.run(
                 ["gh", *args],
@@ -375,6 +418,77 @@ class GitHubOperations:
             idempotency_key=idempotency_key,
         )
 
+    def propose_pull_request(
+        self,
+        *,
+        repository: str,
+        head: str,
+        base: str,
+        title: str,
+        body: str,
+        draft: bool = False,
+        labels: list[str] | None = None,
+        assignees: list[str] | None = None,
+        milestone: str | None = None,
+        idempotency_key: str | None = None,
+    ) -> dict[str, Any]:
+        """Persist a reviewed PR creation request without contacting GitHub."""
+
+        self._ensure_enabled()
+        repo = self._repo(repository.strip())
+        if not isinstance(title, str) or not isinstance(body, str):
+            raise GitHubError("Pull-request title and body must be text")
+        clean_title = title.strip()
+        clean_body = body.strip()
+        if not clean_title or len(clean_title) > 256:
+            raise GitHubError("Pull-request title must contain 1-256 characters")
+        if not clean_body or len(clean_body) > 65_536:
+            raise GitHubError("Pull-request body must contain text and be at most 65,536 characters")
+        if not isinstance(draft, bool):
+            raise GitHubError("draft must be a boolean")
+        clean_head = self._branch_ref(head, allow_owner=True)
+        clean_base = self._branch_ref(base, allow_owner=False)
+        if clean_head == clean_base:
+            raise GitHubError("Head and base branches must differ")
+        clean_labels = self._metadata_names(labels, kind="labels")
+        clean_assignees = self._metadata_names(assignees, kind="assignees")
+        if milestone is not None and not isinstance(milestone, str):
+            raise GitHubError("Milestone must be text")
+        clean_milestone = milestone.strip() if milestone and milestone.strip() else None
+        if clean_milestone and (len(clean_milestone) > 256 or not clean_milestone.isprintable()):
+            raise GitHubError("Milestone must contain at most 256 printable characters")
+        payload = {
+            "repository": repo,
+            "head": clean_head,
+            "base": clean_base,
+            "title": clean_title,
+            "body": clean_body,
+            "draft": draft,
+            "labels": clean_labels,
+            "assignees": clean_assignees,
+            "milestone": clean_milestone,
+        }
+        preview = {
+            "operation": "create GitHub pull request",
+            "target": repo,
+            "repository": repo,
+            "head": clean_head,
+            "base": clean_base,
+            "title": clean_title,
+            "body": clean_body,
+            "draft": draft,
+            "labels": clean_labels,
+            "assignees": clean_assignees,
+            "milestone": clean_milestone,
+            "requires_confirmation": True,
+        }
+        return self.index.create_pending_action(
+            kind="pull_request_create",
+            payload=payload,
+            preview=preview,
+            idempotency_key=idempotency_key,
+        )
+
     def propose_ticket_update(
         self,
         *,
@@ -498,6 +612,8 @@ class GitHubOperations:
     def _execute(self, kind: str, payload: dict[str, Any]) -> dict[str, Any]:
         if kind == "ticket_create":
             return self._execute_ticket_create(payload)
+        if kind == "pull_request_create":
+            return self._execute_pull_request_create(payload)
         if kind == "ticket_update":
             return self._execute_ticket_update(payload)
         if kind == "project_update":
@@ -585,6 +701,41 @@ class GitHubOperations:
                 expect_json=True,
             )
         return result
+
+    def _execute_pull_request_create(self, payload: dict[str, Any]) -> dict[str, Any]:
+        args = [
+            "pr",
+            "create",
+            "--repo",
+            payload["repository"],
+            "--head",
+            payload["head"],
+            "--base",
+            payload["base"],
+            "--title",
+            payload["title"],
+            "--body-file",
+            "-",
+        ]
+        if payload.get("draft"):
+            args.append("--draft")
+        for label in payload.get("labels", []):
+            args.extend(["--label", label])
+        for assignee in payload.get("assignees", []):
+            args.extend(["--assignee", assignee])
+        if payload.get("milestone"):
+            args.extend(["--milestone", payload["milestone"]])
+        url = self._run(args, input_text=payload["body"])
+        return {
+            "url": url,
+            "repository": payload["repository"],
+            "head": payload["head"],
+            "base": payload["base"],
+            "draft": payload["draft"],
+            "labels": payload["labels"],
+            "assignees": payload["assignees"],
+            "milestone": payload["milestone"],
+        }
 
     def _execute_ticket_update(self, payload: dict[str, Any]) -> dict[str, Any]:
         repo = payload["repository"]

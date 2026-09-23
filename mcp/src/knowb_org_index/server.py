@@ -375,6 +375,40 @@ def create_server(config_path: str | Path | None = None) -> MCPServer:
         )
 
     @server.tool()
+    def propose_pull_request(
+        repository: str,
+        head: str,
+        base: str,
+        title: str,
+        body: str,
+        draft: bool = False,
+        labels: list[str] | None = None,
+        assignees: list[str] | None = None,
+        milestone: str | None = None,
+        idempotency_key: str | None = None,
+    ) -> dict[str, Any]:
+        """Preview and persist a pull-request creation without changing GitHub."""
+
+        return service.github.propose_pull_request(
+            repository=repository,
+            head=head,
+            base=base,
+            title=title,
+            body=body,
+            draft=draft,
+            labels=labels,
+            assignees=assignees,
+            milestone=milestone,
+            idempotency_key=idempotency_key,
+        )
+
+    @server.tool()
+    def confirm_pull_request(token: str) -> dict[str, Any]:
+        """Create one previously reviewed pull-request proposal exactly once."""
+
+        return _confirm_kind(service, token, "pull_request_create")
+
+    @server.tool()
     def confirm_ticket_create(token: str) -> dict[str, Any]:
         """Execute a previously previewed ticket creation exactly once."""
 

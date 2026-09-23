@@ -111,9 +111,11 @@ class OrgIndexService:
                 "propose_ticket_create",
                 "propose_ticket_update",
                 "propose_project_update",
+                "propose_pull_request",
                 "confirm_ticket_create",
                 "confirm_ticket_update",
                 "confirm_project_update",
+                "confirm_pull_request",
                 "audit_log",
             ],
             "design_asset_scopes": [
@@ -130,7 +132,9 @@ class OrgIndexService:
                 "discovered_are_candidates": True,
                 "knowledge_source": "explicitly registered local clones only",
                 "transport": "local stdio; no listening port",
-                "network_egress": "GitHub only via explicit ticket/project tools",
+                "network_egress": (
+                    "GitHub only via explicit issue/pull-request/project/repository tools"
+                ),
                 "no_silent_fallback": "missing adapter fails search; no SQLite FTS fallback",
                 "design_assets_disabled_by_default": not self.registry.design_assets.enabled,
             },
