@@ -35,8 +35,11 @@ public routes and build remain unchanged.
 The server discovers explicitly allowlisted local `knowb-ai` clones, indexes only
 their approved knowledge roots, and exposes project context through local stdio.
 Brandbook/Org Book sources remain public web pages but are denied from this local
-knowledge index. GitHub ticket and Projects operations use a separate boundary;
-writes require a preview plus confirmation and are audited locally.
+knowledge index. Memo drafts can pass through a formal review and refinement gate
+that validates registered citations and returns a content-bound digest without
+recording the draft. GitHub issue, pull-request, and Projects operations use a
+separate boundary; writes require a preview plus confirmation and are audited
+locally.
 
 The same MCP can guide creation of new public or private `knowb-ai` repositories. It
 requires a reviewed product/brand brief before confirmation, then initializes the repo
