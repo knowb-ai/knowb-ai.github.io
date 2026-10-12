@@ -27,10 +27,70 @@ from .discovery import github_identity, read_origin
 _PROJECT_ID = re.compile(r"^[A-Za-z0-9_.-]+$")
 _TOP_LEVEL_KEY = re.compile(r"^[A-Za-z_][A-Za-z0-9_-]*:")
 _DEFAULT_ITEM_INDENT = 2
+_MERGE_TAG = "tag:yaml.org,2002:merge"
+_NULL_TAG = "tag:yaml.org,2002:null"
+_ENABLED_LINE = re.compile(
+    r"^enabled:(?P<gap>[ \t]*)(?P<value>[^#]*?)(?P<comment>[ \t]+#.*)?[ \t]*$"
+)
 
 
 class RegistryOpsError(ConfigurationError):
     """Raised when a registry mutation would be unsafe or ambiguous."""
+
+
+class _EntryLoader(yaml.SafeLoader):
+    """Reads one registry entry without the rest of the file.
+
+    An entry can refer to an anchor defined elsewhere, through an alias or a
+    merge key, and the isolated text does not contain that anchor. Reading the
+    entry's id needs neither, so both are dropped instead of resolved.
+    """
+
+    def compose_node(self, parent: Any, index: Any) -> Any:
+        if self.check_event(yaml.AliasEvent):
+            event = self.get_event()
+            return yaml.ScalarNode(_NULL_TAG, "", event.start_mark, event.end_mark)
+        return super().compose_node(parent, index)
+
+    def flatten_mapping(self, node: Any) -> None:
+        node.value = [(key, value) for key, value in node.value if key.tag != _MERGE_TAG]
+
+
+def _entry_id(block: str) -> str | None:
+    try:
+        parsed = yaml.load(block, Loader=_EntryLoader)  # SafeLoader subclass
+    except yaml.YAMLError:
+        return None
+    entry = parsed[0] if isinstance(parsed, list) and parsed else None
+    return str(entry.get("id", "")) if isinstance(entry, dict) else None
+
+
+def _key_indent(first_line: str, fallback: int) -> int:
+    """Column where an entry's own keys start, which is after its list dash."""
+
+    match = re.match(r"^(\s*)-(\s+)", first_line)
+    return len(match.group(1)) + 1 + len(match.group(2)) if match else fallback
+
+
+def _set_flag(lines: list[str], start: int, stop: int, key_indent: int, enabled: bool) -> bool:
+    """Rewrite the entry's own `enabled` value in place, keeping any comment.
+
+    Only a line at the entry's own key level counts. A nested key of the same
+    name, such as `repository_sync.enabled`, belongs to something else and is
+    left alone. The first line carries the list dash, so its key starts after it.
+    """
+
+    value = _scalar(enabled)
+    for number in range(start, stop):
+        line = lines[number]
+        if number != start and len(line) - len(line.lstrip(" ")) != key_indent:
+            continue
+        match = _ENABLED_LINE.match(line[key_indent:])
+        if match:
+            gap = match.group("gap") or " "
+            lines[number] = f"{line[:key_indent]}enabled:{gap}{value}{match.group('comment') or ''}"
+            return True
+    return False
 
 
 def _scalar(value: Any) -> str:
@@ -326,28 +386,20 @@ def set_project_enabled(
 
     lines = _read_lines(registry_path)
     header, end, indent = _projects_block(lines)
-    key_indent = " " * (indent + 2)
     span = None
     for start, stop in _item_spans(lines, header, end, indent):
-        block = "\n".join(lines[start:stop])
-        parsed = yaml.safe_load(block)
-        entry = parsed[0] if isinstance(parsed, list) and parsed else None
-        if isinstance(entry, dict) and str(entry.get("id", "")).casefold() == target.id.casefold():
+        entry_id = _entry_id("\n".join(lines[start:stop]))
+        if entry_id and entry_id.casefold() == target.id.casefold():
             span = (start, stop)
             break
     if span is None:
         raise RegistryOpsError(f"Could not locate the registry entry for {target.id}")
 
     start, stop = span
+    key_indent = _key_indent(lines[start], indent + 2)
     updated = list(lines)
-    for number in range(start, stop):
-        stripped = updated[number].strip()
-        if stripped.startswith("enabled:"):
-            prefix = updated[number][: len(updated[number]) - len(updated[number].lstrip())]
-            updated[number] = f"{prefix}enabled: {_scalar(enabled)}"
-            break
-    else:
-        updated.insert(start + 1, f"{key_indent}enabled: {_scalar(enabled)}")
+    if not _set_flag(updated, start, stop, key_indent, enabled):
+        updated.insert(start + 1, f"{' ' * key_indent}enabled: {_scalar(enabled)}")
 
     _commit(registry_path, updated)
     return payload
