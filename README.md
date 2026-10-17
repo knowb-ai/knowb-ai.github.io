@@ -38,6 +38,10 @@ this public checkout remains a compatible source and recovery baseline during th
 client transition. See the [development handoff](mcp/docs/development-handoff.md)
 before changing a client command or preparing another public release.
 
+The [engineering-policy adoption note](docs/connector-engineering-policy.md)
+records the versioned MVT, scope and cost-discipline rules for the updated private
+runtime, including how new and existing projects receive them.
+
 The server discovers explicitly allowlisted local `knowb-ai` clones, indexes only
 their approved knowledge roots, and exposes project context through local stdio.
 Brandbook/Org Book sources remain public web pages but are denied from this local
