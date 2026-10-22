@@ -51,8 +51,8 @@ cannot replace functional UI text or accessibility labels.
 - `templates/page.html` renders policy and content pages.
 - `static/css/global.css` contains shared component and motion styles.
 - `static/favicon.svg` uses canonical Autumn and Saber tokens.
-- `mcp/` is the separate local-first organization directory and GitHub work
-  control plane. See [`mcp/README.md`](mcp/README.md).
+- The KnowB MCP connector is not in this repository. It lives in the private
+  `knowledgeHQ` repository under `mcp/`.
 
 ## Editing rules
 
