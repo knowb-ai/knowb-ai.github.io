@@ -12,7 +12,8 @@ public/
 # Obsidian metadata
 */.obsidian/
 
-# KnowB local org index state (never commit local paths or indexed knowledge)
+# Legacy KnowB connector state. The connector moved to knowledgeHQ on 2026-10-22;
+# these stay ignored so old local copies are never committed.
 config/local-projects.yml
 .knowb-state/
 *.sqlite

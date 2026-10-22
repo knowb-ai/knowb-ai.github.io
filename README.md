@@ -26,60 +26,16 @@ contract. The rendered reference is the [`KnowB AI Visual Design System`](/org-b
 [`ORGBRAND_GUIDELINES.md`](ORGBRAND_GUIDELINES.md) is the Autumn-specific
 implementation and WCAG companion for this public site.
 
-## Local Organization Index
+## KnowB MCP connector
 
-This repository also contains a local-first MCP directory and GitHub work control
-plane under `mcp/`. It is operationally separate from the Zola site: the current
-public routes and build remain unchanged.
+The KnowB MCP connector, its project registry and its releases live in the
+private [`knowledgeHQ` repository](https://github.com/knowb-ai/knowledgeHQ),
+under `mcp/`. This repository is the public website only. Register new projects
+in knowledgeHQ, not here.
 
-The published `knowb-org-index` 0.2.0 package and its source remain here. Active
-development of the private KnowB company connector is moving to knowledgeHQ;
-this public checkout remains a compatible source and recovery baseline during the
-client transition. See the [development handoff](mcp/docs/development-handoff.md)
-before changing a client command or preparing another public release.
-
-The [engineering-policy adoption note](docs/connector-engineering-policy.md)
-records the versioned MVT, scope and cost-discipline rules for the updated private
-runtime, including how new and existing projects receive them.
-
-The server discovers explicitly allowlisted local `knowb-ai` clones, indexes only
-their approved knowledge roots, and exposes project context through local stdio.
-Brandbook/Org Book sources remain public web pages but are denied from this local
-knowledge index. Memo drafts can pass through a formal review and refinement gate
-that validates registered citations and returns a content-bound digest without
-recording the draft. GitHub issue, pull-request, and Projects operations use a
-separate boundary; writes require a preview plus confirmation and are audited
-locally.
-
-The same MCP can guide creation of new public or private `knowb-ai` repositories. It
-requires a reviewed product/brand brief before confirmation, then initializes the repo
-with contribution and agent guidance plus a project-owned knowledge wiki. Every new
-wiki begins with brand narrative and strategic direction, a compact visual token and
-component system adapted to public or internal use, and architecture, decision,
-research, and operations sections. New repositories also receive a project passport,
-portable MCP client example, and MCP-first validation guide so they can map approved
-KnowledgeHQ decisions, boundaries, constraints, and direction into local work.
-
-Registration remains explicit: the passport makes a repository a discovery candidate,
-but an owner or operator must enable its local clone in the private KnowledgeHQ
-registry before it is indexed. Private registry contents and proprietary documents are
-never copied into the new repository.
-
-The private [`knowledgeHQ` repository](https://github.com/knowb-ai/knowledgeHQ) is the canonical wiki for KnowB AI Systems. It contains the MCP Atlas design-asset vault decision, product and runtime strategy, operator architecture, and preservation research. Its contents are not part of this public site.
-
-Clone the private wiki separately with GitHub access, for example:
-`git clone https://github.com/knowb-ai/knowledgeHQ.git ../knowledgeHQ`. The MCP and
-local knowledge index use that separate `knowledgeHQ/` checkout; this public
-repository has no submodule or copy of the private files.
-
-The `remix` MCP tool provides the preceding Socratic design loop. It keeps public/org
-surfaces in the KnowB Autumn system and product/workflow surfaces in the Kenobi
-gold-on-indigo system, then remixes narrative, metaphor, hierarchy, density, and imagery
-for the specific project. Its accepted digest drives the generated project docs and its
-gallery brief lets an image-capable host return one six-panel design contact sheet.
-
-See [`mcp/README.md`](mcp/README.md) for setup, tools, privacy boundaries, and the
-project manifest contract.
+The published `knowb-org-index` 0.2.0 release stays available on this
+repository's [`mcp-v0.2.0` release](https://github.com/knowb-ai/knowb-ai.github.io/releases/tag/mcp-v0.2.0)
+and its tag, as history.
 
 ## Run Locally
 
@@ -116,8 +72,6 @@ knowb-run/
 │   │   └── global.css       # Global stylesheet (all component styles)
 │   ├── favicon.svg          # Brand favicon (▮▮▮, outer Autumn Fire, middle Saber Blue)
 │   └── CNAME                # Custom domain config
-├── mcp/                     # Local MCP org directory and ticket control plane
-├── config/                  # Example local registry, client config, manifest schema
 ├── .knowb/project.yml       # Repo-owned knowledge policy (knowledgeHQ only)
 ├── DESIGN_SYSTEM.md        # Public cross-axis visual canon
 ├── ORGBRAND_GUIDELINES.md  # Autumn implementation and WCAG companion
