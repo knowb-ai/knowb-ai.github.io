@@ -697,6 +697,163 @@ html {
     box-shadow: var(--crt-vignette);
 }
 
+/* --- Porthole: a square art screen framing one pixel icon on its orbit --- */
+.porthole {
+    width: min(11rem, 42vw);
+    flex: none;
+}
+.porthole .art-screen-view {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.porthole .art-screen-view svg.porthole-orbit {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+.porthole .art-screen-view svg.pixel-icon {
+    position: relative;
+    width: 46%;
+    height: auto;
+}
+
+/* --- Orbit carousel: a scroll-snap track of cabinets with a mission path ---
+   Works as a swipeable row without JavaScript; orbit-carousel.js adds the
+   arrows, the mission path, and arrow-key travel. */
+.orbit-track {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.75rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 0.25rem;
+    padding: 0.75rem 0.25rem 1.75rem;
+    scrollbar-width: none;
+}
+.orbit-track::-webkit-scrollbar {
+    display: none;
+}
+.orbit-track:focus-visible {
+    outline: 2px solid var(--saber);
+    outline-offset: 4px;
+    border-radius: 1rem;
+}
+.orbit-slide {
+    flex: 0 0 min(88%, 58rem);
+    scroll-snap-align: start;
+}
+.orbit-slide-grid {
+    display: grid;
+    gap: 1.75rem;
+}
+@media (min-width: 768px) {
+    .orbit-track {
+        align-items: stretch;
+    }
+    .orbit-slide-grid {
+        grid-template-columns: 11rem minmax(0, 1fr);
+        align-items: start;
+    }
+}
+.orbit-controls {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    margin-top: 0.5rem;
+}
+.orbit-controls[hidden] {
+    display: none;
+}
+.orbit-prev .pixel-icon {
+    transform: scaleX(-1);
+}
+.orbit-path {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0.25rem;
+}
+.orbit-path::before {
+    content: '';
+    position: absolute;
+    left: 1.25rem;
+    right: 1.25rem;
+    top: 21px;
+    height: 1px;
+    background: var(--saber-line);
+}
+.orbit-stop {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.55rem;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 10px 0 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    color: rgba(252,246,243,0.72);
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 0.64rem;
+    line-height: 1.2;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+}
+.orbit-stop-planet {
+    width: 12px;
+    height: 12px;
+    margin-top: 5px;
+    border-radius: 50%;
+    background: var(--ground);
+    box-shadow: 0 0 0 1px rgba(134,232,255,0.65);
+    transition: background-color 0.2s ease;
+}
+.orbit-stop:hover {
+    color: var(--ivory);
+}
+.orbit-stop:hover .orbit-stop-planet {
+    background: rgba(134,232,255,0.45);
+}
+.orbit-stop[aria-current="true"] {
+    color: var(--ivory);
+}
+.orbit-stop[aria-current="true"] .orbit-stop-planet {
+    width: 22px;
+    height: 22px;
+    margin-top: 0;
+    background: var(--ember);
+    box-shadow: 0 0 0 3px var(--ground), 0 0 0 4px var(--saber), 0 0 14px rgba(245,154,82,0.5);
+}
+@media (max-width: 767px) {
+    .orbit-controls {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        row-gap: 0.75rem;
+    }
+    .orbit-path {
+        order: -1;
+        flex-basis: 100%;
+    }
+    .orbit-stop-label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+    }
+}
+
 /* --- Concept book plates (orgbook.html) --- */
 .plate {
     margin: 0;

@@ -782,6 +782,61 @@
         </div>
       </div>
 
+      <!-- Arcade: orbit carousel -->
+      <div class="mb-14">
+        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Orbit carousel</h3>
+        <p class="font-sans text-paper-ivory/75 text-sm mb-5">A swipeable track of cabinet slides with a mission path below: a saber orbit line whose stops are planets, the current one lit with a ring. Without JavaScript it is still a swipeable row; with it, tailfin arrows, the path, and the arrow keys travel the track. No autoplay.</p>
+        <div class="demo-frame">
+          <section class="orbit-carousel" data-orbit-carousel aria-roledescription="carousel" aria-label="Orbit carousel example">
+            <div class="orbit-track" id="demo-track" tabindex="0" aria-label="Orbit carousel example, use the arrow keys to travel">
+              <article class="cabinet orbit-slide" aria-roledescription="slide" aria-label="1 of 3: Mission one">
+                <div class="orbit-slide-grid">
+                  {{ macros::porthole(icon="orbit", color="#86E8FF") }}
+                  <div>
+                    <p class="cabinet-label">Example 01</p>
+                    <div class="cabinet-head"><h4 class="cabinet-title cabinet-title-lg">Mission one</h4>{{ macros::fins(lit=1) }}</div>
+                    <div class="saber-line"></div>
+                    <p class="text-lg leading-relaxed">Slides are cabinets. Each carries a porthole with its pixel icon, a label, a title with fins, and its content.</p>
+                  </div>
+                </div>
+              </article>
+              <article class="cabinet cabinet-ember orbit-slide" aria-roledescription="slide" aria-label="2 of 3: Mission two">
+                <div class="orbit-slide-grid">
+                  {{ macros::porthole(icon="rocket", color="#F59A52") }}
+                  <div>
+                    <p class="cabinet-label">Example 02</p>
+                    <div class="cabinet-head"><h4 class="cabinet-title cabinet-title-lg">Mission two</h4>{{ macros::fins(lit=2) }}</div>
+                    <div class="saber-line-ember"></div>
+                    <p class="text-lg leading-relaxed">The next slide peeks in from the edge, so people can see there is more to travel to.</p>
+                  </div>
+                </div>
+              </article>
+              <article class="cabinet orbit-slide" aria-roledescription="slide" aria-label="3 of 3: Mission three">
+                <div class="orbit-slide-grid">
+                  {{ macros::porthole(icon="satellite", color="#86E8FF") }}
+                  <div>
+                    <p class="cabinet-label">Example 03</p>
+                    <div class="cabinet-head"><h4 class="cabinet-title cabinet-title-lg">Mission three</h4>{{ macros::fins(lit=3) }}</div>
+                    <div class="saber-line"></div>
+                    <p class="text-lg leading-relaxed">Arrows, the mission path, swiping and the arrow keys all travel the same track. There is no autoplay.</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <div class="orbit-controls" hidden>
+              <button class="tf-btn tf-btn-saber tf-btn-sm orbit-prev" type="button" aria-controls="demo-track" aria-label="Previous slide">{{ macros::pixel_icon(name="arrow", color="#86E8FF", size=16) }}</button>
+              <div class="orbit-path" role="group" aria-label="Choose a slide">
+              <button class="orbit-stop" type="button" aria-controls="demo-track"><span class="orbit-stop-planet" aria-hidden="true"></span><span class="orbit-stop-label">Mission one</span></button>
+              <button class="orbit-stop" type="button" aria-controls="demo-track"><span class="orbit-stop-planet" aria-hidden="true"></span><span class="orbit-stop-label">Mission two</span></button>
+              <button class="orbit-stop" type="button" aria-controls="demo-track"><span class="orbit-stop-planet" aria-hidden="true"></span><span class="orbit-stop-label">Mission three</span></button>
+              </div>
+              <button class="tf-btn tf-btn-saber tf-btn-sm orbit-next" type="button" aria-controls="demo-track" aria-label="Next slide">{{ macros::pixel_icon(name="arrow", color="#86E8FF", size=16) }}</button>
+            </div>
+          </section>
+          <p class="text-xs flex flex-wrap gap-2 mt-6"><code class="code-label">[data-orbit-carousel]</code><code class="code-label">.orbit-track</code><code class="code-label">.orbit-slide</code><code class="code-label">.orbit-controls</code><code class="code-label">.orbit-path</code><code class="code-label">.orbit-stop</code><code class="code-label">macros::porthole()</code><code class="code-label">/js/orbit-carousel.js</code></p>
+        </div>
+      </div>
+
       <!-- Arcade: art screens -->
       <div class="mb-14">
         <h3 class="font-display text-2xl mb-2 text-paper-ivory">Art screens</h3>
@@ -1054,3 +1109,7 @@
     </div>
   </footer>
 {% endblock footer %}
+
+{% block scripts %}
+  <script src="/js/orbit-carousel.js?v=orbit" defer></script>
+{% endblock scripts %}

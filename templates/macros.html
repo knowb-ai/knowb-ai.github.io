@@ -20,6 +20,14 @@
 {{- icons::pixel_icon(name=name, color=color, cut=cut, size=size) -}}
 {%- endmacro pixel_icon %}
 
+{# Porthole: a square art screen holding one pixel icon on a tilted orbit. #}
+{% macro porthole(icon, color="#86E8FF") %}
+<div class="art-screen porthole" aria-hidden="true"><div class="art-screen-edge"><div class="art-screen-view">
+<svg class="porthole-orbit" viewBox="-100 -100 200 200"><ellipse rx="84" ry="30" fill="none" stroke="{{ color }}" stroke-opacity="0.45" stroke-width="2" transform="rotate(-18)"/><rect x="66" y="-50" width="6" height="6" fill="#FCF6F3"/><rect x="-78" y="44" width="4" height="4" fill="#FCF6F3"/><rect x="-54" y="-70" width="3" height="3" fill="#FCF6F3"/></svg>
+{{ icons::pixel_icon(name=icon, color=color, cut="#120E0D", size=88) }}
+</div></div></div>
+{%- endmacro porthole %}
+
 {# Ringed planet for art screens. #}
 {% macro planet_art() %}
 <svg viewBox="-233 -235 466 470" aria-hidden="true">
