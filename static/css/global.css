@@ -720,45 +720,78 @@ html {
     height: auto;
 }
 
-/* --- Orbit carousel: a scroll-snap track of cabinets with a mission path ---
-   Works as a swipeable row without JavaScript; orbit-carousel.js adds the
-   arrows, the mission path, and arrow-key travel. */
+/* --- Orbit carousel: full-width cabinets travelled along a mission path ---
+   Without JavaScript every cabinet is listed in full. orbit-carousel.js stacks
+   them so one spans the whole track, narrows the cabinet shut and widens the
+   next one open when travelling, and folds each brief into an expandable
+   drawer. */
 .orbit-track {
     position: relative;
-    display: flex;
-    align-items: flex-start;
-    gap: 1.75rem;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: 0.25rem;
-    padding: 0.75rem 0.25rem 1.75rem;
-    scrollbar-width: none;
-}
-.orbit-track::-webkit-scrollbar {
-    display: none;
+    display: grid;
+    gap: 2rem;
+    padding: 0.75rem 0 1.75rem;
 }
 .orbit-track:focus-visible {
     outline: 2px solid var(--saber);
     outline-offset: 4px;
     border-radius: 1rem;
 }
-.orbit-slide {
-    flex: 0 0 min(88%, 58rem);
-    scroll-snap-align: start;
+.orbit-carousel.is-enhanced .orbit-track {
+    grid-template-areas: "stack";
+    align-items: start;
+    gap: 0;
+}
+.orbit-carousel.is-enhanced .orbit-slide {
+    grid-area: stack;
+}
+.orbit-carousel.is-enhanced .orbit-slide:not(.is-current):not(.is-leaving) {
+    display: none;
+}
+.orbit-slide.is-leaving {
+    animation: cabinet-narrow 0.28s ease-in forwards;
+    pointer-events: none;
+}
+.orbit-slide.is-entering {
+    animation: cabinet-widen 0.42s ease-out;
+}
+@keyframes cabinet-narrow {
+    from { clip-path: inset(-16px); opacity: 1; }
+    to   { clip-path: inset(-16px 47% -16px 47%); opacity: 0; }
+}
+@keyframes cabinet-widen {
+    from { clip-path: inset(-16px 47% -16px 47%); opacity: 0; }
+    to   { clip-path: inset(-16px); opacity: 1; }
 }
 .orbit-slide-grid {
     display: grid;
     gap: 1.75rem;
 }
 @media (min-width: 768px) {
-    .orbit-track {
-        align-items: stretch;
-    }
     .orbit-slide-grid {
-        grid-template-columns: 11rem minmax(0, 1fr);
+        grid-template-columns: 13rem minmax(0, 1fr);
         align-items: start;
+        gap: 2.5rem;
     }
+    .orbit-slide .porthole {
+        width: 13rem;
+    }
+}
+
+/* --- Expandable cabinet drawer: the rest of a brief, revealed smoothly --- */
+.cabinet-more {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.45s ease;
+}
+.cabinet-more-inner {
+    min-height: 0;
+    overflow: hidden;
+}
+.orbit-carousel.is-enhanced .cabinet-more:not(.is-open) {
+    grid-template-rows: 0fr;
+}
+.cabinet-more-toggle {
+    margin-top: 0.5rem;
 }
 .orbit-controls {
     display: flex;
@@ -1087,5 +1120,9 @@ a:focus-visible {
     .tf-btn:hover,
     .tf-btn:active {
         transform: none;
+    }
+    .orbit-slide.is-leaving,
+    .orbit-slide.is-entering {
+        animation: none;
     }
 }
