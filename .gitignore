@@ -26,8 +26,9 @@ mcp/.pytest_cache/
 mcp/**/__pycache__/
 *.py[cod]
 
-# Local assistant/client state
-.claude/
+# Local assistant/client state; the shared agent policy is tracked
+.claude/*
+!.claude/settings.json
 
 # Local environment secrets and overrides
 .env
