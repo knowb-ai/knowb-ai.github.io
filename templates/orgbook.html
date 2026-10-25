@@ -48,7 +48,7 @@
         </div>
       </div>
       <div class="art-screen w-full max-w-sm mx-auto lg:max-w-none">
-        <div class="art-screen-edge"><div class="art-screen-view">{{ macros::atom_art() }}</div></div>
+        <div class="art-screen-edge"><div class="art-screen-view">{{ macros::spaceport_art() }}</div></div>
       </div>
     </div>
   </section>
@@ -785,7 +785,7 @@
       <!-- Arcade: orbit carousel -->
       <div class="mb-14">
         <h3 class="font-display text-2xl mb-2 text-paper-ivory">Orbit carousel</h3>
-        <p class="font-sans text-paper-ivory/75 text-sm mb-5">A swipeable track of cabinet slides with a mission path below: a saber orbit line whose stops are planets, the current one lit with a ring. Without JavaScript it is still a swipeable row; with it, tailfin arrows, the path, and the arrow keys travel the track. No autoplay.</p>
+        <p class="font-sans text-paper-ivory/75 text-sm mb-5">One full-width cabinet at a time, with a mission path below: a saber orbit line whose stops are planets, the current one lit with a ring. Travelling narrows the cabinet shut and widens the next one open. Each cabinet shows a teaser and folds the rest of its brief into a drawer that opens smoothly. Tailfin arrows, the path, swipes, and the arrow keys all travel; there is no autoplay. Without JavaScript every cabinet is listed in full.</p>
         <div class="demo-frame">
           <section class="orbit-carousel" data-orbit-carousel aria-roledescription="carousel" aria-label="Orbit carousel example">
             <div class="orbit-track" id="demo-track" tabindex="0" aria-label="Orbit carousel example, use the arrow keys to travel">
@@ -796,7 +796,13 @@
                     <p class="cabinet-label">Example 01</p>
                     <div class="cabinet-head"><h4 class="cabinet-title cabinet-title-lg">Mission one</h4>{{ macros::fins(lit=1) }}</div>
                     <div class="saber-line"></div>
-                    <p class="text-lg leading-relaxed">Slides are cabinets. Each carries a porthole with its pixel icon, a label, a title with fins, and its content.</p>
+                    <p class="text-lg leading-relaxed">Slides are cabinets. Each carries a porthole with its pixel icon, a label, a title with fins, and a teaser.</p>
+                    <div class="cabinet-more" id="demo-brief-1">
+                      <div class="cabinet-more-inner">
+                        <p class="text-lg leading-relaxed mt-5">The drawer holds the rest of the brief. It opens by easing its height from nothing to its content, and closes again when the carousel travels.</p>
+                      </div>
+                    </div>
+                    <button class="tf-btn tf-btn-saber tf-btn-sm cabinet-more-toggle" type="button" aria-expanded="true" aria-controls="demo-brief-1" hidden><span class="cabinet-more-label">Read full brief</span>{{ macros::fins() }}</button>
                   </div>
                 </div>
               </article>
@@ -833,7 +839,7 @@
               <button class="tf-btn tf-btn-saber tf-btn-sm orbit-next" type="button" aria-controls="demo-track" aria-label="Next slide">{{ macros::pixel_icon(name="arrow", color="#86E8FF", size=16) }}</button>
             </div>
           </section>
-          <p class="text-xs flex flex-wrap gap-2 mt-6"><code class="code-label">[data-orbit-carousel]</code><code class="code-label">.orbit-track</code><code class="code-label">.orbit-slide</code><code class="code-label">.orbit-controls</code><code class="code-label">.orbit-path</code><code class="code-label">.orbit-stop</code><code class="code-label">macros::porthole()</code><code class="code-label">/js/orbit-carousel.js</code></p>
+          <p class="text-xs flex flex-wrap gap-2 mt-6"><code class="code-label">[data-orbit-carousel]</code><code class="code-label">.orbit-track</code><code class="code-label">.orbit-slide</code><code class="code-label">.orbit-controls</code><code class="code-label">.orbit-path</code><code class="code-label">.orbit-stop</code><code class="code-label">.cabinet-more</code><code class="code-label">.cabinet-more-toggle</code><code class="code-label">macros::porthole()</code><code class="code-label">/js/orbit-carousel.js</code></p>
         </div>
       </div>
 
@@ -843,8 +849,8 @@
         <p class="font-sans text-paper-ivory/75 text-sm mb-5">Illustration sits behind a fine pixel mask and the full CRT pass, so vector art reads as a lit arcade screen.</p>
         <div class="demo-frame">
           <div class="grid sm:grid-cols-2 gap-8 mb-7 max-w-3xl">
-            <div class="art-screen"><div class="art-screen-edge"><div class="art-screen-view">{{ macros::planet_art() }}</div></div></div>
-            <div class="art-screen"><div class="art-screen-edge"><div class="art-screen-view">{{ macros::atom_art() }}</div></div></div>
+            <div class="art-screen"><div class="art-screen-edge"><div class="art-screen-view">{{ macros::spaceport_art() }}</div></div></div>
+            <div class="art-screen"><div class="art-screen-edge"><div class="art-screen-view">{{ macros::transmission_art() }}</div></div></div>
           </div>
           <div class="flex flex-wrap items-center gap-6 mb-6">
             {{ macros::pixel_icon(name="coin", color="#F59A52") }}
@@ -853,7 +859,7 @@
             {{ macros::pixel_icon(name="warning", color="#F59A52") }}
             {{ macros::pixel_icon(name="arrow", color="#FCF6F3") }}
           </div>
-          <p class="text-xs flex flex-wrap gap-2"><code class="code-label">.art-screen</code><code class="code-label">macros::planet_art()</code><code class="code-label">macros::atom_art()</code></p>
+          <p class="text-xs flex flex-wrap gap-2"><code class="code-label">.art-screen</code><code class="code-label">macros::spaceport_art()</code><code class="code-label">macros::transmission_art()</code></p>
         </div>
       </div>
 
@@ -1111,5 +1117,5 @@
 {% endblock footer %}
 
 {% block scripts %}
-  <script src="/js/orbit-carousel.js?v=orbit" defer></script>
+  <script src="/js/orbit-carousel.js?v=cabinet" defer></script>
 {% endblock scripts %}

@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <div class="art-screen w-full max-w-md mx-auto lg:max-w-none">
-                    <div class="art-screen-edge"><div class="art-screen-view">{{ macros::planet_art() }}</div></div>
+                    <div class="art-screen-edge"><div class="art-screen-view">{{ macros::spaceport_art() }}</div></div>
                 </div>
             </div>
         </section>
@@ -166,11 +166,16 @@
                                     <p class="text-lg leading-relaxed mb-5">
                                         Investigate how LinkedIn and Instagram content policies affect reach, moderation, and event visibility for artists, creators, and community workers, especially in marginalized communities.
                                     </p>
-                                    <p class="text-lg leading-relaxed mb-5">
-                                        Build toolkits for ethical event representation that respect platform rules while improving the chance that the underlying message reaches its intended audience.
-                                    </p>
-                                    <p class="cabinet-outcome text-sm mb-2">Outcome: compliant publishing patterns, visibility diagnostics, and responsible amplification playbooks.</p>
-                                    <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
+                                    <div class="cabinet-more" id="rfp-brief-1">
+                                        <div class="cabinet-more-inner">
+                                            <p class="text-lg leading-relaxed mb-5">
+                                                Build toolkits for ethical event representation that respect platform rules while improving the chance that the underlying message reaches its intended audience.
+                                            </p>
+                                            <p class="cabinet-outcome text-sm mb-2">Outcome: compliant publishing patterns, visibility diagnostics, and responsible amplification playbooks.</p>
+                                            <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
+                                        </div>
+                                    </div>
+                                    <button class="tf-btn tf-btn-saber tf-btn-sm cabinet-more-toggle" type="button" aria-expanded="true" aria-controls="rfp-brief-1" hidden><span class="cabinet-more-label">Read full brief</span>{{ macros::fins() }}</button>
                                 </div>
                             </div>
                         </article>
@@ -189,11 +194,16 @@
                                     <p class="text-lg leading-relaxed mb-5">
                                         Subtracktor is a browser extension that connects consent-fully to your email inbox once it detects an inbox open in the active tab. It scans only for account-creation and subscription-confirmation messages, then builds a per-account record of every subscription it finds.
                                     </p>
-                                    <p class="text-lg leading-relaxed mb-5">
-                                        Each tracked subscription shows its next billing date. Check a box on any entry to get reminded ahead of renewal, so you can unsubscribe before the charge lands instead of after. The aim is simple: close financial leakage from subscriptions you forgot you had.
-                                    </p>
-                                    <p class="cabinet-outcome text-sm mb-2">Outcome: per-account subscription audit with next-billing-date tracking and renewal reminders.</p>
-                                    <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
+                                    <div class="cabinet-more" id="rfp-brief-2">
+                                        <div class="cabinet-more-inner">
+                                            <p class="text-lg leading-relaxed mb-5">
+                                                Each tracked subscription shows its next billing date. Check a box on any entry to get reminded ahead of renewal, so you can unsubscribe before the charge lands instead of after. The aim is simple: close financial leakage from subscriptions you forgot you had.
+                                            </p>
+                                            <p class="cabinet-outcome text-sm mb-2">Outcome: per-account subscription audit with next-billing-date tracking and renewal reminders.</p>
+                                            <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
+                                        </div>
+                                    </div>
+                                    <button class="tf-btn tf-btn-saber tf-btn-sm cabinet-more-toggle" type="button" aria-expanded="true" aria-controls="rfp-brief-2" hidden><span class="cabinet-more-label">Read full brief</span>{{ macros::fins() }}</button>
                                 </div>
                             </div>
                         </article>
@@ -313,7 +323,7 @@
                             <a href="mailto:ping@knowb.run?subject=Collaboration%20Inquiry" class="tf-btn">Contact us at ping@knowb.run{{ macros::fins() }}</a>
                         </div>
                         <div class="art-screen hidden lg:block">
-                            <div class="art-screen-edge"><div class="art-screen-view">{{ macros::atom_art() }}</div></div>
+                            <div class="art-screen-edge"><div class="art-screen-view">{{ macros::transmission_art() }}</div></div>
                         </div>
                     </div>
                 </article>
@@ -355,7 +365,7 @@
 {% endblock footer %}
 
 {% block scripts %}
-<script src="/js/orbit-carousel.js?v=orbit" defer></script>
+<script src="/js/orbit-carousel.js?v=cabinet" defer></script>
 <script>
 (function () {
     // Scroll progress bar
