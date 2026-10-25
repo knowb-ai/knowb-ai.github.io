@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "macros.html" as macros %}
 
 {% block title %}{{ page.title }}: knowb.run{% endblock title %}
 {% block description %}{{ page.description | default(value=config.description) }}{% endblock description %}
@@ -6,7 +7,7 @@
 {% block header %}
     <header class="fixed top-0 left-0 right-0 z-50 bg-charcoal-bark/95 backdrop-blur-md border-b border-saber-blue/30">
         <nav aria-label="Primary" class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <a href="/" class="text-2xl font-display font-semibold tracking-tight text-paper-ivory">knowb.run</a>
+            {{ macros::wordmark(slot="header") }}
             <div class="flex flex-wrap gap-x-5 gap-y-2">
                 <a href="/" class="arcade-nav-link text-paper-ivory/90 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Home</a>
                 <a href="/#challenges" class="arcade-nav-link text-paper-ivory/90 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Challenges</a>
@@ -37,7 +38,7 @@
             <div class="px-8 md:px-10 pt-12 pb-8">
                 <div class="grid gap-10 md:grid-cols-[minmax(0,1fr)_auto] md:items-start">
                     <div class="max-w-md lg:pr-4">
-                        <a href="/" class="text-3xl font-display font-semibold tracking-tight mb-3 block text-paper-ivory hover:text-paper-ivory">knowb.run</a>
+                        {{ macros::wordmark(slot="footer") }}
                         <p class="text-paper-ivory/75 text-xs leading-relaxed">
                             KnowB AI Systems builds practical knowledge-agent systems that improve context continuity, operational trust, and long-run memory quality.
                         </p>

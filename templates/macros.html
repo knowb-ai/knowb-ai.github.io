@@ -1,0 +1,9 @@
+{# The knowb.run wordmark: Audiowide, Soft Ember dot, always links home. #}
+{% macro wordmark(slot="header") %}
+{%- if slot == "footer" -%}
+    {%- set size = "text-2xl mb-3 inline-block" -%}
+{%- else -%}
+    {%- set size = "text-xl" -%}
+{%- endif -%}
+<a href="/" aria-label="knowb.run home" class="wordmark {{ size }} font-semibold tracking-tight text-paper-ivory hover:text-paper-ivory focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">knowb<span class="text-soft-ember">.</span>run</a>
+{%- endmacro wordmark %}
