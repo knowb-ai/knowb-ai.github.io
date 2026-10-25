@@ -1,0 +1,215 @@
+# KnowB pixel icon dictionary
+#
+# Every icon is an 8x8 map, two colours at most:
+#   #  the icon colour
+#   o  a detail punched out of the shape (rendered in the `cut` colour,
+#      which should match the surface the icon sits on)
+#   .  empty
+#
+# Each entry starts with `name: meaning`, followed by exactly eight rows.
+# Rebuild templates/pixel_icons.html after editing:
+#   python3 scripts/build_pixel_icons.py
+
+## Signals
+
+coin: credit, reward, a confirmed request
+..####..
+.######.
+###oo###
+###oo###
+###oo###
+###oo###
+.######.
+..####..
+
+star: new stage, highlight, unlocked
+...#....
+...#....
+#######.
+.#####..
+..###...
+.##.##..
+##...##.
+........
+
+heart: error, lost connection, life lost
+........
+.##.##..
+###o###.
+###o###.
+.#####..
+..###...
+...#....
+........
+
+warning: caution, unsaved state
+...##...
+..####..
+..#oo#..
+.##oo##.
+.##oo##.
+########
+###oo###
+########
+
+arrow: next, go, incoming
+........
+....##..
+...###..
+########
+########
+...###..
+....##..
+........
+
+## Space age
+
+rocket: launch, delivery, phase one
+...##...
+..####..
+..#oo#..
+..####..
+..####..
+.######.
+##.##.##
+#..##..#
+
+satellite: discovery, crawling, monitoring
+...#....
+....#...
+##.##.##
+#o####o#
+##.##.##
+...##...
+...##...
+..#..#..
+
+planet: knowledge base, a world of context
+........
+..####.#
+.####oo.
+.###o##.
+.#oo###.
+.o#####.
+#.####..
+........
+
+saucer: visitors, partners, first contact
+........
+...##...
+..#oo#..
+.######.
+########
+.#o##o#.
+..#..#..
+........
+
+moon: memory at rest, offline, archive
+..####..
+.###....
+###.....
+##......
+##......
+###.....
+.###....
+..####..
+
+comet: sweep, fast pass, triage
+.....##.
+....####
+...#.##.
+..#.#...
+.#.#....
+#.#.....
+.#......
+........
+
+astronaut: crew, operators, people
+..####..
+.######.
+##oooo##
+##oo#o##
+##oooo##
+.######.
+..####..
+########
+
+beacon: broadcast, visibility, amplification
+...##...
+.#.##.#.
+#..##..#
+...##...
+..#..#..
+..#..#..
+.#....#.
+##....##
+
+orbit: continuity, state held in motion
+..####..
+.#....#.
+#..##..#
+#.####.#
+#.####.#
+#..##..#
+.#....#.
+..####..
+
+sparkle: insight, quality, a fresh signal
+...#....
+...#....
+..###...
+#######.
+..###...
+...#....
+...#..#.
+........
+
+robot: agents, automation
+...##...
+.######.
+.#o##o#.
+.######.
+.#oooo#.
+.######.
+..#..#..
+.##..##.
+
+telescope: investigation, research
+......##
+....####
+..####..
+.###....
+...#....
+..#.#...
+.#...#..
+#.....#.
+
+gauge: tooling, instrumentation, control
+..####..
+.#oooo#.
+#oooo#o#
+#ooo#oo#
+#oo#ooo#
+#oooooo#
+.#oooo#.
+..####..
+
+sputnik: link collection, relays, the network
+#......#
+.#....#.
+..####..
+.######.
+.######.
+..####..
+.#....#.
+#......#
+
+capsule: a pilot, a contained build
+...##...
+..####..
+..#o##..
+.######.
+.######.
+########
+########
+.#....#.

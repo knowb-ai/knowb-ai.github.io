@@ -545,6 +545,12 @@ html {
     justify-content: space-between;
     gap: 1rem;
 }
+.cabinet-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    min-width: 0;
+}
 .cabinet-title {
     margin: 0;
     font-family: 'Space Grotesk', 'Inter', sans-serif;
