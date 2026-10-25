@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Capsule-led hero</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#161211}
+a{color:#86E8FF}a:hover{color:#FCF6F3}
+.saber{height:1px;background:linear-gradient(90deg,rgba(134,232,255,0.10) 0%,#86E8FF 44%,rgba(255,74,26,0.50) 100%)}
+.saber-ember{height:1px;background:linear-gradient(90deg,rgba(245,154,82,0.10) 0%,#F59A52 44%,rgba(134,232,255,0.30) 100%)}
+.lbl{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;font-size:13px;border:0;cursor:pointer;display:inline-flex;align-items:center;gap:10px;line-height:1;text-decoration:none}
+.tag{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px;line-height:1}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1040px; box-sizing: border-box; background: #161211; color: #FCF6F3; font-family: Inter, system-ui, sans-serif; position: relative; overflow: hidden">
+
+  <header style="padding: 20px 40px 0">
+    <div style="height: 68px; box-sizing: border-box; padding: 0 12px 0 28px; border-radius: 999px; background: #1D1514; display: flex; align-items: center; justify-content: space-between; box-shadow: inset 0 0 0 1px rgba(233,194,179,0.16)">
+      <a href="#" style="font-family: Audiowide, sans-serif; font-size: 22px; color: #FCF6F3; text-decoration: none">knowb<span style="color: #F59A52">.</span>run</a>
+      <nav aria-label="Primary" style="display: flex; gap: 4px; padding: 5px; border-radius: 999px; background: #161211">
+        <a href="#" class="lbl" style="padding: 11px 18px; border-radius: 999px; background: #86E8FF; color: #161211; font-size: 12px">Home</a>
+        <a href="#" class="lbl" style="padding: 11px 18px; border-radius: 999px; color: #FCF6F3; font-size: 12px">Challenges</a>
+        <a href="#" class="lbl" style="padding: 11px 18px; border-radius: 999px; color: #FCF6F3; font-size: 12px">Use cases</a>
+        <a href="#" class="lbl" style="padding: 11px 18px; border-radius: 999px; color: #FCF6F3; font-size: 12px">Roadmap</a>
+      </nav>
+      <a href="#" class="lbl" style="padding: 5px 5px 5px 20px; border-radius: 999px; background: #2A1D1B; color: #FCF6F3; gap: 14px; font-size: 12px; box-shadow: inset 0 2px 0 rgba(252,246,243,0.22), inset 0 -3px 0 rgba(0,0,0,0.45)">Contact<span style="width: 36px; height: 36px; border-radius: 50%; background: #F59A52; box-shadow: inset 0 3px 0 rgba(252,246,243,0.55), inset 0 -3px 0 rgba(142,47,42,0.6), 0 3px 0 #8E2F2A; display: flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="0" y="3" width="6" height="2" fill="#161211"/><rect x="4" y="1" width="2" height="6" fill="#161211"/><rect x="6" y="3" width="2" height="2" fill="#161211"/></svg></span></a>
+    </div>
+  </header>
+
+  <section style="padding: 52px 64px 0; display: grid; grid-template-columns: 7fr 5fr; gap: 56px; align-items: start">
+    <div style="display: flex; flex-direction: column; gap: 28px; padding-top: 12px">
+      <div style="display: flex; align-items: center; gap: 14px">
+        <span class="tag" style="padding: 9px 16px; border-radius: 999px; background: #241A18; color: #86E8FF; box-shadow: inset 0 0 0 1px rgba(134,232,255,0.55)"><span style="width: 6px; height: 6px; background: #86E8FF"></span>Front deck</span>
+        <div class="saber" style="width: 160px"></div>
+      </div>
+      <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 66px; line-height: 1.04; letter-spacing: -0.02em">Building <span style="color: #F59A52">context-aware agents</span> with better <span style="color: #86E8FF">knowledge and memory</span> capabilities</h1>
+      <p style="margin: 0; max-width: 640px; font-size: 19px; line-height: 1.6; color: rgba(252,246,243,0.82)">We build context-aware systems with durable memory, stable state transitions, and governance-first operation.</p>
+      <div style="display: flex; gap: 28px; align-items: center; padding-top: 4px">
+        <a href="#" class="lbl" style="padding: 6px 6px 6px 26px; border-radius: 999px; background: #2A1D1B; color: #FCF6F3; gap: 18px; font-size: 14px; box-shadow: inset 0 2px 0 rgba(252,246,243,0.22), inset 0 -3px 0 rgba(0,0,0,0.45), 0 0 0 2px #3B1E1D">Explore use cases<span style="width: 48px; height: 48px; border-radius: 50%; background: #F59A52; box-shadow: inset 0 3px 0 rgba(252,246,243,0.55), inset 0 -4px 0 rgba(142,47,42,0.6), 0 3px 0 #8E2F2A; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="0" y="3" width="6" height="2" fill="#161211"/><rect x="4" y="1" width="2" height="6" fill="#161211"/><rect x="6" y="3" width="2" height="2" fill="#161211"/></svg></span></a>
+        <span style="position: relative; display: inline-block"><svg style="position: absolute; left: -16px; top: -10px; width: calc(100% + 32px); height: calc(100% + 20px); overflow: visible" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><ellipse cx="50" cy="50" rx="49" ry="44" fill="none" stroke="#86E8FF" stroke-width="1.5" vector-effect="non-scaling-stroke" opacity="0.55" transform="rotate(-4 50 50)"/></svg><span style="position: absolute; right: -18px; top: -4px; width: 7px; height: 7px; background: #F59A52"></span><a href="#" class="lbl" style="position: relative; padding: 18px 26px; border-radius: 999px; color: #86E8FF; font-size: 14px; box-shadow: inset 0 0 0 2px #86E8FF">View delivery roadmap</a></span>
+      </div>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap">
+        <span class="tag" style="padding: 10px 16px; border-radius: 999px; background: #1D1514; color: #FCF6F3; box-shadow: inset 0 0 0 1px rgba(233,194,179,0.30)"><span style="width: 7px; height: 7px; background: #86E8FF"></span>Static-first surface</span>
+        <span class="tag" style="padding: 10px 16px; border-radius: 999px; background: #1D1514; color: #FCF6F3; box-shadow: inset 0 0 0 1px rgba(233,194,179,0.30)"><span style="width: 7px; height: 7px; background: #F59A52"></span>Reduced motion defaults</span>
+        <span class="tag" style="padding: 10px 16px; border-radius: 999px; background: #1D1514; color: #FCF6F3; box-shadow: inset 0 0 0 1px rgba(233,194,179,0.30)"><span style="width: 7px; height: 7px; background: #86E8FF"></span>High-contrast signal UI</span>
+      </div>
+    </div>
+
+    <div style="position: relative; height: 560px">
+      <div style="position: absolute; inset: 0; border-radius: 300px 300px 48px 48px; background: #1D1514; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(233,194,179,0.14)">
+        <div style="position: absolute; left: 50%; top: 56px; transform: translateX(-50%); width: 360px; height: 360px; border-radius: 50%; background: #161211; box-shadow: 0 0 0 12px #241A18, 0 0 0 14px rgba(134,232,255,0.5)">
+          <svg width="360" height="360" viewBox="-180 -180 360 360" aria-hidden="true">
+            <circle cx="0" cy="10" r="86" fill="#8E2F2A"/>
+            <path d="M -86 10 A 86 86 0 0 1 86 10 Z" fill="#A23A2F"/>
+            <ellipse cx="0" cy="18" rx="150" ry="30" fill="none" stroke="#F59A52" stroke-width="7" transform="rotate(-14)"/>
+            <path d="M -86 28 A 86 86 0 0 0 86 28" fill="none" stroke="#8E2F2A" stroke-width="12" transform="rotate(-14)"/>
+            <ellipse rx="164" ry="54" fill="none" stroke="#86E8FF" stroke-width="2" transform="rotate(32)"/>
+            <rect x="110" y="-96" width="9" height="9" fill="#86E8FF"/>
+            <rect x="-128" y="-110" width="6" height="6" fill="#FCF6F3"/>
+            <rect x="-60" y="-140" width="4" height="4" fill="#FCF6F3"/>
+            <rect x="120" y="100" width="4" height="4" fill="#FCF6F3"/>
+          </svg>
+        </div>
+        <div style="position: absolute; left: 36px; right: 36px; bottom: 30px; display: flex; flex-direction: column; gap: 14px">
+          <div class="saber-ember"></div>
+          <div style="display: flex; align-items: center; justify-content: space-between">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E9C2B3; letter-spacing: 0.1em">ORBIT 01 · KNOWLEDGE DECK</span>
+            <span style="display: flex; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #86E8FF"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #86E8FF"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #F59A52"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #3B1E1D"></span></span>
+          </div>
+        </div>
+      </div>
+      <div role="status" style="position: absolute; left: -52px; bottom: 100px; display: flex; align-items: center; gap: 14px; padding: 8px 22px 8px 8px; border-radius: 999px; background: #241A18; box-shadow: inset 0 0 0 2px #F59A52, 0 4px 0 #0D0A09">
+        <span style="width: 44px; height: 44px; border-radius: 50%; background: #161211; box-shadow: inset 0 0 0 2px #F59A52; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="0" width="4" height="1" fill="#F59A52"/><rect x="1" y="1" width="6" height="1" fill="#F59A52"/><rect x="0" y="2" width="8" height="4" fill="#F59A52"/><rect x="1" y="6" width="6" height="1" fill="#F59A52"/><rect x="2" y="7" width="4" height="1" fill="#F59A52"/><rect x="3" y="2" width="2" height="4" fill="#8E2F2A"/></svg></span>
+        <span style="display: flex; flex-direction: column; gap: 3px"><span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.14em; color: #F59A52">PLAYER 1 READY</span><span style="font-size: 14px">Pilot request received</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section style="position: absolute; left: 64px; right: 64px; bottom: 44px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
+    <article style="position: relative; border-radius: 32px; background: #1D1514; padding: 34px 24px 22px; box-shadow: inset 0 0 0 1px rgba(245,154,82,0.35)">
+      <span class="tag" style="position: absolute; left: 22px; top: -14px; padding: 8px 14px; border-radius: 999px; background: #F59A52; color: #161211; font-weight: 700"><span style="width: 6px; height: 6px; background: #161211"></span>Power signal</span>
+      <p style="margin: 0 0 16px; font-size: 15px; line-height: 1.55; color: rgba(252,246,243,0.85)">Lean visual primitives, no heavy runtime animations, and clear hierarchy for fast scan speed.</p>
+      <div class="saber-ember"></div>
+    </article>
+    <article style="position: relative; border-radius: 32px; background: #1D1514; padding: 34px 24px 22px; box-shadow: inset 0 0 0 1px rgba(134,232,255,0.35)">
+      <span class="tag" style="position: absolute; left: 22px; top: -14px; padding: 8px 14px; border-radius: 999px; background: #86E8FF; color: #161211; font-weight: 700"><span style="width: 6px; height: 6px; background: #161211"></span>Memory signal</span>
+      <p style="margin: 0 0 16px; font-size: 15px; line-height: 1.55; color: rgba(252,246,243,0.85)">State and context are treated as product layers, not hidden behavior.</p>
+      <div class="saber"></div>
+    </article>
+    <article style="position: relative; border-radius: 32px; background: #1D1514; padding: 34px 24px 22px; box-shadow: inset 0 0 0 1px rgba(245,154,82,0.35)">
+      <span class="tag" style="position: absolute; left: 22px; top: -14px; padding: 8px 14px; border-radius: 999px; background: #F59A52; color: #161211; font-weight: 700"><span style="width: 6px; height: 6px; background: #161211"></span>Operator signal</span>
+      <p style="margin: 0 0 16px; font-size: 15px; line-height: 1.55; color: rgba(252,246,243,0.85)">Arcade cues for users, mission-control semantics for teams and agents.</p>
+      <div class="saber-ember"></div>
+    </article>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1040}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

@@ -1,27 +1,31 @@
 {% extends "base.html" %}
+{% import "macros.html" as macros %}
 
 {% block title %}{{ page.title }}: knowb.run{% endblock title %}
+{% block description %}{{ page.description | default(value=config.description) }}{% endblock description %}
 
 {% block header %}
-    <header class="fixed top-0 left-0 right-0 z-50 bg-charcoal-bark/95 backdrop-blur-md border-b border-saber-blue/30">
-        <nav aria-label="Primary" class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <a href="/" class="text-2xl font-display font-semibold tracking-tight text-paper-ivory">knowb.run</a>
-            <div class="flex flex-wrap gap-x-5 gap-y-2">
-                <a href="/" class="arcade-nav-link text-paper-ivory/90 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Home</a>
-                <a href="/#challenges" class="arcade-nav-link text-paper-ivory/90 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Challenges</a>
-                <a href="/#use-cases" class="arcade-nav-link text-paper-ivory/90 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Use Cases</a>
-                <a href="/#contact" class="arcade-nav-link text-paper-ivory/90 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Contact</a>
+    <header class="site-header">
+        <nav aria-label="Primary" class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+            {{ macros::wordmark(slot="header") }}
+            <div class="nav-scroll">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/#challenges" class="nav-link">Challenges</a>
+                <a href="/#use-cases" class="nav-link">Use Cases</a>
+                <a href="/org-book/" class="nav-link">Design System</a>
+                <a href="/#contact" class="nav-link">Contact</a>
             </div>
         </nav>
     </header>
 {% endblock header %}
 
 {% block content %}
-    <main id="main-content" class="pt-32 px-6 pb-16 bg-charcoal-bark">
-        <section class="max-w-5xl mx-auto">
-            <div class="mb-8">
-                <p class="section-kicker section-kicker-saber font-display text-[0.62rem] mb-3">KnowB Policy Surface</p>
-                <h1 class="font-display text-3xl md:text-4xl tracking-tight text-paper-ivory">{{ page.title }}</h1>
+    <main id="main-content" class="pt-40 lg:pt-36 px-6 pb-24 bg-obsidian-brown">
+        <section class="max-w-4xl mx-auto">
+            <div class="mb-10">
+                <p class="section-kicker">KnowB Policy Surface</p>
+                <div class="section-rule"></div>
+                <h1 class="display-section">{{ page.title }}</h1>
             </div>
             <article class="policy-content">
                 {{ page.content | safe }}
@@ -31,35 +35,32 @@
 {% endblock content %}
 
 {% block footer %}
-    <footer class="scroll-mt-28 px-6 pt-14 pb-10 bg-charcoal-bark text-paper-ivory">
-        <div class="max-w-7xl mx-auto rounded-[1.35rem] border border-terracotta-border/45 border-t-terracotta-border/80 bg-charcoal-bark/95 shadow-[0_-1px_0_rgba(233,194,179,0.26),0_22px_50px_rgba(122,34,23,0.38)]">
-            <div class="px-8 md:px-10 pt-12 pb-8">
-                <div class="grid gap-10 md:grid-cols-[minmax(0,1fr)_auto] md:items-start">
-                    <div class="max-w-md lg:pr-4">
-                        <a href="/" class="text-3xl font-display font-semibold tracking-tight mb-3 block text-paper-ivory hover:text-paper-ivory">knowb.run</a>
-                        <p class="text-paper-ivory/75 text-xs leading-relaxed">
-                            KnowB AI Systems builds practical knowledge-agent systems that improve context continuity, operational trust, and long-run memory quality.
-                        </p>
-                    </div>
-
-                    <nav aria-label="Footer navigation" class="md:justify-self-end">
-                        <ul class="space-y-2 md:text-right text-sm">
-                            <li class="text-paper-ivory/70 text-[0.64rem] font-semibold uppercase tracking-[0.12em]">Navigation</li>
-                            <li><a href="/" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Home</a></li>
-                            <li><a href="/#challenges" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Challenges</a></li>
-                            <li><a href="/#use-cases" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Use Cases</a></li>
-                            <li><a href="/#contact" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Contact</a></li>
-                        </ul>
-                    </nav>
+    <footer class="site-footer px-6 pt-16 pb-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid gap-10 md:grid-cols-[minmax(0,1fr)_auto] md:items-start">
+                <div class="max-w-md">
+                    {{ macros::wordmark(slot="footer") }}
+                    <p class="text-paper-ivory/75 text-sm leading-relaxed">
+                        KnowB AI Systems builds practical knowledge-agent systems that improve context continuity, operational trust, and long-run memory quality.
+                    </p>
                 </div>
-
-                <div class="mt-10 pt-6 border-t border-terracotta-border/20 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm">
-                    <ul class="flex flex-wrap gap-x-5 gap-y-2">
-                        <li><a href="/terms/" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Terms</a></li>
-                        <li><a href="/privacy/" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Privacy</a></li>
+                <nav aria-label="Footer navigation" class="md:justify-self-end">
+                    <ul class="space-y-2 md:text-right text-sm">
+                        <li class="footer-heading pb-1">Navigation</li>
+                        <li><a href="/" class="footer-link">Home</a></li>
+                        <li><a href="/#challenges" class="footer-link">Challenges</a></li>
+                        <li><a href="/#use-cases" class="footer-link">Use Cases</a></li>
+                        <li><a href="/org-book/" class="footer-link">Design System</a></li>
+                        <li><a href="/#contact" class="footer-link">Contact</a></li>
                     </ul>
-                    <span class="text-paper-ivory/85">© 2026 knowb.run</span>
-                </div>
+                </nav>
+            </div>
+            <div class="mt-12 pt-6 border-t border-terracotta-border/20 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm">
+                <ul class="flex flex-wrap gap-x-6 gap-y-2">
+                    <li><a href="/terms/" class="footer-link">Terms</a></li>
+                    <li><a href="/privacy/" class="footer-link">Privacy</a></li>
+                </ul>
+                <span class="text-paper-ivory/85">© 2026 knowb.run</span>
             </div>
         </div>
     </footer>

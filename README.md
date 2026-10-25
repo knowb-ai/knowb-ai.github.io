@@ -66,12 +66,18 @@ knowb-run/
 │   ├── index.html           # Homepage (extends base.html)
 │   ├── orgbook.html         # Brandbook (extends base.html)
 │   ├── page.html            # Policy/content pages (extends base.html)
+│   ├── 404.html             # Not-found page (extends page.html)
+│   ├── macros.html          # Wordmark, fin stairs, pixel icons, art
+│   ├── concept/             # Generated Concept Book plates (do not edit)
 │   └── section.html         # Section listing (extends base.html)
 ├── static/
 │   ├── css/
-│   │   └── global.css       # Global stylesheet (all component styles)
+│   │   ├── global.css       # Global stylesheet (editorial and arcade layers)
+│   │   └── concept-book.css # Generated, scoped Concept Book plate styles
 │   ├── favicon.svg          # Brand favicon (▮▮▮, outer Autumn Fire, middle Saber Blue)
 │   └── CNAME                # Custom domain config
+├── design/concept-book/     # Source boards for the Org Book Concept Book
+├── scripts/build_concept_book.py  # Rebuilds templates/concept/ and concept-book.css
 ├── .knowb/project.yml       # Repo-owned knowledge policy (knowledgeHQ only)
 ├── DESIGN_SYSTEM.md        # Public cross-axis visual canon
 ├── ORGBRAND_GUIDELINES.md  # Autumn implementation and WCAG companion
@@ -83,7 +89,7 @@ knowb-run/
 
 All templates extend `base.html`, which provides:
 - Shared `<head>` (meta, Google Fonts, Tailwind CDN config with all brand tokens, favicon)
-- Link to `static/css/global.css` (all component styles in one place)
+- Link to `static/css/global.css`: the space-age editorial layer (surfaces, type, nav, horizon) and the tailfin arcade layer (buttons, chips, cabinets, alerts, art screens, CRT pass)
 - Skip-to-content accessibility link
 - Tera blocks: `title`, `head_extra`, `header`, `content`, `footer`
 
@@ -92,7 +98,7 @@ To change styles or layout globally, edit `base.html` or `static/css/global.css`
 ## Pages
 
 - `/`: Main homepage (use cases, roadmap, contact)
-- `/org-book/`: KnowB AI Visual Design System (palettes, channels, themes, styles, type, components, a11y)
+- `/org-book/`: KnowB AI Visual Design System (palettes, channels, themes, styles, type, components, a11y, Concept Book)
 - `/terms/`: Terms of service
 - `/privacy/`: Privacy policy
 
@@ -102,7 +108,7 @@ All page content lives in `templates/`. The content markdown files in `content/`
 
 ## Favicon
 
-Three vertical bars on Charcoal Bark (`#7A2217`): outer bars in Autumn Fire
+Three vertical bars on the Ground surface (`#161211`): outer bars in Autumn Fire
 (`#FF4A1A`), middle bar in Saber Blue (`#86E8FF`). Defined in `base.html` so
 every page inherits it.
 

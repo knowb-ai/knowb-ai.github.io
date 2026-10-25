@@ -1,8 +1,8 @@
 +++
 title = "Terms of Use"
+description = "Terms governing use of knowb.run and related project programs operated by KnowB AI Systems."
 +++
 
-# Terms of Use
 Effective date: 2026-05-26
 
 These Terms govern use of knowb.run and related project programs operated by KnowB AI Systems.
