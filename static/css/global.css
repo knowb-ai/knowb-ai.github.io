@@ -134,7 +134,7 @@ html {
 /* --- Signal Cards --- */
 .signal-card {
     border: 1px solid rgba(134,232,255,0.28);
-    background: rgba(122,34,23,0.74);
+    background: rgba(20,16,15,0.74);
     box-shadow: inset 0 0 0 1px rgba(134,232,255,0.12);
     border-radius: 0.2rem;
     padding: 0.9rem 1rem;
@@ -215,10 +215,10 @@ html {
             0deg,
             transparent,
             transparent 2px,
-            rgba(122,34,23,0.055) 2px,
-            rgba(122,34,23,0.055) 4px
+            rgba(0,0,0,0.055) 2px,
+            rgba(0,0,0,0.055) 4px
         ),
-        linear-gradient(180deg, rgba(122,34,23,0.50) 0%, rgba(122,34,23,0.72) 100%);
+        linear-gradient(180deg, rgba(22,18,17,0.50) 0%, rgba(22,18,17,0.72) 100%);
     pointer-events: none;
     z-index: 3;
 }
@@ -234,7 +234,7 @@ html {
     z-index: 1;
 }
 .hero-arcade .arcade-button {
-    background: rgba(122,34,23,0.78);
+    background: rgba(20,16,15,0.78);
 }
 
 /* --- Arcade Buttons --- */
@@ -260,7 +260,7 @@ html {
 .arcade-button:hover {
     background: #86E8FF;
     border-color: #86E8FF;
-    color: #7A2217;
+    color: #161211;
     box-shadow: 0 0 0 1px rgba(134,232,255,0.24), 0 0 22px rgba(134,232,255,0.30);
     transform: translateY(-1px);
 }
@@ -279,7 +279,7 @@ html {
 .arcade-button.alt:hover {
     background: #F59A52;
     border-color: #F59A52;
-    color: #7A2217;
+    color: #161211;
     box-shadow: 0 0 0 1px rgba(245,154,82,0.26), 0 0 22px rgba(245,154,82,0.30);
 }
 .arcade-button.alt:focus-visible {
@@ -339,7 +339,7 @@ html {
 .contact-callout-frame {
     border: 1px solid transparent !important;
     background:
-        linear-gradient(180deg, rgba(122,34,23,0.96) 0%, rgba(122,34,23,0.92) 100%) padding-box,
+        linear-gradient(180deg, rgba(29,21,20,0.96) 0%, rgba(29,21,20,0.92) 100%) padding-box,
         linear-gradient(128deg, rgba(245,154,82,0.88) 0%, rgba(134,232,255,0.90) 52%, rgba(255,74,26,0.84) 100%) border-box;
     box-shadow: 0 0 24px rgba(245,154,82,0.22), 0 0 28px rgba(134,232,255,0.22);
     position: relative;
@@ -407,7 +407,7 @@ html {
 /* --- Demo Frame / Code Label (orgbook.html) --- */
 .demo-frame {
     border: 1px solid rgba(134,232,255,0.16);
-    background: rgba(122,34,23,0.55);
+    background: rgba(20,16,15,0.55);
     border-radius: 0.4rem;
     padding: 2rem 1.5rem;
 }
@@ -466,7 +466,7 @@ html {
     vertical-align: top;
 }
 .bb-table tr:hover td {
-    background: rgba(122,34,23,0.5);
+    background: rgba(29,21,20,0.5);
 }
 
 /* --- Focus (global) --- */
@@ -525,8 +525,8 @@ a:focus-visible {
         linear-gradient(rgba(134,232,255,0.055) 1px, transparent 1px),
         linear-gradient(90deg, rgba(134,232,255,0.055) 1px, transparent 1px);
     background-size: 56px 56px;
-    mask-image: linear-gradient(180deg, transparent 0%, rgba(122,34,23,0.6) 40%, rgba(122,34,23,0.9) 80%, transparent 100%);
-    -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(122,34,23,0.6) 40%, rgba(122,34,23,0.9) 80%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.9) 80%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.9) 80%, transparent 100%);
 }
 
 /* --- Ambient Orbs (hero accent glows) --- */
@@ -686,7 +686,7 @@ a:focus-visible {
 
 /* --- Custom Scrollbar --- */
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #7A2217; }
+::-webkit-scrollbar-track { background: #161211; }
 ::-webkit-scrollbar-thumb {
     background: linear-gradient(180deg, #F59A52 0%, #8E2F2A 55%, #86E8FF 100%);
     border-radius: 3px;
@@ -703,7 +703,7 @@ a:focus-visible {
     overflow: hidden;
     border: 1px solid rgba(233,194,179,0.38);
     border-radius: 0.35rem;
-    background: #7A2217;
+    background: #161211;
 }
 .diagram-embed iframe {
     display: block;
@@ -715,7 +715,7 @@ a:focus-visible {
     min-height: 13rem;
     border: 1px solid rgba(233,194,179,0.3);
     border-radius: 0.35rem;
-    background: rgba(122,34,23,0.32);
+    background: rgba(29,21,20,0.32);
     padding: 1.3rem;
 }
 .diagram-type-card-ember { border-color: rgba(245,154,82,0.52); }
