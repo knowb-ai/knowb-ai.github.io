@@ -50,6 +50,9 @@ cannot replace functional UI text or accessibility labels.
 - `templates/orgbook.html` renders the complete visual design reference.
 - `templates/page.html` renders policy and content pages.
 - `static/css/global.css` contains shared component and motion styles.
+- `design/concept-book/` holds the design-canvas boards; run
+  `python3 scripts/build_concept_book.py` after changing them to regenerate the
+  Org Book plates in `templates/concept/` and `static/css/concept-book.css`.
 - `static/favicon.svg` uses canonical Autumn and Saber tokens.
 - The KnowB MCP connector is not in this repository. It lives in the private
   `knowledgeHQ` repository under `mcp/`.

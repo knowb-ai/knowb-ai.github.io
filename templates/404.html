@@ -1,0 +1,26 @@
+{% extends "page.html" %}
+{% import "macros.html" as macros %}
+
+{% block title %}Page not found: knowb.run{% endblock title %}
+{% block description %}{{ config.description }}{% endblock description %}
+
+{% block content %}
+    <main id="main-content" class="space-hero pt-40 lg:pt-44 px-6 pb-28">
+        <span class="star" style="left: 70%; top: 22%" aria-hidden="true"></span>
+        <span class="star star-saber" style="left: 84%; top: 58%" aria-hidden="true"></span>
+        <span class="star star-ember" style="left: 12%; top: 80%" aria-hidden="true"></span>
+        <section class="max-w-4xl mx-auto relative">
+            <p class="section-kicker">Error 404</p>
+            <div class="section-rule"></div>
+            <h1 class="display-hero mb-6">Page not found</h1>
+            <p class="lede max-w-2xl mb-10">
+                This page does not exist or has moved. Head back to the front deck or browse the current use cases.
+            </p>
+            <div class="flex flex-wrap items-center gap-6">
+                <a href="/" class="tf-btn">Back to home{{ macros::fins() }}</a>
+                <a href="/#use-cases" class="tf-btn tf-btn-saber">Explore use cases{{ macros::fins() }}</a>
+            </div>
+        </section>
+    </main>
+    <div class="horizon-band" aria-hidden="true"></div>
+{% endblock content %}

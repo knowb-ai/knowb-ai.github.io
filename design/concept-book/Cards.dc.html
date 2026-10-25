@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Card overlays</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#161211}
+a{color:#86E8FF}a:hover{color:#FCF6F3}
+.px8{clip-path:polygon(8px 0,calc(100% - 8px) 0,calc(100% - 8px) 4px,calc(100% - 4px) 4px,calc(100% - 4px) 8px,100% 8px,100% calc(100% - 8px),calc(100% - 4px) calc(100% - 8px),calc(100% - 4px) calc(100% - 4px),calc(100% - 8px) calc(100% - 4px),calc(100% - 8px) 100%,8px 100%,8px calc(100% - 4px),4px calc(100% - 4px),4px calc(100% - 8px),0 calc(100% - 8px),0 8px,4px 8px,4px 4px,8px 4px)}
+.px4{clip-path:polygon(4px 0,calc(100% - 4px) 0,calc(100% - 4px) 2px,calc(100% - 2px) 2px,calc(100% - 2px) 4px,100% 4px,100% calc(100% - 4px),calc(100% - 2px) calc(100% - 4px),calc(100% - 2px) calc(100% - 2px),calc(100% - 4px) calc(100% - 2px),calc(100% - 4px) 100%,4px 100%,4px calc(100% - 2px),2px calc(100% - 2px),2px calc(100% - 4px),0 calc(100% - 4px),0 4px,2px 4px,2px 2px,4px 2px)}
+.saber{height:2px;background:linear-gradient(90deg,rgba(134,232,255,0.10) 0%,#86E8FF 44%,rgba(255,74,26,0.50) 100%)}
+.saber-ember{height:2px;background:linear-gradient(90deg,rgba(245,154,82,0.10) 0%,#F59A52 44%,rgba(134,232,255,0.30) 100%)}
+.mq{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.16em;text-transform:uppercase}
+.state{font-family:'JetBrains Mono',monospace;font-size:12px;color:#E9C2B3;letter-spacing:0.08em}
+.chip{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px;line-height:1;border:0}
+</style>
+</helmet>
+<div style="width: 1440px; height: 960px; box-sizing: border-box; padding: 48px 56px; background: #161211; color: #FCF6F3; font-family: Inter, system-ui, sans-serif; display: flex; flex-direction: column; gap: 26px">
+
+  <div style="display: flex; flex-direction: column; gap: 8px">
+    <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; color: #86E8FF">CARD OVERLAYS</span>
+    <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 36px">Cabinet cards: marquee header, solid body, lit on hover</h1>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px">
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span class="state">CHALLENGE · DEFAULT</span>
+      <article class="px8" style="padding: 1px; background: rgba(134,232,255,0.45)">
+        <div class="px8" style="background: #1D1514">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; background: #241A18"><span class="mq" style="color: #86E8FF">Challenge 01</span><span style="display: flex; gap: 3px"><span style="width: 6px; height: 6px; background: #86E8FF"></span><span style="width: 6px; height: 6px; background: #3B1E1D"></span><span style="width: 6px; height: 6px; background: #3B1E1D"></span></span></div>
+          <div class="saber"></div>
+          <div style="padding: 20px; display: flex; flex-direction: column; gap: 12px">
+            <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px">Knowledge Tooling</h2>
+            <ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.5; color: rgba(252,246,243,0.85)">
+              <li>Most tooling is prompt-first and session-bound.</li>
+              <li>Retrieval, evaluation, and state mutation are often disconnected.</li>
+              <li>Observability is weak when teams need memory audits.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span class="state">CHALLENGE · HOVER / FOCUS-WITHIN</span>
+      <div style="position: relative; transform: translate(-3px, -3px); filter: drop-shadow(6px 6px 0 #8E2F2A)">
+        <article class="px8" style="padding: 2px; background: #86E8FF">
+          <div class="px8" style="background: #1D1514">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; background: #86E8FF"><span class="mq" style="color: #161211">Challenge 01</span><span style="display: flex; gap: 3px"><span style="width: 6px; height: 6px; background: #161211"></span><span style="width: 6px; height: 6px; background: #161211"></span><span style="width: 6px; height: 6px; background: #161211"></span></span></div>
+            <div style="padding: 20px; display: flex; flex-direction: column; gap: 12px">
+              <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px">Knowledge Tooling</h2>
+              <ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.5; color: rgba(252,246,243,0.90)">
+                <li>Most tooling is prompt-first and session-bound.</li>
+                <li>Retrieval, evaluation, and state mutation are often disconnected.</li>
+                <li>Observability is weak when teams need memory audits.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+        <span style="position: absolute; left: -10px; top: -10px; width: 16px; height: 16px; border-top: 3px solid #F59A52; border-left: 3px solid #F59A52"></span>
+        <span style="position: absolute; right: -10px; top: -10px; width: 16px; height: 16px; border-top: 3px solid #F59A52; border-right: 3px solid #F59A52"></span>
+        <span style="position: absolute; left: -10px; bottom: -10px; width: 16px; height: 16px; border-bottom: 3px solid #F59A52; border-left: 3px solid #F59A52"></span>
+        <span style="position: absolute; right: -10px; bottom: -10px; width: 16px; height: 16px; border-bottom: 3px solid #F59A52; border-right: 3px solid #F59A52"></span>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span class="state">ROADMAP PHASE · PROGRESS METER</span>
+      <article class="px8" style="padding: 1px; background: rgba(245,154,82,0.50)">
+        <div class="px8" style="background: #1D1514">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; background: #241A18"><span class="mq" style="color: #F59A52">Phase 1</span><span class="px4" style="display: inline-flex"><span class="chip" style="padding: 6px 8px; background: #2A1D1B; color: rgba(252,246,243,0.80)">Status</span><span class="chip" style="padding: 6px 8px; background: #F59A52; color: #161211">Live</span></span></div>
+          <div class="saber-ember"></div>
+          <div style="padding: 20px; display: flex; flex-direction: column; gap: 14px">
+            <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px">RFP Projects</h2>
+            <ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.5; color: rgba(252,246,243,0.85)">
+              <li>Ship simple, testable prototypes with clear outcomes.</li>
+              <li>Validate retrieval quality, context tracking, and report utility.</li>
+            </ul>
+            <div style="display: flex; align-items: center; gap: 10px"><span class="state">PROGRESS</span><div style="flex: 1; display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 3px"><span style="height: 8px; background: #F59A52"></span><span style="height: 8px; background: #F59A52"></span><span style="height: 8px; background: #F59A52"></span><span style="height: 8px; background: #F59A52"></span><span style="height: 8px; background: #3B1E1D"></span><span style="height: 8px; background: #3B1E1D"></span><span style="height: 8px; background: #3B1E1D"></span><span style="height: 8px; background: #3B1E1D"></span><span style="height: 8px; background: #3B1E1D"></span><span style="height: 8px; background: #3B1E1D"></span></div><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #FCF6F3">[N]/10</span></div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 10px">
+    <span class="state">FEATURED RFP · PORTHOLE + CABINET</span>
+    <article style="display: grid; grid-template-columns: 380px minmax(0, 1fr); background: #1D1514; border-radius: 36px; overflow: hidden">
+      <div style="background: #241A18; display: flex; align-items: center; justify-content: center; position: relative; min-height: 300px">
+        <div style="width: 220px; height: 220px; border-radius: 50%; background: #161211; box-shadow: 0 0 0 8px #2A1D1B, 0 0 0 10px rgba(245,154,82,0.6); display: flex; align-items: center; justify-content: center">
+          <svg width="200" height="200" viewBox="-100 -100 200 200" aria-hidden="true"><g fill="none" stroke="#86E8FF" stroke-width="4"><ellipse rx="80" ry="26"/><ellipse rx="80" ry="26" transform="rotate(60)"/><ellipse rx="80" ry="26" transform="rotate(120)"/></g><circle r="16" fill="#F59A52"/><rect x="-70" y="-74" width="5" height="5" fill="#FCF6F3"/><rect x="62" y="58" width="5" height="5" fill="#FCF6F3"/></svg>
+        </div>
+      </div>
+      <div style="padding: 32px 40px; display: flex; flex-direction: column; gap: 16px">
+        <div style="display: flex; gap: 12px; align-items: center">
+          <span class="px4" style="display: inline-flex"><span class="chip" style="padding: 8px 10px; background: #2A1D1B; color: rgba(252,246,243,0.80)">RFP</span><span class="chip" style="padding: 8px 10px; background: #86E8FF; color: #161211; font-family: 'JetBrains Mono', monospace">01</span></span>
+          <span class="chip" style="padding: 8px 14px; border-radius: 999px; background: #241A18; color: #FCF6F3; box-shadow: inset 0 0 0 1px rgba(233,194,179,0.30)"><span style="width: 7px; height: 7px; border-radius: 50%; background: #F59A52"></span>Featured</span>
+        </div>
+        <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: 0.02em">UNDERMINER</h2>
+        <div class="saber" style="max-width: 420px"></div>
+        <p style="margin: 0; max-width: 760px; font-size: 17px; line-height: 1.6; color: rgba(252,246,243,0.85)">Extract semantic understanding from paywalled reporting and reconstruct the story from alternate sources plus LLM context-tracing experiments.</p>
+        <p style="margin: 0; font-size: 15px; color: #E9C2B3">Outcome: evidence-linked narrative reconstruction with source traceability.</p>
+        <div style="display: flex; gap: 18px; align-items: center; padding-top: 6px">
+          <span style="display: inline-block; filter: drop-shadow(4px 4px 0 #8E2F2A)"><a href="#" class="px8" style="display: inline-flex; align-items: center; gap: 10px; padding: 14px 20px; background: #F59A52; color: #161211; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; box-shadow: inset 0 3px 0 rgba(252,246,243,0.55)">Build this RFP</a></span>
+          <a href="#" style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 0.14em; color: #86E8FF">PING@KNOWB.RUN</a>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":960}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
