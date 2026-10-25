@@ -1,16 +1,18 @@
 {% extends "base.html" %}
 
 {% block title %}KnowB AI Visual Design System{% endblock title %}
+{% block description %}{{ page.description | default(value=config.description) }}{% endblock description %}
 
 {% block header %}
   <!-- Sticky nav -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-charcoal-bark/95 backdrop-blur-md border-b border-saber-blue/20">
     <nav aria-label="Visual design system navigation" class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-      <div class="wordmark text-lg font-semibold tracking-tight text-paper-ivory">
+      <a href="/" aria-label="knowb.design, back to knowb.run home" class="wordmark text-lg font-semibold tracking-tight text-paper-ivory focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">
         knowb<span class="text-soft-ember">.</span>design
-      </div>
+      </a>
       <div class="flex flex-wrap gap-x-5 gap-y-2">
-        <a href="#system"        class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">System</a>
+        <a href="/"              class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">Home</a>
+        <a href="#system"       class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">System</a>
         <a href="#colours"       class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">Colours</a>
         <a href="#channels"      class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">Channels</a>
         <a href="#themes"        class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">Themes</a>
@@ -27,7 +29,7 @@
 
 {% block content %}
   <!-- Hero -->
-  <section id="main-content" class="pt-28 pb-20 px-6 bg-knowb-autumn-core border-b border-deep-rust/70 hero-arcade">
+  <section id="main-content" class="pt-44 lg:pt-28 pb-20 px-6 bg-knowb-autumn-core border-b border-deep-rust/70 hero-arcade">
     <div class="max-w-7xl mx-auto">
       <div class="max-w-4xl">
         <p class="section-kicker section-kicker-ember mb-5">KnowB Visual Design System</p>
@@ -64,7 +66,7 @@
   <main class="max-w-7xl mx-auto px-6 pb-20">
 
     <!-- ── DESIGN MODEL ───────────────────────────────────────────── -->
-    <section id="system" class="scroll-mt-28 py-16 border-b border-deep-rust/40">
+    <section id="system" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
       <p class="section-kicker section-kicker-saber">Design Model</p>
       <div class="section-rule"></div>
       <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">Four independent axes</h2>
@@ -107,7 +109,7 @@
     </section>
 
     <!-- ── CHANNELS ───────────────────────────────────────────────── -->
-    <section id="channels" class="scroll-mt-28 py-16 border-b border-deep-rust/40">
+    <section id="channels" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
       <p class="section-kicker section-kicker-ember">Channels</p>
       <div class="section-rule-ember"></div>
       <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">Where the design is used</h2>
@@ -129,7 +131,7 @@
     </section>
 
     <!-- ── THEMES ─────────────────────────────────────────────────── -->
-    <section id="themes" class="scroll-mt-28 py-16 border-b border-deep-rust/40">
+    <section id="themes" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
       <p class="section-kicker section-kicker-saber">Themes</p>
       <div class="section-rule"></div>
       <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">World and energy</h2>
@@ -150,7 +152,7 @@
     </section>
 
     <!-- ── STYLES ─────────────────────────────────────────────────── -->
-    <section id="styles" class="scroll-mt-28 py-16 border-b border-deep-rust/40">
+    <section id="styles" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
       <p class="section-kicker section-kicker-ember">Styles</p>
       <div class="section-rule-ember"></div>
       <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">Formal visual grammar</h2>
@@ -171,7 +173,7 @@
     </section>
 
     <!-- ── 01 MISSION ──────────────────────────────────────────────── -->
-    <section id="mission" class="scroll-mt-28 py-16 border-b border-deep-rust/40">
+    <section id="mission" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
       <p class="section-kicker section-kicker-saber">01: Origin</p>
       <div class="section-rule"></div>
       <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-8 text-paper-ivory">Mission &amp; Manifesto</h2>
@@ -216,7 +218,7 @@
     </section>
 
     <!-- ── 02 CORE CONCEPTS ────────────────────────────────────────── -->
-    <section id="concepts" class="scroll-mt-28 py-16 border-b border-deep-rust/40">
+    <section id="concepts" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
       <p class="section-kicker section-kicker-ember">02: Glossary</p>
       <div class="section-rule-ember"></div>
       <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-10 text-paper-ivory">Core Concepts</h2>
@@ -250,7 +252,7 @@
     </section>
 
     <!-- ── 03 COLOUR SYSTEM ────────────────────────────────────────── -->
-    <section id="colours" class="scroll-mt-28 py-16 border-b border-deep-rust/40">
+    <section id="colours" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
       <p class="section-kicker section-kicker-saber">03: Colour System</p>
       <div class="section-rule"></div>
       <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">KnowB Palette Families</h2>
@@ -262,52 +264,52 @@
       <h3 class="font-display text-2xl mb-4 text-paper-ivory">KnowB Autumn</h3>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14">
         <div class="color-swatch-block" style="background:#FF4A1A; box-shadow: 0 0 25px rgba(255,74,26,0.30);">
-          <span class="font-mono text-xs text-paper-ivory/90 font-semibold">#FF4A1A</span>
-          <span class="font-display text-sm font-semibold text-paper-ivory">Autumn Fire</span>
-          <span class="font-sans text-xs text-paper-ivory/80">Accent &amp; display highlight</span>
-          <span class="font-mono text-[10px] text-paper-ivory/55">--autumn-fire</span>
+          <span class="font-mono text-xs text-[#161211] font-semibold">#FF4A1A</span>
+          <span class="font-display text-sm font-semibold text-[#161211]">Autumn Fire</span>
+          <span class="font-sans text-xs text-[#161211]">Accent &amp; display highlight</span>
+          <span class="font-mono text-[10px] text-[#161211]">--autumn-fire</span>
         </div>
         <div class="color-swatch-block" style="background:#8E2F2A;">
-          <span class="font-mono text-xs text-paper-ivory/90 font-semibold">#8E2F2A</span>
+          <span class="font-mono text-xs text-paper-ivory font-semibold">#8E2F2A</span>
           <span class="font-display text-sm font-semibold text-paper-ivory">Deep Rust</span>
-          <span class="font-sans text-xs text-paper-ivory/80">Primary high-contrast control</span>
-          <span class="font-mono text-[10px] text-paper-ivory/55">--deep-rust</span>
+          <span class="font-sans text-xs text-paper-ivory">Primary high-contrast control</span>
+          <span class="font-mono text-[10px] text-paper-ivory">--deep-rust</span>
         </div>
         <div class="color-swatch-block" style="background:#F59A52; box-shadow: 0 0 20px rgba(245,154,82,0.30);">
           <span class="font-mono text-xs text-[#7A2217] font-semibold">#F59A52</span>
           <span class="font-display text-sm font-semibold text-[#7A2217]">Soft Ember</span>
-          <span class="font-sans text-xs text-[#7A2217]/75">Warm highlight &amp; focus</span>
-          <span class="font-mono text-[10px] text-[#7A2217]/55">--soft-ember</span>
+          <span class="font-sans text-xs text-[#7A2217]">Warm highlight &amp; focus</span>
+          <span class="font-mono text-[10px] text-[#7A2217]">--soft-ember</span>
         </div>
         <div class="color-swatch-block" style="background:#FCF6F3; border-color: rgba(122,34,23,0.20);">
           <span class="font-mono text-xs text-[#7A2217] font-semibold">#FCF6F3</span>
           <span class="font-display text-sm font-semibold text-[#7A2217]">Paper Ivory</span>
-          <span class="font-sans text-xs text-[#7A2217]/75">Primary light surface</span>
-          <span class="font-mono text-[10px] text-[#7A2217]/55">--paper-ivory</span>
+          <span class="font-sans text-xs text-[#7A2217]">Primary light surface</span>
+          <span class="font-mono text-[10px] text-[#7A2217]">--paper-ivory</span>
         </div>
         <div class="color-swatch-block" style="background:#86E8FF; box-shadow: 0 0 20px rgba(134,232,255,0.30);">
           <span class="font-mono text-xs text-[#7A2217] font-semibold">#86E8FF</span>
           <span class="font-display text-sm font-semibold text-[#7A2217]">Saber Blue</span>
-          <span class="font-sans text-xs text-[#7A2217]/75">Signal accent: only cool hue</span>
-          <span class="font-mono text-[10px] text-[#7A2217]/55">--saber-blue</span>
+          <span class="font-sans text-xs text-[#7A2217]">Signal accent: only cool hue</span>
+          <span class="font-mono text-[10px] text-[#7A2217]">--saber-blue</span>
         </div>
         <div class="color-swatch-block" style="background:#7A2217; border-color: rgba(245,154,82,0.18);">
-          <span class="font-mono text-xs text-paper-ivory/90 font-semibold">#7A2217</span>
+          <span class="font-mono text-xs text-paper-ivory font-semibold">#7A2217</span>
           <span class="font-display text-sm font-semibold text-paper-ivory">Charcoal Bark</span>
-          <span class="font-sans text-xs text-paper-ivory/75">Primary dark surface</span>
-          <span class="font-mono text-[10px] text-paper-ivory/55">--charcoal-bark</span>
+          <span class="font-sans text-xs text-paper-ivory">Primary dark surface</span>
+          <span class="font-mono text-[10px] text-paper-ivory">--charcoal-bark</span>
         </div>
         <div class="color-swatch-block" style="background:#77584F;">
-          <span class="font-mono text-xs text-paper-ivory/90 font-semibold">#77584F</span>
+          <span class="font-mono text-xs text-paper-ivory font-semibold">#77584F</span>
           <span class="font-display text-sm font-semibold text-paper-ivory">Muted Wood</span>
-          <span class="font-sans text-xs text-paper-ivory/80">Secondary text &amp; metadata</span>
-          <span class="font-mono text-[10px] text-paper-ivory/55">--muted-wood</span>
+          <span class="font-sans text-xs text-paper-ivory">Secondary text &amp; metadata</span>
+          <span class="font-mono text-[10px] text-paper-ivory">--muted-wood</span>
         </div>
         <div class="color-swatch-block" style="background:#E9C2B3; border-color: rgba(122,34,23,0.20);">
           <span class="font-mono text-xs text-[#7A2217] font-semibold">#E9C2B3</span>
           <span class="font-display text-sm font-semibold text-[#7A2217]">Terracotta Border</span>
-          <span class="font-sans text-xs text-[#7A2217]/75">Separators &amp; borders</span>
-          <span class="font-mono text-[10px] text-[#7A2217]/55">--terracotta-border</span>
+          <span class="font-sans text-xs text-[#7A2217]">Separators &amp; borders</span>
+          <span class="font-mono text-[10px] text-[#7A2217]">--terracotta-border</span>
         </div>
       </div>
 
@@ -317,56 +319,56 @@
         <div class="color-swatch-block" style="background:#FFD500;">
           <span class="font-mono text-xs text-[#15163D] font-semibold">#FFD500</span>
           <span class="font-display text-sm font-semibold text-[#15163D]">Gold Primary</span>
-          <span class="font-sans text-xs text-[#15163D]/80">Primary action &amp; active state</span>
-          <span class="font-mono text-[10px] text-[#15163D]/60">--gold-primary</span>
+          <span class="font-sans text-xs text-[#15163D]">Primary action &amp; active state</span>
+          <span class="font-mono text-[10px] text-[#15163D]">--gold-primary</span>
         </div>
         <div class="color-swatch-block" style="background:#FFB300;">
           <span class="font-mono text-xs text-[#15163D] font-semibold">#FFB300</span>
           <span class="font-display text-sm font-semibold text-[#15163D]">Gold Attention</span>
-          <span class="font-sans text-xs text-[#15163D]/80">Pending &amp; elevated emphasis</span>
-          <span class="font-mono text-[10px] text-[#15163D]/60">--gold-attention</span>
+          <span class="font-sans text-xs text-[#15163D]">Pending &amp; elevated emphasis</span>
+          <span class="font-mono text-[10px] text-[#15163D]">--gold-attention</span>
         </div>
         <div class="color-swatch-block" style="background:#F7C700;">
           <span class="font-mono text-xs text-[#15163D] font-semibold">#F7C700</span>
           <span class="font-display text-sm font-semibold text-[#15163D]">Gold Secondary</span>
-          <span class="font-sans text-xs text-[#15163D]/80">Supporting highlight</span>
-          <span class="font-mono text-[10px] text-[#15163D]/60">--gold-secondary</span>
+          <span class="font-sans text-xs text-[#15163D]">Supporting highlight</span>
+          <span class="font-mono text-[10px] text-[#15163D]">--gold-secondary</span>
         </div>
         <div class="color-swatch-block" style="background:#FFC61A;">
           <span class="font-mono text-xs text-[#15163D] font-semibold">#FFC61A</span>
           <span class="font-display text-sm font-semibold text-[#15163D]">Gold Highlight</span>
-          <span class="font-sans text-xs text-[#15163D]/80">Selected detail &amp; cue</span>
-          <span class="font-mono text-[10px] text-[#15163D]/60">--gold-highlight</span>
+          <span class="font-sans text-xs text-[#15163D]">Selected detail &amp; cue</span>
+          <span class="font-mono text-[10px] text-[#15163D]">--gold-highlight</span>
         </div>
         <div class="color-swatch-block" style="background:#F2C14E;">
           <span class="font-mono text-xs text-[#15163D] font-semibold">#F2C14E</span>
           <span class="font-display text-sm font-semibold text-[#15163D]">Gold Muted</span>
-          <span class="font-sans text-xs text-[#15163D]/80">Inactive &amp; historical signal</span>
-          <span class="font-mono text-[10px] text-[#15163D]/60">--gold-muted</span>
+          <span class="font-sans text-xs text-[#15163D]">Inactive &amp; historical signal</span>
+          <span class="font-mono text-[10px] text-[#15163D]">--gold-muted</span>
         </div>
         <div class="color-swatch-block" style="background:#15163D; border-color: rgba(255,213,0,0.28);">
-          <span class="font-mono text-xs text-paper-ivory/90 font-semibold">#15163D</span>
+          <span class="font-mono text-xs text-paper-ivory font-semibold">#15163D</span>
           <span class="font-display text-sm font-semibold text-paper-ivory">Gold Midnight</span>
-          <span class="font-sans text-xs text-paper-ivory/75">Default dark field</span>
-          <span class="font-mono text-[10px] text-paper-ivory/55">--gold-midnight</span>
+          <span class="font-sans text-xs text-paper-ivory">Default dark field</span>
+          <span class="font-mono text-[10px] text-paper-ivory">--gold-midnight</span>
         </div>
         <div class="color-swatch-block" style="background:#1E2259; border-color: rgba(255,213,0,0.28);">
-          <span class="font-mono text-xs text-paper-ivory/90 font-semibold">#1E2259</span>
+          <span class="font-mono text-xs text-paper-ivory font-semibold">#1E2259</span>
           <span class="font-display text-sm font-semibold text-paper-ivory">Gold Indigo</span>
-          <span class="font-sans text-xs text-paper-ivory/75">Workspace surface</span>
-          <span class="font-mono text-[10px] text-paper-ivory/55">--gold-indigo</span>
+          <span class="font-sans text-xs text-paper-ivory">Workspace surface</span>
+          <span class="font-mono text-[10px] text-paper-ivory">--gold-indigo</span>
         </div>
         <div class="color-swatch-block" style="background:#2D1F5B; border-color: rgba(255,213,0,0.28);">
-          <span class="font-mono text-xs text-paper-ivory/90 font-semibold">#2D1F5B</span>
+          <span class="font-mono text-xs text-paper-ivory font-semibold">#2D1F5B</span>
           <span class="font-display text-sm font-semibold text-paper-ivory">Gold Purple</span>
-          <span class="font-sans text-xs text-paper-ivory/75">Raised panel &amp; controls</span>
-          <span class="font-mono text-[10px] text-paper-ivory/55">--gold-purple</span>
+          <span class="font-sans text-xs text-paper-ivory">Raised panel &amp; controls</span>
+          <span class="font-mono text-[10px] text-paper-ivory">--gold-purple</span>
         </div>
         <div class="color-swatch-block" style="background:#221338; border-color: rgba(255,213,0,0.28);">
-          <span class="font-mono text-xs text-paper-ivory/90 font-semibold">#221338</span>
+          <span class="font-mono text-xs text-paper-ivory font-semibold">#221338</span>
           <span class="font-display text-sm font-semibold text-paper-ivory">Gold Plum</span>
-          <span class="font-sans text-xs text-paper-ivory/75">Deep cockpit &amp; modal layer</span>
-          <span class="font-mono text-[10px] text-paper-ivory/55">--gold-plum</span>
+          <span class="font-sans text-xs text-paper-ivory">Deep cockpit &amp; modal layer</span>
+          <span class="font-mono text-[10px] text-paper-ivory">--gold-plum</span>
         </div>
       </div>
 
@@ -388,7 +390,7 @@
         </div>
         <div class="rounded-sm p-4" style="background:#F59A52;">
           <p style="color:#7A2217; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:0.9rem; margin:0 0 4px;">Charcoal on Ember</p>
-          <p style="color:rgba(122,34,23,0.7); font-size:0.78rem; font-family:'Inter',sans-serif; margin:0;">Warm highlight pairing</p>
+          <p style="color:#7A2217; font-size:0.78rem; font-family:'Inter',sans-serif; margin:0;">Warm highlight pairing</p>
         </div>
       </div>
 
@@ -414,7 +416,7 @@
     </section>
 
     <!-- ── 04 GRADIENTS ────────────────────────────────────────────── -->
-    <section id="gradients" class="scroll-mt-28 py-16 border-b border-deep-rust/40">
+    <section id="gradients" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
       <p class="section-kicker section-kicker-ember">04: Gradients</p>
       <div class="section-rule-ember"></div>
       <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">Canonical Gradients</h2>
@@ -483,7 +485,7 @@
     </section>
 
     <!-- ── 05 TYPOGRAPHY ───────────────────────────────────────────── -->
-    <section id="typography" class="scroll-mt-28 py-16 border-b border-deep-rust/40">
+    <section id="typography" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
       <p class="section-kicker section-kicker-saber">05: Typography</p>
       <div class="section-rule"></div>
       <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">Type System</h2>
@@ -557,7 +559,7 @@
     </section>
 
     <!-- ── 06 COMPONENTS ───────────────────────────────────────────── -->
-    <section id="components" class="scroll-mt-28 py-16 border-b border-deep-rust/40">
+    <section id="components" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
       <p class="section-kicker section-kicker-ember">06: Components</p>
       <div class="section-rule-ember"></div>
       <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">UI Component Library</h2>
@@ -740,7 +742,7 @@
     </section>
 
     <!-- ── 07 ACCESSIBILITY ────────────────────────────────────────── -->
-    <section id="accessibility" class="scroll-mt-28 py-16 border-b border-deep-rust/40">
+    <section id="accessibility" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
       <p class="section-kicker section-kicker-saber">07: Accessibility</p>
       <div class="section-rule"></div>
       <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">Accessibility Requirements</h2>
@@ -796,7 +798,7 @@
     </section>
 
     <!-- ── 08 COPY & TONE ──────────────────────────────────────────── -->
-    <section id="copy" class="scroll-mt-28 py-16">
+    <section id="copy" class="scroll-mt-44 lg:scroll-mt-28 py-16">
       <p class="section-kicker section-kicker-ember">08: Copy &amp; Tone</p>
       <div class="section-rule-ember"></div>
       <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">Writing Guidelines</h2>

@@ -220,7 +220,7 @@ html {
         ),
         linear-gradient(180deg, rgba(22,18,17,0.50) 0%, rgba(22,18,17,0.72) 100%);
     pointer-events: none;
-    z-index: 3;
+    z-index: 0;
 }
 .hero-arcade::after {
     content: '';

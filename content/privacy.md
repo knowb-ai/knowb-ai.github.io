@@ -1,8 +1,8 @@
 +++
 title = "Privacy Policy"
+description = "How KnowB AI Systems processes personal data through knowb.run and related use-case programs."
 +++
 
-# Privacy Policy
 Effective date: 2026-05-26
 
 This Privacy Policy describes how KnowB AI Systems processes personal data through knowb.run and related use-case programs.

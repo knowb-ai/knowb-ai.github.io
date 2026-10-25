@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}{{ page.title }}: knowb.run{% endblock title %}
+{% block description %}{{ page.description | default(value=config.description) }}{% endblock description %}
 
 {% block header %}
     <header class="fixed top-0 left-0 right-0 z-50 bg-charcoal-bark/95 backdrop-blur-md border-b border-saber-blue/30">

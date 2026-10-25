@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}knowb.run{% endblock title %}</title>
+    <meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,7 +63,7 @@
             }
         }
     </script>
-    <link rel="stylesheet" href="/css/global.css?v=rfp-featured-chips">
+    <link rel="stylesheet" href="/css/global.css?v=dark-restore">
     {% block head_extra %}{% endblock head_extra %}
 </head>
     <body class="min-h-screen font-sans bg-obsidian-brown text-paper-ivory">
