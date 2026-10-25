@@ -54,8 +54,8 @@ cannot replace functional UI text or accessibility labels.
   `python3 scripts/build_concept_book.py` after changing them to regenerate the
   Org Book plates in `templates/concept/` and `static/css/concept-book.css`.
 - `static/favicon.svg` uses canonical Autumn and Saber tokens.
-- `mcp/` is the separate local-first organization directory and GitHub work
-  control plane. See [`mcp/README.md`](mcp/README.md).
+- The KnowB MCP connector is not in this repository. It lives in the private
+  `knowledgeHQ` repository under `mcp/`.
 
 ## Editing rules
 

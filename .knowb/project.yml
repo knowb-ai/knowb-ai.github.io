@@ -12,7 +12,6 @@ knowledge:
         - AGENTS.md
         - CONTRIBUTING.md
         - docs/**/*.md
-        - mcp/**/*.md
       exclude:
         - .git/**
         - .venv/**
