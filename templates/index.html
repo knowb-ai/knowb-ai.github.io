@@ -151,7 +151,7 @@
 
                 <section class="orbit-carousel reveal-fade" data-orbit-carousel aria-roledescription="carousel" aria-label="Featured RFPs">
                     <div class="orbit-track" id="rfp-track" tabindex="0" aria-label="Featured RFPs, use the arrow keys to travel">
-                        <article class="cabinet orbit-slide" aria-roledescription="slide" aria-label="1 of 6: ShadowCaster">
+                        <article class="cabinet orbit-slide" aria-roledescription="slide" aria-label="1 of 2: ShadowCaster">
                             <div class="orbit-slide-grid">
                                 {{ macros::porthole(icon="beacon", color="#86E8FF") }}
                                 <div>
@@ -174,70 +174,7 @@
                                 </div>
                             </div>
                         </article>
-                        <article class="cabinet cabinet-ember orbit-slide" aria-roledescription="slide" aria-label="2 of 6: Underminer">
-                            <div class="orbit-slide-grid">
-                                {{ macros::porthole(icon="telescope", color="#F59A52") }}
-                                <div>
-                                    <p class="cabinet-label">RFP 01</p>
-                                    <div class="cabinet-head"><h3 class="cabinet-title cabinet-title-lg">Underminer</h3>{{ macros::fins(lit=1) }}</div>
-                                    <div class="saber-line-ember"></div>
-                                    <p class="text-lg leading-relaxed mb-5">
-                                        Extract semantic understanding from paywalled reporting and reconstruct the story from alternate sources plus LLM context-tracing experiments.
-                                    </p>
-                                    <p class="cabinet-outcome text-sm mb-2">Outcome: evidence-linked narrative reconstruction with source traceability.</p>
-                                    <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="cabinet orbit-slide" aria-roledescription="slide" aria-label="3 of 6: X-Poser">
-                            <div class="orbit-slide-grid">
-                                {{ macros::porthole(icon="star", color="#86E8FF") }}
-                                <div>
-                                    <p class="cabinet-label">RFP 02</p>
-                                    <div class="cabinet-head"><h3 class="cabinet-title cabinet-title-lg">X-Poser</h3>{{ macros::fins(lit=2) }}</div>
-                                    <div class="saber-line"></div>
-                                    <p class="text-lg leading-relaxed mb-5">
-                                        Submit an X link, run claim checks, and generate a report that marks the post as true, uncertain, or fabricated, with export-ready output for sharing on X.
-                                    </p>
-                                    <p class="text-sm leading-relaxed mb-4">
-                                        Starter example: <a href="https://github.com/knowb-ai/x-poser.git">knowb-ai/x-poser.git</a>, a small public build showing how short sessions and builder events can accelerate RFP prototypes.
-                                    </p>
-                                    <p class="cabinet-outcome text-sm mb-2">Outcome: compact fact-check report with evidence confidence notes.</p>
-                                    <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="cabinet orbit-slide" aria-roledescription="slide" aria-label="4 of 6: Precongnition">
-                            <div class="orbit-slide-grid">
-                                {{ macros::porthole(icon="satellite", color="#86E8FF") }}
-                                <div>
-                                    <p class="cabinet-label">RFP 03</p>
-                                    <div class="cabinet-head"><h3 class="cabinet-title cabinet-title-lg">Precongnition</h3>{{ macros::fins(lit=1) }}</div>
-                                    <div class="saber-line"></div>
-                                    <p class="text-lg leading-relaxed mb-5">
-                                        Detect missing or mismatched conference talks, tutorials, or demos, then crawl for alternate watch links and nearest neighboring sessions.
-                                    </p>
-                                    <p class="cabinet-outcome text-sm mb-2">Outcome: continuity-preserving discovery graph for learning resources.</p>
-                                    <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="cabinet cabinet-ember orbit-slide" aria-roledescription="slide" aria-label="5 of 6: MarkSweep">
-                            <div class="orbit-slide-grid">
-                                {{ macros::porthole(icon="comet", color="#F59A52") }}
-                                <div>
-                                    <p class="cabinet-label">RFP 04</p>
-                                    <div class="cabinet-head"><h3 class="cabinet-title cabinet-title-lg">MarkSweep</h3>{{ macros::fins(lit=2) }}</div>
-                                    <div class="saber-line-ember"></div>
-                                    <p class="text-lg leading-relaxed mb-5">
-                                        A browser extension granted control over your active tab that walks every unread message in your open inbox, checks each against relevance rules you control, marks non-matches as read in bulk, and flags matches to stay pinned at the top.
-                                    </p>
-                                    <p class="cabinet-outcome text-sm mb-2">Outcome: bulk unread-to-read triage with rule-matched messages flagged and pinned to the top.</p>
-                                    <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="cabinet cabinet-ember orbit-slide" aria-roledescription="slide" aria-label="6 of 6: Subtracktor">
+                        <article class="cabinet cabinet-ember orbit-slide" aria-roledescription="slide" aria-label="2 of 2: Subtracktor">
                             <div class="orbit-slide-grid">
                                 {{ macros::porthole(icon="coin", color="#F59A52") }}
                                 <div>
@@ -265,15 +202,57 @@
                         <button class="tf-btn tf-btn-saber tf-btn-sm orbit-prev" type="button" aria-controls="rfp-track" aria-label="Previous RFP">{{ macros::pixel_icon(name="arrow", color="#86E8FF", size=16) }}</button>
                         <div class="orbit-path" role="group" aria-label="Choose an RFP">
                             <button class="orbit-stop" type="button" aria-controls="rfp-track"><span class="orbit-stop-planet" aria-hidden="true"></span><span class="orbit-stop-label">ShadowCaster</span></button>
-                            <button class="orbit-stop" type="button" aria-controls="rfp-track"><span class="orbit-stop-planet" aria-hidden="true"></span><span class="orbit-stop-label">Underminer</span></button>
-                            <button class="orbit-stop" type="button" aria-controls="rfp-track"><span class="orbit-stop-planet" aria-hidden="true"></span><span class="orbit-stop-label">X-Poser</span></button>
-                            <button class="orbit-stop" type="button" aria-controls="rfp-track"><span class="orbit-stop-planet" aria-hidden="true"></span><span class="orbit-stop-label">Precongnition</span></button>
-                            <button class="orbit-stop" type="button" aria-controls="rfp-track"><span class="orbit-stop-planet" aria-hidden="true"></span><span class="orbit-stop-label">MarkSweep</span></button>
                             <button class="orbit-stop" type="button" aria-controls="rfp-track"><span class="orbit-stop-planet" aria-hidden="true"></span><span class="orbit-stop-label">Subtracktor</span></button>
                         </div>
                         <button class="tf-btn tf-btn-saber tf-btn-sm orbit-next" type="button" aria-controls="rfp-track" aria-label="Next RFP">{{ macros::pixel_icon(name="arrow", color="#86E8FF", size=16) }}</button>
                     </div>
                 </section>
+
+                <div class="grid sm:grid-cols-2 gap-8 mt-10">
+                    <article class="cabinet cabinet-ember reveal-fade">
+                        <p class="cabinet-label">RFP 01</p>
+                        <div class="cabinet-head"><div class="cabinet-heading">{{ macros::pixel_icon(name="telescope", color="#F59A52", cut="#241A18", size=26) }}<h3 class="cabinet-title cabinet-title-lg">Underminer</h3></div>{{ macros::fins(lit=1) }}</div>
+                        <div class="saber-line-ember"></div>
+                        <p class="text-lg leading-relaxed mb-5">
+                            Extract semantic understanding from paywalled reporting and reconstruct the story from alternate sources plus LLM context-tracing experiments.
+                        </p>
+                        <p class="cabinet-outcome text-sm mb-2">Outcome: evidence-linked narrative reconstruction with source traceability.</p>
+                        <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
+                    </article>
+                    <article class="cabinet reveal-fade" style="transition-delay:0.1s">
+                        <p class="cabinet-label">RFP 02</p>
+                        <div class="cabinet-head"><div class="cabinet-heading">{{ macros::pixel_icon(name="star", color="#86E8FF", cut="#241A18", size=26) }}<h3 class="cabinet-title cabinet-title-lg">X-Poser</h3></div>{{ macros::fins(lit=2) }}</div>
+                        <div class="saber-line"></div>
+                        <p class="text-lg leading-relaxed mb-5">
+                            Submit an X link, run claim checks, and generate a report that marks the post as true, uncertain, or fabricated, with export-ready output for sharing on X.
+                        </p>
+                        <p class="text-sm leading-relaxed mb-4">
+                            Starter example: <a href="https://github.com/knowb-ai/x-poser.git">knowb-ai/x-poser.git</a>, a small public build showing how short sessions and builder events can accelerate RFP prototypes.
+                        </p>
+                        <p class="cabinet-outcome text-sm mb-2">Outcome: compact fact-check report with evidence confidence notes.</p>
+                        <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
+                    </article>
+                    <article class="cabinet reveal-fade" style="transition-delay:0.2s">
+                        <p class="cabinet-label">RFP 03</p>
+                        <div class="cabinet-head"><div class="cabinet-heading">{{ macros::pixel_icon(name="satellite", color="#86E8FF", cut="#241A18", size=26) }}<h3 class="cabinet-title cabinet-title-lg">Precongnition</h3></div>{{ macros::fins(lit=1) }}</div>
+                        <div class="saber-line"></div>
+                        <p class="text-lg leading-relaxed mb-5">
+                            Detect missing or mismatched conference talks, tutorials, or demos, then crawl for alternate watch links and nearest neighboring sessions.
+                        </p>
+                        <p class="cabinet-outcome text-sm mb-2">Outcome: continuity-preserving discovery graph for learning resources.</p>
+                        <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
+                    </article>
+                    <article class="cabinet cabinet-ember reveal-fade" style="transition-delay:0.3s">
+                        <p class="cabinet-label">RFP 04</p>
+                        <div class="cabinet-head"><div class="cabinet-heading">{{ macros::pixel_icon(name="comet", color="#F59A52", cut="#241A18", size=26) }}<h3 class="cabinet-title cabinet-title-lg">MarkSweep</h3></div>{{ macros::fins(lit=2) }}</div>
+                        <div class="saber-line-ember"></div>
+                        <p class="text-lg leading-relaxed mb-5">
+                            A browser extension granted control over your active tab that walks every unread message in your open inbox, checks each against relevance rules you control, marks non-matches as read in bulk, and flags matches to stay pinned at the top.
+                        </p>
+                        <p class="cabinet-outcome text-sm mb-2">Outcome: bulk unread-to-read triage with rule-matched messages flagged and pinned to the top.</p>
+                        <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
+                    </article>
+                </div>
             </div>
         </section>
 
