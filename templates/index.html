@@ -4,119 +4,125 @@
 {% block title %}knowb.run - Context-Aware Agent Systems{% endblock title %}
 
 {% block header %}
-    <header class="fixed top-0 left-0 right-0 z-50 bg-charcoal-bark/95 backdrop-blur-md border-b border-saber-blue/30">
-        <nav aria-label="Primary" class="max-w-7xl mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-2">
+    <header class="site-header">
+        <nav aria-label="Primary" class="max-w-7xl mx-auto px-6 min-h-[4.5rem] flex flex-wrap items-center justify-between gap-x-6">
             {{ macros::wordmark(slot="header") }}
-            <button id="nav-toggle" class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle navigation">Menu</button>
+            <button id="nav-toggle" class="nav-toggle tf-btn tf-btn-saber tf-btn-sm" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle navigation">Menu</button>
             <div id="nav-links" class="nav-links">
-                <a href="#home" class="arcade-nav-link text-paper-ivory/90 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Home</a>
-                <a href="#challenges" class="arcade-nav-link text-paper-ivory/90 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Challenges</a>
-                <a href="#use-cases" class="arcade-nav-link text-paper-ivory/90 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Use Cases</a>
-                <a href="#contact" class="arcade-nav-link text-paper-ivory/90 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Contact</a>
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#challenges" class="nav-link">Challenges</a>
+                <a href="#use-cases" class="nav-link">Use Cases</a>
+                <a href="#roadmap" class="nav-link">Roadmap</a>
+                <a href="/org-book/" class="nav-link">Design System</a>
+                <a href="#contact" class="tf-btn tf-btn-sm self-start lg:self-auto">Contact{{ macros::fins() }}</a>
             </div>
         </nav>
     </header>
 {% endblock header %}
 
 {% block content %}
-    <main id="main-content" class="pt-32">
-        <section id="home" class="scroll-mt-44 py-20 px-6 bg-knowb-autumn-core text-paper-ivory border-b border-deep-rust/70 hero-arcade">
-            <div class="hero-fx" aria-hidden="true">
-                <div class="perspective-grid"></div>
-                <div class="hero-orb orb-ember"></div>
-                <div class="hero-orb orb-saber"></div>
-            </div>
-            <div class="max-w-7xl mx-auto">
-                <div class="max-w-5xl">
-                    <p class="section-kicker section-kicker-ember font-display mb-5 text-[0.62rem]">Front Deck</p>
-                    <h1 class="font-display text-5xl md:text-7xl leading-[1.03] tracking-tight mb-7">
-                        Building <span class="hero-highlight-ember glitch-text" data-text="context-aware agents">context-aware agents</span> with better <span class="hero-highlight-saber glitch-text" data-text="knowledge and memory capabilities">knowledge and memory capabilities</span>
+    <main id="main-content">
+        <section id="home" class="space-hero scroll-mt-20 pt-36 lg:pt-44 pb-10 px-6">
+            <span class="star" style="left: 44%; top: 18%" aria-hidden="true"></span>
+            <span class="star star-saber" style="left: 61%; top: 12%" aria-hidden="true"></span>
+            <span class="star" style="left: 92%; top: 64%" aria-hidden="true"></span>
+            <span class="star" style="left: 6%; top: 78%" aria-hidden="true"></span>
+            <span class="star star-ember" style="left: 52%; top: 86%" aria-hidden="true"></span>
+            <div class="max-w-7xl mx-auto grid gap-16 lg:grid-cols-[minmax(0,1fr)_26rem] lg:items-center">
+                <div class="flex flex-col gap-8">
+                    <p class="section-kicker">Front Deck</p>
+                    <h1 class="display-hero">
+                        Building <span class="hero-highlight-ember">context-aware agents</span> with better <span class="hero-highlight-saber">knowledge and memory capabilities</span>
                     </h1>
-                    <p class="font-sans text-xl md:text-2xl text-paper-ivory/92 mb-10 max-w-4xl leading-relaxed">
+                    <p class="lede max-w-3xl">
                         We build context-aware systems with durable memory, stable state transitions, and governance-first operation.
                         The front-facing experience stays playful and readable, while the systems layer feels like a space-race control deck.
                     </p>
-                    <div class="flex flex-wrap gap-3 mb-8">
-                        <span class="arcade-chip">Static-first surface</span>
-                        <span class="arcade-chip">Reduced motion defaults</span>
-                        <span class="arcade-chip">High-contrast signal UI</span>
+                    <div class="flex flex-wrap items-center gap-x-10 gap-y-6 pt-2">
+                        <a href="#use-cases" class="tf-btn">Explore Use Cases{{ macros::fins() }}</a>
+                        <a href="#roadmap" class="text-link">View Delivery Roadmap</a>
                     </div>
-                    <div class="signal-grid mb-10">
-                        <article class="signal-card card-theme-ember">
-                            <h2>Power Signal</h2>
-                            <p>Lean visual primitives, no heavy runtime animations, and clear hierarchy for fast scan speed.</p>
-                        </article>
-                        <article class="signal-card card-theme-saber">
-                            <h2>Memory Signal</h2>
-                            <p>State and context are treated as product layers, not hidden behavior.</p>
-                        </article>
-                        <article class="signal-card card-theme-ember">
-                            <h2>Operator Signal</h2>
-                            <p>Arcade cues for users, mission-control semantics for teams and agents.</p>
-                        </article>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="chip"><i class="led" aria-hidden="true"></i>Static-first surface</span>
+                        <span class="chip chip-ember"><i class="led" aria-hidden="true"></i>Reduced motion defaults</span>
+                        <span class="chip"><i class="led" aria-hidden="true"></i>High-contrast signal UI</span>
                     </div>
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#use-cases" class="arcade-button">
-                            Explore Use Cases
-                        </a>
-                        <a href="#roadmap" class="arcade-button alt">
-                            View Delivery Roadmap
-                        </a>
-                    </div>
+                </div>
+                <div class="art-screen w-full max-w-md mx-auto lg:max-w-none">
+                    <div class="art-screen-edge"><div class="art-screen-view">{{ macros::planet_art() }}</div></div>
                 </div>
             </div>
         </section>
+        <div class="horizon-band" aria-hidden="true"></div>
 
+        <section class="bg-charcoal-bark px-6 pb-20">
+            <div class="max-w-7xl mx-auto grid gap-7 md:grid-cols-3">
+                <article class="cabinet cabinet-ember">
+                    <div class="cabinet-head"><h2 class="cabinet-title">Power Signal</h2>{{ macros::fins(lit=2) }}</div>
+                    <div class="saber-line-ember"></div>
+                    <p>Lean visual primitives, no heavy runtime animations, and clear hierarchy for fast scan speed.</p>
+                </article>
+                <article class="cabinet">
+                    <div class="cabinet-head"><h2 class="cabinet-title">Memory Signal</h2>{{ macros::fins() }}</div>
+                    <div class="saber-line"></div>
+                    <p>State and context are treated as product layers, not hidden behavior.</p>
+                </article>
+                <article class="cabinet cabinet-ember">
+                    <div class="cabinet-head"><h2 class="cabinet-title">Operator Signal</h2>{{ macros::fins(lit=1) }}</div>
+                    <div class="saber-line-ember"></div>
+                    <p>Arcade cues for users, mission-control semantics for teams and agents.</p>
+                </article>
+            </div>
+        </section>
 
-        <section id="challenges" class="scroll-mt-44 py-20 px-6 bg-charcoal-bark border-t border-deep-rust/60">
+        <section id="challenges" class="scroll-mt-20 py-20 px-6 bg-charcoal-bark">
             <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-10">
                 <div class="lg:col-span-4">
-                    <p class="section-kicker section-kicker-saber font-display text-[0.62rem]">System Pressure</p>
+                    <p class="section-kicker">System Pressure</p>
                     <div class="section-rule"></div>
-                    <h2 class="font-display text-4xl md:text-5xl tracking-tight text-paper-ivory">Challenges at Scale</h2>
+                    <h2 class="display-section">Challenges at Scale</h2>
                 </div>
-                <div class="lg:col-span-8">
-                    <p class="font-display text-4xl md:text-5xl leading-tight text-paper-ivory mb-6">
-                        Persistence. Statefulness. Context.
-                    </p>
-                    <p class="font-sans text-xl text-paper-ivory/88 leading-relaxed max-w-4xl">
+                <div class="lg:col-span-8 flex flex-col gap-6">
+                    <p class="display-section">Persistence. Statefulness. Context.</p>
+                    <p class="lede max-w-4xl">
                         As systems expand, short sessions become long-running loops. Memory must survive retries, context must stay coherent across tools, and state transitions must remain safe under parallel execution.
                     </p>
                 </div>
             </div>
         </section>
 
-        <section id="bottlenecks" class="scroll-mt-44 py-20 px-6 bg-rust-charcoal text-paper-ivory border-t border-deep-rust/70">
+        <section id="bottlenecks" class="scroll-mt-20 pt-4 pb-24 px-6 bg-charcoal-bark">
             <div class="max-w-7xl mx-auto">
-                <p class="section-kicker section-kicker-ember font-display text-[0.62rem]">Failure Points</p>
-                <div class="section-rule" style="background: linear-gradient(90deg, rgba(134,232,255,0.20) 0%, #86E8FF 50%, rgba(134,232,255,0.20) 100%);"></div>
-                <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-4 text-paper-ivory">The Bottlenecks</h2>
-                <p class="font-sans text-lg md:text-xl text-paper-ivory/88 mb-14 max-w-4xl leading-relaxed">
-                    These are the zones where production context systems usually break first.
-                </p>
+                <p class="section-kicker section-kicker-ember">Failure Points</p>
+                <div class="section-rule-ember"></div>
+                <h2 class="display-section mb-5">The Bottlenecks</h2>
+                <p class="lede max-w-4xl mb-14">These are the zones where production context systems usually break first.</p>
 
-                <div class="grid md:grid-cols-3 gap-6">
-                    <article class="bg-charcoal-bark/55 border-l-2 border-saber-blue border-y border-r border-deep-rust/70 rounded-sm p-7 arcade-card card-theme-saber reveal-fade">
-                        <h3 class="font-display text-2xl mb-4 text-saber-blue">Knowledge Tooling</h3>
-                        <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
+                <div class="grid md:grid-cols-3 gap-7">
+                    <article class="cabinet reveal-fade">
+                        <div class="cabinet-head"><h3 class="cabinet-title">Knowledge Tooling</h3>{{ macros::fins(lit=1) }}</div>
+                        <div class="saber-line"></div>
+                        <ul class="space-y-3 leading-relaxed list-disc pl-5">
                             <li>Most tooling is prompt-first and session-bound.</li>
                             <li>Retrieval, evaluation, and state mutation are often disconnected.</li>
                             <li>Observability is weak when teams need memory audits.</li>
                             <li>Tooling must function as a control plane for autonomous operators.</li>
                         </ul>
                     </article>
-                    <article class="bg-charcoal-bark/55 border-l-2 border-soft-ember border-y border-r border-deep-rust/70 rounded-sm p-7 arcade-card card-theme-ember reveal-fade" style="transition-delay:0.12s">
-                        <h3 class="font-display text-2xl mb-4 text-soft-ember">Knowledge Bases</h3>
-                        <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
+                    <article class="cabinet cabinet-ember reveal-fade" style="transition-delay:0.12s">
+                        <div class="cabinet-head"><h3 class="cabinet-title">Knowledge Bases</h3>{{ macros::fins(lit=2) }}</div>
+                        <div class="saber-line-ember"></div>
+                        <ul class="space-y-3 leading-relaxed list-disc pl-5">
                             <li>Most databases are designed for human admins first.</li>
                             <li>Maintenance often assumes broad privileged access.</li>
                             <li>Agentic operators need policy-scoped permissions by default.</li>
                             <li>Machine-managed knowledge ops need purpose-built data layers.</li>
                         </ul>
                     </article>
-                    <article class="bg-charcoal-bark/55 border-l-2 border-saber-blue border-y border-r border-deep-rust/70 rounded-sm p-7 arcade-card card-theme-saber reveal-fade" style="transition-delay:0.24s">
-                        <h3 class="font-display text-2xl mb-4 text-saber-blue">Knowledge Agents</h3>
-                        <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
+                    <article class="cabinet reveal-fade" style="transition-delay:0.24s">
+                        <div class="cabinet-head"><h3 class="cabinet-title">Knowledge Agents</h3>{{ macros::fins() }}</div>
+                        <div class="saber-line"></div>
+                        <ul class="space-y-3 leading-relaxed list-disc pl-5">
                             <li>Continuity fails across handoffs and long workflows.</li>
                             <li>State changes are often implicit and hard to recover.</li>
                             <li>Memory updates lack governance and rollback controls.</li>
@@ -126,141 +132,145 @@
                 </div>
             </div>
         </section>
-        <section id="use-cases" class="scroll-mt-44 py-20 px-6 bg-charcoal-bark border-t border-deep-rust/60">
+
+        <section id="use-cases" class="scroll-mt-20 py-24 px-6 bg-obsidian-brown">
             <div class="max-w-7xl mx-auto">
-                <p class="section-kicker section-kicker-saber font-display text-[0.62rem]">Playable Builds</p>
+                <p class="section-kicker">Playable Builds</p>
                 <div class="section-rule"></div>
-                <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-4 text-paper-ivory">Top Use Cases</h2>
-                <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.42fr)] lg:items-start mb-14">
-                    <p class="font-sans text-lg md:text-xl text-paper-ivory/88 max-w-4xl leading-relaxed">
-                        These RFP concepts map directly to the bottlenecks above, and they are scoped for fast, low-energy pilot delivery. Interested parties can contact us at <a href="mailto:ping@knowb.run" class="underline decoration-saber-blue underline-offset-4 hover:text-saber-blue">ping@knowb.run</a>.
+                <h2 class="display-section mb-6">Top Use Cases</h2>
+                <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.42fr)] lg:items-start mb-16">
+                    <p class="lede max-w-4xl">
+                        These RFP concepts map directly to the bottlenecks above, and they are scoped for fast, low-energy pilot delivery. Interested parties can contact us at <a href="mailto:ping@knowb.run" class="text-saber-blue underline underline-offset-4 hover:text-paper-ivory">ping@knowb.run</a>.
                     </p>
-                    <article class="signal-card card-theme-saber">
-                        <h3>Builder Template</h3>
-                        <p><a href="https://github.com/knowb-ai/cloud-builder-stack" class="underline decoration-saber-blue underline-offset-2 hover:text-saber-blue">Cloud Builder Stack</a> accelerates workshops, hackathons, and live builder sessions.</p>
+                    <article class="cabinet">
+                        <div class="cabinet-head"><h3 class="cabinet-title">Builder Template</h3>{{ macros::fins(lit=2) }}</div>
+                        <div class="saber-line"></div>
+                        <p><a href="https://github.com/knowb-ai/cloud-builder-stack">Cloud Builder Stack</a> accelerates workshops, hackathons, and live builder sessions.</p>
                     </article>
                 </div>
 
-                <div class="mb-8 grid gap-6">
-                    <article class="use-case-card arcade-card card-theme-saber bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all reveal-fade">
-                        <div class="grid gap-6 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:items-start">
-                            <div>
-                                <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">Featured RFP 01</p>
-                                <h3 class="usecase-arcade-title font-display mb-5 text-saber-blue">ShadowCaster</h3>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="arcade-chip saber">Platform Visibility</span>
-                                    <span class="arcade-chip saber">Moderation Policy</span>
-                                    <span class="arcade-chip saber">Event Amplification</span>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="font-sans text-lg text-paper-ivory/90 leading-relaxed mb-5">
-                                    Investigate how LinkedIn and Instagram content policies affect reach, moderation, and event visibility for artists, creators, and community workers, especially in marginalized communities.
-                                </p>
-                                <p class="font-sans text-lg text-paper-ivory/90 leading-relaxed mb-5">
-                                    Build toolkits for ethical event representation that respect platform rules while improving the chance that the underlying message reaches its intended audience.
-                                </p>
-                                <p class="text-sm text-terracotta-border mb-2">Outcome: compliant publishing patterns, visibility diagnostics, and responsible amplification playbooks.</p>
-                                <p class="text-sm text-paper-ivory/85">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run" class="underline decoration-saber-blue underline-offset-2 hover:text-saber-blue">ping@knowb.run</a>.</p>
+                <article class="cabinet reveal-fade mb-8">
+                    <div class="grid gap-8 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:items-start">
+                        <div>
+                            <p class="cabinet-label">Featured RFP 01</p>
+                            <div class="cabinet-head mb-6"><h3 class="cabinet-title cabinet-title-lg">ShadowCaster</h3>{{ macros::fins() }}</div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="chip"><i class="led" aria-hidden="true"></i>Platform Visibility</span>
+                                <span class="chip"><i class="led" aria-hidden="true"></i>Moderation Policy</span>
+                                <span class="chip"><i class="led" aria-hidden="true"></i>Event Amplification</span>
                             </div>
                         </div>
-                    </article>
-                </div>
+                        <div>
+                            <p class="text-lg leading-relaxed mb-5">
+                                Investigate how LinkedIn and Instagram content policies affect reach, moderation, and event visibility for artists, creators, and community workers, especially in marginalized communities.
+                            </p>
+                            <p class="text-lg leading-relaxed mb-5">
+                                Build toolkits for ethical event representation that respect platform rules while improving the chance that the underlying message reaches its intended audience.
+                            </p>
+                            <p class="cabinet-outcome text-sm mb-2">Outcome: compliant publishing patterns, visibility diagnostics, and responsible amplification playbooks.</p>
+                            <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
+                        </div>
+                    </div>
+                </article>
 
-                <div class="grid sm:grid-cols-2 gap-6">
-                    <article class="use-case-card arcade-card card-theme-ember bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all reveal-fade">
-                        <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">RFP 01</p>
-                        <h3 class="usecase-arcade-title font-display mb-5 text-soft-ember">Underminer</h3>
-                        <p class="font-sans text-lg text-paper-ivory/90 leading-relaxed mb-5">
+                <div class="grid sm:grid-cols-2 gap-8">
+                    <article class="cabinet cabinet-ember reveal-fade">
+                        <p class="cabinet-label">RFP 01</p>
+                        <div class="cabinet-head"><h3 class="cabinet-title cabinet-title-lg">Underminer</h3>{{ macros::fins(lit=1) }}</div>
+                        <div class="saber-line-ember"></div>
+                        <p class="text-lg leading-relaxed mb-5">
                             Extract semantic understanding from paywalled reporting and reconstruct the story from alternate sources plus LLM context-tracing experiments.
                         </p>
-                        <p class="text-sm text-terracotta-border mb-2">Outcome: evidence-linked narrative reconstruction with source traceability.</p>
-                        <p class="text-sm text-paper-ivory/85">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run" class="underline decoration-soft-ember underline-offset-2 hover:text-soft-ember">ping@knowb.run</a>.</p>
+                        <p class="cabinet-outcome text-sm mb-2">Outcome: evidence-linked narrative reconstruction with source traceability.</p>
+                        <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
                     </article>
-                    <article class="use-case-card arcade-card card-theme-saber bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all reveal-fade" style="transition-delay:0.1s">
-                        <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">RFP 02</p>
-                        <h3 class="usecase-arcade-title font-display mb-5 text-saber-blue">X-Poser</h3>
-                        <p class="font-sans text-lg text-paper-ivory/90 leading-relaxed mb-5">
+                    <article class="cabinet reveal-fade" style="transition-delay:0.1s">
+                        <p class="cabinet-label">RFP 02</p>
+                        <div class="cabinet-head"><h3 class="cabinet-title cabinet-title-lg">X-Poser</h3>{{ macros::fins(lit=2) }}</div>
+                        <div class="saber-line"></div>
+                        <p class="text-lg leading-relaxed mb-5">
                             Submit an X link, run claim checks, and generate a report that marks the post as true, uncertain, or fabricated, with export-ready output for sharing on X.
                         </p>
-                        <p class="text-sm text-paper-ivory/85 leading-relaxed mb-4">
-                            Starter example: <a href="https://github.com/knowb-ai/x-poser.git" class="underline decoration-saber-blue underline-offset-2 hover:text-saber-blue">knowb-ai/x-poser.git</a>, a small public build showing how short sessions and builder events can accelerate RFP prototypes.
+                        <p class="text-sm leading-relaxed mb-4">
+                            Starter example: <a href="https://github.com/knowb-ai/x-poser.git">knowb-ai/x-poser.git</a>, a small public build showing how short sessions and builder events can accelerate RFP prototypes.
                         </p>
-                        <p class="text-sm text-terracotta-border mb-2">Outcome: compact fact-check report with evidence confidence notes.</p>
-                        <p class="text-sm text-paper-ivory/85">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run" class="underline decoration-saber-blue underline-offset-2 hover:text-saber-blue">ping@knowb.run</a>.</p>
+                        <p class="cabinet-outcome text-sm mb-2">Outcome: compact fact-check report with evidence confidence notes.</p>
+                        <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
                     </article>
-                    <article class="use-case-card arcade-card card-theme-saber bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all reveal-fade" style="transition-delay:0.2s">
-                        <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">RFP 03</p>
-                        <h3 class="usecase-arcade-title font-display mb-5 text-saber-blue">Precongnition</h3>
-                        <p class="font-sans text-lg text-paper-ivory/90 leading-relaxed mb-5">
+                    <article class="cabinet reveal-fade" style="transition-delay:0.2s">
+                        <p class="cabinet-label">RFP 03</p>
+                        <div class="cabinet-head"><h3 class="cabinet-title cabinet-title-lg">Precongnition</h3>{{ macros::fins(lit=1) }}</div>
+                        <div class="saber-line"></div>
+                        <p class="text-lg leading-relaxed mb-5">
                             Detect missing or mismatched conference talks, tutorials, or demos, then crawl for alternate watch links and nearest neighboring sessions.
                         </p>
-                        <p class="text-sm text-terracotta-border mb-2">Outcome: continuity-preserving discovery graph for learning resources.</p>
-                        <p class="text-sm text-paper-ivory/85">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run" class="underline decoration-saber-blue underline-offset-2 hover:text-saber-blue">ping@knowb.run</a>.</p>
+                        <p class="cabinet-outcome text-sm mb-2">Outcome: continuity-preserving discovery graph for learning resources.</p>
+                        <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
                     </article>
-                    <article class="use-case-card arcade-card card-theme-ember bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all reveal-fade" style="transition-delay:0.3s">
-                        <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">RFP 04</p>
-                        <h3 class="usecase-arcade-title font-display mb-5 text-soft-ember">MarkSweep</h3>
-                        <p class="font-sans text-lg text-paper-ivory/90 leading-relaxed mb-5">
+                    <article class="cabinet cabinet-ember reveal-fade" style="transition-delay:0.3s">
+                        <p class="cabinet-label">RFP 04</p>
+                        <div class="cabinet-head"><h3 class="cabinet-title cabinet-title-lg">MarkSweep</h3>{{ macros::fins(lit=2) }}</div>
+                        <div class="saber-line-ember"></div>
+                        <p class="text-lg leading-relaxed mb-5">
                             A browser extension granted control over your active tab that walks every unread message in your open inbox, checks each against relevance rules you control, marks non-matches as read in bulk, and flags matches to stay pinned at the top.
                         </p>
-                        <p class="text-sm text-terracotta-border mb-2">Outcome: bulk unread-to-read triage with rule-matched messages flagged and pinned to the top.</p>
-                        <p class="text-sm text-paper-ivory/85">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run" class="underline decoration-soft-ember underline-offset-2 hover:text-soft-ember">ping@knowb.run</a>.</p>
+                        <p class="cabinet-outcome text-sm mb-2">Outcome: bulk unread-to-read triage with rule-matched messages flagged and pinned to the top.</p>
+                        <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
                     </article>
                 </div>
 
-                <div class="mt-8">
-                    <article class="use-case-card arcade-card card-theme-ember bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 transition-all reveal-fade">
-                        <div class="grid gap-6 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:items-start">
-                            <div>
-                                <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">Closing Highlight</p>
-                                <h3 class="usecase-arcade-title font-display mb-5 text-soft-ember">Subtracktor</h3>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="arcade-chip ember">Subscription Escape</span>
-                                    <span class="arcade-chip ember">Inbox Agents</span>
-                                    <span class="arcade-chip ember">Financial Leakage</span>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="font-sans text-lg text-paper-ivory/90 leading-relaxed mb-5">
-                                    Subtracktor is a browser extension that connects consent-fully to your email inbox once it detects an inbox open in the active tab. It scans only for account-creation and subscription-confirmation messages, then builds a per-account record of every subscription it finds.
-                                </p>
-                                <p class="font-sans text-lg text-paper-ivory/90 leading-relaxed mb-5">
-                                    Each tracked subscription shows its next billing date. Check a box on any entry to get reminded ahead of renewal, so you can unsubscribe before the charge lands instead of after. The aim is simple: close financial leakage from subscriptions you forgot you had.
-                                </p>
-                                <p class="text-sm text-terracotta-border mb-2">Outcome: per-account subscription audit with next-billing-date tracking and renewal reminders.</p>
-                                <p class="text-sm text-paper-ivory/85">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run" class="underline decoration-soft-ember underline-offset-2 hover:text-soft-ember">ping@knowb.run</a>.</p>
+                <article class="cabinet cabinet-ember reveal-fade mt-8">
+                    <div class="grid gap-8 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:items-start">
+                        <div>
+                            <p class="cabinet-label">Closing Highlight</p>
+                            <div class="cabinet-head mb-6"><h3 class="cabinet-title cabinet-title-lg">Subtracktor</h3>{{ macros::fins() }}</div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="chip chip-ember"><i class="led" aria-hidden="true"></i>Subscription Escape</span>
+                                <span class="chip chip-ember"><i class="led" aria-hidden="true"></i>Inbox Agents</span>
+                                <span class="chip chip-ember"><i class="led" aria-hidden="true"></i>Financial Leakage</span>
                             </div>
                         </div>
-                    </article>
-                </div>
+                        <div>
+                            <p class="text-lg leading-relaxed mb-5">
+                                Subtracktor is a browser extension that connects consent-fully to your email inbox once it detects an inbox open in the active tab. It scans only for account-creation and subscription-confirmation messages, then builds a per-account record of every subscription it finds.
+                            </p>
+                            <p class="text-lg leading-relaxed mb-5">
+                                Each tracked subscription shows its next billing date. Check a box on any entry to get reminded ahead of renewal, so you can unsubscribe before the charge lands instead of after. The aim is simple: close financial leakage from subscriptions you forgot you had.
+                            </p>
+                            <p class="cabinet-outcome text-sm mb-2">Outcome: per-account subscription audit with next-billing-date tracking and renewal reminders.</p>
+                            <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
+                        </div>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <section id="roadmap" class="scroll-mt-44 py-20 px-6 bg-charcoal-bark">
+        <section id="roadmap" class="scroll-mt-20 py-24 px-6 bg-charcoal-bark">
             <div class="max-w-7xl mx-auto">
-                <p class="section-kicker section-kicker-ember font-display text-[0.62rem]">Launch Plan</p>
-                <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-4 text-paper-ivory">Delivery Roadmap</h2>
-                <p class="font-sans text-lg md:text-xl text-paper-ivory/88 mb-14 max-w-4xl leading-relaxed">
+                <p class="section-kicker section-kicker-ember">Launch Plan</p>
+                <div class="section-rule-ember"></div>
+                <h2 class="display-section mb-5">Delivery Roadmap</h2>
+                <p class="lede max-w-4xl mb-14">
                     Phase 1 turns RFP pilots into knowledge agents: stable, retrieval-backed systems with clear contracts. Phase 2 transforms those deployed services and project RFPs into link collection systems that grow knowledge bases and public knowledge systems, which in turn empower our internal use cases.
                 </p>
 
-                <div class="grid md:grid-cols-2 gap-6">
-                    <article class="bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 arcade-card card-theme-saber reveal-fade">
-                        <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">Phase 1</p>
-                        <h3 class="font-display text-3xl mb-4 text-saber-blue">RFP Projects</h3>
-                        <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <article class="cabinet reveal-fade">
+                        <p class="cabinet-label">Phase 1</p>
+                        <div class="cabinet-head"><h3 class="cabinet-title cabinet-title-lg">RFP Projects</h3>{{ macros::fins(lit=2) }}</div>
+                        <div class="saber-line"></div>
+                        <ul class="space-y-3 leading-relaxed list-disc pl-5">
                             <li>Define each RFP as a knowledge agent: a system that retrieves, tracks context, and reports on its own.</li>
                             <li>Ship simple, testable prototypes with clear outcomes.</li>
                             <li>Validate retrieval quality, context tracking, and report utility.</li>
-                            <li>Interested parties can contact us at <a href="mailto:ping@knowb.run" class="underline decoration-saber-blue underline-offset-2 hover:text-saber-blue">ping@knowb.run</a>.</li>
+                            <li>Interested parties can contact us at <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</li>
                         </ul>
                     </article>
-
-                    <article class="bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-7 arcade-card card-theme-ember reveal-fade" style="transition-delay:0.14s">
-                        <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-4">Phase 2</p>
-                        <h3 class="font-display text-3xl mb-4 text-soft-ember">Link Collection Systems</h3>
-                        <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside">
+                    <article class="cabinet cabinet-ember reveal-fade" style="transition-delay:0.14s">
+                        <p class="cabinet-label">Phase 2</p>
+                        <div class="cabinet-head"><h3 class="cabinet-title cabinet-title-lg">Link Collection Systems</h3>{{ macros::fins(lit=1) }}</div>
+                        <div class="saber-line-ember"></div>
+                        <ul class="space-y-3 leading-relaxed list-disc pl-5">
                             <li>Transform deployed services and project RFPs into link collection systems.</li>
                             <li>Grow knowledge bases and public knowledge systems from what those systems collect.</li>
                             <li>Empower our internal use cases with the resulting knowledge systems.</li>
@@ -271,58 +281,60 @@
             </div>
         </section>
 
-        <section class="px-6 pb-16 bg-charcoal-bark">
-            <div class="max-w-7xl mx-auto rounded-2xl contact-callout-frame">
-                <div class="px-8 md:px-10 py-10 md:py-12">
-                    <p class="section-kicker section-kicker-saber font-display text-[0.62rem] mb-4">Collaboration Callout</p>
-                    <h2 class="font-display text-3xl md:text-4xl tracking-tight text-paper-ivory mb-4">Contact us to build with us</h2>
-                    <p class="font-sans text-paper-ivory/92 text-lg leading-relaxed max-w-4xl mb-7">
-                        We are actively looking for partners who want to ship practical context-agent systems in controlled pilots. The current collaboration formats are listed below.
-                    </p>
-                    <ul class="space-y-3 text-paper-ivory/92 leading-relaxed list-disc list-inside mb-8">
-                        <li>RFP build partners to prototype Underminer, X-Poser, Precongnition, ShadowCaster, Subtracktor, and MarkSweep with measurable delivery milestones.</li>
-                        <li>Knowledge and dataset partners who can support governed link-collection workflows and source validation loops.</li>
-                        <li>Operations and compliance collaborators who can help productionize policy-scoped memory and retrieval systems.</li>
-                    </ul>
-                    <a href="mailto:ping@knowb.run?subject=Collaboration%20Inquiry" class="arcade-button">
-                        Contact us at ping@knowb.run
-                    </a>
-                </div>
+        <section class="px-6 py-24 bg-obsidian-brown">
+            <div class="max-w-7xl mx-auto">
+                <article class="cabinet cabinet-ember px-8 py-10 md:px-12 md:py-12">
+                    <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-center">
+                        <div>
+                            <p class="section-kicker">Collaboration Callout</p>
+                            <h2 class="display-section mt-5 mb-5">Contact us to build with us</h2>
+                            <p class="text-lg leading-relaxed max-w-4xl mb-6">
+                                We are actively looking for partners who want to ship practical context-agent systems in controlled pilots. The current collaboration formats are listed below.
+                            </p>
+                            <ul class="space-y-3 leading-relaxed list-disc pl-5 mb-9">
+                                <li>RFP build partners to prototype Underminer, X-Poser, Precongnition, ShadowCaster, Subtracktor, and MarkSweep with measurable delivery milestones.</li>
+                                <li>Knowledge and dataset partners who can support governed link-collection workflows and source validation loops.</li>
+                                <li>Operations and compliance collaborators who can help productionize policy-scoped memory and retrieval systems.</li>
+                            </ul>
+                            <a href="mailto:ping@knowb.run?subject=Collaboration%20Inquiry" class="tf-btn">Contact us at ping@knowb.run{{ macros::fins() }}</a>
+                        </div>
+                        <div class="art-screen hidden lg:block">
+                            <div class="art-screen-edge"><div class="art-screen-view">{{ macros::atom_art() }}</div></div>
+                        </div>
+                    </div>
+                </article>
             </div>
         </section>
     </main>
 {% endblock content %}
 
 {% block footer %}
-    <footer id="contact" class="scroll-mt-28 px-6 pt-14 pb-10 bg-charcoal-bark text-paper-ivory">
-        <div class="max-w-7xl mx-auto rounded-[1.35rem] border border-terracotta-border/45 border-t-terracotta-border/80 bg-charcoal-bark/95 shadow-[0_-1px_0_rgba(233,194,179,0.26),0_22px_50px_rgba(0,0,0,0.38)]">
-            <div class="px-8 md:px-10 pt-12 pb-8">
-                <div class="grid gap-10 md:grid-cols-[minmax(0,1fr)_auto] md:items-start">
-                    <div class="max-w-md lg:pr-4">
-                        {{ macros::wordmark(slot="footer") }}
-                        <p class="text-paper-ivory/75 text-xs leading-relaxed">
-                            KnowB AI Systems builds practical knowledge-agent systems that improve context continuity, operational trust, and long-run memory quality.
-                        </p>
-                    </div>
-
-                    <nav aria-label="Footer navigation" class="md:justify-self-end">
-                        <ul class="space-y-2 md:text-right text-sm">
-                            <li class="text-paper-ivory/70 text-[0.64rem] font-semibold uppercase tracking-[0.12em]">Navigation</li>
-                            <li><a href="#home" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Home</a></li>
-                            <li><a href="#challenges" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Challenges</a></li>
-                            <li><a href="#use-cases" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Use Cases</a></li>
-                            <li><a href="#contact" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Contact</a></li>
-                        </ul>
-                    </nav>
+    <footer id="contact" class="site-footer scroll-mt-20 px-6 pt-16 pb-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid gap-10 md:grid-cols-[minmax(0,1fr)_auto] md:items-start">
+                <div class="max-w-md">
+                    {{ macros::wordmark(slot="footer") }}
+                    <p class="text-paper-ivory/75 text-sm leading-relaxed">
+                        KnowB AI Systems builds practical knowledge-agent systems that improve context continuity, operational trust, and long-run memory quality.
+                    </p>
                 </div>
-
-                <div class="mt-10 pt-6 border-t border-terracotta-border/20 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm">
-                    <ul class="flex flex-wrap gap-x-5 gap-y-2">
-                        <li><a href="/terms/" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Terms</a></li>
-                        <li><a href="/privacy/" class="text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal-bark rounded-sm">Privacy</a></li>
+                <nav aria-label="Footer navigation" class="md:justify-self-end">
+                    <ul class="space-y-2 md:text-right text-sm">
+                        <li class="footer-heading pb-1">Navigation</li>
+                        <li><a href="#home" class="footer-link">Home</a></li>
+                        <li><a href="#challenges" class="footer-link">Challenges</a></li>
+                        <li><a href="#use-cases" class="footer-link">Use Cases</a></li>
+                        <li><a href="#roadmap" class="footer-link">Roadmap</a></li>
+                        <li><a href="/org-book/" class="footer-link">Design System</a></li>
                     </ul>
-                    <span class="text-paper-ivory/85">© 2026 knowb.run</span>
-                </div>
+                </nav>
+            </div>
+            <div class="mt-12 pt-6 border-t border-terracotta-border/20 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm">
+                <ul class="flex flex-wrap gap-x-6 gap-y-2">
+                    <li><a href="/terms/" class="footer-link">Terms</a></li>
+                    <li><a href="/privacy/" class="footer-link">Privacy</a></li>
+                </ul>
+                <span class="text-paper-ivory/85">© 2026 knowb.run</span>
             </div>
         </div>
     </footer>
@@ -360,20 +372,6 @@
         });
     }
 
-    // Glitch text, brand bible §12.1: <=120ms burst, >=8s between bursts
-    var glitchEls = document.querySelectorAll('.glitch-text');
-    var motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (motionOK) {
-        glitchEls.forEach(function (el) {
-            function fire() {
-                el.classList.add('is-glitching');
-                setTimeout(function () { el.classList.remove('is-glitching'); }, 120);
-                setTimeout(fire, 8000 + Math.random() * 8000);
-            }
-            setTimeout(fire, 3000 + Math.random() * 6000);
-        });
-    }
-
     // Mobile nav toggle
     var toggle = document.getElementById('nav-toggle');
     var navLinks = document.getElementById('nav-links');
@@ -394,14 +392,12 @@
     // Active nav highlight on scroll
     if ('IntersectionObserver' in window) {
         var sections = document.querySelectorAll('section[id]');
-        var navItems = document.querySelectorAll('.arcade-nav-link');
+        var navItems = document.querySelectorAll('.nav-link');
         var activeObserver = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
                 if (entry.isIntersecting) {
                     navItems.forEach(function (a) {
-                        var isActive = a.getAttribute('href') === '#' + entry.target.id;
-                        a.style.color = isActive ? '#86E8FF' : '';
-                        a.style.textShadow = isActive ? '0 0 10px rgba(134,232,255,0.40)' : '';
+                        a.classList.toggle('is-active', a.getAttribute('href') === '#' + entry.target.id);
                     });
                 }
             });

@@ -4,23 +4,23 @@
 {% block title %}KnowB AI Visual Design System{% endblock title %}
 {% block description %}{{ page.description | default(value=config.description) }}{% endblock description %}
 
+{% block head_extra %}
+  <link rel="stylesheet" href="/css/concept-book.css?v=space-age">
+{% endblock head_extra %}
+
 {% block header %}
-  <!-- Sticky nav -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-charcoal-bark/95 backdrop-blur-md border-b border-saber-blue/20">
-    <nav aria-label="Visual design system navigation" class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+  <header class="site-header">
+    <nav aria-label="Visual design system navigation" class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
       {{ macros::wordmark(slot="header") }}
-      <div class="flex flex-wrap gap-x-5 gap-y-2">
-        <a href="/"              class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">Home</a>
-        <a href="#system"       class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">System</a>
-        <a href="#colours"       class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">Colours</a>
-        <a href="#channels"      class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">Channels</a>
-        <a href="#themes"        class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">Themes</a>
-        <a href="#styles"        class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">Styles</a>
-        <a href="#gradients"     class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">Gradients</a>
-        <a href="#typography"    class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">Type</a>
-        <a href="#components"    class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">Components</a>
-        <a href="#accessibility" class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">A11y</a>
-        <a href="#copy"          class="arcade-nav-link text-paper-ivory/85 hover:text-saber-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-saber-blue rounded-sm">Copy</a>
+      <div class="nav-scroll lg:gap-7">
+        <a href="/" class="nav-link">Home</a>
+        <a href="#system" class="nav-link">System</a>
+        <a href="#colours" class="nav-link">Colours</a>
+        <a href="#typography" class="nav-link">Type</a>
+        <a href="#components" class="nav-link">Components</a>
+        <a href="#accessibility" class="nav-link">A11y</a>
+        <a href="#copy" class="nav-link">Copy</a>
+        <a href="#concept-book" class="nav-link">Concept Book</a>
       </div>
     </nav>
   </header>
@@ -28,79 +28,90 @@
 
 {% block content %}
   <!-- Hero -->
-  <section id="main-content" class="pt-44 lg:pt-28 pb-20 px-6 bg-knowb-autumn-core border-b border-deep-rust/70 hero-arcade">
-    <div class="max-w-7xl mx-auto">
-      <div class="max-w-4xl">
-        <p class="section-kicker section-kicker-ember mb-5">KnowB Visual Design System</p>
-        <h1 class="wordmark text-5xl md:text-7xl leading-[1.08] tracking-tight mb-6 text-paper-ivory">
-          KnowB AI <span class="hero-highlight-saber">Design System</span>
-        </h1>
-        <p class="font-sans text-xl md:text-2xl text-paper-ivory/90 mb-8 max-w-3xl leading-relaxed">
-          Canonical reference for the <span class="hero-highlight-ember">Autumn and Gold</span> palettes, three channels, six themes, five styles, fixed typography, component patterns, and accessibility requirements.
+  <section id="main-content" class="space-hero pt-40 lg:pt-40 pb-10 px-6">
+    <span class="star" style="left: 46%; top: 20%" aria-hidden="true"></span>
+    <span class="star star-saber" style="left: 63%; top: 14%" aria-hidden="true"></span>
+    <span class="star" style="left: 90%; top: 70%" aria-hidden="true"></span>
+    <span class="star star-ember" style="left: 8%; top: 84%" aria-hidden="true"></span>
+    <div class="max-w-7xl mx-auto grid gap-14 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-center">
+      <div class="flex flex-col gap-8">
+        <p class="section-kicker section-kicker-ember">KnowB Visual Design System</p>
+        <h1 class="display-hero">KnowB AI <span class="hero-highlight-saber">Design System</span></h1>
+        <p class="lede max-w-3xl">
+          Canonical reference for the <span class="text-soft-ember">Autumn and Gold</span> palettes, three channels, six themes, five styles, fixed typography, the space-age editorial layer, the tailfin arcade layer, and accessibility requirements.
         </p>
-        <div class="flex flex-wrap gap-3 mb-10">
-          <span class="arcade-chip">Autumn + Gold</span>
-          <span class="arcade-chip ember">Internal / External / Artistic</span>
-          <span class="arcade-chip">WCAG 2.2 AA</span>
-          <span class="arcade-chip ember">Fixed Type System</span>
-        </div>
-        <div class="signal-grid">
-          <article class="signal-card card-theme-ember">
-            <h3>Player Side</h3>
-            <p>90s arcade pacing, clear interaction cues, readable at speed.</p>
-          </article>
-          <article class="signal-card card-theme-saber">
-            <h3>System Side</h3>
-            <p>Portal-like command surfaces for memory and orchestration.</p>
-          </article>
-          <article class="signal-card card-theme-ember">
-            <h3>Low Carbon</h3>
-            <p>Static delivery, restrained motion, reduced compute overhead.</p>
-          </article>
+        <div class="flex flex-wrap gap-3">
+          <span class="chip"><i class="led" aria-hidden="true"></i>Autumn and Gold</span>
+          <span class="chip chip-ember"><i class="led" aria-hidden="true"></i>Three channels</span>
+          <span class="chip"><i class="led" aria-hidden="true"></i>WCAG 2.2 AA</span>
+          <span class="chip chip-ember"><i class="led" aria-hidden="true"></i>Fixed type system</span>
         </div>
       </div>
+      <div class="art-screen w-full max-w-sm mx-auto lg:max-w-none">
+        <div class="art-screen-edge"><div class="art-screen-view">{{ macros::atom_art() }}</div></div>
+      </div>
+    </div>
+  </section>
+  <div class="horizon-band" aria-hidden="true"></div>
+  <section class="bg-charcoal-bark px-6 pb-16">
+    <div class="max-w-7xl mx-auto grid gap-7 md:grid-cols-3">
+      <article class="cabinet cabinet-ember">
+        <div class="cabinet-head"><h2 class="cabinet-title">Player Side</h2>{{ macros::fins(lit=2) }}</div>
+        <div class="saber-line-ember"></div>
+        <p>90s arcade pacing, clear interaction cues, readable at speed.</p>
+      </article>
+      <article class="cabinet">
+        <div class="cabinet-head"><h2 class="cabinet-title">System Side</h2>{{ macros::fins() }}</div>
+        <div class="saber-line"></div>
+        <p>Portal-like command surfaces for memory and orchestration.</p>
+      </article>
+      <article class="cabinet cabinet-ember">
+        <div class="cabinet-head"><h2 class="cabinet-title">Low Carbon</h2>{{ macros::fins(lit=1) }}</div>
+        <div class="saber-line-ember"></div>
+        <p>Static delivery, restrained motion, reduced compute overhead.</p>
+      </article>
     </div>
   </section>
 
   <main class="max-w-7xl mx-auto px-6 pb-20">
 
     <!-- ── DESIGN MODEL ───────────────────────────────────────────── -->
-    <section id="system" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
+    <section id="system" class="scroll-mt-44 lg:scroll-mt-28 py-16">
       <p class="section-kicker section-kicker-saber">Design Model</p>
       <div class="section-rule"></div>
-      <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">Four independent axes</h2>
-      <p class="font-sans text-lg text-paper-ivory/80 mb-10 max-w-4xl leading-relaxed">
+      <h2 class="display-section mb-3">Four independent axes</h2>
+      <p class="lede mb-10 max-w-4xl">
         Every KnowB page, asset, product surface, or brand expression can be specified as channel + palette + theme + style + product vocabulary. The axes compose without forcing every product into the same look.
       </p>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
-        <article class="signal-card card-theme-ember">
-          <h3>Palette</h3>
+        <article class="cabinet cabinet-ember">
+          <div class="cabinet-head"><h3 class="cabinet-title">Palette</h3>{{ macros::fins() }}</div><div class="saber-line-ember"></div>
           <p>Autumn or Gold sets color family, signal hierarchy, surface depth, and contrast.</p>
         </article>
-        <article class="signal-card card-theme-saber">
-          <h3>Channel</h3>
+        <article class="cabinet">
+          <div class="cabinet-head"><h3 class="cabinet-title">Channel</h3>{{ macros::fins() }}</div><div class="saber-line"></div>
           <p>Internal, External, or Artistic sets the role and destination of the thing.</p>
         </article>
-        <article class="signal-card card-theme-ember">
-          <h3>Theme</h3>
+        <article class="cabinet cabinet-ember">
+          <div class="cabinet-head"><h3 class="cabinet-title">Theme</h3>{{ macros::fins() }}</div><div class="saber-line-ember"></div>
           <p>Space-race, Psychedelic, Retrowave, Editorial, Arcade, or Comic sets the world and energy.</p>
         </article>
-        <article class="signal-card card-theme-saber">
-          <h3>Style</h3>
+        <article class="cabinet">
+          <div class="cabinet-head"><h3 class="cabinet-title">Style</h3>{{ macros::fins() }}</div><div class="saber-line"></div>
           <p>60s, 70s, 80s, 90s, or 2000s sets the formal visual grammar and finish.</p>
         </article>
       </div>
       <div class="grid lg:grid-cols-3 gap-5">
-        <article class="arcade-card card-theme-saber bg-charcoal-bark/60 rounded-sm p-6">
-          <h3 class="font-display text-xl mb-3 text-saber-blue">Internal default</h3>
+        <article class="cabinet">
+          <div class="cabinet-head"><h3 class="cabinet-title">Internal default</h3>{{ macros::fins() }}</div><div class="saber-line"></div>
           <p class="font-sans text-paper-ivory/85 leading-relaxed">Gold + Space-race + 60s primary + 70s secondary. Space-age workspaces use launch, orbit, dock, relay, command, archive, and recovery vocabulary.</p>
         </article>
-        <article class="arcade-card card-theme-ember bg-charcoal-bark/60 rounded-sm p-6">
-          <h3 class="font-display text-xl mb-3 text-soft-ember">External default</h3>
+        <article class="cabinet cabinet-ember">
+          <div class="cabinet-head"><h3 class="cabinet-title">External default</h3>{{ macros::fins() }}</div><div class="saber-line-ember"></div>
           <p class="font-sans text-paper-ivory/85 leading-relaxed">Autumn + Arcade + 80s primary + 90s secondary. Public work uses strong silhouettes, color blocking, title-card clarity, and editorial polish.</p>
         </article>
-        <article class="arcade-card card-theme-saber bg-charcoal-bark/60 rounded-sm p-6">
-          <h3 class="font-display text-xl mb-3 text-saber-blue">Artistic default</h3>
+        <article class="cabinet">
+          <div class="cabinet-head"><h3 class="cabinet-title">Artistic default</h3>{{ macros::fins() }}</div><div class="saber-line"></div>
           <p class="font-sans text-paper-ivory/85 leading-relaxed">Autumn or Gold + Comic or Arcade + 90s primary + 2000s secondary. Characters, avatars, mascots, posters, and illustrations remain palette-independent assets.</p>
         </article>
       </div>
@@ -108,33 +119,33 @@
     </section>
 
     <!-- ── CHANNELS ───────────────────────────────────────────────── -->
-    <section id="channels" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
+    <section id="channels" class="scroll-mt-44 lg:scroll-mt-28 py-16">
       <p class="section-kicker section-kicker-ember">Channels</p>
       <div class="section-rule-ember"></div>
-      <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">Where the design is used</h2>
-      <p class="font-sans text-lg text-paper-ivory/80 mb-10 max-w-3xl">Channels are roles and destinations, not palettes, themes, or eras.</p>
+      <h2 class="display-section mb-3">Where the design is used</h2>
+      <p class="lede mb-10 max-w-3xl">Channels are roles and destinations, not palettes, themes, or eras.</p>
       <div class="grid lg:grid-cols-3 gap-5">
-        <article class="arcade-card card-theme-saber bg-charcoal-bark/60 rounded-sm p-6">
-          <h3 class="font-display text-xl mb-3 text-saber-blue">Internal</h3>
+        <article class="cabinet">
+          <div class="cabinet-head"><h3 class="cabinet-title">Internal</h3>{{ macros::fins() }}</div><div class="saber-line"></div>
           <p class="font-sans text-paper-ivory/85 leading-relaxed">Product interfaces, workspaces, hubs, control panels, command decks, cockpits, run views, instrumentation, system maps, and operational references. Shared grammar: internal-facing space age with product-owned vocabulary.</p>
         </article>
-        <article class="arcade-card card-theme-ember bg-charcoal-bark/60 rounded-sm p-6">
-          <h3 class="font-display text-xl mb-3 text-soft-ember">External</h3>
+        <article class="cabinet cabinet-ember">
+          <div class="cabinet-head"><h3 class="cabinet-title">External</h3>{{ macros::fins() }}</div><div class="saber-line-ember"></div>
           <p class="font-sans text-paper-ivory/85 leading-relaxed">Marketing, narrative, promotional material, public websites, publishing, product launches, and outward-facing polish. Shared grammar: arcade-informed clarity with composed editorial energy.</p>
         </article>
-        <article class="arcade-card card-theme-saber bg-charcoal-bark/60 rounded-sm p-6">
-          <h3 class="font-display text-xl mb-3 text-saber-blue">Artistic</h3>
+        <article class="cabinet">
+          <div class="cabinet-head"><h3 class="cabinet-title">Artistic</h3>{{ macros::fins() }}</div><div class="saber-line"></div>
           <p class="font-sans text-paper-ivory/85 leading-relaxed">Characters, avatars, mascot art, posters, editorial scenes, and other authored visual assets. Artistic construction is independent of palette and can appear inside either destination channel.</p>
         </article>
       </div>
     </section>
 
     <!-- ── THEMES ─────────────────────────────────────────────────── -->
-    <section id="themes" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
+    <section id="themes" class="scroll-mt-44 lg:scroll-mt-28 py-16">
       <p class="section-kicker section-kicker-saber">Themes</p>
       <div class="section-rule"></div>
-      <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">World and energy</h2>
-      <p class="font-sans text-lg text-paper-ivory/80 mb-10 max-w-3xl">Themes guide subject matter, motifs, emotional register, and interaction attitude. They do not dictate a palette or font.</p>
+      <h2 class="display-section mb-3">World and energy</h2>
+      <p class="lede mb-10 max-w-3xl">Themes guide subject matter, motifs, emotional register, and interaction attitude. They do not dictate a palette or font.</p>
       <div class="overflow-x-auto">
         <table class="bb-table">
           <thead><tr><th>Theme</th><th>Properties</th><th>Typical expression</th></tr></thead>
@@ -151,11 +162,11 @@
     </section>
 
     <!-- ── STYLES ─────────────────────────────────────────────────── -->
-    <section id="styles" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
+    <section id="styles" class="scroll-mt-44 lg:scroll-mt-28 py-16">
       <p class="section-kicker section-kicker-ember">Styles</p>
       <div class="section-rule-ember"></div>
-      <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">Formal visual grammar</h2>
-      <p class="font-sans text-lg text-paper-ivory/80 mb-10 max-w-3xl">Styles are historical reference frames that control geometry, composition, line treatment, pacing, density, and finish. They are not literal reproductions.</p>
+      <h2 class="display-section mb-3">Formal visual grammar</h2>
+      <p class="lede mb-10 max-w-3xl">Styles are historical reference frames that control geometry, composition, line treatment, pacing, density, and finish. They are not literal reproductions.</p>
       <div class="overflow-x-auto">
         <table class="bb-table">
           <thead><tr><th>Style</th><th>Properties</th></tr></thead>
@@ -172,10 +183,10 @@
     </section>
 
     <!-- ── 01 MISSION ──────────────────────────────────────────────── -->
-    <section id="mission" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
-      <p class="section-kicker section-kicker-saber">01: Origin</p>
+    <section id="mission" class="scroll-mt-44 lg:scroll-mt-28 py-16">
+      <p class="section-kicker section-kicker-saber">Origin</p>
       <div class="section-rule"></div>
-      <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-8 text-paper-ivory">Mission &amp; Manifesto</h2>
+      <h2 class="display-section mb-8">Mission &amp; Manifesto</h2>
 
       <div class="grid lg:grid-cols-2 gap-10 mb-10">
         <div>
@@ -189,9 +200,9 @@
             In a world of chaotic context, KnowB AI builds knowledge systems that think.
           </p>
         </div>
-        <div class="arcade-card card-theme-ember bg-charcoal-bark/60 rounded-sm p-6">
-          <h3 class="font-display text-xl mb-4 text-soft-ember">We specialize in</h3>
-          <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc list-inside font-sans">
+        <div class="cabinet cabinet-ember">
+          <div class="cabinet-head"><h3 class="cabinet-title">We specialize in</h3>{{ macros::fins() }}</div><div class="saber-line-ember"></div>
+          <ul class="space-y-3 text-paper-ivory/90 leading-relaxed list-disc pl-5 font-sans">
             <li>Architecting Knowledge Bases that scale across people, roles, and machines</li>
             <li>Developing autonomous Knowledge Agents that understand and maintain knowledge spaces</li>
             <li>Building middleware tooling for memory continuity, context transfer, and model interoperability</li>
@@ -201,61 +212,61 @@
 
       <h3 class="font-display text-2xl mb-5 text-paper-ivory">Key Tenets</h3>
       <div class="grid md:grid-cols-3 gap-5">
-        <article class="signal-card card-theme-saber">
-          <h3>Local-First, Globally Aware</h3>
+        <article class="cabinet">
+          <div class="cabinet-head"><h3 class="cabinet-title">Local-First, Globally Aware</h3>{{ macros::fins() }}</div><div class="saber-line"></div>
           <p>Your knowledge lives where you are and follows where you go. Start local; enable global memory sync through context-aware agents.</p>
         </article>
-        <article class="signal-card card-theme-ember">
-          <h3>Fork, Switch, Clone</h3>
+        <article class="cabinet cabinet-ember">
+          <div class="cabinet-head"><h3 class="cabinet-title">Fork, Switch, Clone</h3>{{ macros::fins() }}</div><div class="saber-line-ember"></div>
           <p>Context is not static. Switch models, fork conversations, and clone threads with full memory-state preservation.</p>
         </article>
-        <article class="signal-card card-theme-saber">
-          <h3>Memory is Portable</h3>
+        <article class="cabinet">
+          <div class="cabinet-head"><h3 class="cabinet-title">Memory is Portable</h3>{{ macros::fins() }}</div><div class="saber-line"></div>
           <p>Knowledge continuity is the default, not the exception. Across machines, models, and modalities, working memory must never be lost.</p>
         </article>
       </div>
     </section>
 
     <!-- ── 02 CORE CONCEPTS ────────────────────────────────────────── -->
-    <section id="concepts" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
-      <p class="section-kicker section-kicker-ember">02: Glossary</p>
+    <section id="concepts" class="scroll-mt-44 lg:scroll-mt-28 py-16">
+      <p class="section-kicker section-kicker-ember">Glossary</p>
       <div class="section-rule-ember"></div>
-      <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-10 text-paper-ivory">Core Concepts</h2>
+      <h2 class="display-section mb-10">Core Concepts</h2>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <article class="bg-charcoal-bark/60 border border-terracotta-border/25 rounded-sm p-6">
-          <h3 class="font-display text-xl mb-3 text-saber-blue">Knowledge Base</h3>
+        <article class="cabinet">
+          <div class="cabinet-head"><h3 class="cabinet-title">Knowledge Base</h3>{{ macros::fins() }}</div><div class="saber-line"></div>
           <p class="font-sans text-paper-ivory/85 leading-relaxed">A structured, queryable store of contextually rich, durable knowledge. Built for interoperability with AI models, human teams, and agents.</p>
         </article>
-        <article class="bg-charcoal-bark/60 border border-terracotta-border/25 rounded-sm p-6">
-          <h3 class="font-display text-xl mb-3 text-soft-ember">Knowledge Agent</h3>
+        <article class="cabinet cabinet-ember">
+          <div class="cabinet-head"><h3 class="cabinet-title">Knowledge Agent</h3>{{ macros::fins() }}</div><div class="saber-line-ember"></div>
           <p class="font-sans text-paper-ivory/85 leading-relaxed">An intelligent system that performs actions, answers questions, manages memory, and evolves the Knowledge Base in real time.</p>
         </article>
-        <article class="bg-charcoal-bark/60 border border-terracotta-border/25 rounded-sm p-6">
-          <h3 class="font-display text-xl mb-3 text-saber-blue">Operators</h3>
+        <article class="cabinet">
+          <div class="cabinet-head"><h3 class="cabinet-title">Operators</h3>{{ macros::fins() }}</div><div class="saber-line"></div>
           <p class="font-sans text-paper-ivory/85 leading-relaxed">Lightweight rule-driven tools that handle tagging, summarizing, syncing, or enforcing hygiene and structure in Knowledge Bases.</p>
         </article>
-        <article class="bg-charcoal-bark/60 border border-terracotta-border/25 rounded-sm p-6">
-          <h3 class="font-display text-xl mb-3 text-soft-ember">Context</h3>
+        <article class="cabinet cabinet-ember">
+          <div class="cabinet-head"><h3 class="cabinet-title">Context</h3>{{ macros::fins() }}</div><div class="saber-line-ember"></div>
           <p class="font-sans text-paper-ivory/85 leading-relaxed">Everything surrounding a task, thread, or decision: tone, intention, dependencies, entities, and prior steps. Context is both local and portable.</p>
         </article>
-        <article class="bg-charcoal-bark/60 border border-terracotta-border/25 rounded-sm p-6">
-          <h3 class="font-display text-xl mb-3 text-saber-blue">Memory</h3>
+        <article class="cabinet">
+          <div class="cabinet-head"><h3 class="cabinet-title">Memory</h3>{{ macros::fins() }}</div><div class="saber-line"></div>
           <p class="font-sans text-paper-ivory/85 leading-relaxed">The accumulated state of what was said, done, asked, answered, linked, or concluded. Memory must be stored, scoped, and revived when needed.</p>
         </article>
-        <article class="bg-charcoal-bark/60 border border-terracotta-border/25 rounded-sm p-6">
-          <h3 class="font-display text-xl mb-3 text-soft-ember">Knowledge OS</h3>
+        <article class="cabinet cabinet-ember">
+          <div class="cabinet-head"><h3 class="cabinet-title">Knowledge OS</h3>{{ macros::fins() }}</div><div class="saber-line-ember"></div>
           <p class="font-sans text-paper-ivory/85 leading-relaxed">A modular stack that lets KBs, Agents, and Operators function together with synchronization, switching, versioning, and recall features.</p>
         </article>
       </div>
     </section>
 
     <!-- ── 03 COLOUR SYSTEM ────────────────────────────────────────── -->
-    <section id="colours" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
-      <p class="section-kicker section-kicker-saber">03: Colour System</p>
+    <section id="colours" class="scroll-mt-44 lg:scroll-mt-28 py-16">
+      <p class="section-kicker section-kicker-saber">Colour System</p>
       <div class="section-rule"></div>
-      <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">KnowB Palette Families</h2>
-      <p class="font-sans text-lg text-paper-ivory/80 mb-10 max-w-3xl leading-relaxed">
+      <h2 class="display-section mb-3">KnowB Palette Families</h2>
+      <p class="lede mb-10 max-w-3xl">
         Autumn and Gold are independent palette options. Choose one primary family per surface, use opacity variants when needed, and never introduce an unapproved hue. Saber Blue is the optional shared cool signal.
       </p>
 
@@ -295,7 +306,7 @@
         <div class="color-swatch-block" style="background:#7A2217; border-color: rgba(245,154,82,0.18);">
           <span class="font-mono text-xs text-paper-ivory font-semibold">#7A2217</span>
           <span class="font-display text-sm font-semibold text-paper-ivory">Charcoal Bark</span>
-          <span class="font-sans text-xs text-paper-ivory">Primary dark surface</span>
+          <span class="font-sans text-xs text-paper-ivory">Ink and stroke on light surfaces</span>
           <span class="font-mono text-[10px] text-paper-ivory">--charcoal-bark</span>
         </div>
         <div class="color-swatch-block" style="background:#77584F;">
@@ -309,6 +320,47 @@
           <span class="font-display text-sm font-semibold text-[#7A2217]">Terracotta Border</span>
           <span class="font-sans text-xs text-[#7A2217]">Separators &amp; borders</span>
           <span class="font-mono text-[10px] text-[#7A2217]">--terracotta-border</span>
+        </div>
+      </div>
+
+      <h3 class="font-display text-2xl mb-3 text-paper-ivory">Space-Age Surfaces</h3>
+      <p class="font-sans text-paper-ivory/75 mb-6 text-sm max-w-3xl">The dark canvas of every public page. Depth comes from stacking these solids, never from gradient washes. Charcoal Bark stays the ink and stroke colour on light surfaces.</p>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-14">
+        <div class="color-swatch-block" style="background:#161211;">
+          <span class="font-mono text-xs text-paper-ivory font-semibold">#161211</span>
+          <span class="font-display text-sm font-semibold text-paper-ivory">Ground</span>
+          <span class="font-sans text-xs text-paper-ivory">Page canvas, deep space</span>
+          <span class="font-mono text-[10px] text-paper-ivory">--ground</span>
+        </div>
+        <div class="color-swatch-block" style="background:#1D1514;">
+          <span class="font-mono text-xs text-paper-ivory font-semibold">#1D1514</span>
+          <span class="font-display text-sm font-semibold text-paper-ivory">Surface</span>
+          <span class="font-sans text-xs text-paper-ivory">Planet horizon, sections, panels</span>
+          <span class="font-mono text-[10px] text-paper-ivory">--surface</span>
+        </div>
+        <div class="color-swatch-block" style="background:#241A18;">
+          <span class="font-mono text-xs text-paper-ivory font-semibold">#241A18</span>
+          <span class="font-display text-sm font-semibold text-paper-ivory">Raised</span>
+          <span class="font-sans text-xs text-paper-ivory">Cabinet and chip fill</span>
+          <span class="font-mono text-[10px] text-paper-ivory">--raised</span>
+        </div>
+        <div class="color-swatch-block" style="background:#2A1D1B;">
+          <span class="font-mono text-xs text-paper-ivory font-semibold">#2A1D1B</span>
+          <span class="font-display text-sm font-semibold text-paper-ivory">Marquee</span>
+          <span class="font-sans text-xs text-paper-ivory">Lit cabinet on hover</span>
+          <span class="font-mono text-[10px] text-paper-ivory">--marquee</span>
+        </div>
+        <div class="color-swatch-block" style="background:#3B1E1D;">
+          <span class="font-mono text-xs text-paper-ivory font-semibold">#3B1E1D</span>
+          <span class="font-display text-sm font-semibold text-paper-ivory">Unlit LED</span>
+          <span class="font-sans text-xs text-paper-ivory">Off fins, disabled controls</span>
+          <span class="font-mono text-[10px] text-paper-ivory">--led-off</span>
+        </div>
+        <div class="color-swatch-block" style="background:#120E0D;">
+          <span class="font-mono text-xs text-paper-ivory font-semibold">#120E0D</span>
+          <span class="font-display text-sm font-semibold text-paper-ivory">Screen</span>
+          <span class="font-sans text-xs text-paper-ivory">Art screen glass</span>
+          <span class="font-mono text-[10px] text-paper-ivory">--screen</span>
         </div>
       </div>
 
@@ -375,19 +427,19 @@
       <h3 class="font-display text-2xl mb-3 text-paper-ivory">Approved Contrast Pairings</h3>
       <p class="font-sans text-paper-ivory/65 mb-6 text-sm">All meet WCAG 2.2 AA: ≥4.5:1 normal text, ≥3:1 large text.</p>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
-        <div class="rounded-sm p-4" style="background:#FCF6F3;">
+        <div class="rounded-2xl p-4" style="background:#FCF6F3;">
           <p style="color:#7A2217; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:0.9rem; margin:0 0 4px;">Charcoal on Ivory</p>
           <p style="color:#77584F; font-size:0.78rem; font-family:'Inter',sans-serif; margin:0;">Body text, light surfaces</p>
         </div>
-        <div class="rounded-sm p-4" style="background:#8E2F2A;">
+        <div class="rounded-2xl p-4" style="background:#8E2F2A;">
           <p style="color:#FCF6F3; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:0.9rem; margin:0 0 4px;">Ivory on Deep Rust</p>
           <p style="color:rgba(252,246,243,0.78); font-size:0.78rem; font-family:'Inter',sans-serif; margin:0;">High contrast dark</p>
         </div>
-        <div class="rounded-sm p-4" style="background:#7A2217;">
+        <div class="rounded-2xl p-4" style="background:#7A2217;">
           <p style="color:#86E8FF; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:0.9rem; margin:0 0 4px;">Saber on Charcoal</p>
           <p style="color:#E9C2B3; font-size:0.78rem; font-family:'Inter',sans-serif; margin:0;">Signal on dark surface</p>
         </div>
-        <div class="rounded-sm p-4" style="background:#F59A52;">
+        <div class="rounded-2xl p-4" style="background:#F59A52;">
           <p style="color:#7A2217; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:0.9rem; margin:0 0 4px;">Charcoal on Ember</p>
           <p style="color:#7A2217; font-size:0.78rem; font-family:'Inter',sans-serif; margin:0;">Warm highlight pairing</p>
         </div>
@@ -396,15 +448,15 @@
       <!-- Prohibited pairings -->
       <h3 class="font-display text-xl mb-3 text-paper-ivory">Prohibited for Normal Body Text</h3>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-        <div class="rounded-sm p-4 relative overflow-hidden" style="background:#FCF6F3; border: 2px solid #FF4A1A;">
+        <div class="rounded-2xl p-4 relative overflow-hidden" style="background:#FCF6F3; border: 2px solid #FF4A1A;">
           <span class="absolute top-1.5 right-2 text-xs font-mono" style="color:#FF4A1A;">✗ body</span>
           <p style="color:#FF4A1A; font-family:'Inter',sans-serif; font-size:0.92rem; margin:0;">Fire on Ivory</p>
         </div>
-        <div class="rounded-sm p-4 relative overflow-hidden" style="background:#FF4A1A; border: 2px solid #8E2F2A;">
+        <div class="rounded-2xl p-4 relative overflow-hidden" style="background:#FF4A1A; border: 2px solid #8E2F2A;">
           <span class="absolute top-1.5 right-2 text-xs font-mono text-paper-ivory/80">✗ body</span>
           <p style="color:#FCF6F3; font-family:'Inter',sans-serif; font-size:0.92rem; margin:0;">Ivory on Fire</p>
         </div>
-        <div class="rounded-sm p-4 relative overflow-hidden" style="background:#FCF6F3; border: 2px solid #86E8FF;">
+        <div class="rounded-2xl p-4 relative overflow-hidden" style="background:#FCF6F3; border: 2px solid #86E8FF;">
           <span class="absolute top-1.5 right-2 text-xs font-mono" style="color:#86E8FF;">✗ body</span>
           <p style="color:#86E8FF; font-family:'Inter',sans-serif; font-size:0.92rem; margin:0;">Saber on Ivory</p>
         </div>
@@ -415,43 +467,43 @@
     </section>
 
     <!-- ── 04 GRADIENTS ────────────────────────────────────────────── -->
-    <section id="gradients" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
-      <p class="section-kicker section-kicker-ember">04: Gradients</p>
+    <section id="gradients" class="scroll-mt-44 lg:scroll-mt-28 py-16">
+      <p class="section-kicker section-kicker-ember">Gradients</p>
       <div class="section-rule-ember"></div>
-      <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">Canonical Gradients</h2>
-      <p class="font-sans text-lg text-paper-ivory/80 mb-10 max-w-3xl">These formulas are exact. No deviation allowed. Use them as-is or with opacity.</p>
+      <h2 class="display-section mb-3">Canonical Gradients</h2>
+      <p class="lede mb-10 max-w-3xl">These formulas are exact. No deviation allowed. Use them as-is or with opacity.</p>
 
       <div class="grid md:grid-cols-2 gap-8">
         <div>
-          <p class="section-kicker section-kicker-saber text-[0.58rem] mb-3">Dark / Depth</p>
+          <p class="section-kicker section-kicker-saber mb-4">Dark / Depth</p>
           <div class="gradient-strip mb-2" style="background: linear-gradient(135deg, #FF4A1A 0%, #8E2F2A 100%);"></div>
           <code class="code-label block mb-5 text-[0.7rem]">linear-gradient(135deg, #FF4A1A 0%, #8E2F2A 100%)</code>
           <div class="gradient-strip mb-2" style="background: linear-gradient(180deg, #8E2F2A 0%, #7A2217 100%);"></div>
           <code class="code-label block text-[0.7rem]">linear-gradient(180deg, #8E2F2A 0%, #7A2217 100%)</code>
         </div>
         <div>
-          <p class="section-kicker section-kicker-ember text-[0.58rem] mb-3">Warm Accent</p>
+          <p class="section-kicker section-kicker-ember mb-4">Warm Accent</p>
           <div class="gradient-strip mb-2" style="background: linear-gradient(145deg, #F59A52 0%, #FF4A1A 100%);"></div>
           <code class="code-label block mb-5 text-[0.7rem]">linear-gradient(145deg, #F59A52 0%, #FF4A1A 100%)</code>
           <div class="gradient-strip mb-2" style="background: linear-gradient(135deg, rgba(255,74,26,0.88) 0%, rgba(245,154,82,0.58) 34%, rgba(142,47,42,0.84) 100%);"></div>
           <code class="code-label block text-[0.7rem]">linear-gradient(135deg, rgba(255,74,26,0.88) 0%, rgba(245,154,82,0.58) 34%, rgba(142,47,42,0.84) 100%)</code>
         </div>
         <div>
-          <p class="section-kicker section-kicker-saber text-[0.58rem] mb-3">Light / Neutral</p>
+          <p class="section-kicker section-kicker-saber mb-4">Light / Neutral</p>
           <div class="gradient-strip mb-2" style="background: linear-gradient(135deg, #FCF6F3 0%, #F59A52 100%); border-color: rgba(245,154,82,0.25);"></div>
           <code class="code-label block mb-5 text-[0.7rem]">linear-gradient(135deg, #FCF6F3 0%, #F59A52 100%)</code>
           <div class="gradient-strip mb-2" style="background: linear-gradient(90deg, #FCF6F3 0%, #8E2F2A 6%, #FCF6F3 100%); border-color: rgba(142,47,42,0.25);"></div>
           <code class="code-label block text-[0.7rem]">linear-gradient(90deg, #FCF6F3 0%, #8E2F2A 6%, #FCF6F3 100%)</code>
         </div>
         <div>
-          <p class="section-kicker section-kicker-ember text-[0.58rem] mb-3">Signature</p>
+          <p class="section-kicker section-kicker-ember mb-4">Signature</p>
           <div class="gradient-strip mb-2" style="background: linear-gradient(135deg, #FF4A1A 0%, #8E2F2A 40%, #7A2217 100%);"></div>
           <code class="code-label block mb-5 text-[0.7rem]">linear-gradient(135deg, #FF4A1A 0%, #8E2F2A 40%, #7A2217 100%)</code>
           <div class="gradient-strip mb-2" style="background: linear-gradient(120deg, #FCF6F3 0%, #F59A52 30%, #8E2F2A 70%, #E9C2B3 100%); border-color: rgba(245,154,82,0.2);"></div>
           <code class="code-label block text-[0.7rem]">linear-gradient(120deg, #FCF6F3 0%, #F59A52 30%, #8E2F2A 70%, #E9C2B3 100%)</code>
         </div>
         <div class="md:col-span-2">
-          <p class="section-kicker section-kicker-saber text-[0.58rem] mb-3">Signal Accent: Saber-enabled</p>
+          <p class="section-kicker section-kicker-saber mb-4">Signal Accent: Saber-enabled</p>
           <div class="grid md:grid-cols-2 gap-5">
             <div>
               <div class="gradient-strip mb-2" style="background: linear-gradient(132deg, #FF4A1A 0%, #8E2F2A 34%, #7A2217 72%, #86E8FF 100%);"></div>
@@ -464,7 +516,7 @@
           </div>
         </div>
         <div class="md:col-span-2">
-          <p class="section-kicker section-kicker-ember text-[0.58rem] mb-3">Gold Command Gradients</p>
+          <p class="section-kicker section-kicker-ember mb-4">Gold Command Gradients</p>
           <div class="grid md:grid-cols-3 gap-5">
             <div>
               <div class="gradient-strip mb-2" style="background: linear-gradient(135deg, #1E2259 0%, #15163D 100%);"></div>
@@ -484,11 +536,11 @@
     </section>
 
     <!-- ── 05 TYPOGRAPHY ───────────────────────────────────────────── -->
-    <section id="typography" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
-      <p class="section-kicker section-kicker-saber">05: Typography</p>
+    <section id="typography" class="scroll-mt-44 lg:scroll-mt-28 py-16">
+      <p class="section-kicker section-kicker-saber">Typography</p>
       <div class="section-rule"></div>
-      <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">Type System</h2>
-      <p class="font-sans text-lg text-paper-ivory/80 mb-12 max-w-3xl">Five font roles. Each has a defined purpose and must not be used outside it.</p>
+      <h2 class="display-section mb-3">Type System</h2>
+      <p class="lede mb-12 max-w-3xl">Five font roles. Each has a defined purpose and must not be used outside it.</p>
 
       <div class="overflow-x-auto mb-12">
         <table class="bb-table">
@@ -499,7 +551,7 @@
           </thead>
           <tbody>
             <tr><td>Wordmark / Identity</td><td class="font-wordmark">Audiowide</td><td>Display</td><td>Logo, product name, brand hero</td></tr>
-            <tr><td>Display / Headings</td><td class="font-display">Space Grotesk</td><td>500 / 700</td><td>H1–H4, section titles, card headings</td></tr>
+            <tr><td>Display / Headings</td><td class="font-display">Space Grotesk</td><td>300 / 500</td><td>Display headlines at 300, section and card titles at 500</td></tr>
             <tr><td>Body Copy</td><td class="font-sans">Inter</td><td>400 / 600</td><td>Paragraphs, lists, supporting copy</td></tr>
             <tr><td>Headings / Navigation Labels</td><td class="font-display text-[0.8rem]">Space Grotesk</td><td>500 / 700</td><td>Section kickers, chips, button labels, nav</td></tr>
             <tr><td>Code / Technical</td><td class="font-mono">JetBrains Mono</td><td>400 / 500</td><td>Inline code, CSS values, hex tokens</td></tr>
@@ -519,10 +571,10 @@
         <!-- Space Grotesk -->
         <div class="demo-frame">
           <span class="code-label mb-4 inline-block">Space Grotesk: display &amp; section headings</span>
-          <h1 class="font-display text-5xl font-bold text-paper-ivory mt-4 mb-2">H1: Page Title (5xl, 700)</h1>
-          <h2 class="font-display text-4xl font-semibold text-paper-ivory mb-2">H2: Section (4xl, 600)</h2>
-          <h3 class="font-display text-3xl font-semibold text-saber-blue mb-2">H3: Card Heading (3xl, 600)</h3>
-          <h4 class="font-display text-2xl font-medium text-soft-ember">H4: Label (2xl, 500)</h4>
+          <p class="display-hero mt-4 mb-3" style="font-size: clamp(2.2rem, 4.5vw, 3.2rem)">Display: page title (300)</p>
+          <p class="display-section mb-3" style="font-size: 2.25rem">Section heading (300)</p>
+          <p class="font-display text-3xl font-medium text-saber-blue mb-2">Card title (500)</p>
+          <p class="section-kicker section-kicker-ember">Kicker label (500)</p>
         </div>
 
         <!-- Inter -->
@@ -542,7 +594,7 @@
         <!-- Space Grotesk labels -->
         <div class="demo-frame">
           <span class="code-label mb-4 inline-block">Space Grotesk: interface labels &amp; chips</span>
-          <p class="font-display text-[0.72rem] text-saber-blue mb-3 mt-4 tracking-widest uppercase">External Channel</p>
+          <p class="nav-link inline-block mt-4 mb-3">Navigation label</p>
           <p class="font-display text-[0.62rem] text-soft-ember mb-3 tracking-widest uppercase">Internal Channel</p>
           <p class="font-display text-[0.58rem] text-paper-ivory/75 tracking-widest uppercase">Static Surface</p>
         </div>
@@ -557,256 +609,291 @@
       </div>
     </section>
 
-    <!-- ── 06 COMPONENTS ───────────────────────────────────────────── -->
-    <section id="components" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
-      <p class="section-kicker section-kicker-ember">06: Components</p>
+    <!-- ── COMPONENTS ──────────────────────────────────────────────── -->
+    <section id="components" class="scroll-mt-44 lg:scroll-mt-28 py-16">
+      <p class="section-kicker section-kicker-ember">Components</p>
       <div class="section-rule-ember"></div>
-      <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">UI Component Library</h2>
-      <p class="font-sans text-lg text-paper-ivory/80 mb-14 max-w-3xl">Live examples of every pattern used across the KnowB interface surface.</p>
+      <h2 class="display-section mb-5">Two layers, one surface</h2>
+      <p class="lede mb-12 max-w-3xl">The page speaks in space-age editorial: calm solids, light type, wide spacing. Everything that signals, alerts or frames art switches to the tailfin arcade layer and sits behind the CRT pass.</p>
 
-      <!-- 6.1 Section Kickers -->
+      <div class="grid md:grid-cols-2 gap-6 mb-16">
+        <div class="space-panel">
+          <p class="section-kicker">Editorial layer</p>
+          <ul class="mt-5 space-y-2 list-disc pl-5 text-paper-ivory/88 leading-relaxed">
+            <li>Backgrounds, sections, headlines, body copy, navigation and layout</li>
+            <li>Solid surfaces, big radii, the planet horizon and sparse stars</li>
+            <li>Space Grotesk 300 display, tracked one-word kickers, saber lines</li>
+            <li>No tickers, readouts or separator glyphs</li>
+          </ul>
+        </div>
+        <div class="space-panel">
+          <p class="section-kicker section-kicker-ember">Arcade layer</p>
+          <ul class="mt-5 space-y-2 list-disc pl-5 text-paper-ivory/88 leading-relaxed">
+            <li>Buttons, chips, cabinets, alerts, notifications and art screens</li>
+            <li>Tailfin shape: Googie curves and pixel stairs on opposite corners</li>
+            <li>Fin stairs, hard shadows and a split-colour edge</li>
+            <li>The CRT pass behind every message, never over it</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Editorial: kickers and rules -->
       <div class="mb-14">
-        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Section Kickers + Rules</h3>
-        <p class="font-sans text-paper-ivory/65 text-sm mb-5">Label each section with Space Grotesk, uppercase, and increased tracking. Two accent variants, ember and saber, pair with a section-rule line.</p>
+        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Kickers and saber lines</h3>
+        <p class="font-sans text-paper-ivory/75 text-sm mb-5">One tracked word behind a small orbit, followed by a short saber line. Saber lines divide and underline; they never fill a surface.</p>
         <div class="demo-frame space-y-8">
           <div>
-            <p class="section-kicker section-kicker-saber">Saber Kicker</p>
+            <p class="section-kicker">Saber kicker</p>
             <div class="section-rule"></div>
-            <p class="font-sans text-paper-ivory/50 text-xs"><code class="code-label">.section-kicker.section-kicker-saber</code> + <code class="code-label">.section-rule</code></p>
+            <p class="text-paper-ivory/75 text-xs"><code class="code-label">.section-kicker</code> + <code class="code-label">.section-rule</code></p>
           </div>
           <div>
-            <p class="section-kicker section-kicker-ember">Ember Kicker</p>
+            <p class="section-kicker section-kicker-ember">Ember kicker</p>
             <div class="section-rule-ember"></div>
-            <p class="font-sans text-paper-ivory/50 text-xs"><code class="code-label">.section-kicker.section-kicker-ember</code> + <code class="code-label">.section-rule-ember</code></p>
+            <p class="text-paper-ivory/75 text-xs"><code class="code-label">.section-kicker.section-kicker-ember</code> + <code class="code-label">.section-rule-ember</code></p>
           </div>
         </div>
       </div>
 
-      <!-- 6.2 Arcade Chips -->
+      <!-- Editorial: display and links -->
       <div class="mb-14">
-        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Arcade Chips</h3>
-        <p class="font-sans text-paper-ivory/65 text-sm mb-5">Saber (default) and Ember (.ember / even-child) variants. Used for tagging, profiling, and feature labels.</p>
+        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Display type and links</h3>
+        <p class="font-sans text-paper-ivory/75 text-sm mb-5">Headlines run light at 300 with only the highlighted phrase at 500. Navigation and quiet links are tracked uppercase with a hairline.</p>
+        <div class="demo-frame space-y-7">
+          <p class="display-hero" style="font-size: clamp(2.2rem, 4.5vw, 3.4rem)">Knowledge for the <span class="hero-highlight-saber">world of tomorrow</span></p>
+          <p class="lede max-w-2xl">Lede copy introduces a page or section in Inter at a relaxed measure.</p>
+          <div class="flex flex-wrap items-center gap-8">
+            <a href="#components" class="nav-link">Nav link</a>
+            <a href="#components" class="nav-link is-active">Current page</a>
+            <a href="#components" class="text-link">Text link</a>
+          </div>
+          <p class="text-paper-ivory/75 text-xs flex flex-wrap gap-2"><code class="code-label">.display-hero</code><code class="code-label">.display-section</code><code class="code-label">.lede</code><code class="code-label">.nav-link</code><code class="code-label">.text-link</code></p>
+        </div>
+      </div>
+
+      <!-- Editorial: horizon -->
+      <div class="mb-16">
+        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Planet horizon</h3>
+        <p class="font-sans text-paper-ivory/75 text-sm mb-5">A vast planet rises between deep space and the first surface section, rimmed in saber light. One per page, under the hero.</p>
+        <div class="rounded-[2rem] overflow-hidden">
+          <div class="horizon-band" aria-hidden="true"></div>
+          <div class="bg-charcoal-bark px-6 pb-6"><code class="code-label">.horizon-band</code> between a <code class="code-label">.space-hero</code> and a surface section</div>
+        </div>
+      </div>
+
+      <!-- Arcade: buttons -->
+      <div class="mb-14">
+        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Tailfin buttons</h3>
+        <p class="font-sans text-paper-ivory/75 text-sm mb-5">Hover lifts the cabinet and lights the fins, pressing drops it into its shadow, focus swaps the edge for an ivory ring in the same shape.</p>
         <div class="demo-frame">
-          <div class="flex flex-wrap gap-3 mb-5">
-            <span class="arcade-chip">Saber Chip</span>
-            <span class="arcade-chip ember">Ember Chip</span>
-            <span class="arcade-chip">Static-first Surface</span>
-            <span class="arcade-chip ember">Reduced Motion</span>
-            <span class="arcade-chip">WCAG 2.2 AA</span>
-            <span class="arcade-chip ember">Low Carbon Mode</span>
+          <div class="flex flex-wrap items-center gap-6 mb-7">
+            <button class="tf-btn" type="button">Primary{{ macros::fins() }}</button>
+            <button class="tf-btn tf-btn-saber" type="button">Secondary{{ macros::fins() }}</button>
+            <button class="tf-btn tf-btn-fire tf-btn-sm" type="button">Retry</button>
+            <button class="tf-btn tf-btn-sm" type="button">Small{{ macros::fins() }}</button>
+            <button class="tf-btn" type="button" disabled>Disabled{{ macros::fins() }}</button>
           </div>
-          <code class="code-label">.arcade-chip</code>&ensp;<code class="code-label">.arcade-chip.ember</code>
+          <p class="text-xs flex flex-wrap gap-2"><code class="code-label">.tf-btn</code><code class="code-label">.tf-btn-saber</code><code class="code-label">.tf-btn-fire</code><code class="code-label">.tf-btn-sm</code><code class="code-label">macros::fins()</code></p>
         </div>
       </div>
 
-      <!-- 6.3 Arcade Buttons -->
+      <!-- Arcade: chips -->
       <div class="mb-14">
-        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Arcade Buttons</h3>
-        <p class="font-sans text-paper-ivory/65 text-sm mb-5">Saber (primary) and Ember (.alt) variants. Both carry hover lift, active reset, and focus-visible outline states.</p>
+        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Chips</h3>
+        <p class="font-sans text-paper-ivory/75 text-sm mb-5">Small tailfins with a square LED. Labels only; chips are not buttons.</p>
         <div class="demo-frame">
-          <div class="flex flex-wrap gap-4 mb-6">
-            <button class="arcade-button" type="button">Saber Primary</button>
-            <button class="arcade-button alt" type="button">Ember Alternate</button>
-            <button class="arcade-button" type="button" disabled>Disabled</button>
+          <div class="flex flex-wrap gap-3 mb-6">
+            <span class="chip"><i class="led" aria-hidden="true"></i>Static-first surface</span>
+            <span class="chip chip-ember"><i class="led" aria-hidden="true"></i>Reduced motion</span>
+            <span class="chip"><i class="led" aria-hidden="true"></i>WCAG 2.2 AA</span>
+            <span class="chip chip-ember"><i class="led" aria-hidden="true"></i>Low carbon mode</span>
           </div>
-          <div class="flex flex-wrap gap-2">
-            <code class="code-label">.arcade-button</code>
-            <code class="code-label">.arcade-button.alt</code>
-            <code class="code-label">disabled attr + opacity:0.38</code>
-          </div>
+          <p class="text-xs flex flex-wrap gap-2"><code class="code-label">.chip</code><code class="code-label">.chip-ember</code><code class="code-label">.led</code></p>
         </div>
       </div>
 
-      <!-- 6.4 Signal Cards -->
+      <!-- Arcade: cabinets -->
       <div class="mb-14">
-        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Signal Cards</h3>
-        <p class="font-sans text-paper-ivory/65 text-sm mb-5">Three-column grid for signal summaries, feature notes, and at-a-glance metrics. Ember and saber variants.</p>
+        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Cabinet cards</h3>
+        <p class="font-sans text-paper-ivory/75 text-sm mb-5">Every card is a cabinet: tailfin shape, title with a phosphor glow, fin stairs, a saber seam and the CRT pass. Hover or focus inside lights the rim and fills the fins.</p>
         <div class="demo-frame">
-          <div class="signal-grid mb-5">
-            <article class="signal-card card-theme-ember">
-              <h3>Power Signal</h3>
-              <p>Lean visual primitives, no heavy runtime animations, and clear hierarchy for fast scan speed.</p>
+          <div class="grid md:grid-cols-3 gap-7 mb-7">
+            <article class="cabinet">
+              <div class="cabinet-head"><h4 class="cabinet-title">Saber cabinet</h4>{{ macros::fins(lit=1) }}</div>
+              <div class="saber-line"></div>
+              <p>Default for memory, systems and reference content.</p>
             </article>
-            <article class="signal-card card-theme-saber">
-              <h3>Memory Signal</h3>
-              <p>State and context are treated as product layers, not hidden behavior.</p>
+            <article class="cabinet cabinet-ember">
+              <div class="cabinet-head"><h4 class="cabinet-title">Ember cabinet</h4>{{ macros::fins(lit=2) }}</div>
+              <div class="saber-line-ember"></div>
+              <p>Warm variant for people, pilots and calls to action.</p>
             </article>
-            <article class="signal-card card-theme-ember">
-              <h3>Operator Signal</h3>
-              <p>Arcade cues for users, mission-control semantics for teams and agents.</p>
+            <article class="cabinet">
+              <p class="cabinet-label">RFP 00</p>
+              <div class="cabinet-head"><h4 class="cabinet-title cabinet-title-lg">Large title</h4>{{ macros::fins() }}</div>
+              <div class="saber-line"></div>
+              <p class="cabinet-outcome text-sm">Outcome lines use terracotta.</p>
             </article>
           </div>
-          <code class="code-label">.signal-card.card-theme-ember</code>&ensp;<code class="code-label">.signal-card.card-theme-saber</code>
+          <p class="text-xs flex flex-wrap gap-2"><code class="code-label">.cabinet</code><code class="code-label">.cabinet-ember</code><code class="code-label">.cabinet-head</code><code class="code-label">.cabinet-title</code><code class="code-label">.cabinet-label</code><code class="code-label">.saber-line</code></p>
         </div>
       </div>
 
-      <!-- 6.5 Arcade Cards: border-left -->
+      <!-- Arcade: alerts -->
       <div class="mb-14">
-        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Arcade Cards: Bottleneck Style</h3>
-        <p class="font-sans text-paper-ivory/65 text-sm mb-5">Left-border accent + full-card inner glow. Used for deep content blocks with structured lists.</p>
+        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Alerts</h3>
+        <p class="font-sans text-paper-ivory/75 text-sm mb-5">Full-edge cabinets that carry a message. A pixel icon names the kind, the title is tracked uppercase, the action is a small tailfin.</p>
+        <div class="demo-frame space-y-6">
+          <div class="cabinet alert" role="status">
+            {{ macros::pixel_icon(name="star", color="#86E8FF") }}
+            <div class="alert-body"><span class="alert-title">New stage unlocked</span><span class="alert-text">Phase 2 of the delivery roadmap is now live.</span></div>
+            <a href="#components" class="text-link">View</a>
+          </div>
+          <div class="cabinet cabinet-ember alert" role="status">
+            {{ macros::pixel_icon(name="warning", color="#F59A52") }}
+            <div class="alert-body"><span class="alert-title">Continue?</span><span class="alert-text">Your draft is unsaved. Save it now or keep editing.</span></div>
+            <button class="tf-btn tf-btn-sm" type="button">Save</button>
+          </div>
+          <div class="cabinet cabinet-fire alert" role="alert">
+            {{ macros::pixel_icon(name="heart", color="#FF4A1A") }}
+            <div class="alert-body"><span class="alert-title">Game over</span><span class="alert-text">Message not sent. Check your connection and try again.</span></div>
+            <button class="tf-btn tf-btn-fire tf-btn-sm" type="button">Retry</button>
+          </div>
+          <p class="text-xs flex flex-wrap gap-2"><code class="code-label">.cabinet.alert</code><code class="code-label">.cabinet-ember.alert</code><code class="code-label">.cabinet-fire.alert</code><code class="code-label">macros::pixel_icon()</code></p>
+        </div>
+      </div>
+
+      <!-- Arcade: notifications -->
+      <div class="mb-14">
+        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Notifications</h3>
+        <p class="font-sans text-paper-ivory/75 text-sm mb-5">Small tailfin toasts. The fin stairs count down in place of a progress bar.</p>
+        <div class="demo-frame flex flex-col gap-5">
+          <div class="cabinet cabinet-ember alert toast" role="status">
+            {{ macros::pixel_icon(name="coin", color="#F59A52", cut="#241A18", size=24) }}
+            <div class="alert-body"><span class="alert-title">Player 1 ready</span><span class="alert-text">Pilot request received</span></div>
+            {{ macros::fins(lit=2) }}
+          </div>
+          <div class="cabinet alert toast" role="status">
+            {{ macros::pixel_icon(name="arrow", color="#86E8FF", size=24) }}
+            <div class="alert-body"><span class="alert-title">Incoming</span><span class="alert-text">A new use case was added</span></div>
+            {{ macros::fins(lit=1) }}
+          </div>
+          <p class="text-xs flex flex-wrap gap-2"><code class="code-label">.cabinet.alert.toast</code></p>
+        </div>
+      </div>
+
+      <!-- Arcade: art screens -->
+      <div class="mb-14">
+        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Art screens</h3>
+        <p class="font-sans text-paper-ivory/75 text-sm mb-5">Illustration sits behind a fine pixel mask and the full CRT pass, so vector art reads as a lit arcade screen.</p>
         <div class="demo-frame">
-          <div class="grid md:grid-cols-2 gap-5 mb-5">
-            <article class="bg-charcoal-bark/55 border-l-2 border-saber-blue border-y border-r border-deep-rust/70 rounded-sm p-6 arcade-card card-theme-saber">
-              <h3 class="font-display text-xl mb-3 text-saber-blue">Saber Variant</h3>
-              <ul class="space-y-2 text-paper-ivory/90 leading-relaxed list-disc list-inside font-sans text-sm">
-                <li>Left border: <code class="code-label">border-l-2 border-saber-blue</code></li>
-                <li>Inner glow: <code class="code-label">rgba(134,232,255,0.16)</code></li>
-                <li>Heading: <code class="code-label">text-saber-blue</code> with soft shadow</li>
-              </ul>
-            </article>
-            <article class="bg-charcoal-bark/55 border-l-2 border-soft-ember border-y border-r border-deep-rust/70 rounded-sm p-6 arcade-card card-theme-ember">
-              <h3 class="font-display text-xl mb-3 text-soft-ember">Ember Variant</h3>
-              <ul class="space-y-2 text-paper-ivory/90 leading-relaxed list-disc list-inside font-sans text-sm">
-                <li>Left border: <code class="code-label">border-l-2 border-soft-ember</code></li>
-                <li>Inner glow: <code class="code-label">rgba(245,154,82,0.18)</code></li>
-                <li>Heading: <code class="code-label">text-soft-ember</code> with warm shadow</li>
-              </ul>
-            </article>
+          <div class="grid sm:grid-cols-2 gap-8 mb-7 max-w-3xl">
+            <div class="art-screen"><div class="art-screen-edge"><div class="art-screen-view">{{ macros::planet_art() }}</div></div></div>
+            <div class="art-screen"><div class="art-screen-edge"><div class="art-screen-view">{{ macros::atom_art() }}</div></div></div>
           </div>
-          <code class="code-label">bg-charcoal-bark/55 border-l-2 border-saber-blue .arcade-card .card-theme-saber</code>
+          <div class="flex flex-wrap items-center gap-6 mb-6">
+            {{ macros::pixel_icon(name="coin", color="#F59A52") }}
+            {{ macros::pixel_icon(name="star", color="#86E8FF") }}
+            {{ macros::pixel_icon(name="heart", color="#FF4A1A") }}
+            {{ macros::pixel_icon(name="warning", color="#F59A52") }}
+            {{ macros::pixel_icon(name="arrow", color="#FCF6F3") }}
+          </div>
+          <p class="text-xs flex flex-wrap gap-2"><code class="code-label">.art-screen</code><code class="code-label">macros::planet_art()</code><code class="code-label">macros::atom_art()</code></p>
         </div>
       </div>
 
-      <!-- 6.6 Use Case Cards: top stripe -->
-      <div class="mb-14">
-        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Use Case Cards: Top Stripe</h3>
-        <p class="font-sans text-paper-ivory/65 text-sm mb-5">A 2px saber-to-fire gradient stripe crowns each card. Hover amplifies the card border glow.</p>
-        <div class="demo-frame">
-          <div class="grid md:grid-cols-2 gap-5 mb-5">
-            <article class="use-case-card arcade-card card-theme-ember bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-6 transition-all">
-              <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-3">RFP Label</p>
-              <h3 class="font-display text-[0.82rem] leading-loose mb-4 text-soft-ember uppercase">Ember Use Case</h3>
-              <p class="font-sans text-base text-paper-ivory/90 leading-relaxed mb-3">Hover this card to see the ember border glow animate in. The 2px saber-to-fire stripe sits at top.</p>
-              <p class="text-sm text-terracotta-border">Outcome text and source note goes here.</p>
-            </article>
-            <article class="use-case-card arcade-card card-theme-saber bg-charcoal-bark/60 border border-terracotta-border/30 rounded-sm p-6 transition-all">
-              <p class="text-[11px] uppercase tracking-[0.15em] text-terracotta-border mb-3">RFP Label</p>
-              <h3 class="font-display text-[0.82rem] leading-loose mb-4 text-saber-blue uppercase">Saber Use Case</h3>
-              <p class="font-sans text-base text-paper-ivory/90 leading-relaxed mb-3">Hover this card to see the saber border glow animate in. Both cards share the same top stripe.</p>
-              <p class="text-sm text-terracotta-border">Outcome text and source note goes here.</p>
-            </article>
-          </div>
-          <code class="code-label">.use-case-card .arcade-card .card-theme-ember</code>
-        </div>
-      </div>
-
-      <!-- 6.7 Contact Callout Frame -->
-      <div class="mb-14">
-        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Contact Callout Frame</h3>
-        <p class="font-sans text-paper-ivory/65 text-sm mb-5">Gradient-border CTA frame. Ember-to-saber border with dual-spectrum glow. Used for high-priority collaboration blocks.</p>
-        <div class="demo-frame p-2">
-          <div class="rounded-2xl contact-callout-frame">
-            <div class="px-8 py-8">
-              <p class="section-kicker section-kicker-saber text-[0.58rem] mb-4">Collaboration Callout</p>
-              <h2 class="font-display text-2xl md:text-3xl tracking-tight text-paper-ivory mb-3">Contact us to build with us</h2>
-              <p class="font-sans text-paper-ivory/90 leading-relaxed max-w-2xl mb-6">
-                We are actively looking for partners who want to ship practical context-agent systems in controlled pilots.
-              </p>
-              <a href="mailto:ping@knowb.run" class="arcade-button">Contact ping@knowb.run</a>
-            </div>
-          </div>
-        </div>
-        <code class="code-label mt-3 inline-block">.contact-callout-frame</code>
-      </div>
-
-      <!-- 6.8 Shadow / Glow Tokens -->
+      <!-- CRT pass -->
       <div class="mb-6">
-        <h3 class="font-display text-2xl mb-2 text-paper-ivory">Shadow / Glow Tokens</h3>
-        <p class="font-sans text-paper-ivory/65 text-sm mb-5">Four canonical definitions for depth and signal emphasis.</p>
-        <div class="demo-frame">
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div class="flex flex-col items-center gap-3">
-              <div class="w-16 h-16 rounded-md bg-charcoal-bark/80" style="box-shadow: 0 0 30px rgba(245,154,82,0.35);"></div>
-              <code class="code-label text-center text-[0.65rem]">ember-glow</code>
-              <p class="text-[10px] text-paper-ivory/50 text-center font-mono">rgba(245,154,82,0.35)</p>
-            </div>
-            <div class="flex flex-col items-center gap-3">
-              <div class="w-16 h-16 rounded-md bg-charcoal-bark/80" style="box-shadow: 0 0 25px rgba(255,74,26,0.30);"></div>
-              <code class="code-label text-center text-[0.65rem]">fire-glow</code>
-              <p class="text-[10px] text-paper-ivory/50 text-center font-mono">rgba(255,74,26,0.30)</p>
-            </div>
-            <div class="flex flex-col items-center gap-3">
-              <div class="w-16 h-16 rounded-md bg-charcoal-bark/80" style="box-shadow: 0 0 30px rgba(134,232,255,0.30);"></div>
-              <code class="code-label text-center text-[0.65rem]">saber-glow</code>
-              <p class="text-[10px] text-paper-ivory/50 text-center font-mono">rgba(134,232,255,0.30)</p>
-            </div>
-            <div class="flex flex-col items-center gap-3">
-              <div class="w-16 h-16 rounded-md bg-charcoal-bark/80" style="box-shadow: 0 0 20px rgba(252,246,243,0.15);"></div>
-              <code class="code-label text-center text-[0.65rem]">paper-shadow</code>
-              <p class="text-[10px] text-paper-ivory/50 text-center font-mono">rgba(252,246,243,0.15)</p>
-            </div>
-          </div>
+        <h3 class="font-display text-2xl mb-2 text-paper-ivory">The CRT pass</h3>
+        <p class="font-sans text-paper-ivory/75 text-sm mb-5">A modern, lit-glass take on a CRT, built into every cabinet fill. Each layer paints behind the content, so text keeps full contrast.</p>
+        <div class="overflow-x-auto">
+          <table class="bb-table">
+            <thead><tr><th>Layer</th><th>Treatment</th><th>Value</th></tr></thead>
+            <tbody>
+              <tr><td>Phosphor light</td><td>Cyan falls in from the top left, ember warms the far corner</td><td><code class="code-label">radial-gradient 9% saber, 8% ember</code></td></tr>
+              <tr><td>Scanlines</td><td>Hairline rows every 3px</td><td><code class="code-label">3.5% ivory</code></td></tr>
+              <tr><td>Glass sweep</td><td>One diagonal specular highlight</td><td><code class="code-label">118deg, 5% ivory</code></td></tr>
+              <tr><td>Vignette</td><td>Soft inner falloff toward the edges</td><td><code class="code-label">inset 0 0 44px, 38% black</code></td></tr>
+              <tr><td>Split edge</td><td>CRT convergence fringe on the outline</td><td><code class="code-label">--fringe: 1px saber left, 1px fire right</code></td></tr>
+              <tr><td>Hard shadow</td><td>Unblurred offset; buttons in rust, cabinets in ink</td><td><code class="code-label">5px rust, 6px #0D0A09</code></td></tr>
+              <tr><td>Pixel mask</td><td>Art screens only</td><td><code class="code-label">6px grid, 55% screen</code></td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
 
-    <!-- ── 07 ACCESSIBILITY ────────────────────────────────────────── -->
-    <section id="accessibility" class="scroll-mt-44 lg:scroll-mt-28 py-16 border-b border-deep-rust/40">
-      <p class="section-kicker section-kicker-saber">07: Accessibility</p>
+    <!-- ── ACCESSIBILITY ───────────────────────────────────────────── -->
+    <section id="accessibility" class="scroll-mt-44 lg:scroll-mt-28 py-16">
+      <p class="section-kicker">Accessibility</p>
       <div class="section-rule"></div>
-      <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">Accessibility Requirements</h2>
-      <p class="font-sans text-lg text-paper-ivory/80 mb-10 max-w-3xl">All pages and components must meet WCAG 2.2 AA. These rules are non-negotiable.</p>
+      <h2 class="display-section mb-5">Accessibility Requirements</h2>
+      <p class="lede mb-10 max-w-3xl">All pages and components must meet WCAG 2.2 AA. These rules are non-negotiable.</p>
 
-      <div class="grid md:grid-cols-2 gap-5 mb-10">
-        <article class="arcade-card card-theme-saber bg-charcoal-bark/60 rounded-sm p-6">
-          <h3 class="font-display text-xl mb-4 text-saber-blue">Contrast</h3>
-          <ul class="space-y-3 font-sans text-paper-ivory/90 leading-relaxed list-disc list-inside">
-            <li>Normal text: <strong>≥ 4.5:1</strong></li>
+      <div class="grid md:grid-cols-2 gap-7 mb-12">
+        <article class="cabinet">
+          <div class="cabinet-head"><h3 class="cabinet-title">Contrast</h3>{{ macros::fins() }}</div>
+          <div class="saber-line"></div>
+          <ul class="space-y-3 leading-relaxed list-disc pl-5">
+            <li>Normal text: <strong>≥ 4.5:1</strong>, measured with the CRT pass applied</li>
             <li>Large text (≥24px reg / ≥18.66px bold): <strong>≥ 3:1</strong></li>
             <li>UI boundaries and focus indicators: <strong>≥ 3:1</strong></li>
           </ul>
         </article>
-        <article class="arcade-card card-theme-ember bg-charcoal-bark/60 rounded-sm p-6">
-          <h3 class="font-display text-xl mb-4 text-soft-ember">Keyboard &amp; Focus</h3>
-          <ul class="space-y-3 font-sans text-paper-ivory/90 leading-relaxed list-disc list-inside">
+        <article class="cabinet cabinet-ember">
+          <div class="cabinet-head"><h3 class="cabinet-title">Keyboard &amp; Focus</h3>{{ macros::fins(lit=2) }}</div>
+          <div class="saber-line-ember"></div>
+          <ul class="space-y-3 leading-relaxed list-disc pl-5">
             <li>Full keyboard accessibility for all controls</li>
-            <li>Visible <code class="code-label">focus-visible</code> style on every interactive element</li>
+            <li>Tailfin buttons show an ivory ring in their own shape; links show a saber outline</li>
             <li>Skip-to-content link on long pages with persistent nav</li>
             <li>Semantic landmarks: <code class="code-label">&lt;main&gt;</code>, proper heading order</li>
           </ul>
         </article>
-        <article class="arcade-card card-theme-saber bg-charcoal-bark/60 rounded-sm p-6">
-          <h3 class="font-display text-xl mb-4 text-saber-blue">Motion</h3>
-          <ul class="space-y-3 font-sans text-paper-ivory/90 leading-relaxed list-disc list-inside">
+        <article class="cabinet">
+          <div class="cabinet-head"><h3 class="cabinet-title">Motion</h3>{{ macros::fins(lit=1) }}</div>
+          <div class="saber-line"></div>
+          <ul class="space-y-3 leading-relaxed list-disc pl-5">
             <li>Respect <code class="code-label">prefers-reduced-motion</code> on all pages</li>
             <li>All transitions set to <code class="code-label">0.01ms</code> under reduced-motion</li>
-            <li>CRT jitter: ≤120ms active, ≥8s between bursts</li>
-            <li>All CRT motion effects disabled under reduced-motion</li>
+            <li>Tailfin lift and press movement switch off under reduced-motion</li>
+            <li>No flicker, rolling bars or glitch bursts anywhere</li>
           </ul>
         </article>
-        <article class="arcade-card card-theme-ember bg-charcoal-bark/60 rounded-sm p-6">
-          <h3 class="font-display text-xl mb-4 text-soft-ember">CRT Exception Scope</h3>
-          <ul class="space-y-3 font-sans text-paper-ivory/90 leading-relaxed list-disc list-inside">
-            <li>Chromatic split: display text only, ≥32px</li>
-            <li>Scanlines, vignette: hero and high-priority callouts only</li>
-            <li>Body text and small labels: no flicker, no chromatic split</li>
-            <li>Legibility degrades: remove CRT from that component first</li>
+        <article class="cabinet cabinet-ember">
+          <div class="cabinet-head"><h3 class="cabinet-title">CRT Pass Scope</h3>{{ macros::fins(lit=2) }}</div>
+          <div class="saber-line-ember"></div>
+          <ul class="space-y-3 leading-relaxed list-disc pl-5">
+            <li>Cabinets, alerts, notifications and art screens only</li>
+            <li>Never on page backgrounds, headlines, body sections or navigation</li>
+            <li>Every layer paints behind text, never over it</li>
+            <li>Legibility degrades: remove the pass from that component first</li>
           </ul>
         </article>
       </div>
 
       <h3 class="font-display text-2xl mb-4 text-paper-ivory">Live Focus Demo</h3>
       <div class="demo-frame">
-        <p class="font-sans text-paper-ivory/65 text-sm mb-5">Tab through these elements to verify the saber-blue focus ring: <code class="code-label">outline: 2px solid #86E8FF; outline-offset: 2px</code></p>
-        <div class="flex flex-wrap gap-4">
-          <button class="arcade-button" type="button">Tab focus me</button>
-          <button class="arcade-button alt" type="button">Or me</button>
-          <a href="#accessibility" class="arcade-button">Or this link</a>
+        <p class="font-sans text-paper-ivory/75 text-sm mb-6">Tab through these elements. Tailfin buttons swap their edge for a 3px ivory ring; links get <code class="code-label">outline: 2px solid #86E8FF; outline-offset: 3px</code>.</p>
+        <div class="flex flex-wrap items-center gap-6">
+          <button class="tf-btn" type="button">Tab focus me{{ macros::fins() }}</button>
+          <button class="tf-btn tf-btn-saber" type="button">Or me{{ macros::fins() }}</button>
+          <a href="#accessibility" class="text-link">Or this link</a>
         </div>
       </div>
     </section>
 
-    <!-- ── 08 COPY & TONE ──────────────────────────────────────────── -->
+    <!-- ── COPY & TONE ─────────────────────────────────────────────── -->
     <section id="copy" class="scroll-mt-44 lg:scroll-mt-28 py-16">
-      <p class="section-kicker section-kicker-ember">08: Copy &amp; Tone</p>
+      <p class="section-kicker section-kicker-ember">Copy &amp; Tone</p>
       <div class="section-rule-ember"></div>
-      <h2 class="font-display text-4xl md:text-5xl tracking-tight mb-3 text-paper-ivory">Writing Guidelines</h2>
-      <p class="font-sans text-lg text-paper-ivory/80 mb-10 max-w-3xl">Public-facing copy must be concrete, operational, and privacy-safe.</p>
+      <h2 class="display-section mb-5">Writing Guidelines</h2>
+      <p class="lede mb-10 max-w-3xl">Public-facing copy must be concrete, operational, and privacy-safe.</p>
 
-      <div class="grid md:grid-cols-2 gap-8 mb-12">
+      <div class="grid md:grid-cols-2 gap-10 mb-12">
         <div>
           <h3 class="font-display text-2xl mb-4 text-soft-ember">Rules</h3>
-          <ul class="space-y-3 font-sans text-paper-ivory/90 leading-relaxed list-disc list-inside">
+          <ul class="space-y-3 font-sans text-paper-ivory/90 leading-relaxed list-disc pl-5">
             <li>Position around capabilities, reliability, and measurable outcomes</li>
             <li>No em dashes (U+2014). Use commas, semicolons, colons, or short sentences</li>
             <li>Direct, scannable sentence structure</li>
@@ -814,26 +901,23 @@
             <li>Concrete and operational; prefer specifics over hype</li>
             <li>Privacy-safe language for data collection or crawling features</li>
             <li>Consistent product naming, capitalization, and punctuation</li>
+            <li>Editorial layers carry no tickers, readouts, or separator glyphs such as // or ||</li>
           </ul>
         </div>
         <div>
           <h3 class="font-display text-2xl mb-4 text-saber-blue">Do vs. Don't</h3>
-          <div class="space-y-3">
-            <div class="bg-charcoal-bark/60 border border-saber-blue/28 rounded-sm p-4">
-              <p class="font-display text-[0.6rem] text-saber-blue uppercase tracking-wider mb-2">Do</p>
-              <p class="font-sans text-paper-ivory/90 text-sm">"We ship controlled pilots with measurable delivery milestones."</p>
+          <div class="space-y-5">
+            <div class="cabinet alert">
+              <div class="alert-body"><span class="alert-title">Do</span><span class="alert-text">"We ship controlled pilots with measurable delivery milestones."</span></div>
             </div>
-            <div class="bg-charcoal-bark/60 border border-autumn-fire/28 rounded-sm p-4">
-              <p class="font-display text-[0.6rem] text-autumn-fire uppercase tracking-wider mb-2">Don't</p>
-              <p class="font-sans text-paper-ivory/55 text-sm line-through">"We're revolutionizing AI with our groundbreaking platform!"</p>
+            <div class="cabinet cabinet-fire alert">
+              <div class="alert-body"><span class="alert-title">Don't</span><span class="alert-text line-through">"We're revolutionizing AI with our groundbreaking platform!"</span></div>
             </div>
-            <div class="bg-charcoal-bark/60 border border-saber-blue/28 rounded-sm p-4">
-              <p class="font-display text-[0.6rem] text-saber-blue uppercase tracking-wider mb-2">Do</p>
-              <p class="font-sans text-paper-ivory/90 text-sm">"Context isn't static; it evolves."</p>
+            <div class="cabinet alert">
+              <div class="alert-body"><span class="alert-title">Do</span><span class="alert-text">"Context isn't static; it evolves."</span></div>
             </div>
-            <div class="bg-charcoal-bark/60 border border-autumn-fire/28 rounded-sm p-4">
-              <p class="font-display text-[0.6rem] text-autumn-fire uppercase tracking-wider mb-2">Don't</p>
-              <p class="font-sans text-paper-ivory/55 text-sm line-through">"Context isn't static. It evolves." &ensp;(too fragmented)</p>
+            <div class="cabinet cabinet-fire alert">
+              <div class="alert-body"><span class="alert-title">Don't</span><span class="alert-text line-through">"Context isn't static. It evolves." (too fragmented)</span></div>
             </div>
           </div>
         </div>
@@ -851,43 +935,81 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="text-soft-ember">☐</td>
-              <td>All colors from the 8-token palette (or opacity variants)</td>
-              <td class="text-terracotta-border">§03</td>
-            </tr>
-            <tr>
-              <td class="text-soft-ember">☐</td>
-              <td>Gradients are exact canonical formulas</td>
-              <td class="text-terracotta-border">§04</td>
-            </tr>
-            <tr>
-              <td class="text-soft-ember">☐</td>
-              <td>All normal text and controls meet WCAG 2.2 AA (≥4.5:1)</td>
-              <td class="text-terracotta-border">§07</td>
-            </tr>
-            <tr>
-              <td class="text-soft-ember">☐</td>
-              <td>Focus-visible, keyboard navigation, and reduced-motion support are present</td>
-              <td class="text-terracotta-border">§07</td>
-            </tr>
-            <tr>
-              <td class="text-soft-ember">☐</td>
-              <td>Skip-to-content link present on long pages</td>
-              <td class="text-terracotta-border">§07</td>
-            </tr>
-            <tr>
-              <td class="text-soft-ember">☐</td>
-              <td>Brand tone is warm, structured, and signal-forward</td>
-              <td class="text-terracotta-border">§08</td>
-            </tr>
-            <tr>
-              <td class="text-soft-ember">☐</td>
-              <td>No em dashes in copy</td>
-              <td class="text-terracotta-border">§08</td>
-            </tr>
+            <tr><td class="text-soft-ember">☐</td><td>All colors from the palette tokens and space-age surfaces (or opacity variants)</td><td class="text-terracotta-border">Colour System</td></tr>
+            <tr><td class="text-soft-ember">☐</td><td>Gradients are exact canonical formulas</td><td class="text-terracotta-border">Gradients</td></tr>
+            <tr><td class="text-soft-ember">☐</td><td>Arcade treatment only on buttons, chips, cabinets, alerts, notifications, and art</td><td class="text-terracotta-border">Components</td></tr>
+            <tr><td class="text-soft-ember">☐</td><td>CRT pass layers sit behind text, never over it</td><td class="text-terracotta-border">Components</td></tr>
+            <tr><td class="text-soft-ember">☐</td><td>All normal text and controls meet WCAG 2.2 AA (≥4.5:1)</td><td class="text-terracotta-border">Accessibility</td></tr>
+            <tr><td class="text-soft-ember">☐</td><td>Focus-visible, keyboard navigation, and reduced-motion support are present</td><td class="text-terracotta-border">Accessibility</td></tr>
+            <tr><td class="text-soft-ember">☐</td><td>Skip-to-content link present on long pages</td><td class="text-terracotta-border">Accessibility</td></tr>
+            <tr><td class="text-soft-ember">☐</td><td>Brand tone is warm, structured, and signal-forward</td><td class="text-terracotta-border">Copy &amp; Tone</td></tr>
+            <tr><td class="text-soft-ember">☐</td><td>No em dashes in copy</td><td class="text-terracotta-border">Copy &amp; Tone</td></tr>
           </tbody>
         </table>
+      </div>
+    </section>
+
+    <!-- ── CONCEPT BOOK ────────────────────────────────────────────── -->
+    <section id="concept-book" class="scroll-mt-44 lg:scroll-mt-28 py-16">
+      <p class="section-kicker">Concept Book</p>
+      <div class="section-rule"></div>
+      <h2 class="display-section mb-5">Every direction we explored</h2>
+      <p class="lede mb-6 max-w-3xl">The full art book behind this system, kept as reference. The chosen direction comes first; the two earlier explorations follow so their ideas stay available.</p>
+      <p class="text-paper-ivory/75 text-sm mb-14 max-w-3xl">Plates are generated from <code class="code-label">design/concept-book/</code> by <code class="code-label">scripts/build_concept_book.py</code>. They are pictures of a design, so their controls are inert. Scroll a plate sideways on small screens.</p>
+
+      <h3 class="font-display text-3xl font-light mb-2 text-paper-ivory">Chosen: space-age editorial with tailfin arcade</h3>
+      <p class="font-sans text-paper-ivory/75 text-sm mb-8 max-w-3xl">Editorial calm for the page, arcade cabinets for everything that signals. This is what the site and the components above implement.</p>
+      <div class="space-y-14 mb-20">
+        <figure class="plate">
+          <div class="plate-frame">{% include "concept/editorial.html" %}</div>
+          <figcaption><strong>Space-age editorial page.</strong> Light display type, a single tracked kicker, the planet horizon, and arcade cabinets on its surface.</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="plate-frame">{% include "concept/tailfin-arcade.html" %}</div>
+          <figcaption><strong>Tailfin arcade family.</strong> Buttons in every state, alerts, notifications, cabinet cards and an art frame, all in the merged tailfin shape.</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="plate-frame">{% include "concept/crt-pass.html" %}</div>
+          <figcaption><strong>The CRT pass, built up.</strong> Solid cabinet, phosphor light, scanlines, glass and vignette, split edge and hard shadow, then the full pass on art.</figcaption>
+        </figure>
+      </div>
+
+      <h3 class="font-display text-3xl font-light mb-2 text-paper-ivory">Exploration B: atomic capsule</h3>
+      <p class="font-sans text-paper-ivory/75 text-sm mb-8 max-w-3xl">The most Jetsons of the three: pills, orbits, portholes and console knobs. The tailfin from this round became the chosen shape.</p>
+      <div class="space-y-14 mb-20">
+        <figure class="plate">
+          <div class="plate-frame">{% include "concept/capsule-kit.html" %}</div>
+          <figcaption><strong>Four capsule buttons.</strong> Orbit, porthole, tailfin and console, each with one arcade hook, in every state.</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="plate-frame">{% include "concept/capsule-hero.html" %}</div>
+          <figcaption><strong>Capsule-led hero.</strong> Floating pill navigation, a dome illustration panel, a porthole toast and tab-label cards.</figcaption>
+        </figure>
+      </div>
+
+      <h3 class="font-display text-3xl font-light mb-2 text-paper-ivory">Exploration A and C: arcade cabinet</h3>
+      <p class="font-sans text-paper-ivory/75 text-sm mb-8 max-w-3xl">The first round: coin-op keys, marquee outlines, pixel-stair corners and scoreboard chips on a World of Tomorrow page.</p>
+      <div class="space-y-14">
+        <figure class="plate">
+          <div class="plate-frame">{% include "concept/main.html" %}</div>
+          <figcaption><strong>Hero concept.</strong> The first pairing of solid World of Tomorrow surfaces with arcade buttons, chips and a toast.</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="plate-frame">{% include "concept/motifs.html" %}</div>
+          <figcaption><strong>Motif library.</strong> Solid surfaces, saber lines, Googie shapes, arcade edges, pixel icons and the fixed type system.</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="plate-frame">{% include "concept/buttons.html" %}</div>
+          <figcaption><strong>Three button directions.</strong> Coin-op, atomic capsule and marquee, in every state.</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="plate-frame">{% include "concept/chips-toasts.html" %}</div>
+          <figcaption><strong>Scoreboard chips and cabinet messages.</strong> Filter, status, scoreboard and capsule chips beside four toast types.</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="plate-frame">{% include "concept/cards.html" %}</div>
+          <figcaption><strong>Cabinet cards.</strong> Marquee headers, a lit hover state, a roadmap meter and a featured RFP with a porthole.</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -895,41 +1017,39 @@
 {% endblock content %}
 
 {% block footer %}
-  <!-- Footer -->
-  <footer class="px-6 pt-14 pb-10 bg-charcoal-bark text-paper-ivory border-t border-deep-rust/50">
-    <div class="max-w-7xl mx-auto rounded-[1.35rem] border border-terracotta-border/45 bg-charcoal-bark/95 shadow-[0_-1px_0_rgba(233,194,179,0.26),0_22px_50px_rgba(0,0,0,0.38)]">
-      <div class="px-8 md:px-10 pt-10 pb-8">
-        <div class="grid gap-10 md:grid-cols-[minmax(0,1fr)_auto] md:items-start">
-          <div class="max-w-md">
-            {{ macros::wordmark(slot="footer") }}
-            <p class="text-paper-ivory/75 text-xs leading-relaxed">
-              KnowB AI Systems builds practical knowledge-agent systems that improve context continuity, operational trust, and long-run memory quality.
-            </p>
-          </div>
-          <nav aria-label="Footer navigation" class="md:justify-self-end">
-            <ul class="space-y-2 md:text-right text-sm">
-              <li class="text-paper-ivory/65 text-[0.64rem] font-semibold uppercase tracking-[0.12em]">Design system</li>
-              <li><a href="#system"        class="text-paper-ivory/85 hover:text-saber-blue transition-colors">System model</a></li>
-              <li><a href="#colours"       class="text-paper-ivory/85 hover:text-saber-blue transition-colors">Colours</a></li>
-              <li><a href="#channels"      class="text-paper-ivory/85 hover:text-saber-blue transition-colors">Channels</a></li>
-              <li><a href="#themes"        class="text-paper-ivory/85 hover:text-saber-blue transition-colors">Themes</a></li>
-              <li><a href="#styles"        class="text-paper-ivory/85 hover:text-saber-blue transition-colors">Styles</a></li>
-              <li><a href="#gradients"     class="text-paper-ivory/85 hover:text-saber-blue transition-colors">Gradients</a></li>
-              <li><a href="#typography"    class="text-paper-ivory/85 hover:text-saber-blue transition-colors">Typography</a></li>
-              <li><a href="#components"    class="text-paper-ivory/85 hover:text-saber-blue transition-colors">Components</a></li>
-              <li><a href="#accessibility" class="text-paper-ivory/85 hover:text-saber-blue transition-colors">Accessibility</a></li>
-              <li><a href="#copy"          class="text-paper-ivory/85 hover:text-saber-blue transition-colors">Copy &amp; Tone</a></li>
-            </ul>
-          </nav>
+  <footer class="site-footer px-6 pt-16 pb-10">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid gap-10 md:grid-cols-[minmax(0,1fr)_auto] md:items-start">
+        <div class="max-w-md">
+          {{ macros::wordmark(slot="footer") }}
+          <p class="text-paper-ivory/75 text-sm leading-relaxed">
+            KnowB AI Systems builds practical knowledge-agent systems that improve context continuity, operational trust, and long-run memory quality.
+          </p>
         </div>
-        <div class="mt-10 pt-6 border-t border-terracotta-border/20 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm">
-          <ul class="flex flex-wrap gap-x-5 gap-y-2">
-            <li><a href="/"        class="text-paper-ivory/85 hover:text-saber-blue transition-colors">Home</a></li>
-            <li><a href="/terms/"  class="text-paper-ivory/85 hover:text-saber-blue transition-colors">Terms</a></li>
-            <li><a href="/privacy/" class="text-paper-ivory/85 hover:text-saber-blue transition-colors">Privacy</a></li>
+        <nav aria-label="Footer navigation" class="md:justify-self-end">
+          <ul class="space-y-2 md:text-right text-sm">
+            <li class="footer-heading pb-1">Design system</li>
+            <li><a href="#system" class="footer-link">System model</a></li>
+            <li><a href="#colours" class="footer-link">Colours</a></li>
+            <li><a href="#channels" class="footer-link">Channels</a></li>
+            <li><a href="#themes" class="footer-link">Themes</a></li>
+            <li><a href="#styles" class="footer-link">Styles</a></li>
+            <li><a href="#gradients" class="footer-link">Gradients</a></li>
+            <li><a href="#typography" class="footer-link">Typography</a></li>
+            <li><a href="#components" class="footer-link">Components</a></li>
+            <li><a href="#accessibility" class="footer-link">Accessibility</a></li>
+            <li><a href="#copy" class="footer-link">Copy &amp; Tone</a></li>
+            <li><a href="#concept-book" class="footer-link">Concept Book</a></li>
           </ul>
-          <span class="text-paper-ivory/75">© 2026 knowb.run</span>
-        </div>
+        </nav>
+      </div>
+      <div class="mt-12 pt-6 border-t border-terracotta-border/20 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm">
+        <ul class="flex flex-wrap gap-x-6 gap-y-2">
+          <li><a href="/" class="footer-link">Home</a></li>
+          <li><a href="/terms/" class="footer-link">Terms</a></li>
+          <li><a href="/privacy/" class="footer-link">Privacy</a></li>
+        </ul>
+        <span class="text-paper-ivory/85">© 2026 knowb.run</span>
       </div>
     </div>
   </footer>
