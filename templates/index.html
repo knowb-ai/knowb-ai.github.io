@@ -140,7 +140,7 @@
                 <h2 class="display-section mb-6">Top Use Cases</h2>
                 <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.42fr)] lg:items-start mb-16">
                     <p class="lede max-w-4xl">
-                        These RFP concepts map directly to the bottlenecks above, and they are scoped for fast, low-energy pilot delivery. Interested parties can contact us at <a href="mailto:ping@knowb.run" class="text-saber-blue underline underline-offset-4 hover:text-paper-ivory">ping@knowb.run</a>.
+                        These RFP concepts map directly to the bottlenecks above, and they are scoped for fast, low-energy pilot delivery. Explore and shape a pilot with the <a href="https://github.com/knowb-ai/BetterHackdays" class="text-saber-blue underline underline-offset-4 hover:text-paper-ivory">BetterHackdays connector</a>.
                     </p>
                     <article class="cabinet">
                         <div class="cabinet-head"><div class="cabinet-heading">{{ macros::pixel_icon(name="capsule", color="#86E8FF", cut="#241A18", size=26) }}<h3 class="cabinet-title">Builder Template</h3></div>{{ macros::fins(lit=2) }}</div>
@@ -149,9 +149,9 @@
                     </article>
                 </div>
 
-                <section class="orbit-carousel reveal-fade" data-orbit-carousel aria-roledescription="carousel" aria-label="Featured RFPs">
-                    <div class="orbit-track" id="rfp-track" tabindex="0" aria-label="Featured RFPs, use the arrow keys to travel">
-                        <article class="cabinet orbit-slide" aria-roledescription="slide" aria-label="1 of 2: ShadowCaster">
+                <section class="orbit-carousel reveal-fade" data-orbit-carousel aria-roledescription="carousel" aria-label="Featured RFPs and live projects">
+                    <div class="orbit-track" id="rfp-track" tabindex="0" aria-label="Featured RFPs and live projects, use the arrow keys to travel">
+                        <article class="cabinet orbit-slide" aria-roledescription="slide" aria-label="1 of 5: ShadowCaster">
                             <div class="orbit-slide-grid">
                                 {{ macros::porthole(icon="beacon", color="#86E8FF") }}
                                 <div>
@@ -172,14 +172,14 @@
                                                 Build toolkits for ethical event representation that respect platform rules while improving the chance that the underlying message reaches its intended audience.
                                             </p>
                                             <p class="cabinet-outcome text-sm mb-2">Outcome: compliant publishing patterns, visibility diagnostics, and responsible amplification playbooks.</p>
-                                            <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
+                                            <p class="text-sm">Explore and develop this RFP idea with the <a href="https://github.com/knowb-ai/BetterHackdays">BetterHackdays connector</a>.</p>
                                         </div>
                                     </div>
                                     <button class="tf-btn tf-btn-saber tf-btn-sm cabinet-more-toggle" type="button" aria-expanded="true" aria-controls="rfp-brief-1" hidden><span class="cabinet-more-label">Read full brief</span>{{ macros::fins() }}</button>
                                 </div>
                             </div>
                         </article>
-                        <article class="cabinet cabinet-ember orbit-slide" aria-roledescription="slide" aria-label="2 of 2: Subtracktor">
+                        <article class="cabinet cabinet-ember orbit-slide" aria-roledescription="slide" aria-label="2 of 5: Subtracktor">
                             <div class="orbit-slide-grid">
                                 {{ macros::porthole(icon="coin", color="#F59A52") }}
                                 <div>
@@ -200,10 +200,97 @@
                                                 Each tracked subscription shows its next billing date. Check a box on any entry to get reminded ahead of renewal, so you can unsubscribe before the charge lands instead of after. The aim is simple: close financial leakage from subscriptions you forgot you had.
                                             </p>
                                             <p class="cabinet-outcome text-sm mb-2">Outcome: per-account subscription audit with next-billing-date tracking and renewal reminders.</p>
-                                            <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
+                                            <p class="text-sm">Explore and develop this RFP idea with the <a href="https://github.com/knowb-ai/BetterHackdays">BetterHackdays connector</a>.</p>
                                         </div>
                                     </div>
                                     <button class="tf-btn tf-btn-saber tf-btn-sm cabinet-more-toggle" type="button" aria-expanded="true" aria-controls="rfp-brief-2" hidden><span class="cabinet-more-label">Read full brief</span>{{ macros::fins() }}</button>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="cabinet orbit-slide" aria-roledescription="slide" aria-label="3 of 5: BetterHackdays">
+                            <div class="orbit-slide-grid">
+                                {{ macros::porthole(icon="rocket", color="#86E8FF") }}
+                                <div>
+                                    <p class="cabinet-label">Live Project RFP 01</p>
+                                    <div class="cabinet-head"><h3 class="cabinet-title cabinet-title-lg">BetterHackdays</h3>{{ macros::fins(lit=2) }}</div>
+                                    <div class="saber-line"></div>
+                                    <div class="flex flex-wrap gap-2 mb-5">
+                                        <span class="chip"><i class="led" aria-hidden="true"></i>Shared Hack Day</span>
+                                        <span class="chip"><i class="led" aria-hidden="true"></i>Team Formation</span>
+                                        <span class="chip"><i class="led" aria-hidden="true"></i>Project Continuity</span>
+                                    </div>
+                                    <p class="text-lg leading-relaxed mb-5">
+                                        Help hack-day organizers move builders from event rules and tracks to a team, a focused idea, and a shared first-hour plan. BetterHackdays brings event context, opt-in participant profiles, matchmaking, and team workspaces into one live flow.
+                                    </p>
+                                    <div class="cabinet-more" id="rfp-brief-3">
+                                        <div class="cabinet-more-inner">
+                                            <p class="text-lg leading-relaxed mb-5">
+                                                Build one permission-aware path from event brief to team kickoff: capture deadlines and judging criteria, match people who choose to participate, and give the resulting team a concise plan and durable room context. Keep access explicit; a QR code, slug, or match never grants repository permissions on its own.
+                                            </p>
+                                            <p class="cabinet-outcome text-sm mb-2">Outcome: a demoable Hack Day flow that takes one organizer and a small team from event context to a shared kickoff plan, with repository access only after explicit approval.</p>
+                                            <p class="text-sm mb-2">Public project: <a href="https://github.com/knowb-ai/BetterHackdays">knowb-ai/BetterHackdays</a></p>
+                                            <p class="text-sm">Explore and develop this RFP idea with the <a href="https://github.com/knowb-ai/BetterHackdays">BetterHackdays connector</a>.</p>
+                                        </div>
+                                    </div>
+                                    <button class="tf-btn tf-btn-saber tf-btn-sm cabinet-more-toggle" type="button" aria-expanded="true" aria-controls="rfp-brief-3" hidden><span class="cabinet-more-label">Read full brief</span>{{ macros::fins() }}</button>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="cabinet cabinet-ember orbit-slide" aria-roledescription="slide" aria-label="4 of 5: BetterLover">
+                            <div class="orbit-slide-grid">
+                                {{ macros::porthole(icon="heart", color="#F59A52") }}
+                                <div>
+                                    <p class="cabinet-label">Live Project RFP 02</p>
+                                    <div class="cabinet-head"><h3 class="cabinet-title cabinet-title-lg">BetterLover</h3>{{ macros::fins(lit=1) }}</div>
+                                    <div class="saber-line-ember"></div>
+                                    <div class="flex flex-wrap gap-2 mb-5">
+                                        <span class="chip chip-ember"><i class="led" aria-hidden="true"></i>Care Planning</span>
+                                        <span class="chip chip-ember"><i class="led" aria-hidden="true"></i>Cycle-Aware Context</span>
+                                        <span class="chip chip-ember"><i class="led" aria-hidden="true"></i>Consent First</span>
+                                    </div>
+                                    <p class="text-lg leading-relaxed mb-5">
+                                        Turn a person’s chosen cycle, mood, energy, and care preferences into thoughtful, practical suggestions for a partner. The current prototype uses synthetic cycle data and produces a structured plan that can be reviewed before action.
+                                    </p>
+                                    <div class="cabinet-more" id="rfp-brief-4">
+                                        <div class="cabinet-more-inner">
+                                            <p class="text-lg leading-relaxed mb-5">
+                                                Strengthen the prototype into a private, user-controlled care planner. Make suggestions understandable and easy to edit; use synthetic data for demos; let the person described decide what, if anything, is shared. The agent must not diagnose, infer consent, expose intimate data to a partner, or make purchases automatically.
+                                            </p>
+                                            <p class="cabinet-outcome text-sm mb-2">Outcome: a working demo that turns sample context and a chosen budget into a reviewable care plan, with the data subject in control of every share or purchase.</p>
+                                            <p class="text-sm mb-2">Public project: <a href="https://github.com/knowb-ai/BetterLover">knowb-ai/BetterLover</a></p>
+                                            <p class="text-sm">Explore and develop this RFP idea with the <a href="https://github.com/knowb-ai/BetterHackdays">BetterHackdays connector</a>.</p>
+                                        </div>
+                                    </div>
+                                    <button class="tf-btn tf-btn-saber tf-btn-sm cabinet-more-toggle" type="button" aria-expanded="true" aria-controls="rfp-brief-4" hidden><span class="cabinet-more-label">Read full brief</span>{{ macros::fins() }}</button>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="cabinet orbit-slide" aria-roledescription="slide" aria-label="5 of 5: Sepnu Pues">
+                            <div class="orbit-slide-grid">
+                                {{ macros::porthole(icon="star", color="#86E8FF") }}
+                                <div>
+                                    <p class="cabinet-label">Live Project RFP 03</p>
+                                    <div class="cabinet-head"><h3 class="cabinet-title cabinet-title-lg">Sepnu Pues</h3>{{ macros::fins(lit=2) }}</div>
+                                    <div class="saber-line"></div>
+                                    <div class="flex flex-wrap gap-2 mb-5">
+                                        <span class="chip"><i class="led" aria-hidden="true"></i>Daily Follow-Through</span>
+                                        <span class="chip"><i class="led" aria-hidden="true"></i>Opt-In Accountability</span>
+                                        <span class="chip"><i class="led" aria-hidden="true"></i>User-Controlled Sharing</span>
+                                    </div>
+                                    <p class="text-lg leading-relaxed mb-5">
+                                        Help people follow through on the tasks they set for themselves through a lightweight daily loop. The prototype pairs a task list with optional safe-cartoon generation, an accountability-email queue, and a prefilled social-post draft.
+                                    </p>
+                                    <div class="cabinet-more" id="rfp-brief-5">
+                                        <div class="cabinet-more-inner">
+                                            <p class="text-lg leading-relaxed mb-5">
+                                                Make accountability feel playful and supportive without turning it into surveillance or public shaming. Let users choose each action, review generated content, and explicitly approve any email or post; never send or publish automatically. Keep private photos and credentials out of the repository.
+                                            </p>
+                                            <p class="cabinet-outcome text-sm mb-2">Outcome: a demoable task-to-accountability flow where the user selects a task, chooses an optional nudge, and reviews it before any external action.</p>
+                                            <p class="text-sm mb-2">Public project: <a href="https://github.com/knowb-ai/sepnu-pues">knowb-ai/sepnu-pues</a></p>
+                                            <p class="text-sm">Explore and develop this RFP idea with the <a href="https://github.com/knowb-ai/BetterHackdays">BetterHackdays connector</a>.</p>
+                                        </div>
+                                    </div>
+                                    <button class="tf-btn tf-btn-saber tf-btn-sm cabinet-more-toggle" type="button" aria-expanded="true" aria-controls="rfp-brief-5" hidden><span class="cabinet-more-label">Read full brief</span>{{ macros::fins() }}</button>
                                 </div>
                             </div>
                         </article>
@@ -213,6 +300,9 @@
                         <div class="orbit-path" role="group" aria-label="Choose an RFP">
                             <button class="orbit-stop" type="button" aria-controls="rfp-track"><span class="orbit-stop-planet" aria-hidden="true"></span><span class="orbit-stop-label">ShadowCaster</span></button>
                             <button class="orbit-stop" type="button" aria-controls="rfp-track"><span class="orbit-stop-planet" aria-hidden="true"></span><span class="orbit-stop-label">Subtracktor</span></button>
+                            <button class="orbit-stop" type="button" aria-controls="rfp-track"><span class="orbit-stop-planet" aria-hidden="true"></span><span class="orbit-stop-label">BetterHackdays</span></button>
+                            <button class="orbit-stop" type="button" aria-controls="rfp-track"><span class="orbit-stop-planet" aria-hidden="true"></span><span class="orbit-stop-label">BetterLover</span></button>
+                            <button class="orbit-stop" type="button" aria-controls="rfp-track"><span class="orbit-stop-planet" aria-hidden="true"></span><span class="orbit-stop-label">Sepnu Pues</span></button>
                         </div>
                         <button class="tf-btn tf-btn-saber tf-btn-sm orbit-next" type="button" aria-controls="rfp-track" aria-label="Next RFP">{{ macros::pixel_icon(name="arrow", color="#86E8FF", size=16) }}</button>
                     </div>
@@ -227,7 +317,7 @@
                             Extract semantic understanding from paywalled reporting and reconstruct the story from alternate sources plus LLM context-tracing experiments.
                         </p>
                         <p class="cabinet-outcome text-sm mb-2">Outcome: evidence-linked narrative reconstruction with source traceability.</p>
-                        <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
+                        <p class="text-sm">Explore and develop this RFP idea with the <a href="https://github.com/knowb-ai/BetterHackdays">BetterHackdays connector</a>.</p>
                     </article>
                     <article class="cabinet reveal-fade" style="transition-delay:0.1s">
                         <p class="cabinet-label">RFP 02</p>
@@ -240,7 +330,7 @@
                             Starter example: <a href="https://github.com/knowb-ai/x-poser.git">knowb-ai/x-poser.git</a>, a small public build showing how short sessions and builder events can accelerate RFP prototypes.
                         </p>
                         <p class="cabinet-outcome text-sm mb-2">Outcome: compact fact-check report with evidence confidence notes.</p>
-                        <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
+                        <p class="text-sm">Explore and develop this RFP idea with the <a href="https://github.com/knowb-ai/BetterHackdays">BetterHackdays connector</a>.</p>
                     </article>
                     <article class="cabinet reveal-fade" style="transition-delay:0.2s">
                         <p class="cabinet-label">RFP 03</p>
@@ -250,7 +340,7 @@
                             Detect missing or mismatched conference talks, tutorials, or demos, then crawl for alternate watch links and nearest neighboring sessions.
                         </p>
                         <p class="cabinet-outcome text-sm mb-2">Outcome: continuity-preserving discovery graph for learning resources.</p>
-                        <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
+                        <p class="text-sm">Explore and develop this RFP idea with the <a href="https://github.com/knowb-ai/BetterHackdays">BetterHackdays connector</a>.</p>
                     </article>
                     <article class="cabinet cabinet-ember reveal-fade" style="transition-delay:0.3s">
                         <p class="cabinet-label">RFP 04</p>
@@ -260,7 +350,7 @@
                             A browser extension granted control over your active tab that walks every unread message in your open inbox, checks each against relevance rules you control, marks non-matches as read in bulk, and flags matches to stay pinned at the top.
                         </p>
                         <p class="cabinet-outcome text-sm mb-2">Outcome: bulk unread-to-read triage with rule-matched messages flagged and pinned to the top.</p>
-                        <p class="text-sm">Interested in building this RFP? Contact <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</p>
+                        <p class="text-sm">Explore and develop this RFP idea with the <a href="https://github.com/knowb-ai/BetterHackdays">BetterHackdays connector</a>.</p>
                     </article>
                 </div>
             </div>
@@ -284,7 +374,7 @@
                             <li>Define each RFP as a knowledge agent: a system that retrieves, tracks context, and reports on its own.</li>
                             <li>Ship simple, testable prototypes with clear outcomes.</li>
                             <li>Validate retrieval quality, context tracking, and report utility.</li>
-                            <li>Interested parties can contact us at <a href="mailto:ping@knowb.run">ping@knowb.run</a>.</li>
+                            <li>Explore and shape RFP pilots with the <a href="https://github.com/knowb-ai/BetterHackdays">BetterHackdays connector</a>.</li>
                         </ul>
                     </article>
                     <article class="cabinet cabinet-ember reveal-fade" style="transition-delay:0.14s">
@@ -316,7 +406,7 @@
                                 We are actively looking for partners who want to ship practical context-agent systems in controlled pilots. The current collaboration formats are listed below.
                             </p>
                             <ul class="space-y-3 leading-relaxed list-disc pl-5 mb-9">
-                                <li>RFP build partners to prototype Underminer, X-Poser, Precongnition, ShadowCaster, Subtracktor, and MarkSweep with measurable delivery milestones.</li>
+                                <li>RFP contributors can explore and refine Underminer, X-Poser, Precongnition, ShadowCaster, Subtracktor, MarkSweep, BetterHackdays, BetterLover, and Sepnu Pues through the <a href="https://github.com/knowb-ai/BetterHackdays">BetterHackdays connector</a>.</li>
                                 <li>Knowledge and dataset partners who can support governed link-collection workflows and source validation loops.</li>
                                 <li>Operations and compliance collaborators who can help productionize policy-scoped memory and retrieval systems.</li>
                             </ul>
