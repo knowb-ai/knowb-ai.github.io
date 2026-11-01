@@ -1,17 +1,15 @@
 #!/usr/bin/env bash
-# Act on GitHub as knowb-kenobi[bot] for this repository.
+# Open a pull request as knowb-kenobi[bot] for this repository.
 #
-# Every agent commit, push, and pull request in this repository goes through
-# this script. It wraps knowledgeHQ's sanctioned mcp/scripts/as-kenobi.sh, which
-# mints a short-lived, repository-scoped installation token for the knowb-ai
-# GitHub App from the macOS Keychain and never prints it.
+# Commits and pushes are made as the invoking person, with their own git
+# identity and login. Only opening a pull request goes through this script. It
+# wraps knowledgeHQ's sanctioned mcp/scripts/as-kenobi.sh, which mints a
+# short-lived, repository-scoped installation token for the knowb-ai GitHub App
+# from the macOS Keychain and never prints it.
 #
 # The person invoking the request is resolved from their own `gh` login and
-# becomes the pull request reviewer and assignee, and the human Co-Authored-By
-# trailer on commits:
+# becomes the pull request reviewer and assignee:
 #
-#   scripts/kenobi.sh git commit -m "..."
-#   scripts/kenobi.sh git push -u origin my-branch
 #   scripts/kenobi.sh gh pr create --title "..." --body-file -
 #
 # Set KNOWB_HQ when knowledgeHQ is not checked out next to this repository.
@@ -22,9 +20,14 @@ if [ "$#" -eq 0 ]; then
   exit 2
 fi
 
-# The bot opens pull requests; the invoking reviewer merges them.
-if [ "${1:-}" = gh ] && [ "${2:-}" = pr ] && [ "${3:-}" = merge ]; then
-  echo "kenobi: knowb-kenobi[bot] never merges; the reviewer merges" >&2
+# The bot only opens pull requests. Commits and pushes are the invoking
+# person's, and the reviewer merges.
+if [ "${1:-}" != gh ] || [ "${2:-}" != pr ] || [ "${3:-}" != create ]; then
+  case "${1:-} ${2:-} ${3:-}" in
+    "gh pr merge"*) echo "kenobi: knowb-kenobi[bot] never merges; the reviewer merges" >&2 ;;
+    git*) echo "kenobi: commit and push as yourself with plain git; the bot only opens pull requests" >&2 ;;
+    *) echo "kenobi: only 'gh pr create' runs as knowb-kenobi[bot]" >&2 ;;
+  esac
   exit 2
 fi
 
