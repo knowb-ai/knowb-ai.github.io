@@ -1,0 +1,21 @@
+{% extends "page.html" %}
+{% import "macros.html" as macros %}
+
+{% block content %}
+    <main id="main-content" class="pt-40 lg:pt-36 px-6 pb-24 bg-obsidian-brown">
+        <section class="max-w-4xl mx-auto">
+            <div class="mb-10">
+                <p class="section-kicker">Builders and Contributors</p>
+                <div class="section-rule"></div>
+                <h1 class="display-section">{{ page.title }}</h1>
+            </div>
+            <article class="policy-content">
+                {{ page.content | safe }}
+            </article>
+            <div class="mt-10 flex flex-wrap gap-5">
+                <a href="https://hack.knowb.run/" class="tf-btn">Open the connector manual {{ macros::fins() }}</a>
+                <a href="/#use-cases" class="tf-btn tf-btn-saber">Browse the RFPs {{ macros::fins() }}</a>
+            </div>
+        </section>
+    </main>
+{% endblock content %}
